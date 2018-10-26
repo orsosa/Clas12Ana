@@ -8,8 +8,9 @@ requisites:
 
 Building:
 * Download or clone the repository then:
-** cd ClasAna
-** scons
+* cd ClasAna
+* scons
+
 the folder example contains a basic example of the use of the library.
 
 
