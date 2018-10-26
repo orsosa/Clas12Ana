@@ -1,0 +1,9 @@
+Import("*")
+env.Append(CPPPATH='#include')
+env.Append(LIBPATH='#shlib')
+
+localenv = env.Clone()
+localenv.Append(LIBS="TIdentificatorCLAS12")
+
+
+env.Program(target="get_simple_tuple",source=["get_simple_tuple.cxx",shlib])
