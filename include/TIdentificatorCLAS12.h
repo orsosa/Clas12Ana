@@ -29,7 +29,7 @@ public:
     Double_t X(Int_t k, Bool_t kind = 0);         // inline
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
-    Int_t Helic(Int_t k);                         //inline
+    Int_t Helic(Int_t k=0);                         //inline
     Int_t GetNRows();                             //inline
      
     Int_t StatCC(Int_t k);                        // inline
@@ -58,12 +58,38 @@ public:
     Double_t Eout(Int_t k);                       // inline
     Double_t Epcal(Int_t k);                       // inline
     Double_t ECStatus(Int_t k);                   // inline
-    Float_t XEC(Int_t k);                         // inline // osoto add
-    Float_t YEC(Int_t k);                         // inline // osoto add
-    Float_t ZEC(Int_t k);                         // inline // osoto add
-    Float_t TimeEC(Int_t k);                      // inline // osoto add
-    Float_t PathEC(Int_t k);                      // inline // osoto add
+    Float_t XEC(Int_t k);                         // inline 
+    Float_t YEC(Int_t k);                         // inline 
+    Float_t ZEC(Int_t k);                         // inline 
+    Float_t TimeEC(Int_t k);                      // inline 
+    Float_t PathEC(Int_t k);                      // inline 
 
+    Float_t LU_PCAL(Int_t k=0);                         // inline 
+    Float_t LV_PCAL(Int_t k=0);                         // inline 
+    Float_t LW_PCAL(Int_t k=0);                         // inline 
+
+    Float_t LU_ECIN(Int_t k=0);                         // inline 
+    Float_t LV_ECIN(Int_t k=0);                         // inline 
+    Float_t LW_ECIN(Int_t k=0);                         // inline 
+
+    Float_t LU_ECOUT(Int_t k=0);                         // inline 
+    Float_t LV_ECOUT(Int_t k=0);                         // inline 
+    Float_t LW_ECOUT(Int_t k=0);                         // inline 
+
+
+    Float_t HX_PCAL(Int_t k=0);                         // inline 
+    Float_t HY_PCAL(Int_t k=0);                         // inline 
+    Float_t HZ_PCAL(Int_t k=0);                         // inline 
+
+    Float_t HX_ECIN(Int_t k=0);                         // inline 
+    Float_t HY_ECIN(Int_t k=0);                         // inline 
+    Float_t HZ_ECIN(Int_t k=0);                         // inline 
+
+    Float_t HX_ECOUT(Int_t k=0);                         // inline 
+    Float_t HY_ECOUT(Int_t k=0);                         // inline 
+    Float_t HZ_ECOUT(Int_t k=0);                         // inline 
+
+    
     // SCPB
     Double_t PathSC(Int_t k);                     // inline
     Double_t TimeSC(Int_t k);                     // inline
@@ -72,7 +98,6 @@ public:
 
     // Derived observables
     Double_t Momentum(Int_t k, Bool_t kind = 0);
-    Double_t Moment(Int_t k, Bool_t kind = 0);    // Deprecated
     Double_t Mass2(Int_t k, Bool_t kind = 0);
     Double_t ThetaLab(Int_t k, Bool_t kind = 0);
     Double_t PhiLab(Int_t k, Bool_t kind = 0);
@@ -84,6 +109,10 @@ public:
     Double_t PTrans2PQ(Int_t k, Bool_t kind = 0);
     Double_t PLong2PQ(Int_t k, Bool_t kind = 0);
     Int_t Sector(Int_t k, Bool_t kind = 0);
+    Int_t SectorLTCC(Int_t k, Bool_t kind = 0);
+    Int_t SectorHTCC(Int_t k, Bool_t kind = 0);
+    Int_t SectorECAL(Int_t k, Bool_t kind = 0);
+    
 	 //Added in hayk's code
     Double_t Pt2(Int_t, Bool_t = 0);
     Double_t Pl2(Int_t, Bool_t = 0);
@@ -144,8 +173,8 @@ public:
     Bool_t PionVertTarg(Int_t k);
 
     //Other methods.
-    TVector3 *XYZToUVW(TVector3 *xyz);            //osoto add
-    bool SampFracCheck(const char* tt = "");                         // inline //osoto add 
+    TVector3 *XYZToUVW(TVector3 *xyz);       
+    bool SampFracCheck(const char* tt = "");                         // inline
     //    ClassDef(TIdentificatorCLAS12,1)
 
 

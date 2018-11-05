@@ -126,7 +126,7 @@ inline Double_t TIdentificatorCLAS12::Z(Int_t k, Bool_t kind)
     }
 }
 
-inline Int_t TIdentificatorCLAS12::Helic(Int_t k)
+inline Int_t TIdentificatorCLAS12::Helic(Int_t k) /// from event
 {
   return (Int_t)REC__Event_Helic->getValue(k);
 }
@@ -328,6 +328,434 @@ inline Double_t TIdentificatorCLAS12::Epcal(Int_t k)
   else 
     return 0;
 }
+
+
+inline Int_t TIdentificatorCLAS12::SectorLTCC(Int_t k,Bool_t kind)
+{
+  int N = cherenkovMap[k].size();
+  int index=-1;
+  for (int i=0;i<N;i++) // get index of the correct detector
+  {
+    if (REC__Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["LTCC"])
+    {
+      index=i;
+      break;
+    }
+    
+  }
+  if (index>=0)
+    return REC__Cherenkov_sector->getValue(index);
+  else
+    return -111;
+}
+
+
+inline Int_t TIdentificatorCLAS12::SectorHTCC(Int_t k,Bool_t kind)
+{
+  int N = cherenkovMap[k].size();
+  int index=-1;
+  for (int i=0;i<N;i++) // get index of the correct detector
+  {
+    if (REC__Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["HTCC"])
+    {
+      index=i;
+      break;
+    }
+    
+  }
+  if (index>=0)
+    return REC__Cherenkov_sector->getValue(index);
+  else
+    return -111;
+}
+
+inline Int_t TIdentificatorCLAS12::SectorECAL(Int_t k,Bool_t kind)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"])
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_sector->getValue(index);
+  else 
+    return 0;
+}
+
+
+   
+inline Float_t TIdentificatorCLAS12::LU_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lu->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LV_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lv->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LW_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lw->getValue(index);
+  else 
+    return -111;
+}
+
+
+   
+inline Float_t TIdentificatorCLAS12::LU_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lu->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LV_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lv->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LW_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lw->getValue(index);
+  else 
+    return -111;
+}
+
+   
+inline Float_t TIdentificatorCLAS12::LU_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lu->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LV_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lv->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::LW_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_lw->getValue(index);
+  else 
+    return -111;
+}
+
+
+
+inline Float_t TIdentificatorCLAS12::HX_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hx->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HY_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hy->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HZ_PCAL(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hz->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HX_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hx->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HY_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hy->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HZ_ECIN(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hz->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HX_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hx->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HY_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hy->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::HZ_ECOUT(Int_t k)
+{
+  
+  Int_t N = calorimeterMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
+	&&REC__Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    {
+      index = calorimeterMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Calorimeter_hz->getValue(index);
+  else 
+    return -111;
+}
+
+
 
 
 /*

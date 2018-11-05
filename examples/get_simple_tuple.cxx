@@ -27,7 +27,7 @@ int main(int argc, char **argv)
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:ECX:ECY:ECZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal";
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:ECX:ECY:ECZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz";
   Int_t Nvar = VarList.CountChar(':')+1;
  
   Float_t *vars = new Float_t[Nvar];
@@ -47,8 +47,9 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
   }
 
+
   
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz");
   Float_t DataElec[tElec->GetNvar()];
 
   TNtuple *ntuple = new TNtuple(NtupleName,"stable particles",VarList);
@@ -97,6 +98,27 @@ int main(int argc, char **argv)
       DataElec[17] = t->Epcal(0);
       DataElec[18] = t->NpheLTCC(0);
       DataElec[19] = t->NpheHTCC(0);
+      DataElec[20] = t->Helic();
+
+      DataElec[21] = t->LU_PCAL();
+      DataElec[22] = t->LV_PCAL();
+      DataElec[23] = t->LW_PCAL();
+      DataElec[24] = t->LU_ECIN();
+      DataElec[25] = t->LV_ECIN();
+      DataElec[26] = t->LW_ECIN();
+      DataElec[27] = t->LU_ECOUT();
+      DataElec[28] = t->LV_ECOUT();
+      DataElec[29] = t->LW_ECOUT();
+
+      DataElec[30] = t->HX_PCAL();
+      DataElec[31] = t->HY_PCAL();
+      DataElec[32] = t->HZ_PCAL();
+      DataElec[33] = t->HX_ECIN();
+      DataElec[34] = t->HY_ECIN();
+      DataElec[35] = t->HZ_ECIN();
+      DataElec[36] = t->HX_ECOUT();
+      DataElec[37] = t->HY_ECOUT();
+      DataElec[38] = t->HZ_ECOUT();
 
       
       tElec->Fill(DataElec);
@@ -170,7 +192,43 @@ int main(int argc, char **argv)
 	  vars[54] = t->Chi2pid(i);
           vars[55] = t->Epcal(0);
 	  vars[56] = t->Epcal(i);
- 
+	  vars[57] = t->SectorLTCC(0);
+	  vars[58] = t->SectorHTCC(0);
+	  vars[59] = t->SectorECAL(0);
+	  vars[60] = t->SectorLTCC(i);
+	  vars[61] = t->SectorHTCC(i);
+	  vars[62] = t->SectorECAL(i);
+	  vars[63] = t->Helic();
+
+	  vars[64] = t->LU_PCAL();
+	  vars[65] = t->LV_PCAL();
+	  vars[66] = t->LW_PCAL();
+	  vars[67] = t->LU_ECIN();
+	  vars[68] = t->LV_ECIN();
+	  vars[69] = t->LW_ECIN();
+	  vars[70] = t->LU_ECOUT();
+	  vars[71] = t->LV_ECOUT();
+	  vars[72] = t->LW_ECOUT();
+
+	  vars[73] = t->LU_PCAL(i);
+	  vars[74] = t->LV_PCAL(i);
+	  vars[75] = t->LW_PCAL(i);
+	  vars[76] = t->LU_ECIN(i);
+	  vars[77] = t->LV_ECIN(i);
+	  vars[78] = t->LW_ECIN(i);
+	  vars[79] = t->LU_ECOUT(i);
+	  vars[80] = t->LV_ECOUT(i);
+	  vars[81] = t->LW_ECOUT(i);
+  
+	  vars[82] = t->HX_PCAL();
+	  vars[83] = t->HY_PCAL();
+	  vars[84] = t->HZ_PCAL();
+	  vars[85] = t->HX_ECIN();
+	  vars[86] = t->HY_ECIN();
+	  vars[87] = t->HZ_ECIN();
+	  vars[88] = t->HX_ECOUT();
+	  vars[89] = t->HY_ECOUT();
+	  vars[90] = t->HZ_ECOUT();
 
 	  ntuple->Fill(vars);
 	}
