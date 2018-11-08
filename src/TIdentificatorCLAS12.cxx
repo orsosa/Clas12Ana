@@ -485,6 +485,7 @@ Double_t TIdentificatorCLAS12::Pl2(Int_t k, Bool_t kind)
         return Momentum(k,1) * Momentum(k,1) * CosThetaPQ(k,1) * CosThetaPQ(k,1);
 }
 
+
 Double_t TIdentificatorCLAS12::PlCM(Int_t k, Bool_t kind)
 {
     if (kind == 0)

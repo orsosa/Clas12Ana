@@ -4,8 +4,6 @@
 #include "TROOT.h"
 #include "TFile.h"
 #include "TNtuple.h"
-#include "TClasTool.h"
-#include "TIdentificator.h"
 #include "TMath.h"
 #include "TBenchmark.h"
 #include "TLorentzVector.h"
@@ -16,7 +14,10 @@
 #include "TParticlePDG.h"
 #include "TMatrixD.h"
 #include "TClonesArray.h"
+#include "TChain.h"
 #include <vector>
+#include <iostream>
+#include <iomanip>      // std::setw
 #include <sys/stat.h>
 #include <cstdarg>
 #include <algorithm>
@@ -30,8 +31,9 @@ TH1F *hW2;
 TH1F *hWmb;
 TH1F *hW2mb;
 TH1F *hT;
-TH1F *hcfm;
+//TH1F *hcfm;
 TH2F *hEpi0_th;
+Float_t kMpi = TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
 Float_t kMPi0=1.33196e-1;//Got from sim.
 Float_t kSPi0=1.94034e-2;//Got from sim.
 //Float_t kMPi0=5.39609e-01;
@@ -43,7 +45,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=5.014,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,ECX,ECY,ECZ;
+Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,ECX,ECY,ECZ;
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -145,7 +147,7 @@ public:
   Float_t lastEvent,kQ2,kNu;
   TLorentzVector *q4; // virtual photon 4th vector.
   Combo(): Npart(0),lastEvent(0),kQ2(0),kNu(0),q4(0){}
-  
+
   Combo(Combo &c)
   {
     Npart=0;
@@ -157,6 +159,8 @@ public:
     kQ2=c.kQ2;
     kNu=c.kNu;
   }
+
+  inline  Int_t size(){return kParticles.size();}
   inline  Double_t Px(){return getSum().Px();}
   inline  Double_t Py(){return getSum().Py();}
   inline  Double_t Pz(){return getSum().Pz();}
@@ -370,7 +374,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:PhiPQ";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:PhiPQ:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vzec:Ee:Pex:Pey:Pez:W");
 
 
@@ -411,6 +415,8 @@ public:
 
   int fill(Combo *comb,TTree *ttree)
   {
+    if (DEBUG )std::cout<<"##### combo size: "<<comb->size()<<" #######"<<std::endl;
+    
     Double_t Px = comb->Px();
     Double_t Py = comb->Py();
     Double_t Pz = comb->Pz();
@@ -418,8 +424,23 @@ public:
     Double_t P2 = comb->P2();
     Double_t M2 = comb->M2();
     Double_t M =  (M2>=0)?TMath::Sqrt(M2):-1.0;
+    Float_t theta=Pz/sqrt(P2);
+    Float_t theta_0 = (*comb)[0]->Theta();
+    Float_t theta_1 = (*comb)[1]->Theta();
+
+
     Float_t cospq = ((kEbeam-Pez_prev)*Pz - Pex_prev*Px - Pey_prev*Py)/( sqrt((Q2_prev + Nu_prev*Nu_prev)*P2) );
+
+    Float_t cospq0 = ((kEbeam-Pez_prev)*(*comb)[0]->Pz() - Pex_prev*(*comb)[0]->Px() - Pey_prev*(*comb)[0]->Py() )/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[0]->P());
+    Float_t cospq1 = ((kEbeam-Pez_prev)*(*comb)[1]->Pz() - Pex_prev*(*comb)[1]->Px() - Pey_prev*(*comb)[1]->Py())/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[1]->P());
+  
+
     Float_t Pt2 = P2*(1-cospq*cospq);
+    Float_t Pl2 = P2*cospq*cospq;
+
+    Float_t Pl = sqrt(P2)*cospq;
+    Float_t Pl0 = (*comb)[0]->P()*cospq0;
+    Float_t Pl1 = (*comb)[1]->P()*cospq1;
 
     Double_t phi_pq;
     TVector3 Vhad(Px,Py,Pz);
@@ -432,6 +453,48 @@ public:
     Vvirt.RotateY(phi_y);
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
+
+
+    TVector3 Ph(Px,Py,Pz);
+    TVector3 Ph_u = Ph.Unit();
+    TVector3 R((*comb)[0]->Px()-(*comb)[1]->Px(),(*comb)[0]->Py()-(*comb)[1]->Py(),(*comb)[0]->Pz()-(*comb)[1]->Pz());
+    R=R*0.5;
+    TVector3 RT = R-(R*Ph_u)*Ph_u;
+    TVector3 k_in(0,0,kEbeam); 
+
+    Float_t qxkRT = Vvirt.Cross(k_in)*RT;
+    Float_t qxkRT_sign = qxkRT/TMath::Abs(qxkRT);
+
+    // Float_t qxkST = Vvirt.Cross(k_in)*ST;
+    //Float_t qxkST_sign = qxkST/TMath::Abs(qxkST);
+
+    Float_t qxkqxRT = Vvirt.Cross(k_in)*Vvirt.Cross(RT);
+    Float_t qxkqxRT_max = (Vvirt.Cross(k_in)).Mag()*(Vvirt.Cross(RT)).Mag();
+    
+    Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max);
+    
+    Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
+
+    Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
+
+    Float_t Ph0max = TMath::Sqrt( TMath::Power( W_prev*W_prev + kMpi*kMpi - kMprt*kMprt - 2*W_prev*(*comb)[1]->E(), 2 ) - 4*W_prev*W_prev*kMpi*kMpi )/(2* W_prev);
+    Float_t Ph1max = TMath::Sqrt( TMath::Power( W_prev*W_prev + kMpi*kMpi - kMprt*kMprt - 2*W_prev*(*comb)[0]->E(), 2 ) - 4*W_prev*W_prev*kMpi*kMpi )/(2* W_prev);
+
+    ////// LORENTZ BOOST //////////
+    Float_t b=TMath::Sqrt(Q2_prev + Nu_prev*Nu_prev)/(Nu_prev+kMprt);
+    Float_t g=(Nu_prev+kMprt)/W_prev;
+
+    Float_t PlCM = g*(Pl - b*E);
+    Float_t Pl0CM = g*( Pl0 - b*(*comb)[0]->E() );
+    Float_t Pl1CM = g*( Pl1 - b*(*comb)[1]->E() );
+      
+    Float_t xF = PlCM/Phmax;
+    Float_t xF0 = Pl0CM/Ph0max;
+    Float_t xF1 = Pl1CM/Ph1max;
+
+    Float_t xFm = 2*PlCM/W_prev;
+    Float_t xFm0 = 2*Pl0CM/W;
+    Float_t xFm1 = 2*Pl1CM/W;
 
     
     kData[0] = M;
@@ -477,8 +540,8 @@ public:
     kData[26] = E2;
     kData[27] = E1;
     kData[28] = E2;
-    if (0.35<E1&&E1<1.2) kData[27] /= hcfm->GetBinContent(hcfm->FindBin(E1));
-    if (0.35<E2&&E2<1.2) kData[28] /= hcfm->GetBinContent(hcfm->FindBin(E2));
+    //    if (0.35<E1&&E1<1.2) kData[27] /= hcfm->GetBinContent(hcfm->FindBin(E1));
+    //if (0.35<E2&&E2<1.2) kData[28] /= hcfm->GetBinContent(hcfm->FindBin(E2));
     kData[29] =(*comb)[0]->vx;
     kData[30] =(*comb)[0]->vy;
     kData[31] =((comb->Npart>1)?(*comb)[1]->vx:0);
@@ -486,6 +549,23 @@ public:
     kData[33] = TargType_prev;
     kData[34] = TargTypeO_prev;
     kData[35] = phi_pq;
+    kData[36] = phiR;
+    kData[37] = Mx2;
+    kData[38] = xF;
+    kData[39] = xF0;
+    kData[40] = xF1;
+    kData[41] = PlCM;
+    kData[42] = Pl0CM;
+    kData[43] = Pl1CM;
+    kData[44] = E;
+    kData[45] = xFm;
+    kData[46] = xFm0;
+    kData[47] = xFm1;
+    kData[48] = helic_prev;
+    kData[49] = theta_0*TMath::RadToDeg();
+    kData[50] = theta_1*TMath::RadToDeg();
+    
+    
     /*  
     Double_t *W = new Double_t[4];
     Double_t *Wa = new Double_t[4];
@@ -738,6 +818,7 @@ public:
     Ee_prev = Ee;
     TargType_prev=TargType;
     TargTypeO_prev=TargTypeO;
+    helic_prev=helic;
   }
 
   //int takeN(int N,int kspid, int pos=0,Particle p=Particle(),int count=0)
@@ -879,7 +960,7 @@ public:
 	push_bkgnd(p);
 	findSecondary();
       }
-      std::cout<<setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
+      std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
       std::cout.flush();
     } 
     return 0;
@@ -969,7 +1050,7 @@ public:
 	Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
 	push_bkgnd(p);
       }
-      std::cout<<setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
+      std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
       std::cout.flush();
     } 
     return 0;
@@ -991,8 +1072,8 @@ int main(int argc, char *argv[])
   TBenchmark *bm = new TBenchmark();
   bm->Start("get_eta");
   parseopt(argc,argv);
-  TFile * corrfile = new TFile("gammECorr.root","read");
-  hcfm = (TH1F*)corrfile->Get("hcfm");
+  //TFile * corrfile = new TFile("gammECorr.root","read");
+  //hcfm = (TH1F*)corrfile->Get("hcfm");
   //char outdir[50];
   //strcpy(outdir,Form("test_eta_%sD_%s",st,tt));
 
@@ -1042,6 +1123,8 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("ECX",1);
   t->SetBranchStatus("ECY",1);
   t->SetBranchStatus("ECZ",1);
+  t->SetBranchStatus("helic",1);
+
   //  t->SetBranchStatus("TargTypeO",1);
 
 
@@ -1070,6 +1153,7 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("ECX",&ECX);
   t->SetBranchAddress("ECY",&ECY);
   t->SetBranchAddress("ECZ",&ECZ);
+  t->SetBranchAddress("helic",&helic);
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 
   //  t->SetMaxEntryLoop(1e4);
@@ -1142,13 +1226,14 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");
   r.addSecondary("gamma");
   */
-  /*
+
+  
   // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","k0out.root");
+  Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-*/
+
 
   /*
   // w -> pi+ pi- a a
@@ -1160,7 +1245,7 @@ int main(int argc, char *argv[])
   r.addSecondary("pi-");
   */
 
-        
+  /*        
   //eta -> a a pi+ pi-
   Reaction r("eta -> a a pi+ pi-","etaout_pippimaa_all_eta_exact.root",true);
   r.addPrimary("eta");
@@ -1169,7 +1254,9 @@ int main(int argc, char *argv[])
   r.addSecondary("pi+");
   r.addSecondary("pi-");
   
+  */
 
+  
   /*
   //eta -> a a
   Reaction r("eta -> a a","etaout_aa_only.root",true);
@@ -1225,7 +1312,7 @@ int main(int argc, char *argv[])
   std::cout<<"\n";
   r.kOutData->Print();
   r.kOutBkgnd->Print();
-  corrfile->Close();
+  //  corrfile->Close();
   bm->Show("get_pi0");
   return 0;  
 

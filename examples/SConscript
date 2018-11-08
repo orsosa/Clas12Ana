@@ -7,3 +7,4 @@ localenv.Append(LIBS="TIdentificatorCLAS12")
 
 
 env.Program(target="get_simple_tuple",source=["get_simple_tuple.cxx",shlib])
+env.Program(target="particle_mix",source=["particle_mix.cxx",shlib])
