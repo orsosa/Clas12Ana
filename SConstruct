@@ -20,10 +20,10 @@ else:
  print "not using lz4, define LZ4DIR variable if you have it."
  Exit(1)
 
-if "CLAS12ANA_DIR" in ENV.keys():
- CLAS12ANA_DIR =   ENV["CLAS12ANA_DIR"]
+if "CLAS12ANA" in ENV.keys():
+ CLAS12ANA =   ENV["CLAS12ANA"]
 else:
- print "you must define CLAS12ANA_DIR root directory, may be: export CLAS12ANA_DIR=`pwd`"
+ print "you must define CLAS12ANA root directory, may be: export CLAS12ANA=`pwd`"
  Exit(1)	    
 
 ####### ROOT ENVIRONMENT #####
@@ -44,7 +44,7 @@ HIPODIR=HIPODIR.rstrip("/")
 
 SRCDIR ="src"
 INCDIR ="include"
-SHLIBDIR = CLAS12ANA_DIR + "/shlib"
+SHLIBDIR = CLAS12ANA + "/shlib"
 
 print SHLIBDIR
 env.Append(CPPPATH=[INCDIR,SRCDIR,"/usr/include","/usr/local/include","/opt/local/include",LZ4DIR + "/lib",HIPODIR + "/libcpp"])

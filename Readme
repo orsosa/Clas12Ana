@@ -1,0 +1,6 @@
+=Clas12 Analysis tool=
+
+==It includes two examples:==
+
+*get_simple_tuple uses the library to read hipo files and produce root ntuples.
+*particle_mix uses the ntuple produced by the get_simple_tuple and make combination of particles (reconstruction of short living particles, pions correlation, etc.)
