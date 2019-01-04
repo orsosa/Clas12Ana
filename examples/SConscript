@@ -1,10 +1,9 @@
+# -*- python -*-
 Import("*")
-env.Append(CPPPATH='#include')
-env.Append(LIBPATH='#shlib')
-
 localenv = env.Clone()
 localenv.Append(LIBS="TIdentificatorCLAS12")
+localenv.Append(LIBPATH=SHLIBDIR)
+localenv.Append(CPPPATH='#include')
 
-
-env.Program(target="get_simple_tuple",source=["get_simple_tuple.cxx",shlib])
-env.Program(target="particle_mix",source=["particle_mix.cxx",shlib])
+localenv.Program(target="get_simple_tuple",source=["get_simple_tuple.cxx",shlib])
+localenv.Program(target="particle_mix",source=["particle_mix.cxx",shlib])

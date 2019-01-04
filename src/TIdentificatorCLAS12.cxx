@@ -143,6 +143,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE)
   InitNodes();
   InitDetectorMap();
   InitLayerMap();
+  InitDCSuperLayerMap();
 }
 
 TIdentificatorCLAS12::~TIdentificatorCLAS12()
@@ -203,6 +204,17 @@ int TIdentificatorCLAS12::InitLayerMap()
   layerType["EC_Outer"] = 7;
   return 0;
 }
+
+int TIdentificatorCLAS12::InitDCSuperLayerMap()
+{
+  DCSuperLayer[0]=12;
+  DCSuperLayer[1]=18;
+  DCSuperLayer[2]=24;
+  DCSuperLayer[3]=30;
+  DCSuperLayer[4]=36;
+  DCSuperLayer[5]=42;
+}
+
 
 int TIdentificatorCLAS12::FillResponseMaps()
 {

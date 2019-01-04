@@ -30,6 +30,8 @@ public:
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
     Int_t Helic(Int_t k=0);                         //inline
+    Float_t STTime(Int_t k=0);
+    Float_t RFTime(Int_t k=0);
     Int_t GetNRows();                             //inline
      
     Int_t StatCC(Int_t k);                        // inline
@@ -88,8 +90,15 @@ public:
     Float_t HX_ECOUT(Int_t k=0);                         // inline 
     Float_t HY_ECOUT(Int_t k=0);                         // inline 
     Float_t HZ_ECOUT(Int_t k=0);                         // inline 
-
     
+    Float_t Px_DC(Int_t k=0);                         // inline 
+    Float_t Py_DC(Int_t k=0);                         // inline 
+    Float_t Pz_DC(Int_t k=0);                         // inline 
+
+    Float_t VX_DC(Int_t k=0);                         // inline 
+    Float_t VY_DC(Int_t k=0);                         // inline 
+    Float_t VZ_DC(Int_t k=0);                         // inline 
+
     // SCPB
     Double_t PathSC(Int_t k);                     // inline
     Double_t TimeSC(Int_t k);                     // inline
@@ -112,8 +121,22 @@ public:
     Int_t SectorLTCC(Int_t k, Bool_t kind = 0);
     Int_t SectorHTCC(Int_t k, Bool_t kind = 0);
     Int_t SectorECAL(Int_t k, Bool_t kind = 0);
+    Int_t SectorDC(Int_t k, Bool_t kind = 0);
+    Int_t TrajDetId(Int_t k,Bool_t kind =0);
+    Float_t TrajX(Int_t k,Int_t sl=0, Bool_t kind =0);
+    Float_t TrajY(Int_t k,Int_t sl=0, Bool_t kind =0);
+    Float_t TrajZ(Int_t k,Int_t sl=0, Bool_t kind =0);
+
+    Float_t TrajDCX(Int_t k,Int_t reg=0, Bool_t kind =0);
+    Float_t TrajDCY(Int_t k,Int_t reg=0, Bool_t kind =0);
+    Float_t TrajDCZ(Int_t k,Int_t reg=0, Bool_t kind =0);
+
+    Float_t PathTOF(Int_t k,Bool_t kind=0);
+    Float_t TimeTOF(Int_t k,Bool_t kind=0);
+    Int_t SectorTOF(Int_t k,Bool_t kind=0);
     
-	 //Added in hayk's code
+    
+    //Added in hayk's code
     Double_t Pt2(Int_t, Bool_t = 0);
     Double_t Pl2(Int_t, Bool_t = 0);
     Double_t PlCM(Int_t, Bool_t = 0);
@@ -127,7 +150,7 @@ public:
     Double_t Yb(Bool_t kind = 0);
     Double_t ZhPi(Int_t k, Double_t Mass, Bool_t kind = 0);
 
-	 //Added in hayk's code
+    //Added in hayk's code
     Double_t Zh(Int_t, Bool_t = 0, Double_t = 0.139);
     Double_t Xf(Int_t, Bool_t = 0);
     Double_t Mx2(Int_t, Bool_t = 0);
@@ -138,9 +161,9 @@ public:
     Double_t TimeCorr4(Double_t mass, Int_t k);
     TVector3 *GetCorrectedVert();
 
-
-	 //Added in hayk's code
-	 //Int_t ElecVertTarg(Bool_t = 0);
+    
+    //Added in hayk's code
+    //Int_t ElecVertTarg(Bool_t = 0);
 
     // Particle Identification cuts
     //TString GetCategorization(Int_t k, const char*tt = "",bool mflag=false);
@@ -167,15 +190,15 @@ public:
     Bool_t FidCheckCutPiPlus(Int_t k);
     Int_t FidSector(Int_t k, Bool_t kind = 0);
 
-    //Target methods.
+    // Target methods.
     Int_t ElecVertTarg();
     Int_t ElecVertTarg(Bool_t kind);
     Bool_t PionVertTarg(Int_t k);
 
-    //Other methods.
+    // Other methods.
     TVector3 *XYZToUVW(TVector3 *xyz);       
     bool SampFracCheck(const char* tt = "");                         // inline
-    //    ClassDef(TIdentificatorCLAS12,1)
+    // ClassDef(TIdentificatorCLAS12,1)
 
 
     int FillResponseMaps();
@@ -206,9 +229,11 @@ private:
     TString* fPartIds;        // Array with the categories of the particles belonging to an event.
     std::map<TString,int> detectorType;
     std::map<TString,int> layerType;
+    std::map<int,int> DCSuperLayer;
     int InitNodes();
     int InitDetectorMap();
     int InitLayerMap();
+    int InitDCSuperLayerMap();
 
     
     std::map <int,std::vector<int>> calorimeterMap;

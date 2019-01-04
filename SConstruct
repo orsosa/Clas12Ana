@@ -1,3 +1,4 @@
+# -*- python -*-
 from subprocess import PIPE,Popen
 import os
 import sys
@@ -18,7 +19,12 @@ if "LZ4DIR" in ENV.keys():
 else:
  print "not using lz4, define LZ4DIR variable if you have it."
  Exit(1)
-   
+
+if "CLAS12ANA_DIR" in ENV.keys():
+ CLAS12ANA_DIR =   ENV["CLAS12ANA_DIR"]
+else:
+ print "you must define CLAS12ANA_DIR root directory, may be: export CLAS12ANA_DIR=`pwd`"
+ Exit(1)	    
 
 ####### ROOT ENVIRONMENT #####
 out = Popen(["root-config","--glibs"],stdout=PIPE)
@@ -38,8 +44,9 @@ HIPODIR=HIPODIR.rstrip("/")
 
 SRCDIR ="src"
 INCDIR ="include"
-SHLIBDIR = "shlib"
+SHLIBDIR = CLAS12ANA_DIR + "/shlib"
 
+print SHLIBDIR
 env.Append(CPPPATH=[INCDIR,SRCDIR,"/usr/include","/usr/local/include","/opt/local/include",LZ4DIR + "/lib",HIPODIR + "/libcpp"])
 env.Append(CPPPATH=incdir)
 
@@ -80,6 +87,7 @@ if conf.CheckLib('libz'):
 
 #object = env.Object(target="TIdentificatorCLAS12.o",source = libsrc)
 shlib = env.SharedLibrary(target =  "TIdentificatorCLAS12", source = libsrc)
-shlib = Command(SHLIBDIR + "/${SOURCE.file}" , shlib, Copy("$TARGET", "$SOURCE"))
-Export('env shlib')
+env.Command(SHLIBDIR + "/${SOURCE.file}" , shlib, Copy("$TARGET", "$SOURCE"))
+
+Export('env shlib SHLIBDIR')
 SConscript("examples/SConscript")

@@ -10,6 +10,8 @@
 #include "TParticlePDG.h"
 using namespace std;
 
+int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot);
+
 int main(int argc, char **argv)
 {
   //gROOT->Reset();
@@ -22,23 +24,21 @@ int main(int argc, char **argv)
     std::cout<<"you must supply one hipo file.\n";
     exit(1);
   }
-  
   TString fname = argv[1];
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:ECX:ECY:ECZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz";
+
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2";
+
   Int_t Nvar = VarList.CountChar(':')+1;
  
   Float_t *vars = new Float_t[Nvar];
   TVector3 *vert;
   TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname);
   
-  //  Long_t nEntries = 0;
-  //t->GetEntries();
-
   TFile *output;
-  
+
   if(simul_key == 0) {
     NtupleName = "ntuple_data";
     output = new TFile("outfiles/prune_data_test.root", "RECREATE", "Data of particles");
@@ -47,9 +47,8 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
   }
 
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal");
 
-  
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz");
   Float_t DataElec[tElec->GetNvar()];
 
   TNtuple *ntuple = new TNtuple(NtupleName,"stable particles",VarList);
@@ -63,7 +62,8 @@ int main(int argc, char **argv)
 //  TH1F *ht = new TH1F("ht","tdiff",1000,-15,15); 
   cout.width(4);
   Int_t event=0;
-  while (t->Next()==true)
+
+  while (t->Next())
   {
       //    t->PrintMaps();
     Int_t nRows = t->GetNRows();
@@ -119,18 +119,56 @@ int main(int argc, char **argv)
       DataElec[36] = t->HX_ECOUT();
       DataElec[37] = t->HY_ECOUT();
       DataElec[38] = t->HZ_ECOUT();
-
       
+      DataElec[39] = t->TrajDCX(0,0);
+      DataElec[40] = t->TrajDCX(0,1);
+      DataElec[41] = t->TrajDCX(0,2);
+      DataElec[42] = t->TrajDCY(0,0);
+      DataElec[43] = t->TrajDCY(0,1);
+      DataElec[44] = t->TrajDCY(0,2);
+      DataElec[45] = t->TrajDCZ(0,0);
+      DataElec[46] = t->TrajDCZ(0,1);
+      DataElec[47] = t->TrajDCZ(0,2);
+
+      DataElec[48] = t->PathTOF(0);
+      DataElec[49] = t->TimeTOF(0);
+      DataElec[50] = t->SectorTOF(0);
+      DataElec[51] = t->Beta(0);
+      DataElec[52] = t->STTime();
+      DataElec[53] = t->RFTime();
+
+      Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
+      dcx   = t->TrajDCX(0,0);
+      dcy   = t->TrajDCY(0,0);
+      rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+      DataElec[54] = dcx_rot;//region 0
+      DataElec[55] = dcy_rot;//region 0
+      dcx   = t->TrajDCX(0,1);
+      dcy   = t->TrajDCY(0,1);
+      rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+      DataElec[56] = dcx_rot;//region 1
+      DataElec[57] = dcy_rot;//region 1
+      dcx   = t->TrajDCX(0,2);
+      dcy   = t->TrajDCY(0,2);
+      rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+      DataElec[58] = dcx_rot;//region 2
+      DataElec[59] = dcy_rot;//region 2
+
+      DataElec[60] = t->SectorLTCC(0);
+      DataElec[61] = t->SectorHTCC(0);
+      DataElec[62] = t->SectorECAL(0);
+
       tElec->Fill(DataElec);
 
       Int_t NmbPion = 0;
       for (Int_t i = 1; i < nRows; i++) 
       {
+
 	//	std::cout<<"\tnr: "<<i<<std::endl; 
       	TString category = t->GetCategorization(i);
 
 	//      	if (category == "gamma" || category == "pi-" || category == "high energy pion +" || category == "low energy pion +" || category == "s_electron" || category == "positron") 
-      	if (category == "gamma" || category == "pi-" || category == "pi+")
+      	if (category == "gamma" || category == "pi-" || category == "pi+" || category == "muon" || category == "muon+")
 
 	{
 	  vars[0] = 0;//t -> ElecVertTarg();
@@ -168,9 +206,9 @@ int main(int argc, char **argv)
           vars[31] = vert->Y(); 
           vars[32] = vert->Z(); 
           vars[33] = 0;//t->TimeEC(i);
-          vars[34] = 0;//t->XEC(i);
-          vars[35] = 0;//t->YEC(i);
-          vars[36] = 0;//t->ZEC(i);
+          vars[34] = t->VX_DC(i);//t->XEC(i);
+          vars[35] = t->VY_DC(i);//t->YEC(i);
+          vars[36] = t->VZ_DC(i);//t->ZEC(i);
           vars[37] = t->Px(0);
           vars[38] = t->Py(0);
           vars[39] = t->Pz(0);
@@ -179,7 +217,7 @@ int main(int argc, char **argv)
           vars[41] = t->Eout(i);
           vars[42] = t->Ein(0);
           vars[43] = t->Eout(0);
-	  vars[44] = t->Pid(i);
+	  vars[44] = (category == "muon")?13:((category == "muon+")?-13:t->Pid(i)) ;
 	  vars[45] = t->Beta(i);
           vars[46] = t->X(i);
           vars[47] = t->Y(i);
@@ -219,7 +257,7 @@ int main(int argc, char **argv)
 	  vars[79] = t->LU_ECOUT(i);
 	  vars[80] = t->LV_ECOUT(i);
 	  vars[81] = t->LW_ECOUT(i);
-  
+
 	  vars[82] = t->HX_PCAL();
 	  vars[83] = t->HY_PCAL();
 	  vars[84] = t->HZ_PCAL();
@@ -229,6 +267,102 @@ int main(int argc, char **argv)
 	  vars[88] = t->HX_ECOUT();
 	  vars[89] = t->HY_ECOUT();
 	  vars[90] = t->HZ_ECOUT();
+	  //vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
+	  vars[92] = t->Status(i);
+	  vars[93] = t->Status(0);
+
+	  vars[94] = t->Px_DC(0);
+	  vars[95] = t->Py_DC(0);
+	  vars[96] = t->Pz_DC(0);
+	  vars[97] = t->Px_DC(i);
+	  vars[98] = t->Py_DC(i);
+	  vars[99] = t->Pz_DC(i);
+
+	  vars[100] = t->TrajX(i,0);
+	  vars[101] = t->TrajX(i,1);
+	  vars[102] = t->TrajX(i,2);
+	  vars[103] = t->TrajX(i,3);
+	  vars[104] = t->TrajX(i,4);
+	  vars[105] = t->TrajX(i,5);
+	  vars[106] = t->TrajY(i,0);
+	  vars[107] = t->TrajY(i,1);
+	  vars[108] = t->TrajY(i,2);
+	  vars[109] = t->TrajY(i,3);
+	  vars[110] = t->TrajY(i,4);
+	  vars[111] = t->TrajY(i,5);
+	  vars[112] = t->TrajZ(i,0);
+	  vars[113] = t->TrajZ(i,1);
+	  vars[114] = t->TrajZ(i,2);
+	  vars[115] = t->TrajZ(i,3);
+	  vars[116] = t->TrajZ(i,4);
+	  vars[117] = t->TrajZ(i,5);
+
+	  vars[118] = t->TrajDCX(i,0);
+	  vars[119] = t->TrajDCX(i,1);
+	  vars[120] = t->TrajDCX(i,2);
+	  vars[121] = t->TrajDCY(i,0);
+	  vars[122] = t->TrajDCY(i,1);
+	  vars[123] = t->TrajDCY(i,2);
+	  vars[124] = t->TrajDCZ(i,0);
+	  vars[125] = t->TrajDCZ(i,1);
+	  vars[126] = t->TrajDCZ(i,2);
+
+	  vars[127] = t->TrajDCX(0,0);
+	  vars[128] = t->TrajDCX(0,1);
+	  vars[129] = t->TrajDCX(0,2);
+	  vars[130] = t->TrajDCY(0,0);
+	  vars[131] = t->TrajDCY(0,1);
+	  vars[132] = t->TrajDCY(0,2);
+	  vars[133] = t->TrajDCZ(0,0);
+	  vars[134] = t->TrajDCZ(0,1);
+	  vars[135] = t->TrajDCZ(0,2);
+
+	  vars[136] = t->PathTOF(0);
+	  vars[137] = t->TimeTOF(0);
+	  vars[138] = t->PathTOF(i);
+	  vars[139] = t->TimeTOF(i);
+
+	  vars[140] = t->SectorTOF(0);
+	  vars[141] = t->SectorTOF(i);
+
+	  vars[142] = t->Beta(0);
+	  vars[143] = t->STTime();
+	  vars[144] = t->RFTime();
+
+
+	  Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
+	  dcx   = t->TrajDCX(0,0);
+	  dcy   = t->TrajDCY(0,0);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[145] = dcx_rot;//region 0
+	  vars[146] = dcy_rot;//region 0
+	  dcx   = t->TrajDCX(0,1);
+	  dcy   = t->TrajDCY(0,1);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[147] = dcx_rot;//region 1
+	  vars[148] = dcy_rot;//region 1
+	  dcx   = t->TrajDCX(0,2);
+	  dcy   = t->TrajDCY(0,2);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[149] = dcx_rot;//region 2
+	  vars[150] = dcy_rot;//region 2
+
+	  dcx   = t->TrajDCX(i,0);
+	  dcy   = t->TrajDCY(i,0);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[151] = dcx_rot;//region 0
+	  vars[152] = dcy_rot;//region 0
+	  dcx   = t->TrajDCX(i,1);
+	  dcy   = t->TrajDCY(i,1);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[153] = dcx_rot;//region 1
+	  vars[154] = dcy_rot;//region 1
+	  dcx   = t->TrajDCX(i,2);
+	  dcy   = t->TrajDCY(i,2);
+	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
+	  vars[155] = dcx_rot;//region 2
+	  vars[156] = dcy_rot;//region 2
+
 
 	  ntuple->Fill(vars);
 	}
@@ -331,5 +465,31 @@ int main(int argc, char **argv)
   output->Close();
   cout << "Done." << endl;
   bm.Show(argv[0]);
+  return 0;
+}
+
+int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot)
+{
+  Float_t dcth  = atan2(dcy,dcx)*TMath::RadToDeg();
+  Int_t DCsec = (-30<dcth&&dcth<30)*1
+	+ (30<dcth&&dcth<90)*2
+	+ (90<dcth&&dcth<150)*3
+	+ (150<dcth||dcth<-150)*4
+	+ (-150<dcth&&dcth<-90)*5
+	+ (-90<dcth&&dcth<-30)*6;
+
+  dcx_rot = (DCsec==1)*(cos(TMath::Pi()/2)*dcx - sin(TMath::Pi()/2)*dcy)
+  + (DCsec==2)*(cos(TMath::Pi()/6)*dcx - sin(TMath::Pi()/6)*dcy)
+  + (DCsec==3)*(cos(-TMath::Pi()/6)*dcx - sin(-TMath::Pi()/6)*dcy)
+  + (DCsec==4)*(cos(-TMath::Pi()/2)*dcx - sin(-TMath::Pi()/2)*dcy)
+  + (DCsec==5)*(cos(-5*TMath::Pi()/6)*dcx - sin(-5*TMath::Pi()/6)*dcy)
+  + (DCsec==6)*(cos(-7*TMath::Pi()/6)*dcx - sin(-7*TMath::Pi()/6)*dcy);
+  
+  dcy_rot = (DCsec==1)*(cos(TMath::Pi()/2)*dcy + sin(TMath::Pi()/2)*dcx)
+  + (DCsec==2)*(cos(TMath::Pi()/6)*dcy + sin(TMath::Pi()/6)*dcx)
+  + (DCsec==3)*(cos(-TMath::Pi()/6)*dcy + sin(-TMath::Pi()/6)*dcx)
+  + (DCsec==4)*(cos(-TMath::Pi()/2)*dcy + sin(-TMath::Pi()/2)*dcx)
+  + (DCsec==5)*(cos(-5*TMath::Pi()/6)*dcy + sin(-5*TMath::Pi()/6)*dcx)
+  + (DCsec==6)*(cos(-7*TMath::Pi()/6)*dcy + sin(-7*TMath::Pi()/6)*dcx);
   return 0;
 }

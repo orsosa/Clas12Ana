@@ -45,7 +45,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,ECX,ECY,ECZ;
+Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz;
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -374,8 +374,8 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:PhiPQ:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1";
-    kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vzec:Ee:Pex:Pey:Pez:W");
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:PhiPQ:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o";
+    kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
     kData = new Float_t[varlist.CountChar(':')+1];
@@ -428,12 +428,11 @@ public:
     Float_t theta_0 = (*comb)[0]->Theta();
     Float_t theta_1 = (*comb)[1]->Theta();
 
-
     Float_t cospq = ((kEbeam-Pez_prev)*Pz - Pex_prev*Px - Pey_prev*Py)/( sqrt((Q2_prev + Nu_prev*Nu_prev)*P2) );
 
     Float_t cospq0 = ((kEbeam-Pez_prev)*(*comb)[0]->Pz() - Pex_prev*(*comb)[0]->Px() - Pey_prev*(*comb)[0]->Py() )/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[0]->P());
     Float_t cospq1 = ((kEbeam-Pez_prev)*(*comb)[1]->Pz() - Pex_prev*(*comb)[1]->Px() - Pey_prev*(*comb)[1]->Py())/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[1]->P());
-  
+ 
 
     Float_t Pt2 = P2*(1-cospq*cospq);
     Float_t Pl2 = P2*cospq*cospq;
@@ -454,25 +453,58 @@ public:
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
 
+    
+    TLorentzVector q_lv(Vvirt,Nu_prev); // virtual photon 4vec
+    TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
+    TLorentzVector Ptot_lv = q_lv+P_lv; // total 4vec
 
-    TVector3 Ph(Px,Py,Pz);
-    TVector3 Ph_u = Ph.Unit();
-    TVector3 R((*comb)[0]->Px()-(*comb)[1]->Px(),(*comb)[0]->Py()-(*comb)[1]->Py(),(*comb)[0]->Pz()-(*comb)[1]->Pz());
+    TLorentzVector Ph(Px,Py,Pz,E);
+    TLorentzVector P0((*comb)[0]->Px(),(*comb)[0]->Py(),(*comb)[0]->Pz(),(*comb)[0]->E());
+    TLorentzVector P1((*comb)[1]->Px(),(*comb)[1]->Py(),(*comb)[1]->Pz(),(*comb)[1]->E());
+    TLorentzVector k_in(0,0,kEbeam,kEbeam);
+
+    TLorentzVector P0_dicm = P0;
+    TLorentzVector P1_dicm = P1;
+
+   /// Boost to di-hadron cm frame///
+    P0_dicm.Boost(-Ph.BoostVector());
+    P1_dicm.Boost(-Ph.BoostVector());
+    /////////////////////////////////
+
+    Float_t cos_theta_P0cm = P0_dicm.Vect()*Ph.Vect()/P0_dicm.Vect().Mag()/Ph.Vect().Mag();
+
+    // -Ptot_lv.BoostVector() // to the a-P c.m.
+    // -Ph.BoostVector() // to the di hadron c.m.
+    
+    //// Boost to cm virtual photon - nucleon.
+    q_lv.Boost(-Ptot_lv.BoostVector());
+    P_lv.Boost(-Ptot_lv.BoostVector());
+    Ph.Boost(-Ptot_lv.BoostVector());
+    P0.Boost(-Ptot_lv.BoostVector());
+    P1.Boost(-Ptot_lv.BoostVector());
+    k_in.Boost(-Ptot_lv.BoostVector());
+    //// /////////////////////////////////
+
+    Float_t Plt = Ph.Vect()*Vvirt.Unit();
+    Float_t Pl0m = P0.Vect()*Vvirt.Unit();
+    Float_t Pl1m = P1.Vect()*Vvirt.Unit();
+    
+ 
+    TVector3 Ph_u = Ph.Vect().Unit();
+    TVector3 R = P0.Vect() - P1.Vect();
     R=R*0.5;
     TVector3 RT = R-(R*Ph_u)*Ph_u;
-    TVector3 k_in(0,0,kEbeam); 
 
-    Float_t qxkRT = Vvirt.Cross(k_in)*RT;
-    Float_t qxkRT_sign = qxkRT/TMath::Abs(qxkRT);
+    Float_t qxkRT_sign = q_lv.Vect().Cross(k_in.Vect())*RT;
+    qxkRT_sign /= TMath::Abs(qxkRT_sign);
 
-    // Float_t qxkST = Vvirt.Cross(k_in)*ST;
-    //Float_t qxkST_sign = qxkST/TMath::Abs(qxkST);
+    // Float_t qxkST_sign = Vvirt.Cross(k_in)*ST;
+    // qxkST_sign /= TMath::Abs(qxkST_sign);
 
-    Float_t qxkqxRT = Vvirt.Cross(k_in)*Vvirt.Cross(RT);
-    Float_t qxkqxRT_max = (Vvirt.Cross(k_in)).Mag()*(Vvirt.Cross(RT)).Mag();
+    Float_t qxkqxRT = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(RT));
+    Float_t qxkqxRT_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RT)).Mag();
     
-    Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max);
-    
+    Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max)*TMath::RadToDeg();
     Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
 
     Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
@@ -493,8 +525,12 @@ public:
     Float_t xF1 = Pl1CM/Ph1max;
 
     Float_t xFm = 2*PlCM/W_prev;
-    Float_t xFm0 = 2*Pl0CM/W;
-    Float_t xFm1 = 2*Pl1CM/W;
+    Float_t xFm0 = 2*Pl0CM/W_prev;
+    Float_t xFm1 = 2*Pl1CM/W_prev;
+
+    Float_t xFo = 2*Plt/W_prev;
+    Float_t xF0o = 2*Pl0m/W_prev;
+    Float_t xF1o = 2*Pl1m/W_prev;
 
     
     kData[0] = M;
@@ -540,7 +576,7 @@ public:
     kData[26] = E2;
     kData[27] = E1;
     kData[28] = E2;
-    //    if (0.35<E1&&E1<1.2) kData[27] /= hcfm->GetBinContent(hcfm->FindBin(E1));
+    //if (0.35<E1&&E1<1.2) kData[27] /= hcfm->GetBinContent(hcfm->FindBin(E1));
     //if (0.35<E2&&E2<1.2) kData[28] /= hcfm->GetBinContent(hcfm->FindBin(E2));
     kData[29] =(*comb)[0]->vx;
     kData[30] =(*comb)[0]->vy;
@@ -564,6 +600,10 @@ public:
     kData[48] = helic_prev;
     kData[49] = theta_0*TMath::RadToDeg();
     kData[50] = theta_1*TMath::RadToDeg();
+    kData[51] = cos_theta_P0cm;
+    kData[52] = xFo;
+    kData[53] = xF0o;
+    kData[54] = xF1o;
     
     
     /*  
@@ -866,7 +906,7 @@ public:
     int count=0;
     for (int k =0;k<kSPid.size();k++)
     {
-      if(pid == kSPid[k])
+      if(pid == kSPid[k]&&checkDCFidPhi())
       {
 	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid));
 	count++;
@@ -888,6 +928,32 @@ public:
     return 0;
   }
 
+  Bool_t checkDCFidPhi()
+  {
+    Bool_t ret=false;
+    Float_t phi = atan2(DCPy,DCPx);
+    Float_t rho = sqrt( DCPx*DCPx + DCPy*DCPy );
+    for (int k=0;k<6;k++)
+    {
+      ret = ret || (-2.8 + k*1.04 <phi&&phi<-2 + k*1.04);
+    }
+    ret = ret && (rho>0.1);
+    return ret;
+  }
+
+  Float_t getE(Float_t Es=0, Float_t p=0, Float_t pid=211)
+  {
+    Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
+    Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057}; 
+    Float_t x=sqrt(p*p+0.139*0.139);
+    Float_t sf = ((pid==211)?pip[0] + pip[1]/x + pip[2]*x + pip[3]/x/x:((pid==-211)?pim[0] + pim[1]/x + pim[2]*x + pim[3]/x/x:0)) ;
+    // Float_t energy = Es/sf;
+    Float_t energy = x;
+   
+
+    return energy;
+  }
+  
   int getCombinations(TChain *t)
   {
     kSecondary=new std::vector<Particle*> [kSPid.size()];
@@ -904,10 +970,10 @@ public:
       Ep=E;
       if (data_type<2)// not gsim
       {
-	Ep = (pid==22)? (E/0.272):( (pid==211 || pid==-211)?(sqrt(P*P+ TMath::Power(TDatabasePDG::Instance()->GetParticle("pi-")->Mass(),2)) ):E);
-
-	if (pid==22)
-	  correct_momentum();
+	Ep = (pid==22)? (E/0.23):( (pid==211 || pid==-211)?(getE(E,P,pid) ):E);
+ 
+	//  if (pid==22)
+	//  correct_momentum();
 	
       }
       if (evnt==evnt_prev)
@@ -921,7 +987,7 @@ public:
       }
       else
       {
-	//	fill_elec();
+	
 	pop_bkgnd();
 	if (checkMinPart())
 	{
@@ -949,6 +1015,7 @@ public:
 	      div*=size;
 	    }
 	    //  if (DEBUG) std::cout<<"############ Npart from primary: "<<kPrimary->Npart<<"####################"<<std::endl;
+	    fill_elec();
   	    fill();
 	    delete kPrimary;
 	  }
@@ -1030,7 +1097,7 @@ public:
     for ( int i = 0; i < Ne; i++)
     {
       t->GetEntry(i);
-      Ep = (pid==22)? (E/0.272):sqrt(P*P+ TMath::Power(TDatabasePDG::Instance()->GetParticle("pi-")->Mass(),2));
+      Ep = (pid==22)? (E/0.23):sqrt(P*P+ TMath::Power(TDatabasePDG::Instance()->GetParticle("pi-")->Mass(),2));
       
       if (pid==22)
 	correct_momentum();
@@ -1120,13 +1187,15 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("vyh",1);
   t->SetBranchStatus("vzh",1);
   t->SetBranchStatus("TargType",1);
-  t->SetBranchStatus("ECX",1);
-  t->SetBranchStatus("ECY",1);
-  t->SetBranchStatus("ECZ",1);
+  t->SetBranchStatus("DCX",1);
+  t->SetBranchStatus("DCY",1);
+  t->SetBranchStatus("DCZ",1);
   t->SetBranchStatus("helic",1);
+  t->SetBranchStatus("DCPx",1);
+  t->SetBranchStatus("DCPy",1);
+  t->SetBranchStatus("DCPz",1);
 
   //  t->SetBranchStatus("TargTypeO",1);
-
 
   t->SetBranchAddress("E",&E);
   t->SetBranchAddress("Ee",&Ee);
@@ -1150,10 +1219,14 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("vyh",&vy);
   t->SetBranchAddress("vzh",&vz);
   t->SetBranchAddress("TargType",&TargType);
-  t->SetBranchAddress("ECX",&ECX);
-  t->SetBranchAddress("ECY",&ECY);
-  t->SetBranchAddress("ECZ",&ECZ);
+  t->SetBranchAddress("DCX",&DCX);
+  t->SetBranchAddress("DCY",&DCY);
+  t->SetBranchAddress("DCZ",&DCZ);
   t->SetBranchAddress("helic",&helic);
+  t->SetBranchAddress("DCPx",&DCPx);
+  t->SetBranchAddress("DCPy",&DCPy);
+  t->SetBranchAddress("DCPz",&DCPz);
+
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 
   //  t->SetMaxEntryLoop(1e4);
@@ -1233,7 +1306,27 @@ int main(int argc, char *argv[])
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
+  
 
+  
+  /*  
+  //eta -> a a
+  Reaction r("eta -> a a","etaout_aa_only.root",true);
+  r.addPrimary("eta");
+  r.addSecondary("gamma");
+  r.addSecondary("gamma");  
+  */
+
+  
+  
+  /*
+    // K0 -> pi+ pi-
+  Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
+  r.addPrimary("K0");
+  r.addSecondary("pi+");
+  r.addSecondary("pi-");
+  */
+  
 
   /*
   // w -> pi+ pi- a a

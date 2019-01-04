@@ -131,6 +131,17 @@ inline Int_t TIdentificatorCLAS12::Helic(Int_t k) /// from event
   return (Int_t)REC__Event_Helic->getValue(k);
 }
 
+inline Float_t TIdentificatorCLAS12::STTime(Int_t k) /// from event
+{
+  return (Int_t)REC__Event_STTime->getValue(k);
+}
+
+inline Float_t TIdentificatorCLAS12::RFTime(Int_t k) /// from event
+{
+  return (Int_t)REC__Event_RFTime->getValue(k);
+}
+
+
 inline Int_t TIdentificatorCLAS12::Status(Int_t k)
 {
   return (Int_t)REC__Particle_status->getValue(k);
@@ -751,6 +762,357 @@ inline Float_t TIdentificatorCLAS12::HZ_ECOUT(Int_t k)
   }
   if (index>=0)
     return REC__Calorimeter_hz->getValue(index);
+  else 
+    return -111;
+}
+
+
+
+inline Float_t TIdentificatorCLAS12::VX_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_vx_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::VY_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_vy_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_vz_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k, Bool_t kind)
+{
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {  
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+
+  if (index>=0){
+    REC__Track_sector->getValue(index);
+    return REC__Track_sector->getValue(index);}
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::Px_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_px_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::Py_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_py_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::Pz_DC(Int_t k)
+{
+  
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Track_pz_nomm->getValue(index);
+  else 
+    return -111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl,Bool_t kind)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_x->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajY(Int_t k,Int_t sl,Bool_t kind)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_y->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl,Bool_t kind)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_z->getValue(index);
+  else 
+    return -1111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg,Bool_t kind)
+{
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  int sl=2*reg;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_x->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajDCY(Int_t k,Int_t reg,Bool_t kind)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  int sl=2*reg;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_y->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg,Bool_t kind)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  int sl=2*reg;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_z->getValue(index);
+  else 
+    return -1111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k,Bool_t kind)
+{
+  Int_t N = scintillatorMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    {
+      if (REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+    }
+    
+  }
+  if (index>=0)
+    return REC__Scintillator_path->getValue(index);
+  else 
+    return -111;
+}
+
+inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k,Bool_t kind)
+{
+  Int_t N = scintillatorMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    {
+      if (REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+    }
+    
+  }
+  if (index>=0)
+    return REC__Scintillator_time->getValue(index);
+  else 
+    return -111;
+}
+
+inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k,Bool_t kind)
+{
+  Int_t N = scintillatorMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    {
+      if (REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      {
+	index = scintillatorMap[k][i];
+	break;
+      }
+    }
+    
+  }
+  if (index>=0)
+    return REC__Scintillator_sector->getValue(index);
   else 
     return -111;
 }

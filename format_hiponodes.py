@@ -2,7 +2,7 @@
 from sys import argv
 fin = open("include/hiponodes.h")
 fout0 = open("include/node_declaration.h","w")
-fout1 = open("include/node_assignment.cxx","w")
+fout1 = open("src/node_assignment.cxx","w")
 fout1.write("int TIdentificatorCLAS12::InitNodes()\n")
 fout1.write("{\n")
 for line in fin:

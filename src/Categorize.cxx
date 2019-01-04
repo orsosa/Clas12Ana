@@ -7,13 +7,37 @@ TString TIdentificatorCLAS12::GetCategorization(Int_t k)
   partId = "not recognized";
   if (Pid(k) == 11) // fiducial and status cuts to be added
     partId="electron";
-  if (Pid(k) == 22)// fiducial and status cuts to be added
+
+
+  if (Pid(k) == 22
+      &&0.95<Beta(k)&&Beta(k)<1.05
+
+      )// fiducial and status cuts to be added
     partId="gamma";
-  if (Pid(k) == 211)// fiducial and status cuts to be added
+  
+  if (Pid(k) == 211 
+      &&0< Etot(k) && Etot(k)>0.04 //avoid muons
+      )// fiducial and status cuts to be added
     partId="pi+";
-  if (Pid(k) == -211)// fiducial and status cuts to be added
+
+
+  if (Pid(k) == -211
+      &&0< Etot(k) && Etot(k)>0.04 //avoid muons
+      )// fiducial and status cuts to be added
     partId="pi-";
-    
+
+  if (Pid(k) == 211 
+      &&0< Etot(k) && Etot(k)<0.04 //avoid muons
+      )// fiducial and status cuts to be added
+    partId="muon+";
+
+
+  if (Pid(k) == -211
+      &&0< Etot(k) && Etot(k)<0.04 //avoid muons
+      )// fiducial and status cuts to be added
+    partId="muon";
+
+  
   return partId;
 }
 /*
