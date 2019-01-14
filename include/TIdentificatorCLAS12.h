@@ -99,6 +99,37 @@ public:
     Float_t VY_DC(Int_t k=0);                         // inline 
     Float_t VZ_DC(Int_t k=0);                         // inline 
 
+    Float_t RICH_HAD_X(Int_t k=0); //inline
+    Float_t RICH_HAD_Y(Int_t k=0); //inline
+    Float_t RICH_HAD_Z(Int_t k=0); //inline
+    Float_t RICH_HAD_T(Int_t k=0); //inline
+
+    Float_t RICH_HAD_WX(Int_t k=0); //inline
+    Float_t RICH_HAD_WY(Int_t k=0); //inline
+    Float_t RICH_HAD_WZ(Int_t k=0); //inline
+    Float_t RICH_HAD_WT(Int_t k=0); //inline
+
+    Float_t RICH_CLUSTER_X(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_Y(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_Z(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_T(Int_t k=0); //inline
+
+    Float_t RICH_CLUSTER_WX(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_WY(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_WZ(Int_t k=0); //inline
+    Float_t RICH_CLUSTER_WT(Int_t k=0); //inline
+
+    Float_t RICH_RR_X(Int_t k=0); //inline
+    Float_t RICH_RR_Y(Int_t k=0); //inline
+    Float_t RICH_RR_Z(Int_t k=0); //inline
+    Float_t RICH_RR_T(Int_t k=0); //inline
+
+    Float_t RICH_RR_HX(Int_t k=0); //inline
+    Float_t RICH_RR_HY(Int_t k=0); //inline
+    Float_t RICH_RR_HZ(Int_t k=0); //inline
+    Float_t RICH_RR_HT(Int_t k=0); //inline
+
+    
     // SCPB
     Double_t PathSC(Int_t k);                     // inline
     Double_t TimeSC(Int_t k);                     // inline
@@ -203,6 +234,7 @@ public:
 
     int FillResponseMaps();
     int FillMap(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp);
+    int FillMapRev(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp);
     int ClearMaps();
     int PrintMaps();
     int PrintMap(std::map <int,std::vector<int>> &mp);
@@ -242,6 +274,10 @@ private:
     std::map <int,std::vector<int>> trackMap;
     std::map <int,std::vector<int>> trajMap;
     std::map <int,std::vector<int>> covMatMap;
+    std::map <int,std::vector<int>> richHadPartMap;
+    std::map <int,std::vector<int>> richHadClusterMap;
+    std::map <int,std::vector<int>> richRRPartMap;
+    std::map <int,std::vector<int>> richRRClusterMap;
 
     
 };

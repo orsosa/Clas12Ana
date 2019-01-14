@@ -7,3 +7,4 @@ localenv.Append(CPPPATH='#include')
 
 localenv.Program(target="get_simple_tuple",source=["get_simple_tuple.cxx",shlib])
 localenv.Program(target="particle_mix",source=["particle_mix.cxx",shlib])
+localenv.Program(target="get_simple_tuple_rich",source=["get_simple_tuple_rich.cxx",shlib])

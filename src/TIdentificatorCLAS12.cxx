@@ -225,10 +225,15 @@ int TIdentificatorCLAS12::FillResponseMaps()
   FillMap(REC__Track_pindex,trackMap);
   FillMap(REC__Traj_pindex,trajMap);
   FillMap(REC__CovMat_pindex,covMatMap);
+  FillMap(RICH__hadrons_particle_index,richHadPartMap);
+  FillMapRev(RICH__hadrons_hit_index,richHadClusterMap);
+
+  FillMap(REC__RICH_pindex,richRRPartMap);
+  FillMapRev(REC__RICH_index,richRRClusterMap);
   
+
   return 0;
 }
-
 
 int TIdentificatorCLAS12::FillMap(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
 {
@@ -241,6 +246,18 @@ int TIdentificatorCLAS12::FillMap(hipo::node<int16_t> *pi,std::map <int,std::vec
   return 0;
 }
 
+int TIdentificatorCLAS12::FillMapRev(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
+{
+  int N = (int)pi->getLength();
+  for (int i =0;i<N;i++)
+  {
+    mp[i].push_back((int)pi->getValue(i));
+  }
+  
+  return 0;
+}
+
+
 int TIdentificatorCLAS12::ClearMaps()
 {
   calorimeterMap.clear();
@@ -249,6 +266,8 @@ int TIdentificatorCLAS12::ClearMaps()
   trackMap.clear();
   trajMap.clear();
   covMatMap.clear();
+  richHadPartMap.clear();
+  richHadClusterMap.clear();
   return 0;
 }
 
@@ -278,6 +297,14 @@ int TIdentificatorCLAS12::PrintMaps()
   PrintMap(covMatMap);
   std::cout<<std::endl;
 
+  std::cout<<"richHadPart:\n";
+  PrintMap(richHadPartMap);
+  std::cout<<std::endl;
+
+  std::cout<<"richHadCluster:\n";
+  PrintMap(richHadClusterMap);
+  std::cout<<std::endl;
+  
   return 0;
 }
 

@@ -1120,6 +1120,223 @@ inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k,Bool_t kind)
 
 
 
+inline Float_t TIdentificatorCLAS12::RICH_HAD_X(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richHadPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
+  
+  if (index>=0)
+    return RICH__hadrons_traced_hitx->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HAD_Y(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richHadPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
+  
+  if (index>=0)
+    return RICH__hadrons_traced_hity->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HAD_Z(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richHadPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
+  
+  if (index>=0)
+    return RICH__hadrons_traced_hitz->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HAD_T(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richHadPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. hadrons\n";
+  
+  if (index>=0)
+    return RICH__hadrons_traced_time->getValue(index);
+  else 
+    return -1111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_X(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_x->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_Y(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_y->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_Z(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_z->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_T(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_time->getValue(index);
+  else 
+    return -1111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_X(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_x->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_Y(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_y->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_Z(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_z->getValue(index);
+  else 
+    return -1111;
+}
+
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_HX(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_hx->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_HY(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_hy->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_RR_HZ(Int_t k)
+{
+  // REC::RICH
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0) index=richRRPartMap[k][0];
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  
+  if (index>=0)
+    return REC__RICH_hz->getValue(index);
+  else 
+    return -1111;
+}
+
 /*
 
 inline Double_t TIdentificatorCLAS12::ECStatus(Int_t k)

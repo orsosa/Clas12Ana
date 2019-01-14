@@ -1000,6 +1000,24 @@
    hipo::node<float>          *REC__Particle_vx = fReader->getBranch<float>("REC::Particle","vx");
    hipo::node<float>          *REC__Particle_vy = fReader->getBranch<float>("REC::Particle","vy");
    hipo::node<float>          *REC__Particle_vz = fReader->getBranch<float>("REC::Particle","vz");
+
+   hipo::node<float>         *REC__RICH_chi2 = fReader->getBranch<float>("REC::RICH","chi2");
+   hipo::node<int8_t>    *REC__RICH_detector = fReader->getBranch<int8_t>("REC::RICH","detector");
+   hipo::node<float>       *REC__RICH_energy = fReader->getBranch<float>("REC::RICH","energy");
+   hipo::node<float>           *REC__RICH_hx = fReader->getBranch<float>("REC::RICH","hx");
+   hipo::node<float>           *REC__RICH_hy = fReader->getBranch<float>("REC::RICH","hy");
+   hipo::node<float>           *REC__RICH_hz = fReader->getBranch<float>("REC::RICH","hz");
+   hipo::node<int16_t>      *REC__RICH_index = fReader->getBranch<int16_t>("REC::RICH","index");
+   hipo::node<int8_t>       *REC__RICH_layer = fReader->getBranch<int8_t>("REC::RICH","layer");
+   hipo::node<float>         *REC__RICH_path = fReader->getBranch<float>("REC::RICH","path");
+   hipo::node<int16_t>     *REC__RICH_pindex = fReader->getBranch<int16_t>("REC::RICH","pindex");
+   hipo::node<int8_t>      *REC__RICH_sector = fReader->getBranch<int8_t>("REC::RICH","sector");
+   hipo::node<int16_t>     *REC__RICH_status = fReader->getBranch<int16_t>("REC::RICH","status");
+   hipo::node<float>         *REC__RICH_time = fReader->getBranch<float>("REC::RICH","time");
+   hipo::node<float>            *REC__RICH_x = fReader->getBranch<float>("REC::RICH","x");
+   hipo::node<float>            *REC__RICH_y = fReader->getBranch<float>("REC::RICH","y");
+   hipo::node<float>            *REC__RICH_z = fReader->getBranch<float>("REC::RICH","z");
+
    hipo::node<float>          *REC__Scintillator_chi2 = fReader->getBranch<float>("REC::Scintillator","chi2");
    hipo::node<int16_t>   *REC__Scintillator_component = fReader->getBranch<int16_t>("REC::Scintillator","component");
    hipo::node<int8_t>     *REC__Scintillator_detector = fReader->getBranch<int8_t>("REC::Scintillator","detector");
@@ -1214,6 +1232,8 @@
    hipo::node<int8_t>        *RF__tdc_layer = fReader->getBranch<int8_t>("RF::tdc","layer");
    hipo::node<int8_t>        *RF__tdc_order = fReader->getBranch<int8_t>("RF::tdc","order");
    hipo::node<int8_t>       *RF__tdc_sector = fReader->getBranch<int8_t>("RF::tdc","sector");
+
+
    hipo::node<int32_t>         *RICH__adc_ADC = fReader->getBranch<int32_t>("RICH::adc","ADC");
    hipo::node<int16_t>   *RICH__adc_component = fReader->getBranch<int16_t>("RICH::adc","component");
    hipo::node<int8_t>        *RICH__adc_layer = fReader->getBranch<int8_t>("RICH::adc","layer");
@@ -1235,6 +1255,27 @@
    hipo::node<float>          *RICH__clusters_x = fReader->getBranch<float>("RICH::clusters","x");
    hipo::node<float>          *RICH__clusters_y = fReader->getBranch<float>("RICH::clusters","y");
    hipo::node<float>          *RICH__clusters_z = fReader->getBranch<float>("RICH::clusters","z");
+
+   hipo::node<float>           *RICH__hadrons_EtaC_ele = fReader->getBranch<float>("RICH::hadrons","EtaC_ele");
+   hipo::node<float>             *RICH__hadrons_EtaC_k = fReader->getBranch<float>("RICH::hadrons","EtaC_k");
+   hipo::node<float>           *RICH__hadrons_EtaC_max = fReader->getBranch<float>("RICH::hadrons","EtaC_max");
+   hipo::node<float>           *RICH__hadrons_EtaC_min = fReader->getBranch<float>("RICH::hadrons","EtaC_min");
+   hipo::node<float>            *RICH__hadrons_EtaC_pi = fReader->getBranch<float>("RICH::hadrons","EtaC_pi");
+   hipo::node<float>            *RICH__hadrons_EtaC_pr = fReader->getBranch<float>("RICH::hadrons","EtaC_pr");
+   hipo::node<int16_t>        *RICH__hadrons_hit_index = fReader->getBranch<int16_t>("RICH::hadrons","hit_index");
+   hipo::node<int16_t>               *RICH__hadrons_id = fReader->getBranch<int16_t>("RICH::hadrons","id");
+   hipo::node<int16_t>   *RICH__hadrons_particle_index = fReader->getBranch<int16_t>("RICH::hadrons","particle_index");
+   hipo::node<float>        *RICH__hadrons_traced_emix = fReader->getBranch<float>("RICH::hadrons","traced_emix");
+   hipo::node<float>        *RICH__hadrons_traced_emiy = fReader->getBranch<float>("RICH::hadrons","traced_emiy");
+   hipo::node<float>        *RICH__hadrons_traced_emiz = fReader->getBranch<float>("RICH::hadrons","traced_emiz");
+   hipo::node<float>        *RICH__hadrons_traced_hitx = fReader->getBranch<float>("RICH::hadrons","traced_hitx");
+   hipo::node<float>        *RICH__hadrons_traced_hity = fReader->getBranch<float>("RICH::hadrons","traced_hity");
+   hipo::node<float>        *RICH__hadrons_traced_hitz = fReader->getBranch<float>("RICH::hadrons","traced_hitz");
+   hipo::node<float>        *RICH__hadrons_traced_path = fReader->getBranch<float>("RICH::hadrons","traced_path");
+   hipo::node<float>         *RICH__hadrons_traced_phi = fReader->getBranch<float>("RICH::hadrons","traced_phi");
+   hipo::node<float>         *RICH__hadrons_traced_the = fReader->getBranch<float>("RICH::hadrons","traced_the");
+   hipo::node<float>        *RICH__hadrons_traced_time = fReader->getBranch<float>("RICH::hadrons","traced_time");
+
    hipo::node<int16_t>      *RICH__hits_anode = fReader->getBranch<int16_t>("RICH::hits","anode");
    hipo::node<int16_t>    *RICH__hits_cluster = fReader->getBranch<int16_t>("RICH::hits","cluster");
    hipo::node<int16_t>   *RICH__hits_duration = fReader->getBranch<int16_t>("RICH::hits","duration");
@@ -1248,6 +1289,75 @@
    hipo::node<int16_t>       *RICH__hits_tile = fReader->getBranch<int16_t>("RICH::hits","tile");
    hipo::node<int16_t>       *RICH__hits_time = fReader->getBranch<int16_t>("RICH::hits","time");
    hipo::node<int16_t>      *RICH__hits_xtalk = fReader->getBranch<int16_t>("RICH::hits","xtalk");
+
+   hipo::node<float>      *RICH__newclusters_charge = fReader->getBranch<float>("RICH::newclusters","charge");
+   hipo::node<int16_t>        *RICH__newclusters_id = fReader->getBranch<int16_t>("RICH::newclusters","id");
+   hipo::node<int16_t>       *RICH__newclusters_pmt = fReader->getBranch<int16_t>("RICH::newclusters","pmt");
+   hipo::node<float>     *RICH__newclusters_rawtime = fReader->getBranch<float>("RICH::newclusters","rawtime");
+   hipo::node<int16_t>    *RICH__newclusters_sector = fReader->getBranch<int16_t>("RICH::newclusters","sector");
+   hipo::node<int16_t>      *RICH__newclusters_size = fReader->getBranch<int16_t>("RICH::newclusters","size");
+   hipo::node<int16_t>      *RICH__newclusters_tile = fReader->getBranch<int16_t>("RICH::newclusters","tile");
+   hipo::node<float>        *RICH__newclusters_time = fReader->getBranch<float>("RICH::newclusters","time");
+   hipo::node<float>       *RICH__newclusters_wtime = fReader->getBranch<float>("RICH::newclusters","wtime");
+   hipo::node<float>          *RICH__newclusters_wx = fReader->getBranch<float>("RICH::newclusters","wx");
+   hipo::node<float>          *RICH__newclusters_wy = fReader->getBranch<float>("RICH::newclusters","wy");
+   hipo::node<float>          *RICH__newclusters_wz = fReader->getBranch<float>("RICH::newclusters","wz");
+   hipo::node<float>           *RICH__newclusters_x = fReader->getBranch<float>("RICH::newclusters","x");
+   hipo::node<float>           *RICH__newclusters_y = fReader->getBranch<float>("RICH::newclusters","y");
+   hipo::node<float>           *RICH__newclusters_z = fReader->getBranch<float>("RICH::newclusters","z");
+   hipo::node<int16_t>      *RICH__newhits_anode = fReader->getBranch<int16_t>("RICH::newhits","anode");
+   hipo::node<int16_t>    *RICH__newhits_cluster = fReader->getBranch<int16_t>("RICH::newhits","cluster");
+   hipo::node<int16_t>   *RICH__newhits_duration = fReader->getBranch<int16_t>("RICH::newhits","duration");
+   hipo::node<int16_t>        *RICH__newhits_glx = fReader->getBranch<int16_t>("RICH::newhits","glx");
+   hipo::node<int16_t>        *RICH__newhits_gly = fReader->getBranch<int16_t>("RICH::newhits","gly");
+   hipo::node<int16_t>         *RICH__newhits_id = fReader->getBranch<int16_t>("RICH::newhits","id");
+   hipo::node<int16_t>        *RICH__newhits_idx = fReader->getBranch<int16_t>("RICH::newhits","idx");
+   hipo::node<int16_t>        *RICH__newhits_idy = fReader->getBranch<int16_t>("RICH::newhits","idy");
+   hipo::node<int16_t>        *RICH__newhits_pmt = fReader->getBranch<int16_t>("RICH::newhits","pmt");
+   hipo::node<float>      *RICH__newhits_rawtime = fReader->getBranch<float>("RICH::newhits","rawtime");
+   hipo::node<int16_t>     *RICH__newhits_sector = fReader->getBranch<int16_t>("RICH::newhits","sector");
+   hipo::node<int16_t>       *RICH__newhits_tile = fReader->getBranch<int16_t>("RICH::newhits","tile");
+   hipo::node<float>         *RICH__newhits_time = fReader->getBranch<float>("RICH::newhits","time");
+   hipo::node<float>            *RICH__newhits_x = fReader->getBranch<float>("RICH::newhits","x");
+   hipo::node<int16_t>      *RICH__newhits_xtalk = fReader->getBranch<int16_t>("RICH::newhits","xtalk");
+   hipo::node<float>            *RICH__newhits_y = fReader->getBranch<float>("RICH::newhits","y");
+   hipo::node<float>            *RICH__newhits_z = fReader->getBranch<float>("RICH::newhits","z");
+   hipo::node<float>      *RICH__photons_analytic_EtaC = fReader->getBranch<float>("RICH::photons","analytic_EtaC");
+   hipo::node<float>     *RICH__photons_analytic_aeron = fReader->getBranch<float>("RICH::photons","analytic_aeron");
+   hipo::node<float>      *RICH__photons_analytic_bgpr = fReader->getBranch<float>("RICH::photons","analytic_bgpr");
+   hipo::node<float>      *RICH__photons_analytic_elpr = fReader->getBranch<float>("RICH::photons","analytic_elpr");
+   hipo::node<float>       *RICH__photons_analytic_kpr = fReader->getBranch<float>("RICH::photons","analytic_kpr");
+   hipo::node<int16_t>    *RICH__photons_analytic_nrfl = fReader->getBranch<int16_t>("RICH::photons","analytic_nrfl");
+   hipo::node<int16_t>    *RICH__photons_analytic_nrfr = fReader->getBranch<int16_t>("RICH::photons","analytic_nrfr");
+   hipo::node<float>      *RICH__photons_analytic_path = fReader->getBranch<float>("RICH::photons","analytic_path");
+   hipo::node<float>       *RICH__photons_analytic_phi = fReader->getBranch<float>("RICH::photons","analytic_phi");
+   hipo::node<float>      *RICH__photons_analytic_pipr = fReader->getBranch<float>("RICH::photons","analytic_pipr");
+   hipo::node<float>      *RICH__photons_analytic_prpr = fReader->getBranch<float>("RICH::photons","analytic_prpr");
+   hipo::node<float>       *RICH__photons_analytic_the = fReader->getBranch<float>("RICH::photons","analytic_the");
+   hipo::node<float>      *RICH__photons_analytic_time = fReader->getBranch<float>("RICH::photons","analytic_time");
+   hipo::node<int16_t>     *RICH__photons_hadron_index = fReader->getBranch<int16_t>("RICH::photons","hadron_index");
+   hipo::node<int16_t>        *RICH__photons_hit_index = fReader->getBranch<int16_t>("RICH::photons","hit_index");
+   hipo::node<int16_t>               *RICH__photons_id = fReader->getBranch<int16_t>("RICH::photons","id");
+   hipo::node<float>         *RICH__photons_start_time = fReader->getBranch<float>("RICH::photons","start_time");
+   hipo::node<float>        *RICH__photons_traced_EtaC = fReader->getBranch<float>("RICH::photons","traced_EtaC");
+   hipo::node<float>       *RICH__photons_traced_aeron = fReader->getBranch<float>("RICH::photons","traced_aeron");
+   hipo::node<float>        *RICH__photons_traced_bgpr = fReader->getBranch<float>("RICH::photons","traced_bgpr");
+   hipo::node<float>        *RICH__photons_traced_elpr = fReader->getBranch<float>("RICH::photons","traced_elpr");
+   hipo::node<float>        *RICH__photons_traced_hitx = fReader->getBranch<float>("RICH::photons","traced_hitx");
+   hipo::node<float>        *RICH__photons_traced_hity = fReader->getBranch<float>("RICH::photons","traced_hity");
+   hipo::node<float>        *RICH__photons_traced_hitz = fReader->getBranch<float>("RICH::photons","traced_hitz");
+   hipo::node<float>         *RICH__photons_traced_kpr = fReader->getBranch<float>("RICH::photons","traced_kpr");
+   hipo::node<int16_t>      *RICH__photons_traced_nrfl = fReader->getBranch<int16_t>("RICH::photons","traced_nrfl");
+   hipo::node<int16_t>      *RICH__photons_traced_nrfr = fReader->getBranch<int16_t>("RICH::photons","traced_nrfr");
+   hipo::node<float>        *RICH__photons_traced_path = fReader->getBranch<float>("RICH::photons","traced_path");
+   hipo::node<float>         *RICH__photons_traced_phi = fReader->getBranch<float>("RICH::photons","traced_phi");
+   hipo::node<float>        *RICH__photons_traced_pipr = fReader->getBranch<float>("RICH::photons","traced_pipr");
+   hipo::node<float>        *RICH__photons_traced_prpr = fReader->getBranch<float>("RICH::photons","traced_prpr");
+   hipo::node<float>         *RICH__photons_traced_the = fReader->getBranch<float>("RICH::photons","traced_the");
+   hipo::node<float>        *RICH__photons_traced_time = fReader->getBranch<float>("RICH::photons","traced_time");
+   hipo::node<int16_t>             *RICH__photons_type = fReader->getBranch<int16_t>("RICH::photons","type");
+
+
    hipo::node<int32_t>         *RICH__tdc_TDC = fReader->getBranch<int32_t>("RICH::tdc","TDC");
    hipo::node<int16_t>   *RICH__tdc_component = fReader->getBranch<int16_t>("RICH::tdc","component");
    hipo::node<int8_t>        *RICH__tdc_layer = fReader->getBranch<int8_t>("RICH::tdc","layer");
