@@ -7,6 +7,8 @@
 #include "TString.h"
 #include "TVector3.h"
 
+#define  MAXNFILES 2000
+
 class TIdentificatorCLAS12 {
 public:
   TIdentificatorCLAS12();

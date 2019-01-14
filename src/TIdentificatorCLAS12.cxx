@@ -146,8 +146,13 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE)
   {
     if ( !fn.IsNull() )
     {
-      std::cout<<fn<<std::endl;
-      flist.push_back(fn);    
+      
+      flist.push_back(fn);
+      if (flist.size() == MAXNFILES)
+      {
+	std::cout<< "Maximum of " << MAXNFILES <<" files reached\n";
+	break;
+      }
     }
   }
   Nfiles = flist.size();
