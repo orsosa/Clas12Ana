@@ -19,12 +19,13 @@ int main(int argc, char **argv)
   bm.Start(argv[0]);
   bool simul_key = 0;
 
-  if (argc!=2)
+  if (argc<2)
   {
-    std::cout<<"you must supply one hipo file.\n";
+    std::cout<<"you must supply at least one hipo file.\n";
     exit(1);
   }
   TString fname = argv[1];
+  for (int k=2;k<argc;k++){fname=fname + " " + argv[k];}
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;

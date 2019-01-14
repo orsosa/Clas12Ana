@@ -127,6 +127,8 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.)
 {
     // Create a TIdentificator object, related to hipo reader.
+  Nfiles=1;
+  kCurrentFileIndex=0;
   this->fReader = reader;
   InitNodes();
   InitDetectorMap();
@@ -137,8 +139,22 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.)
 {
   // Create a TIdentificator object, related to hipo reader.
+  TString fn;
+  Ssiz_t start =0;
+
+  while (fname.Tokenize(fn,start,"[ \n]"))
+  {
+    if ( !fn.IsNull() )
+    {
+      std::cout<<fn<<std::endl;
+      flist.push_back(fn);    
+    }
+  }
+  Nfiles = flist.size();
+  kCurrentFileIndex=0;
+  
   hipo::reader  *reader = new hipo::reader();
-  reader->open(fname);
+  reader->open(flist[kCurrentFileIndex]);
   this->fReader = reader;
   InitNodes();
   InitDetectorMap();
@@ -157,6 +173,14 @@ Bool_t TIdentificatorCLAS12::Next()
 
   bool ret = fReader->next();
   if (ret)  FillResponseMaps();
+  else
+  {
+    if (++kCurrentFileIndex<Nfiles)
+    {
+      fReader->open(flist[kCurrentFileIndex]);
+      ret = fReader->next();
+    }
+  }
   return ret;
   
 }
@@ -225,9 +249,9 @@ int TIdentificatorCLAS12::FillResponseMaps()
   FillMap(REC__Track_pindex,trackMap);
   FillMap(REC__Traj_pindex,trajMap);
   FillMap(REC__CovMat_pindex,covMatMap);
+
   FillMap(RICH__hadrons_particle_index,richHadPartMap);
   FillMapRev(RICH__hadrons_hit_index,richHadClusterMap);
-
   FillMap(REC__RICH_pindex,richRRPartMap);
   FillMapRev(REC__RICH_index,richRRClusterMap);
   
@@ -237,6 +261,7 @@ int TIdentificatorCLAS12::FillResponseMaps()
 
 int TIdentificatorCLAS12::FillMap(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
 {
+  if (!pi) return 0;
   int N = (int)pi->getLength();
   for (int i =0;i<N;i++)
   {
@@ -248,6 +273,7 @@ int TIdentificatorCLAS12::FillMap(hipo::node<int16_t> *pi,std::map <int,std::vec
 
 int TIdentificatorCLAS12::FillMapRev(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
 {
+  if (!pi) return 0;
   int N = (int)pi->getLength();
   for (int i =0;i<N;i++)
   {

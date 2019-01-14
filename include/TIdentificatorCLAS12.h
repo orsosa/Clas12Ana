@@ -249,6 +249,11 @@ private:
     const Double_t kMntr;     // The mass of the neutron
     const Double_t kGOOD;     // The key for the exceptions (should be improved to avoid it at all !!!)
     hipo::reader *fReader;
+    Int_t Nfiles;
+    Int_t kCurrentFileIndex;
+    std::vector<TString> flist;
+
+
     /*
     TClasTool *fCT;           // Pointer to the main ClasTool object
     TEVNTClass *fEVNT;        // Pointer to the EVNT object
