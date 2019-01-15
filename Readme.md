@@ -1,4 +1,4 @@
-#Clas12 Analysis tool
+# Clas12 Analysis tool
 ## Compiling
 - define the environment variables HIPODIR, LZ4DIR and CLAS12ANA to the root installation of the different packages (the last one to this folder)
 - run scons on this folder
@@ -12,7 +12,7 @@ setenv CLAS12ANA `pwd`
 scons
 ```
 
-##It includes two examples:
+## Two examples included:
 
 - get_simple_tuple uses the library to read hipo files and produce root ntuples.
 - particle_mix uses the ntuple produced by the get_simple_tuple and make combination of particles (reconstruction of short living particles, pions correlation, etc.)
