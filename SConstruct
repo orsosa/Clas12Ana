@@ -59,7 +59,7 @@ env.Append(LIBPATH=libdir)
 
 env.Append(CONFIGUREDIR=[LZ4DIR + "/lib",HIPODIR + "/lib"])
 
-env.Append(LIBS=["Gui" ,"Core" ,"Imt" ,"RIO" ,"Net", "Hist", "Graf" ,"Graf3d" ,"Gpad" ,"Tree" ,"TreePlayer" ,"Rint" ,"Postscript" ,"Matrix" ,"Physics" ,"MathCore","Thread", "MultiProc" ,"m", "dl","EG"])
+env.Append(LIBS=["Gui" ,"Core" ,"Imt" ,"RIO" ,"Net", "Hist", "Graf" ,"Graf3d" ,"Gpad" ,"Tree" ,"TreePlayer" ,"Rint" ,"Postscript" ,"Matrix" ,"Physics" ,"MathCore","Thread", "MultiProc" ,"m","dl","EG"])
 
 lib_target = "TIdentificatorCLAS12"
 libsrc = ["Categorize.cxx","TIdentificatorCLAS12.cxx","node_assignment.cxx"]

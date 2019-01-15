@@ -16,3 +16,11 @@ scons
 
 - get_simple_tuple uses the library to read hipo files and produce root ntuples.
 - particle_mix uses the ntuple produced by the get_simple_tuple and make combination of particles (reconstruction of short living particles, pions correlation, etc.)
+
+
+## Troubleshooting
+- scons fail becouse python 3 compatibility. try:
+```
+python2.7 `which scons`
+```
+- examples not running because shared library libTIdentificatorClas12.so not found. Try adding the ${CLAS12ANA}/shlib to your LD_LIBRARY_PATH
