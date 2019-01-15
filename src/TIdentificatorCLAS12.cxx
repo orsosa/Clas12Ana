@@ -358,7 +358,7 @@ int TIdentificatorCLAS12::Pid(int k,Bool_t kind)
   if (kind == 0)
     return (int)REC__Particle_pid->getValue(k);
   else
-    return (int)MC__Particle_pid->getValue(k);
+    return (int)MC__Lund_pid->getValue(k);
 }
 
 
