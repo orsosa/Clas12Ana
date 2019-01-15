@@ -19,34 +19,10 @@ inline Float_t TIdentificatorCLAS12::NEvent()
 
 
 
-inline Double_t TIdentificatorCLAS12::Beta(Int_t k, Bool_t kind)
+inline Double_t TIdentificatorCLAS12::Beta(Int_t k)
 {
-  if (kind == 0){
     return REC__Particle_beta->getValue(k);
-  }  else{
-    return -111; // to be implemented
-  }
 }
-/*
-inline Double_t TIdentificatorCLAS12::Id(Int_t k, Bool_t kind)
-{
-    // Return the ID of the particle in the row k, from Particle Data Group
-    // (PDG), estimated from some preliminary analysis during data
-    // calibration.
-    //
-    // If kind is zero, the EVNT bank is used. If not, the GSIM bank is used
-    // instead.
-
-    if (kind == 0) {
-        fEVNT = (TEVNTClass *) fCT->GetBankRow("EVNT", k);
-        return fEVNT->Id;
-    } else {                            // Fix this in case kind != 1
-        fGSIM = (TGSIMClass *) fCT->GetBankRow("GSIM", k);
-        return fGSIM->Id;
-    }
-}
-
-*/
 
 inline Double_t TIdentificatorCLAS12::Charge(Int_t k, Bool_t kind)
 {
@@ -55,9 +31,8 @@ inline Double_t TIdentificatorCLAS12::Charge(Int_t k, Bool_t kind)
 
     if (kind == 0) {
       return REC__Particle_charge->getValue(k);
-    } else {                           
-  
-      return -111; // to be implemented
+    } else {
+      return -111; // Not found in MC__xxx banks
     }
 }
 
@@ -68,8 +43,8 @@ inline Double_t TIdentificatorCLAS12::Px(Int_t k, Bool_t kind)
 
     if (kind == 0) {
       return REC__Particle_px->getValue(k);
-    } else {                            // Fix this in case kind != 1
-      return -111;
+    } else {                
+      return MC__Lund_px->getValue(k);
     }
 }
 
@@ -78,9 +53,9 @@ inline Double_t TIdentificatorCLAS12::Px(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Py(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-	return REC__Particle_py->getValue(k);
-    } else {                            // Fix this in case kind != 1
-        return -111;
+      return REC__Particle_py->getValue(k);
+    } else {                
+      return MC__Lund_py->getValue(k);
     }
 }
 
@@ -89,9 +64,9 @@ inline Double_t TIdentificatorCLAS12::Py(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Pz(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-	return REC__Particle_pz->getValue(k);
-    } else {                            // Fix this in case kind != 1
-        return -111;
+      return REC__Particle_pz->getValue(k);
+    } else {                
+      return MC__Lund_pz->getValue(k);
     }
 }
 
@@ -102,7 +77,7 @@ inline Double_t TIdentificatorCLAS12::X(Int_t k, Bool_t kind)
     if (kind == 0) {
       return REC__Particle_vx->getValue(k);
     } else { 
-      return -111;
+      return MC__Lund_vx->getValue(k);
     }
 }
 
@@ -112,7 +87,7 @@ inline Double_t TIdentificatorCLAS12::Y(Int_t k, Bool_t kind)
     if (kind == 0) {
       return REC__Particle_vy->getValue(k);
     } else { 
-      return -111;
+      return MC__Lund_vy->getValue(k);
     }
 }
 
@@ -122,7 +97,7 @@ inline Double_t TIdentificatorCLAS12::Z(Int_t k, Bool_t kind)
     if (kind == 0) {
       return REC__Particle_vz->getValue(k);
     } else {                            // Fix this
-        return -111;
+      return MC__Lund_vz->getValue(k);
     }
 }
 
@@ -230,7 +205,17 @@ inline Int_t TIdentificatorCLAS12::GetNRows()
 {
   return  REC__Particle_pid->getLength();
 }
-/*
+
+inline Int_t TIdentificatorCLAS12::GetMCNRows()
+{
+  return  MC__Lund_pid->getLength();
+}
+
+inline Float_t TIdentificatorCLAS12::MCMass(Int_t k)
+{
+  return MC__Lund_mass->getValue(k);
+}
+  /*
 
 inline Double_t TIdentificatorCLAS12::CCStatus(Int_t k)
 {
@@ -267,12 +252,14 @@ inline Double_t TIdentificatorCLAS12::DCStatus(Int_t k)
 
 */
 
-inline Double_t TIdentificatorCLAS12::Etot(Int_t k)
+inline Double_t TIdentificatorCLAS12::Etot(Int_t k,Bool_t kind)
 {
     // Return total energy deposited in the calorimeter for the particle in
     // the row k of the EVNT bank.
-
-  return Ein(k) + Eout(k) + Epcal(k);
+  if (kind==0)
+    return Ein(k) + Eout(k) + Epcal(k);
+  else
+    return MC__Lund_E->getValue(k);
 }
 
 
@@ -341,7 +328,7 @@ inline Double_t TIdentificatorCLAS12::Epcal(Int_t k)
 }
 
 
-inline Int_t TIdentificatorCLAS12::SectorLTCC(Int_t k,Bool_t kind)
+inline Int_t TIdentificatorCLAS12::SectorLTCC(Int_t k)
 {
   int N = cherenkovMap[k].size();
   int index=-1;
@@ -361,7 +348,7 @@ inline Int_t TIdentificatorCLAS12::SectorLTCC(Int_t k,Bool_t kind)
 }
 
 
-inline Int_t TIdentificatorCLAS12::SectorHTCC(Int_t k,Bool_t kind)
+inline Int_t TIdentificatorCLAS12::SectorHTCC(Int_t k)
 {
   int N = cherenkovMap[k].size();
   int index=-1;
@@ -380,7 +367,7 @@ inline Int_t TIdentificatorCLAS12::SectorHTCC(Int_t k,Bool_t kind)
     return -111;
 }
 
-inline Int_t TIdentificatorCLAS12::SectorECAL(Int_t k,Bool_t kind)
+inline Int_t TIdentificatorCLAS12::SectorECAL(Int_t k)
 {
   
   Int_t N = calorimeterMap[k].size();
@@ -825,7 +812,7 @@ inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
     return -111;
 }
 
-inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k, Bool_t kind)
+inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
 {
   Int_t N = trackMap[k].size();
   Int_t index=-1;
@@ -903,7 +890,7 @@ inline Float_t TIdentificatorCLAS12::Pz_DC(Int_t k)
 }
 
 
-inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl)
 {
   
   Int_t N = trajMap[k].size();
@@ -922,7 +909,7 @@ inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl,Bool_t kind)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajY(Int_t k,Int_t sl,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajY(Int_t k,Int_t sl)
 {
   
   Int_t N = trajMap[k].size();
@@ -941,7 +928,7 @@ inline Float_t TIdentificatorCLAS12::TrajY(Int_t k,Int_t sl,Bool_t kind)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl)
 {
   
   Int_t N = trajMap[k].size();
@@ -961,7 +948,7 @@ inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl,Bool_t kind)
 }
 
 
-inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg)
 {
   Int_t N = trajMap[k].size();
   Int_t index=-1;
@@ -980,7 +967,7 @@ inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg,Bool_t kind)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajDCY(Int_t k,Int_t reg,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajDCY(Int_t k,Int_t reg)
 {
   
   Int_t N = trajMap[k].size();
@@ -1000,7 +987,7 @@ inline Float_t TIdentificatorCLAS12::TrajDCY(Int_t k,Int_t reg,Bool_t kind)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg)
 {
   
   Int_t N = trajMap[k].size();
@@ -1021,7 +1008,7 @@ inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg,Bool_t kind)
 }
 
 
-inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k)
 {
   Int_t N = scintillatorMap[k].size();
   Int_t index=-1;
@@ -1053,7 +1040,7 @@ inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k,Bool_t kind)
     return -111;
 }
 
-inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k,Bool_t kind)
+inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k)
 {
   Int_t N = scintillatorMap[k].size();
   Int_t index=-1;
@@ -1085,7 +1072,7 @@ inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k,Bool_t kind)
     return -111;
 }
 
-inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k,Bool_t kind)
+inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k)
 {
   Int_t N = scintillatorMap[k].size();
   Int_t index=-1;

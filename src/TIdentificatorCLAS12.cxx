@@ -353,9 +353,12 @@ int TIdentificatorCLAS12::PrintMap(std::map <int,std::vector<int>> &mp)
   return 0;
 }
 
-int TIdentificatorCLAS12::Pid(int k)
+int TIdentificatorCLAS12::Pid(int k,Bool_t kind)
 {
-  return (int)REC__Particle_pid->getValue(k);
+  if (kind == 0)
+    return (int)REC__Particle_pid->getValue(k);
+  else
+    return (int)MC__Particle_pid->getValue(k);
 }
 
 

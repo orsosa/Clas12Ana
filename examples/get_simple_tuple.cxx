@@ -24,13 +24,20 @@ int main(int argc, char **argv)
     std::cout<<"you must supply at least one hipo file.\n";
     exit(1);
   }
-  TString fname = argv[1];
-  for (int k=2;k<argc;k++){fname=fname + " " + argv[k];}
+  TString fname="";
+  for (int k=1;k<argc;k++)
+  {
+    if (strcmp(argv[k],"-s")!=0)
+      fname = fname + " " + argv[k];
+    else
+      simul_key = 1;
+  }
+
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
 
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2";
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass";
 
   Int_t Nvar = VarList.CountChar(':')+1;
  
@@ -42,10 +49,10 @@ int main(int argc, char **argv)
 
   if(simul_key == 0) {
     NtupleName = "ntuple_data";
-    output = new TFile("outfiles/prune_data_test.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/pruned_data.root", "RECREATE", "Data of particles");
   } else { 
     NtupleName = "ntuple_accept";
-    output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/pruned_simul.root", "RECREATE", "Data of particles");
   }
 
   TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal");
@@ -57,22 +64,18 @@ int main(int argc, char **argv)
   TNtuple *e_thrown=0;
   if(simul_key == 1) {
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",VarList);
-    e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event");
+    e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass");
 }
 
-//  TH1F *ht = new TH1F("ht","tdiff",1000,-15,15); 
   cout.width(4);
   Int_t event=0;
 
   while (t->Next())
   {
-      //    t->PrintMaps();
     Int_t nRows = t->GetNRows();
-    //    const char * tt = "C";
-    //if(nRows>0 && (t->GetCategorization(0,tt)) == "electron" && t -> Q2() > 1. && t -> W() > 2. && t -> Nu() / 5.015 < 0.85)
+
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-      //Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -160,7 +163,6 @@ int main(int argc, char **argv)
       DataElec[62] = t->SectorECAL(0);
 
       tElec->Fill(DataElec);
-
       Int_t NmbPion = 0;
       for (Int_t i = 1; i < nRows; i++) 
       {
@@ -363,6 +365,7 @@ int main(int argc, char **argv)
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[155] = dcx_rot;//region 2
 	  vars[156] = dcy_rot;//region 2
+	  vars[157] = 0;// mc mass
 
 
 	  ntuple->Fill(vars);
@@ -370,91 +373,201 @@ int main(int argc, char **argv)
       }
     }
 
-    
-    /*
-    if(false)//simul_key == 1 && t -> Id(0,1)==11) 
+    nRows = t->GetMCNRows();    
+    if(nRows>0 && (simul_key == 1 && t -> Pid(0,1)==11)) 
     {
-      
-      
+
       DataElec[0] = t -> Q2(1);
       DataElec[1] = t -> W(1);
       DataElec[2] = t -> Nu(1);
-      DataElec[3] = t -> Z(0,1); 
-      DataElec[4] = t -> Px(0,1);
-      DataElec[5] = t -> Py(0,1);
-      DataElec[6] = t -> Pz(0,1);
-      DataElec[7] = 0;
+      DataElec[3] = t -> Px(0,1);
+      DataElec[4] = t -> Py(0,1);
+      DataElec[5] = t -> Pz(0,1);
+      DataElec[6] = t -> X(0,1);
+      DataElec[7] = t -> Y(0,1);
+      DataElec[8] = t -> Z(0,1);
+      DataElec[9] = t->MCMass(0);
 
       e_thrown->Fill(DataElec);
 
-      //      std::cout<<"got electron gsim"<<std::endl;
       Int_t NmbPion = 0;
-      for(t->Next()) 
-
+      for(int i=1; i<nRows; i++) 
       {
-	
-      	if(t -> Id(i,1)==22 || t -> Id(i,1)==-211 || t -> Id(i,1)==211 ) //gamma: 1/22, pi0,+,-: 7/111,8/211,9 (Geant3/pdg)
+      	if(t -> Pid(i,1)==22 || t -> Pid(i,1)==-211 || t -> Pid(i,1)==211 ) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
-	        vars[0] = t -> ElecVertTarg(1);
-	        vars[1] = t -> Q2(1);
-	        vars[2] = t -> Nu(1);
-	        vars[3] = t -> Xb(1);
-	        vars[4] = t -> W(1);
-	        vars[5] = t -> Sector(0,1);
-	        vars[6] = t -> ThetaPQ(i,1);
-	        vars[7] = t -> PhiPQ(i,1);
-	        vars[8] = t -> Zh(i,1);
-	        vars[9] = TMath::Sqrt(t -> Pt2(i,1));
-	        vars[10] = t -> Mx2(i,1);
-	        vars[11] = t -> Xf(i,1);
-	        vars[12] = t -> T(i,1);
-	        vars[13] = t -> Momentum(i,1);
-	        vars[14] = 0;//t -> TimeCorr4(0.139570,i);
-	        vars[15] = (t -> Z(i,1)) - (t -> Z(0,1));
-	        vars[16] = t->Momentum(i,1);//TMath::Max(t->Etot(i),t->Ein(i)+t->Eout(i));;
-		vars[17] = TMath::Sqrt(t->Momentum(0,1)*t->Momentum(0,1)+kMe*kMe); //TMath::Max(t->Etot(0),t->Ein(0)+t->Eout(0));
-		vars[18] =t->Momentum(0,1);
+	  vars[0] = 0;//t -> ElecVertTarg();
+	  vars[1] = t -> Q2(1);
+	  vars[2] = t -> Nu(1);
+	  vars[3] = t -> Xb(1);
+	  vars[4] = t -> W(1);
+	  vars[5] = t -> Sector(0,1);
+	  vars[6] = t -> ThetaPQ(i,1);
+	  vars[7] = t -> PhiPQ(i,1);
+	  vars[8] = t -> Zh(i,1);
+	  vars[9] = TMath::Sqrt(t -> Pt2(i,1));
+	  vars[10] = t -> Mx2(i,1);
+	  vars[11] = t -> Xf(i,1);
+	  vars[12] = t -> T(i,1);
+	  vars[13] = t -> Momentum(i,1);
+	  vars[14] = 0;//t -> TimeCorr4(0.139570,i);
+	  vars[15] = (t -> Z(i,1)) - (t -> Z(0,1));
+	  vars[16] = sqrt(t -> Momentum(i,1)*t -> Momentum(i,1) + t->MCMass(i)*t->MCMass(i));//,t->Ein(i)+t->Eout(i));
+	  vars[17] = sqrt(t -> Momentum(0,1)*t -> Momentum(0,1) + t->MCMass(0)*t->MCMass(0));//,t->Ein(0)+t->Eout(0));
+          vars[18] = t->Momentum(0,1);
           vars[19] = 0;//t->TimeEC(0);
           vars[20] = 0;//t->TimeSC(0);
           vars[21] = 0;//t->PathEC(0);
           vars[22] = 0;//t->PathSC(0);
-          vars[23] = k;
+          vars[23] = event;
           vars[24] = t->Px(i,1);
           vars[25] = t->Py(i,1);
           vars[26] = t->Pz(i,1);
           vars[27] = t->X(0,1);
           vars[28] = t->Y(0,1);
           vars[29] = t->Z(0,1);
-          //vert = t->GetCorrectedVert();
-          vars[30] = t->X(0,1);//vert->X(); 
-          vars[31] = t->Y(0,1);//vert->Y(); 
-          vars[32] = t->Z(0,1);//vert->Z(); 
+          vars[30] = 0;//vert->X(); 
+          vars[31] = 0;//vert->Y(); 
+          vars[32] = 0;//vert->Z(); 
           vars[33] = 0;//t->TimeEC(i);
-          vars[34] = 0;//t->XEC(i);
-          vars[35] = 0;//t->YEC(i);
-          vars[36] = 0;//t->ZEC(i);
+          vars[34] = 0;//t->VX_DC(i);//t->XEC(i);
+          vars[35] = 0;//t->VY_DC(i);//t->YEC(i);
+          vars[36] = 0;//t->VZ_DC(i);//t->ZEC(i);
           vars[37] = t->Px(0,1);
           vars[38] = t->Py(0,1);
           vars[39] = t->Pz(0,1);
-
-	  vars[40] = 0;
-	  vars[41] = 0;
-	  vars[42] = 0;
-	  vars[43] = 0;
-	  vars[44] = t -> Id(i,1);
-	  vars[45] = t->Betta(i,1);
+          vars[40] = 0;//t->Ein(i);
+          vars[41] = 0;//t->Eout(i);
+          vars[42] = 0;//t->Ein(0);
+          vars[43] = 0;//t->Eout(0);
+	  vars[44] = t->Pid(i,1);
+	  vars[45] = t->Momentum(i,1)/t->Etot(i,1);
           vars[46] = t->X(i,1);
           vars[47] = t->Y(i,1);
           vars[48] = t->Z(i,1);
-    
-      ntuple_thrown->Fill(vars);
+	  vars[49] = 0;//t->NpheLTCC(i);
+	  vars[50] = 0;//t->NpheHTCC(i);
+	  vars[51] = 0;//t->NpheLTCC(0);
+	  vars[52] = 0;//t->NpheHTCC(0);
+	  vars[53] = 0;//t->Chi2pid(0);
+	  vars[54] = 0;//t->Chi2pid(i);
+          vars[55] = 0;//t->Epcal(0);
+	  vars[56] = 0;//t->Epcal(i);
+	  vars[57] = 0;//t->SectorLTCC(0);
+	  vars[58] = 0;//t->SectorHTCC(0);
+	  vars[59] = 0;//t->SectorECAL(0);
+	  vars[60] = 0;//t->SectorLTCC(i);
+	  vars[61] = 0;//t->SectorHTCC(i);
+	  vars[62] = 0;//t->SectorECAL(i);
+	  vars[63] = 0;//t->Helic();
+
+	  vars[64] = 0;//t->LU_PCAL();
+	  vars[65] = 0;//t->LV_PCAL();
+	  vars[66] = 0;//t->LW_PCAL();
+	  vars[67] = 0;//t->LU_ECIN();
+	  vars[68] = 0;//t->LV_ECIN();
+	  vars[69] = 0;//t->LW_ECIN();
+	  vars[70] = 0;//t->LU_ECOUT();
+	  vars[71] = 0;//t->LV_ECOUT();
+	  vars[72] = 0;//t->LW_ECOUT();
+
+	  vars[73] = 0;//t->LU_PCAL(i);
+	  vars[74] = 0;//t->LV_PCAL(i);
+	  vars[75] = 0;//t->LW_PCAL(i);
+	  vars[76] = 0;//t->LU_ECIN(i);
+	  vars[77] = 0;//t->LV_ECIN(i);
+	  vars[78] = 0;//t->LW_ECIN(i);
+	  vars[79] = 0;//t->LU_ECOUT(i);
+	  vars[80] = 0;//t->LV_ECOUT(i);
+	  vars[81] = 0;//t->LW_ECOUT(i);
+
+	  vars[82] = 0;//t->HX_PCAL();
+	  vars[83] = 0;//t->HY_PCAL();
+	  vars[84] = 0;//t->HZ_PCAL();
+	  vars[85] = 0;//t->HX_ECIN();
+	  vars[86] = 0;//t->HY_ECIN();
+	  vars[87] = 0;//t->HZ_ECIN();
+	  vars[88] = 0;//t->HX_ECOUT();
+	  vars[89] = 0;//t->HY_ECOUT();
+	  vars[90] = 0;//t->HZ_ECOUT();
+	  //vars[91] = 0;//t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
+	  vars[92] = 0;//t->Status(i);
+	  vars[93] = 0;//t->Status(0);
+	  vars[94] = 0;//t->Px_DC(0);
+	  vars[95] = 0;//t->Py_DC(0);
+	  vars[96] = 0;//t->Pz_DC(0);
+	  vars[97] = 0;//t->Px_DC(i);
+	  vars[98] = 0;//t->Py_DC(i);
+	  vars[99] = 0;//t->Pz_DC(i);
+	  vars[100] = 0;//t->TrajX(i,0);
+	  vars[101] = 0;//t->TrajX(i,1);
+	  vars[102] = 0;//t->TrajX(i,2);
+	  vars[103] = 0;//t->TrajX(i,3);
+	  vars[104] = 0;//t->TrajX(i,4);
+	  vars[105] = 0;//t->TrajX(i,5);
+	  vars[106] = 0;//t->TrajY(i,0);
+	  vars[107] = 0;//t->TrajY(i,1);
+	  vars[108] = 0;//t->TrajY(i,2);
+	  vars[109] = 0;//t->TrajY(i,3);
+	  vars[110] = 0;//t->TrajY(i,4);
+	  vars[111] = 0;//t->TrajY(i,5);
+	  vars[112] = 0;//t->TrajZ(i,0);
+	  vars[113] = 0;//t->TrajZ(i,1);
+	  vars[114] = 0;//t->TrajZ(i,2);
+	  vars[115] = 0;//t->TrajZ(i,3);
+	  vars[116] = 0;//t->TrajZ(i,4);
+	  vars[117] = 0;//t->TrajZ(i,5);
+
+	  vars[118] = 0;//t->TrajDCX(i,0);
+	  vars[119] = 0;//t->TrajDCX(i,1);
+	  vars[120] = 0;//t->TrajDCX(i,2);
+	  vars[121] = 0;//t->TrajDCY(i,0);
+	  vars[122] = 0;//t->TrajDCY(i,1);
+	  vars[123] = 0;//t->TrajDCY(i,2);
+	  vars[124] = 0;//t->TrajDCZ(i,0);
+	  vars[125] = 0;//t->TrajDCZ(i,1);
+	  vars[126] = 0;//t->TrajDCZ(i,2);
+	  vars[127] = 0;//t->TrajDCX(0,0);
+	  vars[128] = 0;//t->TrajDCX(0,1);
+	  vars[129] = 0;//t->TrajDCX(0,2);
+	  vars[130] = 0;//t->TrajDCY(0,0);
+	  vars[131] = 0;//t->TrajDCY(0,1);
+	  vars[132] = 0;//t->TrajDCY(0,2);
+	  vars[133] = 0;//t->TrajDCZ(0,0);
+	  vars[134] = 0;//t->TrajDCZ(0,1);
+	  vars[135] = 0;//t->TrajDCZ(0,2);
+
+	  vars[136] = 0;//t->PathTOF(0);
+	  vars[137] = 0;//t->TimeTOF(0);
+	  vars[138] = 0;//t->PathTOF(i);
+	  vars[139] = 0;//t->TimeTOF(i);
+
+	  vars[140] = 0;//t->SectorTOF(0);
+	  vars[141] = 0;//t->SectorTOF(i);
+
+	  vars[142] = t->Momentum(0,1)/t->Etot(0,1);
+	  vars[143] = 0;//t->STTime();
+	  vars[144] = 0;//t->RFTime();
+
+	  vars[145] = 0;//dcx_rot;//region 0
+	  vars[146] = 0;//dcy_rot;//region 0
+	  vars[147] = 0;//dcx_rot;//region 1
+	  vars[148] = 0;//dcy_rot;//region 1
+	  vars[149] = 0;//dcx_rot;//region 2
+	  vars[150] = 0;//dcy_rot;//region 2
+	  vars[151] = 0;//dcx_rot;//region 0
+	  vars[152] = 0;//dcy_rot;//region 0
+	  vars[153] = 0;//dcx_rot;//region 1
+	  vars[154] = 0;//dcy_rot;//region 1
+	  vars[155] = 0;//dcx_rot;//region 2
+	  vars[156] = 0;//dcy_rot;//region 2
+
+	  vars[157] = t->MCMass(i);//dcy_rot;//region 2
+
+	  ntuple_thrown->Fill(vars);
       
 	}
       }
-    }*/
-    //cout<<std::right<<float(k+1)/nEntries*100<<"%\r";
-    //cout.flush();
-    //    cout<<std::right<<float(k+1)/nEntries*100<<"%\n";
+    }
     
     cout<<std::right<<event++<<"\r";
     cout.flush();

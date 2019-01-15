@@ -22,8 +22,7 @@ public:
     Float_t NEvent();                             // inline
 
     // REC::Particle
-    Double_t Beta(Int_t k, Bool_t kind = 0);         // inline
-    Double_t Id(Int_t k, Bool_t kind = 0);        // inline
+    Double_t Beta(Int_t k);         // inline
     Double_t Charge(Int_t k, Bool_t kind = 0);    // inline
     Double_t Px(Int_t k, Bool_t kind = 0);        // inline
     Double_t Py(Int_t k, Bool_t kind = 0);        // inline
@@ -31,24 +30,27 @@ public:
     Double_t X(Int_t k, Bool_t kind = 0);         // inline
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
-    Int_t Helic(Int_t k=0);                         //inline
+    Int_t Helic(Int_t k=0);                       // inline
     Float_t STTime(Int_t k=0);
     Float_t RFTime(Int_t k=0);
-    Int_t GetNRows();                             //inline
-     
+    Int_t GetNRows();                             // inline
+    Int_t GetMCNRows();                           // inline
+    Float_t MCMass(Int_t k=0);                        // inline
+ 
+    
     Int_t StatCC(Int_t k);                        // inline
     Int_t StatSC(Int_t k);                        // inline
     Int_t StatDC(Int_t k);                        // inline
     Int_t StatEC(Int_t k);                        // inline
-    Int_t Status(Int_t k);                     // inline
+    Int_t Status(Int_t k);                        // inline
 
 
     
     // CCPB
     Double_t Nphe(Int_t k);                       // inline
-    Double_t NpheLTCC(Int_t k);                       // inline
-    Double_t NpheHTCC(Int_t k);                       // inline
-    Double_t Chi2pid(Int_t k);                     // inline
+    Double_t NpheLTCC(Int_t k);                   // inline
+    Double_t NpheHTCC(Int_t k);                   // inline
+    Double_t Chi2pid(Int_t k);                    // inline
     Double_t Chi2CC(Int_t k);                     // inline
 
     Double_t CCStatus(Int_t k);                   // inline
@@ -57,10 +59,10 @@ public:
     Double_t DCStatus(Int_t k);                   // inline
 
     // ECPB
-    Double_t Etot(Int_t k);                       // inline
+    Double_t Etot(Int_t k,Bool_t kind=0);         // inline
     Double_t Ein(Int_t k);                        // inline
     Double_t Eout(Int_t k);                       // inline
-    Double_t Epcal(Int_t k);                       // inline
+    Double_t Epcal(Int_t k);                      // inline
     Double_t ECStatus(Int_t k);                   // inline
     Float_t XEC(Int_t k);                         // inline 
     Float_t YEC(Int_t k);                         // inline 
@@ -68,22 +70,22 @@ public:
     Float_t TimeEC(Int_t k);                      // inline 
     Float_t PathEC(Int_t k);                      // inline 
 
-    Float_t LU_PCAL(Int_t k=0);                         // inline 
-    Float_t LV_PCAL(Int_t k=0);                         // inline 
-    Float_t LW_PCAL(Int_t k=0);                         // inline 
+    Float_t LU_PCAL(Int_t k=0);                   // inline 
+    Float_t LV_PCAL(Int_t k=0);                   // inline 
+    Float_t LW_PCAL(Int_t k=0);                   // inline 
 
-    Float_t LU_ECIN(Int_t k=0);                         // inline 
-    Float_t LV_ECIN(Int_t k=0);                         // inline 
-    Float_t LW_ECIN(Int_t k=0);                         // inline 
+    Float_t LU_ECIN(Int_t k=0);                   // inline 
+    Float_t LV_ECIN(Int_t k=0);                   // inline 
+    Float_t LW_ECIN(Int_t k=0);                   // inline 
 
-    Float_t LU_ECOUT(Int_t k=0);                         // inline 
-    Float_t LV_ECOUT(Int_t k=0);                         // inline 
-    Float_t LW_ECOUT(Int_t k=0);                         // inline 
+    Float_t LU_ECOUT(Int_t k=0);                  // inline 
+    Float_t LV_ECOUT(Int_t k=0);                  // inline 
+    Float_t LW_ECOUT(Int_t k=0);                  // inline 
 
 
-    Float_t HX_PCAL(Int_t k=0);                         // inline 
-    Float_t HY_PCAL(Int_t k=0);                         // inline 
-    Float_t HZ_PCAL(Int_t k=0);                         // inline 
+    Float_t HX_PCAL(Int_t k=0);                   // inline 
+    Float_t HY_PCAL(Int_t k=0);                   // inline 
+    Float_t HZ_PCAL(Int_t k=0);                   // inline 
 
     Float_t HX_ECIN(Int_t k=0);                         // inline 
     Float_t HY_ECIN(Int_t k=0);                         // inline 
@@ -151,22 +153,22 @@ public:
     Double_t PTrans2PQ(Int_t k, Bool_t kind = 0);
     Double_t PLong2PQ(Int_t k, Bool_t kind = 0);
     Int_t Sector(Int_t k, Bool_t kind = 0);
-    Int_t SectorLTCC(Int_t k, Bool_t kind = 0);
-    Int_t SectorHTCC(Int_t k, Bool_t kind = 0);
-    Int_t SectorECAL(Int_t k, Bool_t kind = 0);
-    Int_t SectorDC(Int_t k, Bool_t kind = 0);
-    Int_t TrajDetId(Int_t k,Bool_t kind =0);
-    Float_t TrajX(Int_t k,Int_t sl=0, Bool_t kind =0);
-    Float_t TrajY(Int_t k,Int_t sl=0, Bool_t kind =0);
-    Float_t TrajZ(Int_t k,Int_t sl=0, Bool_t kind =0);
+    Int_t SectorLTCC(Int_t k);
+    Int_t SectorHTCC(Int_t k);
+    Int_t SectorECAL(Int_t k);
+    Int_t SectorDC(Int_t k);
+    Int_t TrajDetId(Int_t k);
+    Float_t TrajX(Int_t k,Int_t sl=0);
+    Float_t TrajY(Int_t k,Int_t sl=0);
+    Float_t TrajZ(Int_t k,Int_t sl=0);
 
-    Float_t TrajDCX(Int_t k,Int_t reg=0, Bool_t kind =0);
-    Float_t TrajDCY(Int_t k,Int_t reg=0, Bool_t kind =0);
-    Float_t TrajDCZ(Int_t k,Int_t reg=0, Bool_t kind =0);
+    Float_t TrajDCX(Int_t k,Int_t reg=0);
+    Float_t TrajDCY(Int_t k,Int_t reg=0);
+    Float_t TrajDCZ(Int_t k,Int_t reg=0);
 
-    Float_t PathTOF(Int_t k,Bool_t kind=0);
-    Float_t TimeTOF(Int_t k,Bool_t kind=0);
-    Int_t SectorTOF(Int_t k,Bool_t kind=0);
+    Float_t PathTOF(Int_t k);
+    Float_t TimeTOF(Int_t k);
+    Int_t SectorTOF(Int_t k);
     
     
     //Added in hayk's code
@@ -204,12 +206,12 @@ public:
     TString GetCategorizationOld(Int_t k);
     TString GetCategorizationMin(Int_t k); 
     TString* GetCategorization();
-    int Pid(int k=0);
+    int Pid(int k=0,Bool_t kind=0);
     void PrintCategorization();
     void PrintCategorization(TString* partIds);
 
     // Fiducial Cut
-    Double_t FidTheta(Int_t k, Bool_t kind = 0);
+    Double_t FidTheta(Int_t kind = 0);
     Double_t FidThetaMin();
     Double_t FidThetaMinPiPlus(Int_t k);
     Double_t FidFunc(Int_t side, Int_t param);
