@@ -19,7 +19,7 @@ scons
 
 
 ## Troubleshooting
-- scons fail becouse python 3 compatibility. try:
+- scons fail because python 3 compatibility. try:
 ```
 python2.7 `which scons`
 ```
