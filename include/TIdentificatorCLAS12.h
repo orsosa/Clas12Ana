@@ -133,6 +133,12 @@ public:
     Float_t RICH_RR_HZ(Int_t k=0); //inline
     Float_t RICH_RR_HT(Int_t k=0); //inline
 
+    Float_t RICH_PMT(Int_t k=0); //inline
+    Float_t RICH_ANODE(Int_t k=0); //inline
+    Float_t RICH_HITS_X(Int_t k=0); //inline
+    Float_t RICH_HITS_Y(Int_t k=0); //inline
+    Float_t RICH_HITS_Z(Int_t k=0); //inline
+
     
     // SCPB
     Double_t PathSC(Int_t k);                     // inline
@@ -190,7 +196,6 @@ public:
     Double_t Xf(Int_t, Bool_t = 0);
     Double_t Mx2(Int_t, Bool_t = 0);
     Double_t T(Int_t, Bool_t = 0);
-
 
     // Correction functions
     Double_t TimeCorr4(Double_t mass, Int_t k);
@@ -287,6 +292,7 @@ private:
     std::map <int,std::vector<int>> richHadClusterMap;
     std::map <int,std::vector<int>> richRRPartMap;
     std::map <int,std::vector<int>> richRRClusterMap;
+    std::map <int,std::vector<int>> richHitClusterMap;
 
     
 };

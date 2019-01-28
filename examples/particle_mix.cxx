@@ -26,6 +26,7 @@
 #include "particle_mix.h"
 
 bool DEBUG=false;
+Float_t HELIC=-111;
 TH1F *hW;
 TH1F *hW2;
 TH1F *hWmb;
@@ -374,7 +375,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:PhiPQ:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -454,7 +455,7 @@ public:
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
 
     
-    TLorentzVector q_lv(Vvirt,Nu_prev); // virtual photon 4vec
+    TLorentzVector q_lv(-Pex_prev,-Pey_prev,kEbeam-Pez_prev,Nu_prev); // virtual photon 4vec
     TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
     TLorentzVector Ptot_lv = q_lv+P_lv; // total 4vec
 
@@ -465,7 +466,7 @@ public:
 
     TLorentzVector P0_dicm = P0;
     TLorentzVector P1_dicm = P1;
-
+    
    /// Boost to di-hadron cm frame///
     P0_dicm.Boost(-Ph.BoostVector());
     P1_dicm.Boost(-Ph.BoostVector());
@@ -485,9 +486,9 @@ public:
     k_in.Boost(-Ptot_lv.BoostVector());
     //// /////////////////////////////////
 
-    Float_t Plt = Ph.Vect()*Vvirt.Unit();
-    Float_t Pl0m = P0.Vect()*Vvirt.Unit();
-    Float_t Pl1m = P1.Vect()*Vvirt.Unit();
+    Float_t Plt = Ph.Vect()*q_lv.Vect().Unit();
+    Float_t Pl0m = P0.Vect()*q_lv.Vect().Unit();
+    Float_t Pl1m = P1.Vect()*q_lv.Vect().Unit();
     
  
     TVector3 Ph_u = Ph.Vect().Unit();
@@ -498,7 +499,7 @@ public:
     Float_t qxkRT_sign = q_lv.Vect().Cross(k_in.Vect())*RT;
     qxkRT_sign /= TMath::Abs(qxkRT_sign);
 
-    // Float_t qxkST_sign = Vvirt.Cross(k_in)*ST;
+    // Float_t qxkST_sign = q_lv.Vect().Cross(k_in)*ST;
     // qxkST_sign /= TMath::Abs(qxkST_sign);
 
     Float_t qxkqxRT = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(RT));
@@ -597,7 +598,7 @@ public:
     kData[45] = xFm;
     kData[46] = xFm0;
     kData[47] = xFm1;
-    kData[48] = helic_prev;
+    kData[48] = (HELIC==-111)?helic_prev:HELIC;// if not given take it from file.
     kData[49] = theta_0*TMath::RadToDeg();
     kData[50] = theta_1*TMath::RadToDeg();
     kData[51] = cos_theta_P0cm;
@@ -906,7 +907,8 @@ public:
     int count=0;
     for (int k =0;k<kSPid.size();k++)
     {
-      if(pid == kSPid[k]&&checkDCFidPhi())
+      //if(pid == kSPid[k]&&checkDCFidPhi())
+      if(pid == kSPid[k])
       {
 	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid));
 	count++;
@@ -987,7 +989,6 @@ public:
       }
       else
       {
-	
 	pop_bkgnd();
 	if (checkMinPart())
 	{

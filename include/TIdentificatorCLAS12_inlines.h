@@ -771,7 +771,7 @@ inline Float_t TIdentificatorCLAS12::VX_DC(Int_t k)
   if (index>=0)
     return REC__Track_vx_nomm->getValue(index);
   else 
-    return -111;
+    return -1111;
 }
 
 inline Float_t TIdentificatorCLAS12::VY_DC(Int_t k)
@@ -790,7 +790,7 @@ inline Float_t TIdentificatorCLAS12::VY_DC(Int_t k)
   if (index>=0)
     return REC__Track_vy_nomm->getValue(index);
   else 
-    return -111;
+    return -1111;
 }
 
 inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
@@ -809,7 +809,7 @@ inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
   if (index>=0)
     return REC__Track_vz_nomm->getValue(index);
   else 
-    return -111;
+    return -1111;
 }
 
 inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
@@ -1232,6 +1232,76 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_T(Int_t k)
     return -1111;
 }
 
+///// CLUSTER WX,WY,WZ,WT
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WX(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_wx->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WY(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_wy->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WZ(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_wz->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WT(Int_t k)
+{
+  
+  Int_t N = richHadPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    index=richHadClusterMap[richHadPartMap[k][0]][0];
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newclusters_wtime->getValue(index);
+  else 
+    return -1111;
+}
+
+/////////
 
 inline Float_t TIdentificatorCLAS12::RICH_RR_X(Int_t k)
 {
@@ -1240,7 +1310,7 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_X(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH X\n";
   
   if (index>=0)
     return REC__RICH_x->getValue(index);
@@ -1255,7 +1325,7 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_Y(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH Y\n";
   
   if (index>=0)
     return REC__RICH_y->getValue(index);
@@ -1270,7 +1340,7 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_Z(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH Z\n";
   
   if (index>=0)
     return REC__RICH_z->getValue(index);
@@ -1286,7 +1356,7 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HX(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HX\n";
   
   if (index>=0)
     return REC__RICH_hx->getValue(index);
@@ -1301,7 +1371,7 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HY(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HY\n";
   
   if (index>=0)
     return REC__RICH_hy->getValue(index);
@@ -1316,13 +1386,110 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HZ(Int_t k)
   Int_t N = richRRPartMap[k].size();
   Int_t index=-1;
   if (N>0) index=richRRPartMap[k][0];
-  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH\n";
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HZ\n";
   
   if (index>=0)
     return REC__RICH_hz->getValue(index);
   else 
     return -1111;
 }
+
+
+inline Float_t TIdentificatorCLAS12::RICH_PMT(Int_t k)
+{
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    int RRrow = richRRPartMap[k][0];// Map
+    int CLrow = richRRClusterMap[RRrow][0]; //rev Map
+    index=richHitClusterMap[CLrow-1][0]; // Map //hit id = row+1
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newhits_pmt->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_ANODE(Int_t k)
+{
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    int RRrow = richRRPartMap[k][0];// Map
+    int CLrow = richRRClusterMap[RRrow][0]; //rev Map
+    index=richHitClusterMap[CLrow-1][0]; // Map //hit id = row+1
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newhits_anode->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HITS_X(Int_t k)
+{
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    int RRrow = richRRPartMap[k][0];// Map
+    int CLrow = richRRClusterMap[RRrow][0]; //rev Map
+    index=richHitClusterMap[CLrow-1][0]; // Map //hit id = row+1
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newhits_x->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HITS_Y(Int_t k)
+{
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    int RRrow = richRRPartMap[k][0];// Map
+    int CLrow = richRRClusterMap[RRrow][0]; //rev Map
+    index=richHitClusterMap[CLrow-1][0]; // Map //hit id = row+1
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newhits_y->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::RICH_HITS_Z(Int_t k)
+{
+  
+  Int_t N = richRRPartMap[k].size();
+  Int_t index=-1;
+  if (N>0)
+  {
+    int RRrow = richRRPartMap[k][0];// Map
+    int CLrow = richRRClusterMap[RRrow][0]; //rev Map
+    index=richHitClusterMap[CLrow-1][0]; // Map //cluster id = row+1
+  }
+  if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
+  
+  if (index>=0)
+    return RICH__newhits_z->getValue(index);
+  else 
+    return -1111;
+}
+
 
 /*
 

@@ -16,7 +16,8 @@ int main(int argc, char **argv)
 {
   //gROOT->Reset();
   TBenchmark bm;
-  bm.Start(argv[0]);
+  TString appname=argv[0];
+  bm.Start(appname);
   bool simul_key = 0;
 
   if (argc<2)
@@ -24,8 +25,15 @@ int main(int argc, char **argv)
     std::cout<<"you must supply one hipo file.\n";
     exit(1);
   }
-  TString fname = argv[1];
-  for (int k=2;k<argc;k++){fname=fname + " " + argv[k];}
+  TString fname="";
+  for (int k=1;k<argc;k++)
+  {
+    if (strcmp(argv[k],"-s")!=0)
+      fname = fname + " " + argv[k];
+    else
+      simul_key = 1;
+  }
+  
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
@@ -48,7 +56,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -72,7 +80,7 @@ int main(int argc, char **argv)
     //if(nRows>0 && (t->GetCategorization(0,tt)) == "electron" && t -> Q2() > 1. && t -> W() > 2. && t -> Nu() / 5.015 < 0.85)
     if(nRows>0 && (t->GetCategorization(0)) == "pi-")  
     {
-      //Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event
+
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -155,11 +163,13 @@ int main(int argc, char **argv)
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[58] = dcx_rot;//region 2
       DataElec[59] = dcy_rot;//region 2
-
+      
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
 
+      //:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz"
+      
       DataElec[63] = t->RICH_HAD_X();
       DataElec[64] = t->RICH_HAD_Y();
       DataElec[65] = t->RICH_HAD_Z();
@@ -175,8 +185,19 @@ int main(int argc, char **argv)
       DataElec[74] = t->RICH_RR_HX();
       DataElec[75] = t->RICH_RR_HY();
       DataElec[76] = t->RICH_RR_HZ();
-      
-      
+
+      DataElec[77] = t->VX_DC();
+      DataElec[78] = t->VY_DC();
+      DataElec[79] = t->VZ_DC();
+
+      DataElec[80] = t->Px_DC();
+      DataElec[81] = t->Py_DC();
+      DataElec[82] = t->Pz_DC();
+
+      DataElec[83] = t->RICH_CLUSTER_WX();
+      DataElec[84] = t->RICH_CLUSTER_WY();
+      DataElec[85] = t->RICH_CLUSTER_WZ();
+
       tElec->Fill(DataElec);
 
       Int_t NmbPion = 0;
@@ -501,7 +522,7 @@ int main(int argc, char **argv)
   output->Write();
   output->Close();
   cout << "Done." << endl;
-  bm.Show(argv[0]);
+  bm.Show(appname);
   return 0;
 }
 

@@ -259,6 +259,7 @@ int TIdentificatorCLAS12::FillResponseMaps()
   FillMapRev(RICH__hadrons_hit_index,richHadClusterMap);
   FillMap(REC__RICH_pindex,richRRPartMap);
   FillMapRev(REC__RICH_index,richRRClusterMap);
+  FillMap(RICH__newhits_cluster,richHitClusterMap);
   
 
   return 0;
@@ -299,6 +300,9 @@ int TIdentificatorCLAS12::ClearMaps()
   covMatMap.clear();
   richHadPartMap.clear();
   richHadClusterMap.clear();
+  richRRPartMap.clear();
+  richRRClusterMap.clear();
+  richHitClusterMap.clear();
   return 0;
 }
 

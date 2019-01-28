@@ -73,9 +73,9 @@ int main(int argc, char **argv)
   while (t->Next())
   {
     Int_t nRows = t->GetNRows();
-
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
+
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -86,7 +86,6 @@ int main(int argc, char **argv)
       DataElec[3] = vxec; 
       DataElec[4] = vyec; 
       DataElec[5] = vzec;
-
       DataElec[6] = t->X(0);
       DataElec[7] = t->Y(0);
       DataElec[8] = t->Z(0);
@@ -123,7 +122,7 @@ int main(int argc, char **argv)
       DataElec[36] = t->HX_ECOUT();
       DataElec[37] = t->HY_ECOUT();
       DataElec[38] = t->HZ_ECOUT();
-      
+
       DataElec[39] = t->TrajDCX(0,0);
       DataElec[40] = t->TrajDCX(0,1);
       DataElec[41] = t->TrajDCX(0,2);
@@ -373,7 +372,7 @@ int main(int argc, char **argv)
       }
     }
 
-    nRows = t->GetMCNRows();    
+    nRows = t->GetMCNRows();
     if(nRows>0 && (simul_key == 1 && t -> Pid(0,1)==11)) 
     {
 
