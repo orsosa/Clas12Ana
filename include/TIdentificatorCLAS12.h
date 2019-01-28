@@ -13,13 +13,13 @@ class TIdentificatorCLAS12 {
 public:
   TIdentificatorCLAS12();
   explicit TIdentificatorCLAS12(hipo::reader *reader = 0,Double_t beamE=10.6);
-  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6);
-    ~TIdentificatorCLAS12();
+  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6, Bool_t mcf=false);
+  ~TIdentificatorCLAS12();
     
-    Bool_t Next(); // explore the hipo file opened
+  Bool_t Next(); // explore the hipo file opened
 
     // HEADER bank
-    Float_t NEvent();                             // inline
+  Float_t NEvent();                             // inline
 
     // REC::Particle
     Double_t Beta(Int_t k);         // inline
@@ -159,19 +159,24 @@ public:
     Double_t PTrans2PQ(Int_t k, Bool_t kind = 0);
     Double_t PLong2PQ(Int_t k, Bool_t kind = 0);
     Int_t Sector(Int_t k, Bool_t kind = 0);
-    Int_t SectorLTCC(Int_t k);
-    Int_t SectorHTCC(Int_t k);
-    Int_t SectorECAL(Int_t k);
-    Int_t SectorDC(Int_t k);
-    Int_t TrajDetId(Int_t k);
-    Float_t TrajX(Int_t k,Int_t sl=0);
-    Float_t TrajY(Int_t k,Int_t sl=0);
-    Float_t TrajZ(Int_t k,Int_t sl=0);
+    Int_t SectorLTCC(Int_t k=0);
+    Int_t SectorHTCC(Int_t k=0);
+    Int_t SectorECAL(Int_t k=0);
+    Int_t SectorDC(Int_t k=0);
+    Int_t TrajDetId(Int_t k=0);
+    Float_t TrajX(Int_t k=0,Int_t sl=0);
+    Float_t TrajY(Int_t k=0,Int_t sl=0);
+    Float_t TrajZ(Int_t k=0,Int_t sl=0);
 
-    Float_t TrajDCX(Int_t k,Int_t reg=0);
-    Float_t TrajDCY(Int_t k,Int_t reg=0);
-    Float_t TrajDCZ(Int_t k,Int_t reg=0);
+    Float_t TrajCX(Int_t k=0,Int_t reg=0);
+    Float_t TrajCY(Int_t k=0,Int_t reg=0);
+    Float_t TrajCZ(Int_t k=0,Int_t reg=0);
 
+    Float_t TrajDCX(Int_t k=0,Int_t reg=0);
+    Float_t TrajDCY(Int_t k=0,Int_t reg=0);
+    Float_t TrajDCZ(Int_t k=0,Int_t reg=0);
+
+    
     Float_t PathTOF(Int_t k);
     Float_t TimeTOF(Int_t k);
     Int_t SectorTOF(Int_t k);
@@ -257,6 +262,7 @@ private:
     const Double_t kMprt;     // The mass of the proton
     const Double_t kMntr;     // The mass of the neutron
     const Double_t kGOOD;     // The key for the exceptions (should be improved to avoid it at all !!!)
+    const Bool_t kMCFlag;     //Marco contalbrigo flag, traj dc detId.
     hipo::reader *fReader;
     Int_t Nfiles;
     Int_t kCurrentFileIndex;

@@ -1,3 +1,4 @@
+
 #ifndef TIDENTIFICATOR_INLINES_H
 #define TIDENTIFICATOR_INLINES_H
 extern const Double_t kMeanFePar[6][3];
@@ -946,6 +947,69 @@ inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl)
   else 
     return -1111;
 }
+
+/////// traj dc cx,cy,cz on each super layer
+
+inline Float_t TIdentificatorCLAS12::TrajCX(Int_t k,Int_t sl)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_cx->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajCY(Int_t k,Int_t sl)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_cy->getValue(index);
+  else 
+    return -1111;
+}
+
+inline Float_t TIdentificatorCLAS12::TrajCZ(Int_t k,Int_t sl)
+{
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0)
+    return REC__Traj_cz->getValue(index);
+  else 
+    return -1111;
+}
+
+////
+
+
 
 
 inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg)

@@ -121,10 +121,10 @@ const Double_t kSigmaPbPar[6][2]={{7.67408e-03,3.54391e-02},
 
 
 
-TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.){fReader=0;InitDetectorMap();InitLayerMap();}
+TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false){fReader=0;InitDetectorMap();InitLayerMap();}
 
 TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
-  : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.)
+  : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false)
 {
     // Create a TIdentificator object, related to hipo reader.
   Nfiles=1;
@@ -135,8 +135,8 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   InitLayerMap();
 }
 
-TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE)
-  : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.)
+TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t mcf)
+  : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(mcf)
 {
   // Create a TIdentificator object, related to hipo reader.
   TString fn;
@@ -236,12 +236,24 @@ int TIdentificatorCLAS12::InitLayerMap()
 
 int TIdentificatorCLAS12::InitDCSuperLayerMap()
 {
-  DCSuperLayer[0]=12;
-  DCSuperLayer[1]=18;
-  DCSuperLayer[2]=24;
-  DCSuperLayer[3]=30;
-  DCSuperLayer[4]=36;
-  DCSuperLayer[5]=42;
+  if (kMCFlag==false)
+  {  
+    DCSuperLayer[0]=12;
+    DCSuperLayer[1]=18;
+    DCSuperLayer[2]=24;
+    DCSuperLayer[3]=30;
+    DCSuperLayer[4]=36;
+    DCSuperLayer[5]=42;
+  }
+  else
+  {
+    DCSuperLayer[0]=10;
+    DCSuperLayer[1]=16;
+    DCSuperLayer[2]=22;
+    DCSuperLayer[3]=28;
+    DCSuperLayer[4]=34;
+    DCSuperLayer[5]=40;
+  }
 }
 
 
