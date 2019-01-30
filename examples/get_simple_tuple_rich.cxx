@@ -56,7 +56,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:sectorDC");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:dcxsl4:dcysl4:dczsl4:dccxsl4:dccysl4:dcczsl4:sectorDC:tr_ecx:tr_ecy:tr_ecz:tr_pcalx:tr_pcaly:tr_pcalz:tr_ltccx:tr_ltccy:tr_ltccz:revent");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -198,17 +198,32 @@ int main(int argc, char **argv)
       DataElec[84] = t->RICH_CLUSTER_WY();
       DataElec[85] = t->RICH_CLUSTER_WZ();
 
-      // dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6
-
       DataElec[86] = t->TrajX(0,5);
       DataElec[87] = t->TrajY(0,5);
       DataElec[88] = t->TrajZ(0,5);
       DataElec[89] = t->TrajCX(0,5);
       DataElec[90] = t->TrajCY(0,5);
       DataElec[91] = t->TrajCZ(0,5);
-      DataElec[92] = t->SectorDC();
-      
 
+      DataElec[92] = t->TrajX(0,3);
+      DataElec[93] = t->TrajY(0,3);
+      DataElec[94] = t->TrajZ(0,3);
+      DataElec[95] = t->TrajCX(0,3);
+      DataElec[96] = t->TrajCY(0,3);
+      DataElec[97] = t->TrajCZ(0,3);
+      
+      DataElec[98] = t->SectorDC();
+            
+      DataElec[99] = t->TrajECX();
+      DataElec[100] = t->TrajECY();
+      DataElec[101] = t->TrajECZ();
+      DataElec[102] = t->TrajPCALX();
+      DataElec[103] = t->TrajPCALY();
+      DataElec[104] = t->TrajPCALZ();
+      DataElec[105] = t->TrajLTCCX();
+      DataElec[106] = t->TrajLTCCY();
+      DataElec[107] = t->TrajLTCCZ();
+      DataElec[108] = t->Event();
       
       tElec->Fill(DataElec);
 

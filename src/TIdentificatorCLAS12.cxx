@@ -121,7 +121,8 @@ const Double_t kSigmaPbPar[6][2]={{7.67408e-03,3.54391e-02},
 
 
 
-TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false){fReader=0;InitDetectorMap();InitLayerMap();}
+TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false){fReader=0;InitDetectorMap();InitLayerMap();InitDCSuperLayerMap();InitTrajDetId();
+}
 
 TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false)
@@ -133,6 +134,8 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   InitNodes();
   InitDetectorMap();
   InitLayerMap();
+  InitTrajDetId();
+  InitDCSuperLayerMap();
 }
 
 TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t mcf)
@@ -164,6 +167,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   InitNodes();
   InitDetectorMap();
   InitLayerMap();
+  InitTrajDetId();
   InitDCSuperLayerMap();
 }
 
@@ -231,6 +235,45 @@ int TIdentificatorCLAS12::InitLayerMap()
   layerType["PCAL"] = 1;
   layerType["EC_Inner"] = 4;
   layerType["EC_Outer"] = 7;
+  return 0;
+}
+
+int TIdentificatorCLAS12::InitTrajDetId()
+{ // Traj detId field map.
+  
+  trajDetId["HTCC"] = 0; 
+  trajDetId["FMT1"] = 1;
+  trajDetId["FMT2"] = 2;
+  trajDetId["FMT3"] = 3;
+  trajDetId["FMT4"] = 4;
+  trajDetId["FMT5"] = 5;
+  trajDetId["FMT6"] = 6;
+  if (kMCFlag==false)
+  {
+    trajDetId["DCSL1"] = 12;
+    trajDetId["DCSL2"] = 18;
+    trajDetId["DCSL3"] = 24;
+    trajDetId["DCSL4"] = 30;
+    trajDetId["DCSL5"] = 36;
+    trajDetId["DCSL6"] = 42;
+  }
+  else
+  {
+    trajDetId["DCSL1"] = 10;
+    trajDetId["DCSL2"] = 16;
+    trajDetId["DCSL3"] = 22;
+    trajDetId["DCSL4"] = 28;
+    trajDetId["DCSL5"] = 34;
+    trajDetId["DCSL6"] = 40;
+  }
+  trajDetId["LTCC"] = 43;
+  trajDetId["FTOF2"] = 44;
+  trajDetId["FTOF1B"] = 45;
+  trajDetId["FTOF1A"] = 46;
+  trajDetId["PCAL"] = 47;
+  trajDetId["EC"] = 48;
+   
+  
   return 0;
 }
 
@@ -308,7 +351,6 @@ int TIdentificatorCLAS12::ClearMaps()
   cherenkovMap.clear();
   scintillatorMap.clear();
   trackMap.clear();
-  trajMap.clear();
   covMatMap.clear();
   richHadPartMap.clear();
   richHadClusterMap.clear();

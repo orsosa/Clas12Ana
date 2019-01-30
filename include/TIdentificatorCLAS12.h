@@ -31,6 +31,7 @@ public:
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
     Int_t Helic(Int_t k=0);                       // inline
+    Int_t Event(Int_t k=0);                       // inline
     Float_t STTime(Int_t k=0);
     Float_t RFTime(Int_t k=0);
     Int_t GetNRows();                             // inline
@@ -175,6 +176,22 @@ public:
     Float_t TrajDCX(Int_t k=0,Int_t reg=0);
     Float_t TrajDCY(Int_t k=0,Int_t reg=0);
     Float_t TrajDCZ(Int_t k=0,Int_t reg=0);
+    
+    Float_t TrajDetIdX(Int_t k=0, TString dname="");
+    Float_t TrajDetIdY(Int_t k=0, TString dname="");
+    Float_t TrajDetIdZ(Int_t k=0, TString dname="");
+
+    Float_t TrajECX(Int_t k=0);
+    Float_t TrajECY(Int_t k=0);
+    Float_t TrajECZ(Int_t k=0);
+
+    Float_t TrajPCALX(Int_t k=0);
+    Float_t TrajPCALY(Int_t k=0);
+    Float_t TrajPCALZ(Int_t k=0);
+
+    Float_t TrajLTCCX(Int_t k=0);
+    Float_t TrajLTCCY(Int_t k=0);
+    Float_t TrajLTCCZ(Int_t k=0);
 
     
     Float_t PathTOF(Int_t k);
@@ -282,12 +299,14 @@ private:
     std::map<TString,int> detectorType;
     std::map<TString,int> layerType;
     std::map<int,int> DCSuperLayer;
+    std::map<TString,int> trajDetId;
+
     int InitNodes();
     int InitDetectorMap();
     int InitLayerMap();
     int InitDCSuperLayerMap();
+    int InitTrajDetId();
 
-    
     std::map <int,std::vector<int>> calorimeterMap;
     std::map <int,std::vector<int>> cherenkovMap;
     std::map <int,std::vector<int>> scintillatorMap;
