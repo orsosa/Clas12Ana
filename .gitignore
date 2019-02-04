@@ -43,3 +43,7 @@ Thumbs.db
 \#*
 .#*
 *.root
+#### applications
+examples/get_simple_tuple
+examples/get_simple_tuple_rich
+examples/particle_mix
