@@ -1114,8 +1114,174 @@ inline Float_t TIdentificatorCLAS12::TrajLTCCZ(Int_t k)
   return TrajDetIdZ(k,"LTCC");
 }
 ////////
-
-
+////// Traj XYZ FTOF1A
+inline Float_t TIdentificatorCLAS12::TrajFTOF1AX(Int_t k)
+{
+  return TrajDetIdX(k,"FTOT1A");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1AY(Int_t k)
+{
+  return TrajDetIdY(k,"FTOT1A");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1AZ(Int_t k)
+{
+  return TrajDetIdZ(k,"FTOT1A");
+}
+////////
+////// Traj XYZ FTOF1B
+inline Float_t TIdentificatorCLAS12::TrajFTOF1BX(Int_t k)
+{
+  return TrajDetIdX(k,"FTOF1B");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1BY(Int_t k)
+{
+  return TrajDetIdY(k,"FTOF1B");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1BZ(Int_t k)
+{
+  return TrajDetIdZ(k,"FTOF1B");
+}
+////////
+////// Traj XYZ FTOF2
+inline Float_t TIdentificatorCLAS12::TrajFTOF2X(Int_t k)
+{
+  return TrajDetIdX(k,"FTOF2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF2Y(Int_t k)
+{
+  return TrajDetIdY(k,"FTOF2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF2Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FTOF2");
+}
+////////
+////// Traj XYZ 101
+inline Float_t TIdentificatorCLAS12::Traj101X(Int_t k)
+{
+  return TrajDetIdX(k,"101");
+}
+inline Float_t TIdentificatorCLAS12::Traj101Y(Int_t k)
+{
+  return TrajDetIdY(k,"101");
+}
+inline Float_t TIdentificatorCLAS12::Traj101Z(Int_t k)
+{
+  return TrajDetIdZ(k,"101");
+}
+////////
+////// Traj XYZ 102
+inline Float_t TIdentificatorCLAS12::Traj102X(Int_t k)
+{
+  return TrajDetIdX(k,"102");
+}
+inline Float_t TIdentificatorCLAS12::Traj102Y(Int_t k)
+{
+  return TrajDetIdY(k,"102");
+}
+inline Float_t TIdentificatorCLAS12::Traj102Z(Int_t k)
+{
+  return TrajDetIdZ(k,"102");
+}
+///////////
+////// Traj XYZ HTCC
+inline Float_t TIdentificatorCLAS12::TrajHTCCX(Int_t k)
+{
+  return TrajDetIdX(k,"HTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajHTCCY(Int_t k)
+{
+  return TrajDetIdY(k,"HTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajHTCCZ(Int_t k)
+{
+  return TrajDetIdZ(k,"HTCC");
+}
+///////////
+////// Traj XYZ FMT1
+inline Float_t TIdentificatorCLAS12::TrajFMT1X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT1");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT1Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT1");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT1Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT1");
+}
+///////////
+////// Traj XYZ FMT2
+inline Float_t TIdentificatorCLAS12::TrajFMT2X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT2Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT2Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT2");
+}
+///////////
+////// Traj XYZ FMT3
+inline Float_t TIdentificatorCLAS12::TrajFMT3X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT3");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT3Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT3");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT3Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT3");
+}
+///////////
+////// Traj XYZ FMT4
+inline Float_t TIdentificatorCLAS12::TrajFMT4X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT4");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT4Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT4");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT4Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT4");
+}
+///////////
+////// Traj XYZ FMT5
+inline Float_t TIdentificatorCLAS12::TrajFMT5X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT5");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT5Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT5");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT5Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT5");
+}
+///////////
+////// Traj XYZ FMT6
+inline Float_t TIdentificatorCLAS12::TrajFMT6X(Int_t k)
+{
+  return TrajDetIdX(k,"FMT6");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT6Y(Int_t k)
+{
+  return TrajDetIdY(k,"FMT6");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT6Z(Int_t k)
+{
+  return TrajDetIdZ(k,"FMT6");
+}
+///////////
 
 
 inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg)

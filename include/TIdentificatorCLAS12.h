@@ -193,6 +193,53 @@ public:
     Float_t TrajLTCCY(Int_t k=0);
     Float_t TrajLTCCZ(Int_t k=0);
 
+    Float_t TrajFTOF1AX(Int_t k=0);
+    Float_t TrajFTOF1AY(Int_t k=0);
+    Float_t TrajFTOF1AZ(Int_t k=0);
+
+    Float_t TrajFTOF1BX(Int_t k=0);
+    Float_t TrajFTOF1BY(Int_t k=0);
+    Float_t TrajFTOF1BZ(Int_t k=0);
+
+    Float_t TrajFTOF2X(Int_t k=0);
+    Float_t TrajFTOF2Y(Int_t k=0);
+    Float_t TrajFTOF2Z(Int_t k=0);
+
+    Float_t Traj101X(Int_t k=0);
+    Float_t Traj101Y(Int_t k=0);
+    Float_t Traj101Z(Int_t k=0);
+
+    Float_t Traj102X(Int_t k=0);
+    Float_t Traj102Y(Int_t k=0);
+    Float_t Traj102Z(Int_t k=0);
+
+    Float_t TrajHTCCX(Int_t k=0);
+    Float_t TrajHTCCY(Int_t k=0);
+    Float_t TrajHTCCZ(Int_t k=0);
+
+    Float_t TrajFMT1X(Int_t k=0);
+    Float_t TrajFMT1Y(Int_t k=0);
+    Float_t TrajFMT1Z(Int_t k=0);
+
+    Float_t TrajFMT2X(Int_t k=0);
+    Float_t TrajFMT2Y(Int_t k=0);
+    Float_t TrajFMT2Z(Int_t k=0);
+
+    Float_t TrajFMT3X(Int_t k=0);
+    Float_t TrajFMT3Y(Int_t k=0);
+    Float_t TrajFMT3Z(Int_t k=0);
+
+    Float_t TrajFMT4X(Int_t k=0);
+    Float_t TrajFMT4Y(Int_t k=0);
+    Float_t TrajFMT4Z(Int_t k=0);
+
+    Float_t TrajFMT5X(Int_t k=0);
+    Float_t TrajFMT5Y(Int_t k=0);
+    Float_t TrajFMT5Z(Int_t k=0);
+
+    Float_t TrajFMT6X(Int_t k=0);
+    Float_t TrajFMT6Y(Int_t k=0);
+    Float_t TrajFMT6Z(Int_t k=0);
     
     Float_t PathTOF(Int_t k);
     Float_t TimeTOF(Int_t k);

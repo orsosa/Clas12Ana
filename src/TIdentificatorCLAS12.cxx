@@ -272,7 +272,10 @@ int TIdentificatorCLAS12::InitTrajDetId()
   trajDetId["FTOF1A"] = 46;
   trajDetId["PCAL"] = 47;
   trajDetId["EC"] = 48;
-   
+
+  trajDetId["101"] = 101;
+  trajDetId["102"] = 102;
+
   
   return 0;
 }
