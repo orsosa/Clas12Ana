@@ -355,6 +355,7 @@ int TIdentificatorCLAS12::ClearMaps()
   scintillatorMap.clear();
   trackMap.clear();
   covMatMap.clear();
+  trajMap.clear();
   richHadPartMap.clear();
   richHadClusterMap.clear();
   richRRPartMap.clear();

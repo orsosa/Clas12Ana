@@ -56,7 +56,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:dcxsl4:dcysl4:dczsl4:dccxsl4:dccysl4:dcczsl4:sectorDC:tr_ecx:tr_ecy:tr_ecz:tr_pcalx:tr_pcaly:tr_pcalz:tr_ltccx:tr_ltccy:tr_ltccz:revent:tr_ftof1a_x::tr_ftof1a_y:tr_ftof1a_z:tr_ftof1b_x:tr_ftof1b_y:tr_ftof1b_z:tr_ftof2_x:tr_ftof2_y:tr_ftof2_z:tr_101_x:tr_101_y:tr_101_z:tr_102_x:tr_102_y:tr_102_z:tr_fmt1_x:tr_fmt1_y:tr_fmt1_z:tr_fmt2_x:tr_fmt2_y:tr_fmt2_z:tr_fmt3_x:tr_fmt3_y:tr_fmt3_z:tr_fmt4_x:tr_fmt4_y:tr_fmt4_z:tr_fmt5_x:tr_fmt5_y:tr_fmt5_z:tr_fmt6_x:tr_fmt6_y:tr_fmt6_z");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:dcxsl4:dcysl4:dczsl4:dccxsl4:dccysl4:dcczsl4:sectorDC:tr_ecx:tr_ecy:tr_ecz:tr_pcalx:tr_pcaly:tr_pcalz:tr_ltccx:tr_ltccy:tr_ltccz:revent:tr_ftof1a_x::tr_ftof1a_y:tr_ftof1a_z:tr_ftof1b_x:tr_ftof1b_y:tr_ftof1b_z:tr_ftof2_x:tr_ftof2_y:tr_ftof2_z:tr_101_x:tr_101_y:tr_101_z:tr_102_x:tr_102_y:tr_102_z:tr_fmt1_x:tr_fmt1_y:tr_fmt1_z:tr_fmt2_x:tr_fmt2_y:tr_fmt2_z:tr_fmt3_x:tr_fmt3_y:tr_fmt3_z:tr_fmt4_x:tr_fmt4_y:tr_fmt4_z:tr_fmt5_x:tr_fmt5_y:tr_fmt5_z:tr_fmt6_x:tr_fmt6_y:tr_fmt6_z:tr_htcc_x:tr_htcc_y:tr_htcc_z");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -261,10 +261,16 @@ int main(int argc, char **argv)
       DataElec[139] = t->TrajFMT6X();
       DataElec[140] = t->TrajFMT6Y();
       DataElec[141] = t->TrajFMT6Z();
+
+      DataElec[142] = t->TrajHTCCX();
+      DataElec[143] = t->TrajHTCCY();
+      DataElec[144] = t->TrajHTCCZ();
+
       
       tElec->Fill(DataElec);
 
       Int_t NmbPion = 0;
+      /*
       for (Int_t i = 1; i < nRows; i++) 
       {
 
@@ -489,6 +495,7 @@ int main(int argc, char **argv)
 	  ntuple->Fill(vars);
 	}
       }
+      */
     }
 
     
