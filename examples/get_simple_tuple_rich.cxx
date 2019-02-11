@@ -78,7 +78,7 @@ int main(int argc, char **argv)
     Int_t nRows = t->GetNRows();
     //    const char * tt = "C";
     //if(nRows>0 && (t->GetCategorization(0,tt)) == "electron" && t -> Q2() > 1. && t -> W() > 2. && t -> Nu() / 5.015 < 0.85)
-    if(nRows>0 && (t->GetCategorization(0)) == "pi-")  
+    if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
 
       DataElec[0] = t -> Q2();
