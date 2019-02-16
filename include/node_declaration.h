@@ -832,10 +832,10 @@
    hipo::node<float>     *MC__Header_helicity ;
    hipo::node<int32_t>        *MC__Header_run ;
    hipo::node<int8_t>        *MC__Header_type ;
-   hipo::node<float>            *MC__Lund_E ;
+   hipo::node<float>            *MC__Lund_energy ;
    hipo::node<int8_t>    *MC__Lund_daughter ;
    hipo::node<int8_t>       *MC__Lund_index ;
-   hipo::node<float>        *MC__Lund_ltime ;
+   hipo::node<float>        *MC__Lund_lifetime ;
    hipo::node<float>         *MC__Lund_mass ;
    hipo::node<int8_t>      *MC__Lund_parent ;
    hipo::node<int32_t>        *MC__Lund_pid ;

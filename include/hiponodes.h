@@ -831,10 +831,10 @@
    hipo::node<float>     *MC__Header_helicity = fReader->getBranch<float>("MC::Header","helicity");
    hipo::node<int32_t>        *MC__Header_run = fReader->getBranch<int32_t>("MC::Header","run");
    hipo::node<int8_t>        *MC__Header_type = fReader->getBranch<int8_t>("MC::Header","type");
-   hipo::node<float>            *MC__Lund_E = fReader->getBranch<float>("MC::Lund","E");
+   hipo::node<float>            *MC__Lund_energy = fReader->getBranch<float>("MC::Lund","energy");
    hipo::node<int8_t>    *MC__Lund_daughter = fReader->getBranch<int8_t>("MC::Lund","daughter");
    hipo::node<int8_t>       *MC__Lund_index = fReader->getBranch<int8_t>("MC::Lund","index");
-   hipo::node<float>        *MC__Lund_ltime = fReader->getBranch<float>("MC::Lund","ltime");
+   hipo::node<float>        *MC__Lund_lifetime = fReader->getBranch<float>("MC::Lund","lifetime");
    hipo::node<float>         *MC__Lund_mass = fReader->getBranch<float>("MC::Lund","mass");
    hipo::node<int8_t>      *MC__Lund_parent = fReader->getBranch<int8_t>("MC::Lund","parent");
    hipo::node<int32_t>        *MC__Lund_pid = fReader->getBranch<int32_t>("MC::Lund","pid");

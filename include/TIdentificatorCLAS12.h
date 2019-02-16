@@ -30,13 +30,14 @@ public:
     Double_t X(Int_t k, Bool_t kind = 0);         // inline
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
-    Int_t Helic(Int_t k=0);                       // inline
-    Int_t Event(Int_t k=0);                       // inline
+    Int_t Helic();                       // inline
+    Int_t Event();                       // inline
     Float_t STTime(Int_t k=0);
     Float_t RFTime(Int_t k=0);
     Int_t GetNRows();                             // inline
     Int_t GetMCNRows();                           // inline
-    Float_t MCMass(Int_t k=0);                        // inline
+    Float_t MCMass(Int_t k=0);                    // inline
+    Float_t LundType(Int_t k=0);                  // inline
  
     
     Int_t StatCC(Int_t k);                        // inline
@@ -327,6 +328,7 @@ private:
     const Double_t kMntr;     // The mass of the neutron
     const Double_t kGOOD;     // The key for the exceptions (should be improved to avoid it at all !!!)
     const Bool_t kMCFlag;     //Marco contalbrigo flag, traj dc detId.
+    Int_t kIndLundFirst; // index of the first particle comming out in the Lund simulation (the electron)
     hipo::reader *fReader;
     Int_t Nfiles;
     Int_t kCurrentFileIndex;

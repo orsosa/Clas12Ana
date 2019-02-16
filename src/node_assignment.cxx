@@ -835,10 +835,10 @@ int TIdentificatorCLAS12::InitNodes()
   MC__Header_helicity  =  fReader->getBranch<float>("MC::Header","helicity");
   MC__Header_run  =  fReader->getBranch<int32_t>("MC::Header","run");
   MC__Header_type  =  fReader->getBranch<int8_t>("MC::Header","type");
-  MC__Lund_E  =  fReader->getBranch<float>("MC::Lund","E");
+  MC__Lund_energy  =  fReader->getBranch<float>("MC::Lund","energy");
   MC__Lund_daughter  =  fReader->getBranch<int8_t>("MC::Lund","daughter");
   MC__Lund_index  =  fReader->getBranch<int8_t>("MC::Lund","index");
-  MC__Lund_ltime  =  fReader->getBranch<float>("MC::Lund","ltime");
+  MC__Lund_lifetime  =  fReader->getBranch<float>("MC::Lund","lifetime");
   MC__Lund_mass  =  fReader->getBranch<float>("MC::Lund","mass");
   MC__Lund_parent  =  fReader->getBranch<int8_t>("MC::Lund","parent");
   MC__Lund_pid  =  fReader->getBranch<int32_t>("MC::Lund","pid");

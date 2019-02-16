@@ -1,4 +1,3 @@
-
 #ifndef TIDENTIFICATOR_INLINES_H
 #define TIDENTIFICATOR_INLINES_H
 extern const Double_t kMeanFePar[6][3];
@@ -102,14 +101,14 @@ inline Double_t TIdentificatorCLAS12::Z(Int_t k, Bool_t kind)
     }
 }
 
-inline Int_t TIdentificatorCLAS12::Helic(Int_t k) /// from event
+inline Int_t TIdentificatorCLAS12::Helic() /// from event
 {
-  return (Int_t)REC__Event_Helic->getValue(k);
+  return (Int_t)REC__Event_Helic->getValue(0);
 }
 
-inline Int_t TIdentificatorCLAS12::Event(Int_t k) /// from event
+inline Int_t TIdentificatorCLAS12::Event() /// from event
 {
-  return (Int_t)RUN__config_event->getValue(k);
+  return (Int_t)RUN__config_event->getValue(0);
 }
 
 inline Float_t TIdentificatorCLAS12::STTime(Int_t k) /// from event
@@ -221,6 +220,12 @@ inline Float_t TIdentificatorCLAS12::MCMass(Int_t k)
 {
   return MC__Lund_mass->getValue(k);
 }
+
+inline Float_t TIdentificatorCLAS12::LundType(Int_t k)
+{
+  return  MC__Lund_type->getValue(k);
+}
+
   /*
 
 inline Double_t TIdentificatorCLAS12::CCStatus(Int_t k)
@@ -265,7 +270,7 @@ inline Double_t TIdentificatorCLAS12::Etot(Int_t k,Bool_t kind)
   if (kind==0)
     return Ein(k) + Eout(k) + Epcal(k);
   else
-    return MC__Lund_E->getValue(k);
+    return MC__Lund_energy->getValue(k);
 }
 
 

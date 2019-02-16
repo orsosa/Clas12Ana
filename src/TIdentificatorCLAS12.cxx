@@ -6,7 +6,6 @@
 #include <math.h>
 
 //ClassImp(TIdentificatorCLAS12)
-
 using namespace std;
 
 const Double_t kFidThetaMax = 54.0;
@@ -121,13 +120,14 @@ const Double_t kSigmaPbPar[6][2]={{7.67408e-03,3.54391e-02},
 
 
 
-TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false){fReader=0;InitDetectorMap();InitLayerMap();InitDCSuperLayerMap();InitTrajDetId();
+TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false){fReader=0;kIndLundFirst=3;InitDetectorMap();InitLayerMap();InitDCSuperLayerMap();InitTrajDetId();
 }
 
 TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false)
 {
     // Create a TIdentificator object, related to hipo reader.
+  kIndLundFirst=3;
   Nfiles=1;
   kCurrentFileIndex=0;
   this->fReader = reader;
@@ -142,9 +142,9 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(mcf)
 {
   // Create a TIdentificator object, related to hipo reader.
+  kIndLundFirst=3;
   TString fn;
   Ssiz_t start =0;
-
   while (fname.Tokenize(fn,start,"[ \n]"))
   {
     if ( !fn.IsNull() )
@@ -700,9 +700,9 @@ Double_t TIdentificatorCLAS12::Q2(Bool_t kind)
   if (kind == 0) {
     return 4. * kEbeam * Momentum(0) *
       sin(ThetaLab(0)*TMath::Pi()/180./2) * sin(ThetaLab(0)*TMath::Pi()/180./2);
-  } else {                            // Fix this in case k != 1
-    return 4. * kEbeam * Momentum(0,1) *
-      sin(ThetaLab(0,1)*TMath::Pi()/180./2) * sin(ThetaLab(0,1)*TMath::Pi()/180./2);
+  } else {                         
+    return 4. * kEbeam * Momentum(kIndLundFirst,1) *
+      sin(ThetaLab(kIndLundFirst,1)*TMath::Pi()/180./2) * sin(ThetaLab(kIndLundFirst,1)*TMath::Pi()/180./2);
   }
 }
 
@@ -734,7 +734,7 @@ Double_t TIdentificatorCLAS12::Nu(Bool_t kind)
     if (kind == 0) {
         return kEbeam - Momentum(0);
     } else {                            // Fix this in case k != 1
-        return kEbeam - Momentum(0,1);
+        return kEbeam - Momentum(kIndLundFirst,1);
     }
 }
 
