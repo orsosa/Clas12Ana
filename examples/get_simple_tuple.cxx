@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
 
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent";
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec";
 
   Int_t Nvar = VarList.CountChar(':')+1;
  
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/pruned_simul.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -64,19 +64,33 @@ int main(int argc, char **argv)
   TNtuple *e_thrown=0;
   if(simul_key == 1) {
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",VarList);
-    e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass");
+    e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:event");
 }
 
   cout.width(4);
   Int_t event=0;
+  Int_t rec_elec;
+  Int_t Npip_mc;
+  Int_t Npim_mc;
+  Int_t Npip_rec;
+  Int_t Npim_rec;
 
   while (t->Next())
   {
+    
     Int_t nRows = t->GetNRows();
+
+    Npip_mc = t->GetNPart(211,1);
+    Npim_mc = t->GetNPart(-211,1);
+    Npip_rec = t->GetNPart(211);
+    Npim_rec = t->GetNPart(-211);
+    rec_elec = 0;
+
     //if(false)
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-
+      rec_elec=1;
+      
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -161,17 +175,25 @@ int main(int argc, char **argv)
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
+      DataElec[63] = t->Event();
+
+      DataElec[64] = Npip_rec;
+      DataElec[65] = Npim_rec;
+      DataElec[66] = Npip_mc;
+      DataElec[67] = Npim_mc;
+      
+      DataElec[68] = rec_elec;
 
       tElec->Fill(DataElec);
-      Int_t NmbPion = 0;
+      
+      
       for (Int_t i = 1; i < nRows; i++) 
       {
 
-	//	std::cout<<"\tnr: "<<i<<std::endl; 
       	TString category = t->GetCategorization(i);
-
-	//      	if (category == "gamma" || category == "pi-" || category == "high energy pion +" || category == "low energy pion +" || category == "s_electron" || category == "positron") 
-      	if (category == "gamma" || category == "pi-" || category == "pi+")
+	
+	
+      	if (category == "pi-" || category == "pi+")
 	{
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2();
@@ -367,6 +389,12 @@ int main(int argc, char **argv)
 	  vars[157] = 0;// mc mass
 	  vars[158] = t->Event();// event number
 
+	  vars[159] = Npip_rec;
+	  vars[160] = Npim_rec;
+	  vars[161] = Npip_mc;
+	  vars[162] = Npim_mc;
+
+	  vars[163] = rec_elec;
 
 	  ntuple->Fill(vars);
 	}
@@ -375,8 +403,11 @@ int main(int argc, char **argv)
 
     nRows = t->GetMCNRows();
     Int_t ind_first = 3;
+
     if(nRows>4 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
     {
+      Int_t Npip = t->GetNPart(211,1);
+      Int_t Npim = t->GetNPart(-211,1);
 
       DataElec[0] = t -> Q2(1);
       DataElec[1] = t -> W(1);
@@ -389,12 +420,19 @@ int main(int argc, char **argv)
       DataElec[8] = t -> Z(ind_first,1);
       DataElec[9] = t->MCMass(ind_first);
 
+      DataElec[10] = Npip_rec;
+      DataElec[11] = Npim_rec;
+      DataElec[12] = Npip_mc;
+      DataElec[13] = Npim_mc;
+
+      DataElec[14] = rec_elec;
+      DataElec[15] = event;
+
       e_thrown->Fill(DataElec);
 
-      Int_t NmbPion = 0;
       for(int i=ind_first + 1; i<nRows; i++) 
       {
-      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==22 || t -> Pid(i,1)==-211 || t -> Pid(i,1)==211 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
+      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2(1);
@@ -564,6 +602,13 @@ int main(int argc, char **argv)
 
 	  vars[157] = t->MCMass(i);//dcy_rot;//region 2
 	  vars[158] = t->Event();//dcy_rot;//region 2
+
+	  vars[159] = Npip_rec;
+	  vars[160] = Npim_rec;
+	  vars[161] = Npip_mc;
+	  vars[162] = Npim_mc;
+
+	  vars[163] = rec_elec;
 
 	  ntuple_thrown->Fill(vars);
       

@@ -226,6 +226,27 @@ inline Float_t TIdentificatorCLAS12::LundType(Int_t k)
   return  MC__Lund_type->getValue(k);
 }
 
+inline Int_t TIdentificatorCLAS12::GetNPart(Int_t pid, Bool_t kind)
+{
+  int Npart = 0;
+  if (!kind)
+  {
+    int n = REC__Particle_pid->getLength();
+    for (int k=0;k<n;k++)
+      if (REC__Particle_pid->getValue(k)==pid)
+	Npart++;
+  }
+  else
+  {
+    int n = MC__Particle_pid->getLength();
+    for (int k=0;k<n;k++)
+      if (MC__Particle_pid->getValue(k)==pid)
+	Npart++;
+  }
+  
+  return Npart;
+}
+
   /*
 
 inline Double_t TIdentificatorCLAS12::CCStatus(Int_t k)

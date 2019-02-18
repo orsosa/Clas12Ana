@@ -188,6 +188,7 @@ Bool_t TIdentificatorCLAS12::Next()
     {
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
+      if (ret)  FillResponseMaps();
     }
   }
   return ret;

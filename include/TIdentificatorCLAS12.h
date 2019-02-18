@@ -38,7 +38,7 @@ public:
     Int_t GetMCNRows();                           // inline
     Float_t MCMass(Int_t k=0);                    // inline
     Float_t LundType(Int_t k=0);                  // inline
- 
+    Int_t GetNPart(Int_t pid = 211, Bool_t kind = 0);  // inline
     
     Int_t StatCC(Int_t k);                        // inline
     Int_t StatSC(Int_t k);                        // inline
