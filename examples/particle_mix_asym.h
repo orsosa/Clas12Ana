@@ -4,6 +4,7 @@ extern bool GSIM;
 extern int data_type;
 extern long Ne;
 extern Float_t HELIC;
+extern Int_t MULT;
 
 //############### Asymmetry estimation ###########
 Float_t Ax0 = 0.0606961;
@@ -59,7 +60,8 @@ inline void printhelp()
 {
   std::cout<<"####### Help #########\n"
     "\t[-n | --max-events] <N>          : max number of events to be considered. Default: all\n"
-    "\t[-l | --helicity] <l>            : fix helicity value. Default: read from file\n" 
+    "\t[-l | --helicity] <l>            : fix helicity value. Default: read from file\n"
+    "\t[-m | --multiplicity] <m>        : Multiply statistic\n" 
     "\t-h                               : Print help.\n"
     "#########################"	   <<std::endl;
   exit(0);
@@ -75,17 +77,22 @@ inline int parseopt(int argc, char* argv[])
     {"max-events",     required_argument,       0, 'n'},
     {"help",     no_argument,       0, 'h'},
     {"helicity", required_argument,0,'l'},
+    {"multiplicity", required_argument,0,'m'},
     {0, 0, 0, 0}
   };
 
   //  if(argc==1)
   //  printhelp();
-  while ( (c = getopt_long(argc, argv, "hn:l:", long_options, &option_index))  != -1)
+  while ( (c = getopt_long(argc, argv, "hn:l:m:", long_options, &option_index))  != -1)
     switch (c)
       {
       case 'n':
         Ne = atoi(optarg);
         break;
+      case 'm':
+        MULT = atoi(optarg);
+        break;
+
       case 'l':
 	HELIC=atof(optarg);
 	std::cout<<"Setting helicity to: " <<HELIC<<std::endl;

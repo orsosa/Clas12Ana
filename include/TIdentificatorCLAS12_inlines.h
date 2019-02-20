@@ -238,9 +238,9 @@ inline Int_t TIdentificatorCLAS12::GetNPart(Int_t pid, Bool_t kind)
   }
   else
   {
-    int n = MC__Particle_pid->getLength();
-    for (int k=0;k<n;k++)
-      if (MC__Particle_pid->getValue(k)==pid)
+    int n = MC__Lund_pid->getLength();
+    for (int k=3;k<n;k++)
+      if (MC__Lund_pid->getValue(k)==pid && MC__Lund_type->getValue(k)==1)
 	Npart++;
   }
   

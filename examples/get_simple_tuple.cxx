@@ -404,10 +404,8 @@ int main(int argc, char **argv)
     nRows = t->GetMCNRows();
     Int_t ind_first = 3;
 
-    if(nRows>4 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
+    if(nRows>3 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
     {
-      Int_t Npip = t->GetNPart(211,1);
-      Int_t Npim = t->GetNPart(-211,1);
 
       DataElec[0] = t -> Q2(1);
       DataElec[1] = t -> W(1);
@@ -430,10 +428,13 @@ int main(int argc, char **argv)
 
       e_thrown->Fill(DataElec);
 
+      int npip=0,npim=0;
       for(int i=ind_first + 1; i<nRows; i++) 
       {
       	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
+	  npip += (t -> Pid(i,1)==211)?1:0;
+	  npim += (t -> Pid(i,1)==-211)?1:0;
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2(1);
 	  vars[2] = t -> Nu(1);
@@ -614,12 +615,19 @@ int main(int argc, char **argv)
       
 	}
       }
+
+      if (npip != Npip_mc || npim != Npim_mc)
+      {
+	cout<<endl;
+	cout<<" WRONG Npid on mc "<<Npip_mc<<"\n";
+	cout<<npim<<" :: "<<Npim_mc<<"\n";
+	cout<<endl;
+      }
     }
     
     cout<<std::right<<event++<<"\r";
     cout.flush();
   }
-  
   cout<<std::right<<event++<<"\n";
     
   output->Write();

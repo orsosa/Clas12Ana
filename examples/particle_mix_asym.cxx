@@ -30,6 +30,7 @@
 
 bool DEBUG=false;
 Float_t HELIC=-111;
+Int_t MULT=1;
 TRandom3 *rndm;
 TH1F *hW;
 TH1F *hW2;
@@ -379,7 +380,7 @@ public:
     kSecondary = 0;
     kCombo = 0;
     kOutFile = new TFile(filename,"recreate");
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:asym:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:asym:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:phiH_phiR:mc_phiR:mc_phiH:mc_phiH_phiR:mc_Q2:mc_Nu";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
     kData = new Float_t[varlist.CountChar(':')+1];
@@ -399,9 +400,11 @@ public:
     return 0;
   }
 
-  int fill(TTree *ttree,Int_t &asym,Bool_t is_mc = false)
+  int fill(TTree *ttree, Int_t &asym, Bool_t is_mc,\
+	   Float_t &mc_phiR, Float_t &mc_phiH, Float_t &mc_phiH_phiR, Float_t &mc_Q2, Float_t &mc_Nu)
   {
-    fill(kPrimary,ttree,asym, is_mc);
+    fill(kPrimary, ttree, asym, is_mc,\
+	 mc_phiR, mc_phiH, mc_phiH_phiR, mc_Q2, mc_Nu);
   }
 
   int fill_elec()
@@ -419,7 +422,7 @@ public:
   }
 
 
-  int fill(Combo *comb,TTree *ttree,Int_t &asym, Bool_t is_mc)
+  int fill(Combo *comb, TTree *ttree, Int_t &asym, Bool_t is_mc, Float_t &mc_phiR, Float_t &mc_phiH, Float_t &mc_phiH_phiR, Float_t &mc_Q2, Float_t &mc_Nu)
   {
     if (DEBUG )std::cout<<"##### combo size: "<<comb->size()<<" #######"<<std::endl;
     
@@ -459,6 +462,7 @@ public:
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
     Float_t phiH = phi_pq;
+    phiH=phiH<0?phiH+360:phiH;
     
     TLorentzVector q_lv(-Pex_prev,-Pey_prev,kEbeam-Pez_prev,Nu_prev); // virtual photon 4vec
     TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
@@ -511,6 +515,8 @@ public:
     Float_t qxkqxRT_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RT)).Mag();
     
     Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max)*TMath::RadToDeg();
+    phiR=phiR<0?phiR+360:phiR;
+    
     Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
 
     Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
@@ -611,7 +617,13 @@ public:
     kData[53] = xF0o;
     kData[54] = xF1o;
     kData[55] = evnt_prev;
+
    
+    Float_t dphi = (phiH-phiR);
+    while (dphi<0)
+      dphi+=360.;
+    while (dphi>360)
+      dphi-=360.;
 
     ///// test to include the asymmetry. ////////
     if (is_mc)
@@ -622,6 +634,13 @@ public:
 	asym = 1;
       else
 	asym = 0;
+
+      mc_phiR = phiR;
+      mc_phiH = phiH;
+      mc_phiH_phiR = dphi;
+      mc_Q2 = Q2_prev;
+      mc_Nu = Nu_prev;
+
     }
       
     kData[56] = asym;
@@ -630,6 +649,14 @@ public:
     kData[59] = Npip_mc_prev;
     kData[60] = Npim_mc_prev;
     kData[61] = rec_elec_prev;
+    
+    kData[62] = dphi;
+
+    kData[63] = mc_phiR;
+    kData[64] = mc_phiH;
+    kData[65] = mc_phiH_phiR;
+    kData[66] = mc_Q2;
+    kData[67] = mc_Nu;
     
 
 
@@ -859,7 +886,7 @@ public:
   {
     Int_t Ne = t->GetEntries();
     t->GetEntry(start_ind);
-    evnt_prev=evnt;
+    evnt_prev = evnt;
     for ( int i = start_ind; i < Ne; i++)
     {
       t->GetEntry(i);
@@ -872,14 +899,13 @@ public:
     return -1;
     
   }
-  int getCombinations(TChain *t,Int_t start_ind, Int_t &end_ind,Int_t &asym, Bool_t is_mc)
+  int getCombinations(TChain *t,Int_t start_ind, Int_t &end_ind,Int_t &asym, Bool_t is_mc, Float_t &mc_phiR, Float_t &mc_phiH, Float_t &mc_phiH_phiR, Float_t &mc_Q2, Float_t &mc_Nu, Bool_t &mc_filled)
   {
     Int_t Ne = t->GetEntries();
     if (!kSecondary)
       kSecondary=new std::vector<Particle*> [kSPid.size()];
     if (!kCombo)
       kCombo = new std::vector<Combo*> [kSPid.size()];
-
     
     t->GetEntry(start_ind);
     setElectVar();
@@ -909,7 +935,7 @@ public:
       else
       {
 	end_ind = i;
-	pop_bkgnd();
+	//pop_bkgnd();
 	if (checkMinPart())
 	{
 	  int Npart = 1;
@@ -937,8 +963,29 @@ public:
 	    }
 	    //  if (DEBUG) std::cout<<"############ Npart from primary: "<<kPrimary->Npart<<"####################"<<std::endl;
 	    fill_elec();
-  	    if (is_mc) fill(kOutMCData,asym,is_mc);
-	    else fill(kOutRSData,asym,is_mc);
+	    
+  	    if (is_mc)
+	    {
+	      fill(kOutMCData,asym,is_mc,			\
+		   mc_phiR,mc_phiH,mc_phiH_phiR, mc_Q2, mc_Nu );
+	      /*
+	      std::cout<<std::endl;
+	      for (int l =0;l<kSPid.size();l++)
+	      {
+		std::cout<<kSecondary[l].size()<<" :: ";
+
+	      }
+	      std::cout<<Npip_rec_prev<<" :: "<<Npim_rec_prev;
+	      std::cout<<std::endl;
+	      */
+	      
+	      mc_filled = true;
+	      
+	    }
+
+	    else fill(kOutRSData,asym,is_mc,\
+		      mc_phiR,mc_phiH,mc_phiH_phiR, mc_Q2, mc_Nu);
+
 	    
 	    delete kPrimary;
 	  }
@@ -1000,7 +1047,8 @@ public:
 	{
 	  //	  std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
 	  int asym_bg;
-	  fill(kBkgnd[i],kOutBkgnd,asym_bg,false);
+	  float mc_phir,mc_phih,mc_phih_phir, mc_q2, mc_nu;
+	  fill(kBkgnd[i],kOutBkgnd,asym_bg,false,mc_phir,mc_phih,mc_phih_phir, mc_q2, mc_nu);
 	  delete kBkgnd[i];
 	  kBkgnd.erase(kBkgnd.begin()+i);
 	  ret = true;
@@ -1061,7 +1109,7 @@ void check_dir(const char *outdir)
 int main(int argc, char *argv[])
 {
   TBenchmark *bm = new TBenchmark();
-  bm->Start("get_eta");
+  bm->Start("mix");
   parseopt(argc,argv);
   time_t seconds;
   seconds = time(NULL);
@@ -1388,41 +1436,52 @@ int main(int argc, char *argv[])
   r.addSecondary("pi+"); 
   r.addSecondary("pi-");
   */
-  Int_t end_ind_rs=0, start_ind_rs = 0, asym, end_ind_mc, mc_ev, rs_ev;
   std::cout<<"processing...\n";
   std::cout.fill('.');
-  int ret;
-  for (int k = 0; k<Ne;k++)
+
+
+  for (int m=0;m<MULT;m++)
   {
-
-    HELIC = rndm->Uniform()>0.5?1:0;
-    t_mc->GetEntry(k);
-    mc_ev = evnt;
-    t_rs->GetEntry(start_ind_rs);
-    rs_ev = evnt;
-
-    if (mc_ev > rs_ev) // no MC on record.
+    Int_t end_ind_rs=0, start_ind_rs = 0, asym, end_ind_mc, mc_ev, rs_ev;
+    Float_t phiR,phiH,phiH_phiR,mc_Q2,mc_Nu;
+    Bool_t mc_filled;
+  
+    int ret;
+    for (int k = 0; k<Ne;k++)
     {
-      rs_ev = r.next_event(t_rs, start_ind_rs, end_ind_rs);
-      start_ind_rs = end_ind_rs;
-    }
 
-    
-    ret = r.getCombinations(t_mc, k, end_ind_mc, asym, true);
-    if (ret) break;
-
-    if (rs_ev==mc_ev)
-    {
-      //      std::cout<<__LINE__<<std::endl<<std::endl;
-      r.getCombinations(t_rs, start_ind_rs, end_ind_rs, asym, false);
+      mc_filled=false;
       
+      HELIC = rndm->Uniform()>0.5?1:0;
+      t_mc->GetEntry(k);
+      mc_ev = evnt;
+      t_rs->GetEntry(start_ind_rs);
+      rs_ev = evnt;
+      
+      while (mc_ev > rs_ev) // no pip nor pim on MC.
+      {
+	rs_ev = r.next_event(t_rs, start_ind_rs, end_ind_rs);
+	if (rs_ev==-1) break;
+	start_ind_rs = end_ind_rs;
+      }
+      
+      ret = r.getCombinations(t_mc, k, end_ind_mc, asym, true , phiR,phiH,phiH_phiR,mc_Q2,mc_Nu,mc_filled);
+      
+      if (ret) break;
+      
+      if ((rs_ev==mc_ev)&&mc_filled)
+      {
+	//      std::cout<<__LINE__<<std::endl<<std::endl;
+	r.getCombinations(t_rs, start_ind_rs, end_ind_rs, asym, false,phiR,phiH,phiH_phiR,mc_Q2,mc_Nu,mc_filled);
+	
+      }
+      
+      start_ind_rs = end_ind_rs;
+      k = end_ind_mc;
+      std::cout<<std::setw(15)<<float(k+Ne*m+1)/(Ne*MULT)*100<<" %"<<"\r";
+      std::cout.flush();
     }
-    start_ind_rs = end_ind_rs;
-    k = end_ind_mc;
     
-    std::cout<<std::setw(15)<<float(k+1)/Ne*100<<" %"<<"\r";
-    std::cout.flush();
-
   }
 
 
@@ -1431,7 +1490,7 @@ int main(int argc, char *argv[])
   r.kOutMCData->Print();
   r.kOutRSData->Print();
   //  corrfile->Close();
-  bm->Show("get_pi0");
+  bm->Show("mix");
   return 0;  
 
 }
