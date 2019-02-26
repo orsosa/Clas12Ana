@@ -21,13 +21,14 @@ Float_t cm = 0.300714;
 Float_t m_Az = 0.0264659;
 Float_t m_Am = 0.0271934;
 Float_t m_Ax = 0.0251313;
-Float_t max_Az = 0.09;
+//Float_t max_Az = 0.09;
+Float_t max_Az = 0.3;
 Float_t pi = TMath::Pi();
 
 Float_t ALU(Float_t x,Float_t z,Float_t m)
 {
   Float_t Ax = Ax0 - mx*x;
-  Float_t  Az = cz*(z-z0)*(z-z0) + Az0;
+  Float_t Az = cz*(z-z0)*(z-z0) + Az0;
   Float_t Am = -cm*(m-m0)*(m-m0) + Am0;
   return Ax*Az*Am/(m_Az*m_Am);
 }

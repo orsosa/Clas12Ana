@@ -625,16 +625,10 @@ public:
     while (dphi>360)
       dphi-=360.;
 
-    ///// test to include the asymmetry. ////////
+    ///// no asymmetry included ////////
     if (is_mc)
     {
-      Float_t uval = rndm->Uniform(); // 0-1 uniform distribution.
-      Float_t aval = asym_n(E/Nu_prev,phiR,HELIC);
-      if (uval < aval)
-	asym = 1;
-      else
-	asym = 0;
-
+      asym = 1;
       mc_phiR = phiR;
       mc_phiH = phiH;
       mc_phiH_phiR = dphi;
