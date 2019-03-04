@@ -43,7 +43,7 @@ int main(int argc, char **argv)
  
   Float_t *vars = new Float_t[Nvar];
   TVector3 *vert;
-  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname);
+  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,10.6,true);
   
   TFile *output;
 

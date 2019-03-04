@@ -27,6 +27,7 @@
 
 bool DEBUG=false;
 Float_t HELIC=-111;
+TString INFILE="data.root", INDIR="";
 TH1F *hW;
 TH1F *hW2;
 TH1F *hWmb;
@@ -46,7 +47,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz;
+Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -375,7 +376,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -453,7 +454,8 @@ public:
     Vvirt.RotateY(phi_y);
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
-
+    Float_t phiH = phi_pq;
+    phiH=phiH<0?phiH+360:phiH;
     
     TLorentzVector q_lv(-Pex_prev,-Pey_prev,kEbeam-Pez_prev,Nu_prev); // virtual photon 4vec
     TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
@@ -506,6 +508,8 @@ public:
     Float_t qxkqxRT_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RT)).Mag();
     
     Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max)*TMath::RadToDeg();
+    phiR=phiR<0?phiR+360:phiR;
+
     Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
 
     Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
@@ -585,7 +589,7 @@ public:
     kData[32] =((comb->Npart>1)?(*comb)[1]->vy:0);
     kData[33] = TargType_prev;
     kData[34] = TargTypeO_prev;
-    kData[35] = phi_pq;
+    kData[35] = phiH;
     kData[36] = phiR;
     kData[37] = Mx2;
     kData[38] = xF;
@@ -605,6 +609,13 @@ public:
     kData[52] = xFo;
     kData[53] = xF0o;
     kData[54] = xF1o;
+    kData[55] = evnt_prev;
+    Float_t dphi = (phiH-phiR);
+    while (dphi<0)
+      dphi+=360.;
+    while (dphi>360)
+      dphi-=360.;
+    kData[56] = dphi;
     
     
     /*  
@@ -714,6 +725,41 @@ public:
 
     return ttree->Fill();
       
+
+  }
+  Bool_t FidCheck(int pid)
+  {
+    Bool_t ret = false;
+    Float_t pip_dcymin_r0 = 25,pip_dcymax_r0 = 135, pim_dcymin_r0 = 32,pim_dcymax_r0 = 145;
+    Float_t dcy0,dcy_min,dcy_max,dcth_min,dcth_max;
+    if (pid == 211)
+    {
+      dcy0 = 10;
+      dcy_min = 25;
+      dcy_max = 135;
+      dcth_min = 64;
+      dcth_max = 116;
+    }
+    else if (pid == -211)
+    {
+      dcy0 = 15;
+      dcy_min = 32;
+      dcy_max = 145;
+      dcth_min = 65;
+      dcth_max = 115;
+
+    }
+    else return true;
+    
+    Float_t th_0 = TMath::ATan2(dcy_r0-dcy0,dcx_r0)*TMath::RadToDeg();
+    
+    if (dcy_min<dcy_r0&&dcy_r0<dcy_max
+	&&dcth_min<th_0&&th_0<dcth_max)
+      ret = true;
+    
+    return ret;
+
+					       
 
   }
   //////////////////////////
@@ -981,11 +1027,13 @@ public:
       if (evnt==evnt_prev)
       {
 	//std::cout<<__LINE__<<" "<<findSecondary()<<std::endl;
-	Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
+	if (FidCheck(pid))
+	{
 	
-	push_bkgnd(p);
-	
-	findSecondary();
+	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
+	  push_bkgnd(p);
+	  findSecondary();
+	}
       }
       else
       {
@@ -1024,9 +1072,12 @@ public:
 	clear();
 	setElectVar();
 	evnt_prev=evnt;
-	Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
-	push_bkgnd(p);
-	findSecondary();
+	if (FidCheck(pid))
+	{
+	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
+	  push_bkgnd(p);
+	  findSecondary();
+	}
       }
       std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
       std::cout.flush();
@@ -1146,10 +1197,15 @@ int main(int argc, char *argv[])
   //strcpy(outdir,Form("test_eta_%sD_%s",st,tt));
 
   TChain *t = new TChain();
-  if (data_type==1) t->Add("data.root/ntuple_accept");
-  else if (data_type==2) t->Add("data.root/ntuple_thrown");
+
+  TString PATH="";
+  if (INDIR) PATH = INDIR + "/*.root";
+  else PATH = INFILE;
+  
+  if (data_type==1) t->Add(PATH + "/ntuple_accept");
+  else if (data_type==2) t->Add(PATH + "/ntuple_thrown");
   else 
-    t->Add("data.root/ntuple_data");
+    t->Add(PATH + "/ntuple_data");
   
   //  t->Add("/user/o/orsosa/osoto_ana/local/prune_simul.root/ntuple_accept"); //simrec test
   //t->Add("/data/atlas/users/orsosa/eg2_sim_pruned/C/pruned_simul_*.root/ntuple_accept"); //C  sim rec 
@@ -1195,6 +1251,8 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("DCPx",1);
   t->SetBranchStatus("DCPy",1);
   t->SetBranchStatus("DCPz",1);
+  t->SetBranchStatus("dcx_rot_0",1);
+  t->SetBranchStatus("dcy_rot_0",1);
 
   //  t->SetBranchStatus("TargTypeO",1);
 
@@ -1227,6 +1285,8 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("DCPx",&DCPx);
   t->SetBranchAddress("DCPy",&DCPy);
   t->SetBranchAddress("DCPz",&DCPz);
+  t->SetBranchAddress("dcx_rot_0",&dcx_r0);
+  t->SetBranchAddress("dcy_rot_0",&dcy_r0);
 
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 

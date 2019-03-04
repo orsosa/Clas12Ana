@@ -26,7 +26,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "particle_mix_asym.h"
+#include "particle_mix_asym_clean.h"
 
 bool DEBUG=false;
 Float_t HELIC=-111;
@@ -1335,7 +1335,7 @@ int main(int argc, char *argv[])
 
   
   // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-",Form("pippim_exact_asym_m%d.root",MULT),true);
+  Reaction r("K0 -> pi+ pi-",Form("pippim_exact_asym_clean_m%d.root",MULT),true);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");

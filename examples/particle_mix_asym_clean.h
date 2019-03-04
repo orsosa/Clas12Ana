@@ -10,13 +10,9 @@ extern Int_t MULT;
 Float_t Ax0 = 0.0606961;
 Float_t mx = 0.139071;
 
-//Float_t Az0 = 0.0128893;
-//Float_t z0 = 0.63336;
-//Float_t cz = 1.47663;
 Float_t Az0 = 0.0128893;
 Float_t z0 = 0.63336;
-Float_t cz = 0.2;
-
+Float_t cz = 1.47663;
 
 Float_t Am0 = 0.0420307;
 Float_t m0 = 0.811456;
@@ -25,8 +21,8 @@ Float_t cm = 0.300714;
 Float_t m_Az = 0.0264659;
 Float_t m_Am = 0.0271934;
 Float_t m_Ax = 0.0251313;
-//Float_t max_Az = 0.3;
-Float_t max_Az = 0.051;
+//Float_t max_Az = 0.09;
+Float_t max_Az = 0.3;
 Float_t pi = TMath::Pi();
 
 Float_t ALU(Float_t x,Float_t z,Float_t m)
