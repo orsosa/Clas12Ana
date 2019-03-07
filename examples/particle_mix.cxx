@@ -742,12 +742,20 @@ public:
     }
     else if (pid == -211)
     {
+      
+      /*// Sep-18 cooking
       dcy0 = 15;
       dcy_min = 32;
       dcy_max = 145;
       dcth_min = 65;
-      dcth_max = 115;
+      dcth_max = 115;*/
 
+      // Feb-19 cooking
+      dcy0 = 25;
+      dcy_min = 32;
+      dcy_max = 145;
+      dcth_min = 58;
+      dcth_max = 122;
     }
     else return true;
     
@@ -893,19 +901,19 @@ public:
 
   void setElectVar()
   {
-    Nu_prev=Nu;
-    Q2_prev=Q2;
-    Ze_prev=Ze;
-    Xe_prev=Xe;
-    Ye_prev=Ye;
+    Nu_prev = Nu;
+    Q2_prev = Q2;
+    Ze_prev = Ze;
+    Xe_prev = Xe;
+    Ye_prev = Ye;
     W_prev = W;
-    Pex_prev=Pex;
-    Pey_prev=Pey;
-    Pez_prev=Pez;
+    Pex_prev = Pex;
+    Pey_prev = Pey;
+    Pez_prev = Pez;
     Ee_prev = Ee;
-    TargType_prev=TargType;
-    TargTypeO_prev=TargTypeO;
-    helic_prev=helic;
+    TargType_prev = TargType;
+    TargTypeO_prev = TargTypeO;
+    helic_prev = helic;
   }
 
   //int takeN(int N,int kspid, int pos=0,Particle p=Particle(),int count=0)
@@ -1027,7 +1035,8 @@ public:
       if (evnt==evnt_prev)
       {
 	//std::cout<<__LINE__<<" "<<findSecondary()<<std::endl;
-	if (FidCheck(pid))
+	//	if (FidCheck(pid))
+	if (FidCheck(11))
 	{
 	
 	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
@@ -1072,7 +1081,8 @@ public:
 	clear();
 	setElectVar();
 	evnt_prev=evnt;
-	if (FidCheck(pid))
+	//	if (FidCheck(pid))
+	if (FidCheck(11))
 	{
 	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
 	  push_bkgnd(p);
@@ -1199,8 +1209,11 @@ int main(int argc, char *argv[])
   TChain *t = new TChain();
 
   TString PATH="";
-  if (INDIR) PATH = INDIR + "/*.root";
+  if (!INDIR.IsNull()) PATH = INDIR + "/*.root";
   else PATH = INFILE;
+
+  std::cout<<"processing: "<<PATH<<std::endl;
+  std::cout<<"data_type: "<<data_type<<std::endl;
   
   if (data_type==1) t->Add(PATH + "/ntuple_accept");
   else if (data_type==2) t->Add(PATH + "/ntuple_thrown");

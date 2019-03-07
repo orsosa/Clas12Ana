@@ -193,7 +193,7 @@ int main(int argc, char **argv)
       	TString category = t->GetCategorization(i);
 	
 	
-      	if (category == "pi-" || category == "pi+")
+      	if (category == "pi-" || category == "pi+" || category == "gamma")
 	{
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2();
@@ -241,7 +241,7 @@ int main(int argc, char **argv)
           vars[41] = t->Eout(i);
           vars[42] = t->Ein(0);
           vars[43] = t->Eout(0);
-	  vars[44] = (category == "muon")?13:((category == "muon+")?-13:t->Pid(i)) ;
+	  vars[44] = t->Pid(i);
 	  vars[45] = t->Beta(i);
           vars[46] = t->X(i);
           vars[47] = t->Y(i);
@@ -291,7 +291,7 @@ int main(int argc, char **argv)
 	  vars[88] = t->HX_ECOUT();
 	  vars[89] = t->HY_ECOUT();
 	  vars[90] = t->HZ_ECOUT();
-	  //vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
+	  vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
 	  vars[92] = t->Status(i);
 	  vars[93] = t->Status(0);
 
@@ -431,7 +431,7 @@ int main(int argc, char **argv)
       int npip=0,npim=0;
       for(int i=ind_first + 1; i<nRows; i++) 
       {
-      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
+      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211|| t -> Pid(i,1) == 22 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
 	  npip += (t -> Pid(i,1)==211)?1:0;
 	  npim += (t -> Pid(i,1)==-211)?1:0;
