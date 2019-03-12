@@ -1035,8 +1035,8 @@ public:
       if (evnt==evnt_prev)
       {
 	//std::cout<<__LINE__<<" "<<findSecondary()<<std::endl;
-	//	if (FidCheck(pid))
-	if (FidCheck(11))
+	if (FidCheck(pid))
+	//	if (FidCheck(11))
 	{
 	
 	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
@@ -1081,8 +1081,8 @@ public:
 	clear();
 	setElectVar();
 	evnt_prev=evnt;
-	//	if (FidCheck(pid))
-	if (FidCheck(11))
+	if (FidCheck(pid))
+	  //if (FidCheck(11))
 	{
 	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
 	  push_bkgnd(p);
