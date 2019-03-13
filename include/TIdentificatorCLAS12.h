@@ -47,8 +47,7 @@ public:
     Int_t Status(Int_t k);                        // inline
 
 
-    
-    // CCPB
+    // CC
     Double_t Nphe(Int_t k);                       // inline
     Double_t NpheLTCC(Int_t k);                   // inline
     Double_t NpheHTCC(Int_t k);                   // inline
@@ -58,7 +57,7 @@ public:
     Double_t CCStatus(Int_t k);                   // inline
 
     // DCPB
-    Double_t DCStatus(Int_t k);                   // inline
+    Double_t DCChi2(Int_t k=0);                     // inline
 
     // ECPB
     Double_t Etot(Int_t k,Bool_t kind=0);         // inline
@@ -147,6 +146,7 @@ public:
     Double_t TimeSC(Int_t k);                     // inline
     Double_t EdepSC(Int_t k);                     // inline
     Double_t SCStatus(Int_t k);                   // inline
+    
 
     // Derived observables
     Double_t Momentum(Int_t k, Bool_t kind = 0);

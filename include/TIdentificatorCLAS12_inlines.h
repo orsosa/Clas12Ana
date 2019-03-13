@@ -267,22 +267,29 @@ inline Double_t TIdentificatorCLAS12::CCStatus(Int_t k)
 
 
 
-inline Double_t TIdentificatorCLAS12::DCStatus(Int_t k)
-{
-    // Return the signal goodness in the DCPB for the particle in the row k of
-    // the EVNT bank.
+*/
 
-    fEVNT = (TEVNTClass *) fCT->GetBankRow("EVNT", k);
-    if (fEVNT->Dcstat >= 1) {
-        Int_t dc_stat = fEVNT->Dcstat - 1;
-        fDCPB = (TDCPBClass *) fCT->GetBankRow("DCPB", dc_stat);
-        return fDCPB->Status;
-    } else {
-        return kGOOD;
+inline Double_t TIdentificatorCLAS12::DCChi2(Int_t k)
+{
+
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    if (REC__Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
     }
+  }
+  if (index>=0)
+    return REC__Track_chi2->getValue(index);
+  else 
+    return -1111;
+
 }
 
-*/
+
 
 inline Double_t TIdentificatorCLAS12::Etot(Int_t k,Bool_t kind)
 {
