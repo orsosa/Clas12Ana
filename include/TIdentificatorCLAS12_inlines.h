@@ -1150,15 +1150,15 @@ inline Float_t TIdentificatorCLAS12::TrajLTCCZ(Int_t k)
 ////// Traj XYZ FTOF1A
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AX(Int_t k)
 {
-  return TrajDetIdX(k,"FTOT1A");
+  return TrajDetIdX(k,"FTOF1A");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AY(Int_t k)
 {
-  return TrajDetIdY(k,"FTOT1A");
+  return TrajDetIdY(k,"FTOF1A");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AZ(Int_t k)
 {
-  return TrajDetIdZ(k,"FTOT1A");
+  return TrajDetIdZ(k,"FTOF1A");
 }
 ////////
 ////// Traj XYZ FTOF1B
