@@ -37,8 +37,9 @@ int main(int argc, char **argv)
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
 
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz";
-  
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z";
+
+  //  :ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z
   Int_t Nvar = VarList.CountChar(':')+1;
  
   Float_t *vars = new Float_t[Nvar];
@@ -433,7 +434,21 @@ int main(int argc, char **argv)
 	  vars[194] = t->TrajHTCCY(0);
 	  vars[195] = t->TrajHTCCZ(0);
 
-	  
+	  //:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z
+
+	  vars[196] = t->TrajFTOF1BX(i);
+	  vars[197] = t->TrajFTOF1BY(i);
+	  vars[198] = t->TrajFTOF1BZ(i);
+	  vars[199] = t->TrajFTOF2X(i);
+	  vars[200] = t->TrajFTOF2Y(i);
+	  vars[201] = t->TrajFTOF2Z(i);
+	  vars[202] = t->TrajFTOF1BX(0);
+	  vars[203] = t->TrajFTOF1BY(0);
+	  vars[204] = t->TrajFTOF1BZ(0);
+	  vars[205] = t->TrajFTOF2X(0);
+	  vars[206] = t->TrajFTOF2Y(0);
+	  vars[207] = t->TrajFTOF2Z(0);
+
 	  ntuple->Fill(vars);
 	}
       }
@@ -682,6 +697,18 @@ int main(int argc, char **argv)
 	  vars[194] = 0;
 	  vars[195] = 0;
 
+	  vars[196] = 0;
+	  vars[197] = 0;
+	  vars[198] = 0;
+	  vars[199] = 0;
+	  vars[200] = 0;
+	  vars[201] = 0;
+	  vars[202] = 0;
+	  vars[203] = 0;
+	  vars[204] = 0;
+	  vars[205] = 0;
+	  vars[206] = 0;
+	  vars[207] = 0;
 	  
 	  ntuple_thrown->Fill(vars);
       
