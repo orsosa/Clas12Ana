@@ -10,7 +10,7 @@ TString TIdentificatorCLAS12::GetCategorization(Int_t k)
 
 
   if (Pid(k) == 22
-      &&0.95<Beta(k)&&Beta(k)<1.05
+      // &&0.95<Beta(k)&&Beta(k)<1.05
 
       )// fiducial and status cuts to be added
     partId="gamma";
