@@ -196,7 +196,7 @@ int main(int argc, char **argv)
       	TString category = t->GetCategorization(i);
 	
 	
-      	if (category == "pi-" || category == "pi+" || category == "gamma")
+      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron")
 	{
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2();
@@ -484,7 +484,7 @@ int main(int argc, char **argv)
       int npip=0,npim=0;
       for(int i=ind_first + 1; i<nRows; i++) 
       {
-      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211|| t -> Pid(i,1) == 22 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
+      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211|| t -> Pid(i,1) == 22 || t -> Pid(i,1) == 2212 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
 	  npip += (t -> Pid(i,1)==211)?1:0;
 	  npim += (t -> Pid(i,1)==-211)?1:0;

@@ -8,7 +8,6 @@ TString TIdentificatorCLAS12::GetCategorization(Int_t k)
   if (Pid(k) == 11) // fiducial and status cuts to be added
     partId="electron";
 
-
   if (Pid(k) == 22
       // &&0.95<Beta(k)&&Beta(k)<1.05
 
@@ -19,11 +18,30 @@ TString TIdentificatorCLAS12::GetCategorization(Int_t k)
       )// fiducial and status cuts to be added
     partId="pi+";
 
-
   if (Pid(k) == -211
       )// fiducial and status cuts to be added
     partId="pi-";
 
+  if (Pid(k) == 2212
+      )// fiducial and status cuts to be added
+    partId="proton";
+
+  if (Pid(k) == 321
+      )// fiducial and status cuts to be added
+    partId="K+";
+
+  if (Pid(k) == -321
+      )// fiducial and status cuts to be added
+    partId="K-";
+
+  if (Pid(k) == 2112
+      )// fiducial and status cuts to be added
+    partId="neutron";
+
+
+  if (Pid(k) == 45
+      )// fiducial and status cuts to be added
+    partId="deuteron";
   
   return partId;
 }
