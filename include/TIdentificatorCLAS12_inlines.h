@@ -1417,12 +1417,12 @@ inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k)
   {
     if (REC__Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
     {
-      if (REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      if (REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"] )
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      else if(REC__Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"])
       {
 	index = scintillatorMap[k][i];
 	break;

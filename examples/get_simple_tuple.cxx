@@ -206,9 +206,11 @@ int main(int argc, char **argv)
 	  vars[5] = t -> Sector(0);
 	  vars[6] = t -> ThetaPQ(i);
 	  vars[7] = t -> PhiPQ(i);
-	  vars[8] = t -> Zh(i);
+	  Float_t pid = t->Pid(i);
+	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+	  vars[8] = t -> Zh(i,mass);
 	  vars[9] = TMath::Sqrt(t -> Pt2(i));
-	  vars[10] = t -> Mx2(i);
+	  vars[10] = t -> Mx2(i,mass);
 	  vars[11] = t -> Xf(i);
 	  vars[12] = t -> T(i);
 	  vars[13] = t -> Momentum(i);
@@ -496,9 +498,11 @@ int main(int argc, char **argv)
 	  vars[5] = t -> Sector(ind_first,1);
 	  vars[6] = t -> ThetaPQ(i,1);
 	  vars[7] = t -> PhiPQ(i,1);
-	  vars[8] = t -> Zh(i,1);
+	  Float_t pid = t->Pid(i);
+	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+	  vars[8] = t -> Zh(i,mass,1);
 	  vars[9] = TMath::Sqrt(t -> Pt2(i,1));
-	  vars[10] = t -> Mx2(i,1);
+	  vars[10] = t -> Mx2(i,mass,1);
 	  vars[11] = t -> Xf(i,1);
 	  vars[12] = t -> T(i,1);
 	  vars[13] = t -> Momentum(i,1);

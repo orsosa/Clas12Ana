@@ -501,7 +501,7 @@ Double_t TIdentificatorCLAS12::ThetaVirtLab(Bool_t kind) // Check if it is corre
     if(kind==0) 
         theta_virt=acos((kEbeam-Momentum(0)*cos(ThetaLab(0)*TMath::Pi()/180.))/(sqrt(Q2()+Nu()*Nu())));
     else
-        theta_virt=acos((kEbeam-Momentum(0,1)*cos(ThetaLab(0,1)*TMath::Pi()/180.))/(sqrt(Q2(1)+Nu(1)*Nu(1))));
+        theta_virt=acos((kEbeam-Momentum(kIndLundFirst,1)*cos(ThetaLab(kIndLundFirst,1)*TMath::Pi()/180.))/(sqrt(Q2(1)+Nu(1)*Nu(1))));
     return theta_virt;
 }
 
@@ -514,10 +514,17 @@ Double_t TIdentificatorCLAS12::PhiVirtLab(Bool_t kind) // Check if it is correct
     //
     // If kind is zero, the EVNT bank is used. If not, the GSIM bank is used
     // instead.
+  if (kind==0)
     if(PhiLab(0,kind) > 0) 
-        return (-180.+PhiLab(0,kind));
+      return (-180.+PhiLab(0,kind));
     else 
-        return (180.+PhiLab(0,kind));
+      return (180.+PhiLab(0,kind));
+  else
+    if(PhiLab(kIndLundFirst,kind) > 0) 
+      return (-180.+PhiLab(kIndLundFirst,kind));
+    else 
+      return (180.+PhiLab(kIndLundFirst,kind));
+
 }
 
 
@@ -538,7 +545,7 @@ Double_t TIdentificatorCLAS12::ThetaPQ(Int_t k, Bool_t kind)
     }
     else {
         TVector3 Vpi(Px(k,1),Py(k,1),Pz(k,1));
-        TVector3 Vvirt(-Px(0,1),-Py(0,1),kEbeam-Pz(0,1));
+        TVector3 Vvirt(-Px(kIndLundFirst,1),-Py(kIndLundFirst,1),kEbeam-Pz(kIndLundFirst,1));
         theta_pq=Vvirt.Angle(Vpi)*180./(TMath::Pi());
     }
     return theta_pq;
@@ -570,7 +577,7 @@ Double_t TIdentificatorCLAS12::PhiPQ(Int_t k, Bool_t kind)
     }
     else {
         TVector3 Vpi(Px(k,1),Py(k,1),Pz(k,1));
-        TVector3 Vvirt(-Px(0,1),-Py(0,1),kEbeam-Pz(0,1));
+        TVector3 Vvirt(-Px(kIndLundFirst,1),-Py(kIndLundFirst,1),kEbeam-Pz(kIndLundFirst,1));
         Double_t phi_z = TMath::Pi()-Vvirt.Phi();
         Vvirt.RotateZ(phi_z);
         Vpi.RotateZ(phi_z);
@@ -597,8 +604,8 @@ Double_t TIdentificatorCLAS12::CosThetaPQ(Int_t k, Bool_t kind)
         return (Pz(k) * (kEbeam - Pz(0)) - Px(k) * Px(0) - Py(k) * Py(0)) /
                             (sqrt(Nu() * Nu() + Q2()) * Momentum(k));
     else                                // Fix this in case kind != 1
-        return (Pz(k,1) * (kEbeam - Pz(0,1)) - Px(k,1) * Px(0,1) -
-                Py(k,1) * Py(0,1)) /
+        return (Pz(k,1) * (kEbeam - Pz(kIndLundFirst,1)) - Px(k,1) * Px(kIndLundFirst,1) -
+                Py(k,1) * Py(kIndLundFirst,1)) /
                             (sqrt(Nu(1) * Nu(1) + Q2(1)) * Momentum(k,1));
 }
 
@@ -761,12 +768,12 @@ Double_t TIdentificatorCLAS12::Yb(Bool_t kind)
     }        
 }
 
-Double_t TIdentificatorCLAS12::Zh(Int_t k, Bool_t kind, Double_t Mass)
+Double_t TIdentificatorCLAS12::Zh(Int_t k, Double_t mp, Bool_t kind)
 {
     if (kind == 0)
-        return sqrt(Mass * Mass + Momentum(k) * Momentum(k)) / Nu();
+        return sqrt(mp * mp + Momentum(k) * Momentum(k)) / Nu();
     else                                // Fix this in case k != 1
-        return sqrt(Mass * Mass + Momentum(k,1) * Momentum(k,1)) / Nu(1);
+        return sqrt(mp * mp + Momentum(k,1) * Momentum(k,1)) / Nu(1);
 }
 
 
@@ -779,12 +786,12 @@ Double_t TIdentificatorCLAS12::Xf(Int_t k, Bool_t kind)
       return PlCM(k,1) / PmaxCM(1);
 }
 
-Double_t TIdentificatorCLAS12::Mx2(Int_t k, Bool_t kind)
+Double_t TIdentificatorCLAS12::Mx2(Int_t k, Float_t mp, Bool_t kind)
 {
     if (kind == 0)
-      return W() * W() - 2. * Nu() * Zh(k) * (Nu() + kMprt) + kMpi * kMpi + 2. * TMath::Sqrt((Q2() + Nu() * Nu()) * Pl2(k));
+      return W() * W() - 2. * Nu() * Zh(k,mp,0) * (Nu() + kMprt) + mp * mp + 2. * TMath::Sqrt((Q2() + Nu() * Nu()) * Pl2(k));
     else                                // Fix this in case k != 1
-      return W(1) * W(1) - 2. * Nu(1) * Zh(k,1) * (Nu(1) + kMprt) + kMpi * kMpi + 2. * TMath::Sqrt((Q2(1) + Nu(1) * Nu(1)) * Pl2(k,1));
+      return W(1) * W(1) - 2. * Nu(1) * Zh(k,mp,1) * (Nu(1) + kMprt) + mp * mp + 2. * TMath::Sqrt((Q2(1) + Nu(1) * Nu(1)) * Pl2(k,1));
 }
 
 Double_t TIdentificatorCLAS12::T(Int_t k, Bool_t kind)

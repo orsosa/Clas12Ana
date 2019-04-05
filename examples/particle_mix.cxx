@@ -1000,12 +1000,15 @@ public:
   Float_t getE(Float_t Es=0, Float_t p=0, Float_t pid=211)
   {
     Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
-    Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057}; 
-    Float_t x=sqrt(p*p+0.139*0.139);
-    Float_t sf = ((pid==211)?pip[0] + pip[1]/x + pip[2]*x + pip[3]/x/x:((pid==-211)?pim[0] + pim[1]/x + pim[2]*x + pim[3]/x/x:0)) ;
+    Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057};
+
+    Float_t energy ;
+    if (pid == 45)
+      energy == sqrt(p*p + TMath::Power(1.8756,2) );
+    else
+      energy = sqrt(p*p + TMath::Power(TDatabasePDG::Instance()->GetParticle(pid)->Mass(),2) );
+    //    Float_t sf = ((pid==211)?pip[0] + pip[1]/x + pip[2]*x + pip[3]/x/x:((pid==-211)?pim[0] + pim[1]/x + pim[2]*x + pim[3]/x/x:0)) ;
     // Float_t energy = Es/sf;
-    Float_t energy = x;
-   
 
     return energy;
   }
@@ -1026,8 +1029,7 @@ public:
       Ep=E;
       if (data_type<2)// not gsim
       {
-	Ep = (pid==22)? (E/0.23):( (pid==211 || pid==-211)?(getE(E,P,pid) ):E);
- 
+	Ep = (pid==22)? (E/0.23):getE(E,P,pid);
 	//  if (pid==22)
 	//  correct_momentum();
 	
@@ -1159,7 +1161,7 @@ public:
     for ( int i = 0; i < Ne; i++)
     {
       t->GetEntry(i);
-      Ep = (pid==22)? (E/0.23):sqrt(P*P+ TMath::Power(TDatabasePDG::Instance()->GetParticle("pi-")->Mass(),2));
+      Ep = (pid==22)? (E/0.23):sqrt(P*P+ TMath::Power(TDatabasePDG::Instance()->GetParticle(pid)->Mass(),2));
       
       if (pid==22)
 	correct_momentum();
@@ -1366,13 +1368,21 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");
   */
 
+    
+  // Lambda0 -> p pi-
+  Reaction r("Lambda0 -> p pi-","ppim.root",true);
+  r.addPrimary("Lambda0");
+  r.addSecondary("proton");
+  r.addSecondary("pi-");
   
+  
+  /*  
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  
+  */
 
   
   /*  
