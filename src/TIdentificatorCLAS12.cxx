@@ -629,12 +629,12 @@ Double_t TIdentificatorCLAS12::Pl2(Int_t k, Bool_t kind)
 }
 
 
-Double_t TIdentificatorCLAS12::PlCM(Int_t k, Bool_t kind)
+Double_t TIdentificatorCLAS12::PlCM(Int_t k, Double_t mp, Bool_t kind)
 {
     if (kind == 0)
-      return (Nu() + kMprt) * (TMath::Sqrt(Pl2(k)) - TMath::Sqrt(Q2() + Nu() * Nu()) * Zh(k) * Nu() / (Nu() + kMprt)) / W();
+      return (Nu() + kMprt) * (TMath::Sqrt(Pl2(k)) - TMath::Sqrt(Q2() + Nu() * Nu()) * Zh(k,mp) * Nu() / (Nu() + kMprt)) / W();
     else                                // Fix this in case k != 1
-      return (Nu(1) + kMprt) * (TMath::Sqrt(Pl2(k,1)) - TMath::Sqrt(Q2(1) + Nu(1) * Nu(1)) * Zh(k,1) * Nu(1) / (Nu(1) + kMprt)) / W(1);
+      return (Nu(1) + kMprt) * (TMath::Sqrt(Pl2(k,1)) - TMath::Sqrt(Q2(1) + Nu(1) * Nu(1)) * Zh(k,mp,1) * Nu(1) / (Nu(1) + kMprt)) / W(1);
 }
 
 Double_t TIdentificatorCLAS12::PmaxCM(Bool_t kind)
@@ -778,12 +778,12 @@ Double_t TIdentificatorCLAS12::Zh(Int_t k, Double_t mp, Bool_t kind)
 
 
 
-Double_t TIdentificatorCLAS12::Xf(Int_t k, Bool_t kind)
+Double_t TIdentificatorCLAS12::Xf(Int_t k, Double_t mp, Bool_t kind)
 {
     if (kind == 0)
-      return PlCM(k) / PmaxCM();
+      return PlCM(k,mp) / PmaxCM();
     else                                // Fix this in case k != 1
-      return PlCM(k,1) / PmaxCM(1);
+      return PlCM(k,mp,1) / PmaxCM(1);
 }
 
 Double_t TIdentificatorCLAS12::Mx2(Int_t k, Float_t mp, Bool_t kind)
@@ -794,12 +794,12 @@ Double_t TIdentificatorCLAS12::Mx2(Int_t k, Float_t mp, Bool_t kind)
       return W(1) * W(1) - 2. * Nu(1) * Zh(k,mp,1) * (Nu(1) + kMprt) + mp * mp + 2. * TMath::Sqrt((Q2(1) + Nu(1) * Nu(1)) * Pl2(k,1));
 }
 
-Double_t TIdentificatorCLAS12::T(Int_t k, Bool_t kind)
+Double_t TIdentificatorCLAS12::T(Int_t k, Double_t mp, Bool_t kind)
 {
     if (kind == 0)
-      return 2. * TMath::Sqrt((Nu() * Nu() + Q2()) * Pl2(k)) + kMpi * kMpi - Q2() - 2. * Nu() * Nu() * Zh(k);
+      return 2. * TMath::Sqrt((Nu() * Nu() + Q2()) * Pl2(k)) + mp * mp - Q2() - 2. * Nu() * Nu() * Zh(k,mp);
     else                                // Fix this in case k != 1
-      return 2. * TMath::Sqrt((Nu(1) * Nu(1) + Q2(1)) * Pl2(k,1)) + kMpi * kMpi - Q2(1) - 2. * Nu(1) * Nu(1) * Zh(k,1);
+      return 2. * TMath::Sqrt((Nu(1) * Nu(1) + Q2(1)) * Pl2(k,1)) + mp * mp - Q2(1) - 2. * Nu(1) * Nu(1) * Zh(k,mp,1);
 }
 
 

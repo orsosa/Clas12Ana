@@ -1378,11 +1378,10 @@ int main(int argc, char *argv[])
   
     
   // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
+  Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  
   
   /*  
   //eta -> a a
@@ -1392,7 +1391,6 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");  
   */
 
-  
   
   /*
     // K0 -> pi+ pi-
