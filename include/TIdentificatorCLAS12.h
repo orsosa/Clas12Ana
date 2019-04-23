@@ -250,7 +250,7 @@ public:
     //Added in hayk's code
     Double_t Pt2(Int_t, Bool_t = 0);
     Double_t Pl2(Int_t, Bool_t = 0);
-    Double_t PlCM(Int_t, Bool_t = 0);
+    Double_t PlCM(Int_t k, Double_t mp = 0.13957, Bool_t kind = 0);
     Double_t PmaxCM(Bool_t = 0);
 
     // Kinematic variables
@@ -263,9 +263,9 @@ public:
 
     //Added in hayk's code
     Double_t Zh(Int_t k, Double_t mp = 0.13957, Bool_t kind = 0);
-    Double_t Xf(Int_t k, Bool_t kind = 0);
+    Double_t Xf(Int_t k, Double_t mp = 0.13957, Bool_t kind = 0);
     Double_t Mx2(Int_t k, Float_t mp = 0.13957, Bool_t kind = 0);
-    Double_t T(Int_t k, Bool_t kind = 0);
+    Double_t T(Int_t k, Double_t mp = 0.13957, Bool_t kind = 0);
 
     // Correction functions
     Double_t TimeCorr4(Double_t mass, Int_t k);

@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
 
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z";
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt2:Mx2:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z";
 
   //  :ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z
   Int_t Nvar = VarList.CountChar(':')+1;
@@ -80,6 +80,7 @@ int main(int argc, char **argv)
   while (t->Next())
   {
     
+    
     Int_t nRows = t->GetNRows();
 
     Npip_mc = t->GetNPart(211,1);
@@ -87,12 +88,12 @@ int main(int argc, char **argv)
     Npip_rec = t->GetNPart(211);
     Npim_rec = t->GetNPart(-211);
     rec_elec = 0;
-
+    
     //if(false)
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-      rec_elec=1;
       
+      rec_elec=1;
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -129,7 +130,7 @@ int main(int argc, char **argv)
       DataElec[27] = t->LU_ECOUT();
       DataElec[28] = t->LV_ECOUT();
       DataElec[29] = t->LW_ECOUT();
-
+      
       DataElec[30] = t->HX_PCAL();
       DataElec[31] = t->HY_PCAL();
       DataElec[32] = t->HZ_PCAL();
@@ -156,7 +157,7 @@ int main(int argc, char **argv)
       DataElec[51] = t->Beta(0);
       DataElec[52] = t->STTime();
       DataElec[53] = t->RFTime();
-
+      
       Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
       dcx   = t->TrajDCX(0,0);
       dcy   = t->TrajDCY(0,0);
@@ -208,13 +209,17 @@ int main(int argc, char **argv)
 	  vars[7] = t -> PhiPQ(i);
 	  Float_t pid = t->Pid(i);
 	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+	  
 	  vars[8] = t -> Zh(i,mass);
-	  vars[9] = TMath::Sqrt(t -> Pt2(i));
+	  
+	  vars[9] = t -> Pt2(i);
+	  
 	  vars[10] = t -> Mx2(i,mass);
-	  vars[11] = t -> Xf(i);
-	  vars[12] = t -> T(i);
+	  
+	  vars[11] = t -> Xf(i,mass);
+	  vars[12] = t -> T(i,mass);
 	  vars[13] = t -> Momentum(i);
-	  vars[14] = 0;//t -> TimeCorr4(0.139570,i);
+	  vars[14] = 0;//t -> TimeCorr4(mass,i);
 	  vars[15] = (t -> Z(i)) - (t -> Z(0));
 	  vars[16] = t->Etot(i);//,t->Ein(i)+t->Eout(i));
 	  vars[17] = t->Etot(0);//,t->Ein(0)+t->Eout(0));
@@ -455,7 +460,7 @@ int main(int argc, char **argv)
 	}
       }
     }
-
+    
     nRows = t->GetMCNRows();
     Int_t ind_first = 3;
 
@@ -482,11 +487,10 @@ int main(int argc, char **argv)
       DataElec[15] = event;
 
       e_thrown->Fill(DataElec);
-
       int npip=0,npim=0;
       for(int i=ind_first + 1; i<nRows; i++) 
-      {
-      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211|| t -> Pid(i,1) == 22 || t -> Pid(i,1) == 2212 )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
+      {    
+      	if((t -> LundType(i) == 1) && (t -> Pid(i,1)==-211 || t -> Pid(i,1)==211|| t -> Pid(i,1) == 22 || t -> Pid(i,1) == 2212 || t -> Pid(i,1) == 45  )) //gamma: 1/22, pi0,+,-: 7/111,8/211,9/-211 (Geant3/pdg)
         {
 	  npip += (t -> Pid(i,1)==211)?1:0;
 	  npim += (t -> Pid(i,1)==-211)?1:0;
@@ -498,13 +502,13 @@ int main(int argc, char **argv)
 	  vars[5] = t -> Sector(ind_first,1);
 	  vars[6] = t -> ThetaPQ(i,1);
 	  vars[7] = t -> PhiPQ(i,1);
-	  Float_t pid = t->Pid(i);
+	  Float_t pid = t->Pid(i,1);
 	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
 	  vars[8] = t -> Zh(i,mass,1);
-	  vars[9] = TMath::Sqrt(t -> Pt2(i,1));
+	  vars[9] = t -> Pt2(i,1);
 	  vars[10] = t -> Mx2(i,mass,1);
-	  vars[11] = t -> Xf(i,1);
-	  vars[12] = t -> T(i,1);
+	  vars[11] = t -> Xf(i,mass,1);
+	  vars[12] = t -> T(i,mass,1);
 	  vars[13] = t -> Momentum(i,1);
 	  vars[14] = 0;//t -> TimeCorr4(0.139570,i);
 	  vars[15] = (t -> Z(i,1)) - (t -> Z(ind_first,1));
@@ -718,7 +722,6 @@ int main(int argc, char **argv)
       
 	}
       }
-
       if (npip != Npip_mc || npim != Npim_mc)
       {
 	cout<<endl;

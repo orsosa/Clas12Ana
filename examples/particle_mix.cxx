@@ -1368,21 +1368,21 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");
   */
 
-    
+  /*    
   // Lambda0 -> p pi-
   Reaction r("Lambda0 -> p pi-","ppim.root",true);
   r.addPrimary("Lambda0");
   r.addSecondary("proton");
   r.addSecondary("pi-");
+  */
   
-  
-  /*  
+    
   // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
+  Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  */
+  
 
   
   /*  
