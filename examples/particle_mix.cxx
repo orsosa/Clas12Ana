@@ -376,7 +376,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -435,7 +435,6 @@ public:
     Float_t cospq0 = ((kEbeam-Pez_prev)*(*comb)[0]->Pz() - Pex_prev*(*comb)[0]->Px() - Pey_prev*(*comb)[0]->Py() )/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[0]->P());
     Float_t cospq1 = ((kEbeam-Pez_prev)*(*comb)[1]->Pz() - Pex_prev*(*comb)[1]->Px() - Pey_prev*(*comb)[1]->Py())/( sqrt((Q2_prev + Nu_prev*Nu_prev))*(*comb)[1]->P());
  
-
     Float_t Pt2 = P2*(1-cospq*cospq);
     Float_t Pl2 = P2*cospq*cospq;
 
@@ -454,9 +453,7 @@ public:
     Vvirt.RotateY(phi_y);
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
-    Float_t phiH = phi_pq;
-    phiH=phiH<0?phiH+360:phiH;
-    
+
     TLorentzVector q_lv(-Pex_prev,-Pey_prev,kEbeam-Pez_prev,Nu_prev); // virtual photon 4vec
     TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
     TLorentzVector Ptot_lv = q_lv+P_lv; // total 4vec
@@ -486,13 +483,12 @@ public:
     P0.Boost(-Ptot_lv.BoostVector());
     P1.Boost(-Ptot_lv.BoostVector());
     k_in.Boost(-Ptot_lv.BoostVector());
-    //// /////////////////////////////////
 
     Float_t Plt = Ph.Vect()*q_lv.Vect().Unit();
     Float_t Pl0m = P0.Vect()*q_lv.Vect().Unit();
     Float_t Pl1m = P1.Vect()*q_lv.Vect().Unit();
-    
- 
+
+    //// phiR //////////////////
     TVector3 Ph_u = Ph.Vect().Unit();
     TVector3 R = P0.Vect() - P1.Vect();
     R=R*0.5;
@@ -509,7 +505,45 @@ public:
     
     Float_t phiR =  qxkRT_sign*TMath::ACos(qxkqxRT/qxkqxRT_max)*TMath::RadToDeg();
     phiR=phiR<0?phiR+360:phiR;
+    ////////////////
 
+    TVector3 phTv = Ph.Vect() - (Ph.Vect()*q_lv.Vect().Unit())*q_lv.Vect().Unit();
+    //// phiR_cov //////////////////
+    TVector3 p0Lv = (P0.Vect()*q_lv.Vect().Unit())*q_lv.Vect().Unit();
+    TVector3 p1Lv = (P1.Vect()*q_lv.Vect().Unit())*q_lv.Vect().Unit();
+    TVector3 p0Tv = P0.Vect() - p0Lv;
+    TVector3 p1Tv = P1.Vect() - p1Lv; 
+
+    Float_t z0 = (*comb)[0]->E()/Nu_prev;
+    Float_t z1 = (*comb)[1]->E()/Nu_prev;
+    Float_t ztot_inv = 1./(z0+z1);
+    TVector3 RT_cov = (z1*p0Tv - z0*p1Tv)*ztot_inv;
+
+    Float_t qxkRT_cov_sign = q_lv.Vect().Cross(k_in.Vect())*RT_cov;
+    qxkRT_cov_sign /= TMath::Abs(qxkRT_cov_sign);
+
+    Float_t qxkqxRT_cov = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(RT_cov));
+    Float_t qxkqxRT_cov_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RT_cov)).Mag();
+    
+    Float_t phiR_cov =  qxkRT_cov_sign*TMath::ACos(qxkqxRT_cov/qxkqxRT_cov_max)*TMath::RadToDeg();
+    phiR_cov=phiR_cov<0?phiR_cov+360:phiR_cov;
+    ////////////////
+
+    //// phiH //////////////////
+    TVector3 Phv = Ph.Vect();
+    Float_t qxkPhv_sign = q_lv.Vect().Cross(k_in.Vect())*Phv;
+    qxkPhv_sign /= TMath::Abs(qxkPhv_sign);
+
+    Float_t qxkqxPhv = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(Phv));
+    Float_t qxkqxPhv_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(Phv)).Mag();
+    
+    Float_t phiH =  qxkPhv_sign*TMath::ACos(qxkqxPhv/qxkqxPhv_max)*TMath::RadToDeg();
+    phiH=phiH<0?phiH+360:phiH;
+   
+    ////////////////
+
+    
+    
     Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
 
     Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
@@ -536,7 +570,6 @@ public:
     Float_t xFo = 2*Plt/W_prev;
     Float_t xF0o = 2*Pl0m/W_prev;
     Float_t xF1o = 2*Pl1m/W_prev;
-
     
     kData[0] = M;
     kData[1] = Px;
@@ -617,6 +650,13 @@ public:
       dphi-=360.;
     kData[56] = dphi;
     kData[57] = Ee_prev;
+
+    kData[58] = phiR_cov;
+    kData[59] = p0Tv.Mag2();
+    kData[60] = p1Tv.Mag2();
+    kData[61] = phi_pq;
+    kData[62] = phTv.Mag2();
+
     
     /*  
     Double_t *W = new Double_t[4];
