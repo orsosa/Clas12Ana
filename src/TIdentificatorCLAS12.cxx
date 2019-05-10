@@ -307,18 +307,18 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
 int TIdentificatorCLAS12::FillResponseMaps()
 {
   ClearMaps();
-  FillMap(REC__Calorimeter_pindex,calorimeterMap);
-  FillMap(REC__Cherenkov_pindex,cherenkovMap);
-  FillMap(REC__Scintillator_pindex,scintillatorMap);
-  FillMap(REC__Track_pindex,trackMap);
-  FillMap(REC__Traj_pindex,trajMap);
-  FillMap(REC__CovMat_pindex,covMatMap);
+  FillMap(REC_Calorimeter_pindex,calorimeterMap);
+  FillMap(REC_Cherenkov_pindex,cherenkovMap);
+  FillMap(REC_Scintillator_pindex,scintillatorMap);
+  FillMap(REC_Track_pindex,trackMap);
+  FillMap(REC_Traj_pindex,trajMap);
+  FillMap(REC_CovMat_pindex,covMatMap);
 
-  FillMap(RICH__hadrons_particle_index,richHadPartMap);
-  FillMapRev(RICH__hadrons_hit_index,richHadClusterMap);
-  FillMap(REC__RICH_pindex,richRRPartMap);
-  FillMapRev(REC__RICH_index,richRRClusterMap);
-  FillMap(RICH__newhits_cluster,richHitClusterMap);
+  FillMap(RICH_hadrons_particle_index,richHadPartMap);
+  FillMapRev(RICH_hadrons_hit_index,richHadClusterMap);
+  FillMap(REC_RICH_pindex,richRRPartMap);
+  FillMapRev(REC_RICH_index,richRRClusterMap);
+  FillMap(RICH_newhits_cluster,richHitClusterMap);
   
 
   return 0;
@@ -419,9 +419,9 @@ int TIdentificatorCLAS12::PrintMap(std::map <int,std::vector<int>> &mp)
 int TIdentificatorCLAS12::Pid(int k,Bool_t kind)
 {
   if (kind == 0)
-    return (int)REC__Particle_pid->getValue(k);
+    return (int)REC_Particle_pid->getValue(k);
   else
-    return (int)MC__Lund_pid->getValue(k);
+    return (int)MC_Lund_pid->getValue(k);
 }
 
 

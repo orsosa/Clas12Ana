@@ -8,8 +8,8 @@ env = Environment();
 ENV = os.environ
 env.Append(ENV = ENV)
 
-if "HIPODIR" in ENV.keys():
- HIPODIR =   ENV["HIPODIR"]
+if "CLAS12TOOL" in ENV.keys():
+ CLAS12TOOL =   ENV["CLAS12TOOL"]
 else:
  print "you must define hipo root installation directory"
 
@@ -20,10 +20,10 @@ else:
  print "not using lz4, define LZ4DIR variable if you have it."
  Exit(1)
 
-if "CLAS12ANA" in ENV.keys():
- CLAS12ANA =   ENV["CLAS12ANA"]
+if "CLAS12ANA_H4" in ENV.keys():
+ CLAS12ANA_H4 =   ENV["CLAS12ANA_H4"]
 else:
- print "you must define CLAS12ANA root directory, may be: export CLAS12ANA=`pwd`"
+ print "you must define CLAS12ANA_H4 root directory, may be: export CLAS12ANA_H4=`pwd`"
  Exit(1)	    
 
 ####### ROOT ENVIRONMENT #####
@@ -40,24 +40,24 @@ incdir = map(lambda x: x.lstrip("-I"),filter(lambda x: "-I" in x,cflags_out))
 
 ######################
 LZ4DIR=LZ4DIR.rstrip("/")
-HIPODIR=HIPODIR.rstrip("/")
+CLAS12TOOL=CLAS12TOOL.rstrip("/")
 
 SRCDIR ="src"
 INCDIR ="include"
-SHLIBDIR = CLAS12ANA + "/shlib"
+SHLIBDIR = CLAS12ANA_H4 + "/shlib"
 
 print SHLIBDIR
-env.Append(CPPPATH=[INCDIR,SRCDIR,"/usr/include","/usr/local/include","/opt/local/include",LZ4DIR + "/lib",HIPODIR + "/libcpp"])
+env.Append(CPPPATH=[INCDIR,SRCDIR,"/usr/include","/usr/local/include","/opt/local/include",LZ4DIR + "/lib",CLAS12TOOL + "/Hipo"])
 env.Append(CPPPATH=incdir)
 
 env.Append(CCFLAGS=["-O2","-fPIC","-m64","-fmessage-length=0","-g"])
 env.Append(CCFLAGS=cflags)
 
 env.Append(LINKFLAGS=ldflags)
-env.Append(LIBPATH=["/opt/local/lib","/usr/lib","/usr/local/lib",LZ4DIR + "/lib","lib",HIPODIR + "/lib"])
+env.Append(LIBPATH=["/opt/local/lib","/usr/lib","/usr/local/lib",LZ4DIR + "/lib","lib",CLAS12TOOL + "/lib"])
 env.Append(LIBPATH=libdir)
 
-env.Append(CONFIGUREDIR=[LZ4DIR + "/lib",HIPODIR + "/lib"])
+env.Append(CONFIGUREDIR=[LZ4DIR + "/lib",CLAS12TOOL + "/lib"])
 
 env.Append(LIBS=["Gui" ,"Core" ,"Imt" ,"RIO" ,"Net", "Hist", "Graf" ,"Graf3d" ,"Gpad" ,"Tree" ,"TreePlayer" ,"Rint" ,"Postscript" ,"Matrix" ,"Physics" ,"MathCore","Thread", "MultiProc" ,"m","dl","EG"])
 
