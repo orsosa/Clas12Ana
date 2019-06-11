@@ -49,3 +49,4 @@ examples/get_simple_tuple_rich
 examples/particle_mix
 examples/particle_mix_asym
 examples/particle_mix_asym_clean
+examples/getSchema

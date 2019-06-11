@@ -17,11 +17,10 @@ inline Float_t TIdentificatorCLAS12::NEvent()
 }
 */
 
-
-
 inline Double_t TIdentificatorCLAS12::Beta(Int_t k)
 {
-    return REC_Particle_beta->getValue(k);
+  get_REC__Particle(k);
+  return REC__Particle_beta;
 }
 
 inline Double_t TIdentificatorCLAS12::Charge(Int_t k, Bool_t kind)
@@ -29,11 +28,12 @@ inline Double_t TIdentificatorCLAS12::Charge(Int_t k, Bool_t kind)
     // Return the electrical charge for the particle in the row k of the EVNT
     // bank.
 
-    if (kind == 0) {
-      return REC_Particle_charge->getValue(k);
-    } else {
-      return -111; // Not found in MC_xxx banks
-    }
+  if (kind == 0) {
+    get_REC__Particle(k);
+    return REC__Particle_charge;
+  } else {
+    return -111; // Not found in MC__xxx banks
+  }
 }
 
 
@@ -42,9 +42,11 @@ inline Double_t TIdentificatorCLAS12::Px(Int_t k, Bool_t kind)
 {
 
     if (kind == 0) {
-      return REC_Particle_px->getValue(k);
-    } else {                
-      return MC_Lund_px->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_px;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_px;
     }
 }
 
@@ -53,9 +55,11 @@ inline Double_t TIdentificatorCLAS12::Px(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Py(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-      return REC_Particle_py->getValue(k);
-    } else {                
-      return MC_Lund_py->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_py;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_py;
     }
 }
 
@@ -64,9 +68,11 @@ inline Double_t TIdentificatorCLAS12::Py(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Pz(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-      return REC_Particle_pz->getValue(k);
-    } else {                
-      return MC_Lund_pz->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_pz;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_pz;
     }
 }
 
@@ -75,9 +81,11 @@ inline Double_t TIdentificatorCLAS12::Pz(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::X(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-      return REC_Particle_vx->getValue(k);
-    } else { 
-      return MC_Lund_vx->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_vx;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_vx;
     }
 }
 
@@ -85,9 +93,11 @@ inline Double_t TIdentificatorCLAS12::X(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Y(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-      return REC_Particle_vy->getValue(k);
-    } else { 
-      return MC_Lund_vy->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_vy;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_vy;
     }
 }
 
@@ -95,36 +105,93 @@ inline Double_t TIdentificatorCLAS12::Y(Int_t k, Bool_t kind)
 inline Double_t TIdentificatorCLAS12::Z(Int_t k, Bool_t kind)
 {
     if (kind == 0) {
-      return REC_Particle_vz->getValue(k);
-    } else {                            // Fix this
-      return MC_Lund_vz->getValue(k);
+      get_REC__Particle(k);
+      return REC__Particle_vz;
+    } else {
+      get_MC__Lund(k);
+      return MC__Lund_vz;
     }
 }
 
 inline Int_t TIdentificatorCLAS12::Helic() /// from event
 {
-  return (Int_t)REC_Event_Helic->getValue(0);
+  get_REC__Event(0);
+  return (Int_t)REC__Event_helicity;
 }
+
+inline Int_t TIdentificatorCLAS12::HelicOnline() /// from event
+{
+  get_HEL__online(0);
+  return HEL__online_helicity;
+}
+
+inline Int_t TIdentificatorCLAS12::HelicOnlineRaw() /// from event
+{
+  get_HEL__online(0);
+  return HEL__online_helicityRaw;
+}
+
+
+inline Int_t TIdentificatorCLAS12::HelicFlip() /// from event
+{
+  get_HEL__flip(0);
+  return HEL__flip_helicity;
+}
+
+inline Int_t TIdentificatorCLAS12::HelicFlipRaw() /// from event
+{
+  get_HEL__flip(0);
+  return HEL__flip_helicityRaw;
+}
+
+inline Int_t TIdentificatorCLAS12::HelicFlipEvent() /// from event
+{
+  get_HEL__flip(0);
+  return HEL__flip_event;
+}
+
 
 inline Int_t TIdentificatorCLAS12::Event() /// from event
 {
-  return (Int_t)RUN_config_event->getValue(0);
+  get_RUN__config(0);
+  return (Int_t)RUN__config_event;
+}
+
+inline Int_t TIdentificatorCLAS12::RunN() /// from event
+{
+  get_RUN__config(0);
+  return (Int_t)RUN__config_run;
+}
+
+inline Float_t TIdentificatorCLAS12::Torus() /// from event
+{
+  get_RUN__config(0);
+  return RUN__config_torus;
+}
+
+inline Float_t TIdentificatorCLAS12::Solenoid() /// from event
+{
+  get_RUN__config(0);
+  return RUN__config_solenoid;
 }
 
 inline Float_t TIdentificatorCLAS12::STTime(Int_t k) /// from event
 {
-  return (Int_t)REC_Event_STTime->getValue(k);
+  get_REC__Event(k);
+  return REC__Event_startTime;
 }
 
 inline Float_t TIdentificatorCLAS12::RFTime(Int_t k) /// from event
 {
-  return (Int_t)REC_Event_RFTime->getValue(k);
+  get_REC__Event(k);
+  return REC__Event_RFTime;
 }
 
 
 inline Int_t TIdentificatorCLAS12::Status(Int_t k)
 {
-  return (Int_t)REC_Particle_status->getValue(k);
+  get_REC__Particle(k);
+  return (Int_t)REC__Particle_status;
 }
 
 /*
@@ -167,15 +234,18 @@ inline Double_t TIdentificatorCLAS12::NpheLTCC(Int_t k)
   int index=-1;
   for (int i=0;i<N;i++) // get index of the correct detector
   {
-    if (REC_Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["LTCC"])
+    get_REC__Cherenkov(cherenkovMap[k][i]);
+    if (REC__Cherenkov_detector == detectorType["LTCC"])
     {
       index=i;
       break;
     }
     
   }
-  if (index>=0)
-    return REC_Cherenkov_nphe->getValue(index);
+  if (index>=0){
+    get_REC__Cherenkov(index);
+    return REC__Cherenkov_nphe;
+  }
   else
     return -111;
 }
@@ -186,15 +256,18 @@ inline Double_t TIdentificatorCLAS12::NpheHTCC(Int_t k)
   int index=-1;
   for (int i=0;i<N;i++) // get index of the correct detector
   {
-    if (REC_Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["HTCC"])
+    get_REC__Cherenkov(cherenkovMap[k][i]);
+    if (REC__Cherenkov_detector == detectorType["HTCC"])
     {
       index=i;
       break;
     }
     
   }
-  if (index>=0)
-    return REC_Cherenkov_nphe->getValue(index);
+  if (index>=0){
+    get_REC__Cherenkov(index);
+    return REC__Cherenkov_nphe;
+  }
   else
     return -111;
 }
@@ -203,27 +276,31 @@ inline Double_t TIdentificatorCLAS12::NpheHTCC(Int_t k)
 
 inline Double_t TIdentificatorCLAS12::Chi2pid(Int_t k)
 {
-  return REC_Particle_chi2pid->getValue(k);
+  get_REC__Particle(k);
+  return REC__Particle_chi2pid;
 }
 
 inline Int_t TIdentificatorCLAS12::GetNRows()
 {
-  return  REC_Particle_pid->getLength();
+
+  return  REC__Particle->getRows();
 }
 
 inline Int_t TIdentificatorCLAS12::GetMCNRows()
 {
-  return  MC_Lund_pid->getLength();
+  return  MC__Lund->getRows();
 }
 
 inline Float_t TIdentificatorCLAS12::MCMass(Int_t k)
 {
-  return MC_Lund_mass->getValue(k);
+  get_MC__Lund(k);
+  return MC__Lund_mass;
 }
 
 inline Float_t TIdentificatorCLAS12::LundType(Int_t k)
 {
-  return  MC_Lund_type->getValue(k);
+  get_MC__Lund(k);
+  return  MC__Lund_type;
 }
 
 inline Int_t TIdentificatorCLAS12::GetNPart(Int_t pid, Bool_t kind)
@@ -231,17 +308,21 @@ inline Int_t TIdentificatorCLAS12::GetNPart(Int_t pid, Bool_t kind)
   int Npart = 0;
   if (!kind)
   {
-    int n = REC_Particle_pid->getLength();
-    for (int k=0;k<n;k++)
-      if (REC_Particle_pid->getValue(k)==pid)
+    int n = REC__Particle->getRows();
+    for (int k=0;k<n;k++){
+      get_REC__Particle(k);
+      if (REC__Particle_pid==pid)
 	Npart++;
+    }
   }
   else
   {
-    int n = MC_Lund_pid->getLength();
-    for (int k=3;k<n;k++)
-      if (MC_Lund_pid->getValue(k)==pid && MC_Lund_type->getValue(k)==1)
+    int n = MC__Lund_pid->getRows();
+    for (int k=kIndLundFirst;k<n;k++){
+      get_MC__Lund(k);
+      if (MC__Lund_pid == pid && MC__Lund_type == 1)
 	Npart++;
+    }
   }
   
   return Npart;
@@ -276,29 +357,34 @@ inline Double_t TIdentificatorCLAS12::DCChi2(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_chi2->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_chi2;
+  }
   else 
     return -1111;
 
 }
 
 
-
 inline Double_t TIdentificatorCLAS12::Etot(Int_t k,Bool_t kind)
 {
     // Return total energy deposited in the calorimeter for the particle in
     // the row k of the EVNT bank.
-  if (kind==0)
+  if (kind==0){
     return Ein(k) + Eout(k) + Epcal(k);
-  else
-    return MC_Lund_E->getValue(k);
+  }
+  else{
+    get_MC__Lund(k);
+    return MC__Lund_energy;
+  }
 }
 
 
@@ -310,15 +396,18 @@ inline Double_t TIdentificatorCLAS12::Ein(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_energy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_energy;
+  }
   else 
     return 0;
 }
@@ -332,15 +421,18 @@ inline Double_t TIdentificatorCLAS12::Eout(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_energy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_energy;
+  }
   else 
     return 0;
 }
@@ -353,15 +445,18 @@ inline Double_t TIdentificatorCLAS12::Epcal(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_energy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_energy;
+  }
   else 
     return 0;
 }
@@ -373,15 +468,18 @@ inline Int_t TIdentificatorCLAS12::SectorLTCC(Int_t k)
   int index=-1;
   for (int i=0;i<N;i++) // get index of the correct detector
   {
-    if (REC_Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["LTCC"])
+    get_REC__Cherenkov(cherenkovMap[k][i]);
+    if (REC__Cherenkov_detector == detectorType["LTCC"])
     {
       index=i;
       break;
     }
     
   }
-  if (index>=0)
-    return REC_Cherenkov_sector->getValue(index);
+  if (index>=0){
+    get_REC__Cherenkov(index);
+    return REC__Cherenkov_sector;
+  }
   else
     return -111;
 }
@@ -393,15 +491,18 @@ inline Int_t TIdentificatorCLAS12::SectorHTCC(Int_t k)
   int index=-1;
   for (int i=0;i<N;i++) // get index of the correct detector
   {
-    if (REC_Cherenkov_detector->getValue(cherenkovMap[k][i]) == detectorType["HTCC"])
+    get_REC__Cherenkov(cherenkovMap[k][i]);
+    if (REC__Cherenkov_detector == detectorType["HTCC"])
     {
       index=i;
       break;
     }
     
   }
-  if (index>=0)
-    return REC_Cherenkov_sector->getValue(index);
+  if (index>=0){
+    get_REC__Cherenkov(index);
+    return REC__Cherenkov_sector;
+  }
   else
     return -111;
 }
@@ -413,18 +514,20 @@ inline Int_t TIdentificatorCLAS12::SectorECAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"])
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"])
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_sector->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_sector;
+  }
   else 
     return 0;
 }
-
 
    
 inline Float_t TIdentificatorCLAS12::LU_PCAL(Int_t k)
@@ -434,15 +537,18 @@ inline Float_t TIdentificatorCLAS12::LU_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lu->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lu;
+  }
   else 
     return -111;
 }
@@ -454,15 +560,18 @@ inline Float_t TIdentificatorCLAS12::LV_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lv->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lv;
+  }
   else 
     return -111;
 }
@@ -474,15 +583,18 @@ inline Float_t TIdentificatorCLAS12::LW_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lw->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lw;
+  }
   else 
     return -111;
 }
@@ -496,15 +608,18 @@ inline Float_t TIdentificatorCLAS12::LU_ECIN(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lu->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lu;
+  }
   else 
     return -111;
 }
@@ -516,15 +631,18 @@ inline Float_t TIdentificatorCLAS12::LV_ECIN(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lv->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lv;
+  }
   else 
     return -111;
 }
@@ -536,15 +654,18 @@ inline Float_t TIdentificatorCLAS12::LW_ECIN(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lw->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lw;
+  }
   else 
     return -111;
 }
@@ -557,15 +678,18 @@ inline Float_t TIdentificatorCLAS12::LU_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lu->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lu;
+  }
   else 
     return -111;
 }
@@ -577,15 +701,18 @@ inline Float_t TIdentificatorCLAS12::LV_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lv->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_lv;
+  }
   else 
     return -111;
 }
@@ -597,15 +724,18 @@ inline Float_t TIdentificatorCLAS12::LW_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_lw->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    return REC__Calorimeter_lw;
+  }
   else 
     return -111;
 }
@@ -619,15 +749,18 @@ inline Float_t TIdentificatorCLAS12::HX_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hx->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hx;
+  }
   else 
     return -111;
 }
@@ -639,15 +772,18 @@ inline Float_t TIdentificatorCLAS12::HY_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hy;
+  }
   else 
     return -111;
 }
@@ -659,35 +795,40 @@ inline Float_t TIdentificatorCLAS12::HZ_PCAL(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["PCAL"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["PCAL"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hz->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hz;
+  }
   else 
     return -111;
 }
 
 inline Float_t TIdentificatorCLAS12::HX_ECIN(Int_t k)
 {
-  
   Int_t N = calorimeterMap[k].size();
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hx->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hx;
+  }
   else 
     return -111;
 }
@@ -699,15 +840,18 @@ inline Float_t TIdentificatorCLAS12::HY_ECIN(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hy;
+  }
   else 
     return -111;
 }
@@ -719,15 +863,18 @@ inline Float_t TIdentificatorCLAS12::HZ_ECIN(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Inner"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Inner"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hz->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hz;
+  }
   else 
     return -111;
 }
@@ -739,15 +886,18 @@ inline Float_t TIdentificatorCLAS12::HX_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hx->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hx;
+  }
   else 
     return -111;
 }
@@ -759,15 +909,18 @@ inline Float_t TIdentificatorCLAS12::HY_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hy->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hy;
+  }
   else 
     return -111;
 }
@@ -779,15 +932,18 @@ inline Float_t TIdentificatorCLAS12::HZ_ECOUT(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Calorimeter_detector->getValue(calorimeterMap[k][i])==detectorType["ECAL"]
-	&&REC_Calorimeter_layer->getValue(calorimeterMap[k][i])==layerType["EC_Outer"] )
+    get_REC__Calorimeter(calorimeterMap[k][i]);
+    if (REC__Calorimeter_detector==detectorType["ECAL"]
+	&&REC__Calorimeter_layer==layerType["EC_Outer"] )
     {
       index = calorimeterMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Calorimeter_hz->getValue(index);
+  if (index>=0){
+    get_REC__Calorimeter(index);
+    return REC__Calorimeter_hz;
+  }
   else 
     return -111;
 }
@@ -801,14 +957,17 @@ inline Float_t TIdentificatorCLAS12::VX_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_vx_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_vx_nomm;
+  }
   else 
     return -1111;
 }
@@ -820,14 +979,17 @@ inline Float_t TIdentificatorCLAS12::VY_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_vy_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_vy_nomm;
+  }
   else 
     return -1111;
 }
@@ -839,14 +1001,17 @@ inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_vz_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_vz_nomm;
+  }
   else 
     return -1111;
 }
@@ -856,8 +1021,9 @@ inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
   Int_t N = trackMap[k].size();
   Int_t index=-1;
   for (int i=0;i<N;i++)
-  {  
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+  {
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
@@ -865,8 +1031,9 @@ inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
   }
 
   if (index>=0){
-    REC_Track_sector->getValue(index);
-    return REC_Track_sector->getValue(index);}
+    get_REC__Track(index);
+    return REC__Track_sector;
+  }
   else 
     return -111;
 }
@@ -878,14 +1045,17 @@ inline Float_t TIdentificatorCLAS12::Px_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_px_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_px_nomm;
+  }
   else 
     return -111;
 }
@@ -897,14 +1067,17 @@ inline Float_t TIdentificatorCLAS12::Py_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_py_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_py_nomm;
+  }
   else 
     return -111;
 }
@@ -916,14 +1089,17 @@ inline Float_t TIdentificatorCLAS12::Pz_DC(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Track_detector->getValue(trackMap[k][i])==detectorType["DC"])
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
     {
       index = trackMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Track_pz_nomm->getValue(index);
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_pz_nomm;
+  }
   else 
     return -111;
 }
@@ -936,14 +1112,17 @@ inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_x->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_x;
+  }
   else 
     return -1111;
 }
@@ -955,14 +1134,17 @@ inline Float_t TIdentificatorCLAS12::TrajY(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_y->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_y;
+  }
   else 
     return -1111;
 }
@@ -974,14 +1156,17 @@ inline Float_t TIdentificatorCLAS12::TrajZ(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_z->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_z;
+  }
   else 
     return -1111;
 }
@@ -995,14 +1180,17 @@ inline Float_t TIdentificatorCLAS12::TrajCX(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_cx->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cx;
+  }
   else 
     return -1111;
 }
@@ -1014,14 +1202,17 @@ inline Float_t TIdentificatorCLAS12::TrajCY(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_cy->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cy;
+  }
   else 
     return -1111;
 }
@@ -1033,14 +1224,17 @@ inline Float_t TIdentificatorCLAS12::TrajCZ(Int_t k,Int_t sl)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_cz->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cz;
+  }
   else 
     return -1111;
 }
@@ -1054,14 +1248,17 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdX(Int_t k,TString dname)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==trajDetId[dname])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==trajDetId[dname])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_x->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_x;
+  }
   else 
     return -1111;
 }
@@ -1073,14 +1270,17 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdY(Int_t k,TString dname)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==trajDetId[dname])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==trajDetId[dname])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_y->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_y;
+  }
   else 
     return -1111;
 }
@@ -1092,14 +1292,17 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdZ(Int_t k,TString dname)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==trajDetId[dname])
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==trajDetId[dname])
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_z->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_z;
+  }
   else 
     return -1111;
 }
@@ -1324,14 +1527,17 @@ inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg)
   int sl=2*reg;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl] || REC__Traj_detId==DCSuperLayer[sl+1] )
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_x->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_x;
+  }
   else 
     return -1111;
 }
@@ -1344,14 +1550,17 @@ inline Float_t TIdentificatorCLAS12::TrajDCY(Int_t k,Int_t reg)
   int sl=2*reg;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl] || REC__Traj_detId==DCSuperLayer[sl+1] )
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_y->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_y;
+  }
   else 
     return -1111;
 }
@@ -1364,14 +1573,17 @@ inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg)
   int sl=2*reg;
   for (int i=0;i<N;i++)
   {
-    if (REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl] || REC_Traj_detId->getValue(trajMap[k][i])==DCSuperLayer[sl+1] )
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_detId==DCSuperLayer[sl] || REC__Traj_detId==DCSuperLayer[sl+1] )
     {
       index = trajMap[k][i];
       break;
     }
   }
-  if (index>=0)
-    return REC_Traj_z->getValue(index);
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_z;
+  }
   else 
     return -1111;
 }
@@ -1383,19 +1595,20 @@ inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    get_REC__Scintillator(scintillatorMap[k][i]);
+    if (REC__Scintillator_detector==detectorType["FTOF"])
     {
-      if (REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      if (REC__Scintillator_layer==layerType["FTOF_1A"] )
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      else if(REC__Scintillator_layer==layerType["FTOF_1B"])
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      else if(REC__Scintillator_layer==layerType["FTOF_2"])
       {
 	index = scintillatorMap[k][i];
 	break;
@@ -1403,8 +1616,10 @@ inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k)
     }
     
   }
-  if (index>=0)
-    return REC_Scintillator_path->getValue(index);
+  if (index>=0){
+    get_REC__Scintillator(index);
+    return REC__Scintillator_path;
+  }
   else 
     return -111;
 }
@@ -1415,19 +1630,20 @@ inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    get_REC__Scintillator(scintillatorMap[k][i]);
+    if (REC__Scintillator_detector == detectorType["FTOF"])
     {
-      if (REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"] )
+      if (REC__Scintillator_layer == layerType["FTOF_1B"] )
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"])
+      else if(REC__Scintillator_layer == layerType["FTOF_1A"])
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      else if(REC__Scintillator_layer == layerType["FTOF_2"])
       {
 	index = scintillatorMap[k][i];
 	break;
@@ -1435,8 +1651,10 @@ inline Float_t TIdentificatorCLAS12::TimeTOF(Int_t k)
     }
     
   }
-  if (index>=0)
-    return REC_Scintillator_time->getValue(index);
+  if (index>=0){
+    get_REC__Scintillator(index);
+    return REC__Scintillator_time;
+  }
   else 
     return -111;
 }
@@ -1447,19 +1665,20 @@ inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k)
   Int_t index=-1;
   for (int i=0;i<N;i++)
   {
-    if (REC_Scintillator_detector->getValue(scintillatorMap[k][i])==detectorType["FTOF"])
+    get_REC__Scintillator(scintillatorMap[k][i]);
+    if (REC__Scintillator_detector == detectorType["FTOF"])
     {
-      if (REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1A"] )
+      if (REC__Scintillator_layer == layerType["FTOF_1A"] )
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_1B"])
+      else if(REC__Scintillator_layer == layerType["FTOF_1B"])
       {
 	index = scintillatorMap[k][i];
 	break;
       }
-      else if(REC_Scintillator_layer->getValue(scintillatorMap[k][i])==layerType["FTOF_2"])
+      else if(REC__Scintillator_layer == layerType["FTOF_2"])
       {
 	index = scintillatorMap[k][i];
 	break;
@@ -1467,8 +1686,10 @@ inline Int_t TIdentificatorCLAS12::SectorTOF(Int_t k)
     }
     
   }
-  if (index>=0)
-    return REC_Scintillator_sector->getValue(index);
+  if (index>=0){
+    get_REC__Scintillator(index);
+    return REC__Scintillator_sector;
+  }
   else 
     return -111;
 }
@@ -1484,8 +1705,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HAD_X(Int_t k)
   if (N>0) index=richHadPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
   
-  if (index>=0)
-    return RICH_hadrons_traced_hitx->getValue(index);
+  if (index>=0){
+    get_RICH__hadrons(index);
+    return RICH__hadrons_traced_hitx;
+  }
   else 
     return -1111;
 }
@@ -1498,8 +1721,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HAD_Y(Int_t k)
   if (N>0) index=richHadPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
   
-  if (index>=0)
-    return RICH_hadrons_traced_hity->getValue(index);
+  if (index>=0){
+    get_RICH__hadrons(index);
+    return RICH__hadrons_traced_hity;
+  }
   else 
     return -1111;
 }
@@ -1512,8 +1737,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HAD_Z(Int_t k)
   if (N>0) index=richHadPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the dirst one. hadrons\n";
   
-  if (index>=0)
-    return RICH_hadrons_traced_hitz->getValue(index);
+  if (index>=0){
+    get_RICH__hadrons(index);
+    return RICH__hadrons_traced_hitz;
+  }
   else 
     return -1111;
 }
@@ -1526,8 +1753,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HAD_T(Int_t k)
   if (N>0) index=richHadPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. hadrons\n";
   
-  if (index>=0)
-    return RICH_hadrons_traced_time->getValue(index);
+  if (index>=0){
+    get_RICH__hadrons(index);
+    return RICH__hadrons_traced_time;
+  }
   else 
     return -1111;
 }
@@ -1544,8 +1773,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_X(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_x->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_x;
+  }
   else 
     return -1111;
 }
@@ -1561,8 +1792,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_Y(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_y->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_y;
+  }
   else 
     return -1111;
 }
@@ -1578,8 +1811,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_Z(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_z->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_z;
+  }
   else 
     return -1111;
 }
@@ -1595,8 +1830,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_T(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_time->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_time;
+  }
   else 
     return -1111;
 }
@@ -1613,8 +1850,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WX(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_wx->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_wx;
+  }
   else 
     return -1111;
 }
@@ -1630,8 +1869,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WY(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_wy->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_wy;
+  }
   else 
     return -1111;
 }
@@ -1647,8 +1888,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WZ(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_wz->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_wz;
+  }
   else 
     return -1111;
 }
@@ -1664,8 +1907,10 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_WT(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newclusters_wtime->getValue(index);
+  if (index>=0){
+    get_RICH__clusters(index);
+    return RICH__clusters_wtime;
+  }
   else 
     return -1111;
 }
@@ -1681,8 +1926,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_X(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH X\n";
   
-  if (index>=0)
-    return REC_RICH_x->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_x;
+  }
   else 
     return -1111;
 }
@@ -1696,8 +1943,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_Y(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH Y\n";
   
-  if (index>=0)
-    return REC_RICH_y->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_y;
+  }
   else 
     return -1111;
 }
@@ -1711,8 +1960,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_Z(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH Z\n";
   
-  if (index>=0)
-    return REC_RICH_z->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_z;
+  }
   else 
     return -1111;
 }
@@ -1727,8 +1978,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HX(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HX\n";
   
-  if (index>=0)
-    return REC_RICH_hx->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_hx;
+  }
   else 
     return -1111;
 }
@@ -1742,8 +1995,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HY(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HY\n";
   
-  if (index>=0)
-    return REC_RICH_hy->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_hy;
+  }
   else 
     return -1111;
 }
@@ -1757,8 +2012,10 @@ inline Float_t TIdentificatorCLAS12::RICH_RR_HZ(Int_t k)
   if (N>0) index=richRRPartMap[k][0];
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. REC::RICH HZ\n";
   
-  if (index>=0)
-    return REC_RICH_hz->getValue(index);
+  if (index>=0){
+    get_REC__RICH(index);
+    return REC__RICH_hz;
+  }
   else 
     return -1111;
 }
@@ -1777,8 +2034,10 @@ inline Float_t TIdentificatorCLAS12::RICH_PMT(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newhits_pmt->getValue(index);
+  if (index>=0){
+    get_RICH__hits(index);
+    return RICH__hits_pmt;
+  }
   else 
     return -1111;
 }
@@ -1796,8 +2055,10 @@ inline Float_t TIdentificatorCLAS12::RICH_ANODE(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newhits_anode->getValue(index);
+  if (index>=0){
+    get_RICH__hits(index);
+    return RICH__hits_anode;
+  }
   else 
     return -1111;
 }
@@ -1815,8 +2076,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HITS_X(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newhits_x->getValue(index);
+  if (index>=0){
+    get_RICH__hits(index);
+    return RICH__hits_x;
+  }
   else 
     return -1111;
 }
@@ -1834,8 +2097,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HITS_Y(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newhits_y->getValue(index);
+  if (index>=0){
+    get_RICH__hits(index);
+    return RICH__hits_y;
+  }
   else 
     return -1111;
 }
@@ -1853,8 +2118,10 @@ inline Float_t TIdentificatorCLAS12::RICH_HITS_Z(Int_t k)
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
   
-  if (index>=0)
-    return RICH_newhits_z->getValue(index);
+  if (index>=0){
+    get_RICH__hits(index);
+    return RICH__hits_z;
+  }
   else 
     return -1111;
 }

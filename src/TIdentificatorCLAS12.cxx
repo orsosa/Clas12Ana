@@ -130,7 +130,10 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   kIndLundFirst=3;
   Nfiles=1;
   kCurrentFileIndex=0;
+  fEvent = new hipo::event();
+  fFactory = new hipo::dictionary();
   this->fReader = reader;
+  fReader->readDictionary(fFactory);
   InitNodes();
   InitDetectorMap();
   InitLayerMap();
@@ -160,11 +163,13 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   }
   Nfiles = flist.size();
   kCurrentFileIndex=0;
-  
-  hipo::reader  *reader = new hipo::reader();
-  reader->open(flist[kCurrentFileIndex]);
-  this->fReader = reader;
-  InitNodes();
+
+  fEvent = new hipo::event();
+  fFactory = new hipo::dictionary();
+  this->fReader = new hipo::reader();
+  fReader->open(flist[kCurrentFileIndex]);
+  fReader->readDictionary(fFactory);
+  InitBanks();
   InitDetectorMap();
   InitLayerMap();
   InitTrajDetId();
@@ -181,14 +186,21 @@ Bool_t TIdentificatorCLAS12::Next()
 {
 
   bool ret = fReader->next();
-  if (ret)  FillResponseMaps();
+  if (ret)  {
+    fReader->read(fEvent);
+    FillResponseMaps();
+  }
   else
   {
     if (++kCurrentFileIndex<Nfiles)
     {
+      delete fReader;
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
-      if (ret)  FillResponseMaps();
+      if (ret)  {
+	fReader->read(fEvent);
+	FillResponseMaps();
+      }
     }
   }
   return ret;
@@ -307,42 +319,43 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
 int TIdentificatorCLAS12::FillResponseMaps()
 {
   ClearMaps();
-  FillMap(REC_Calorimeter_pindex,calorimeterMap);
-  FillMap(REC_Cherenkov_pindex,cherenkovMap);
-  FillMap(REC_Scintillator_pindex,scintillatorMap);
-  FillMap(REC_Track_pindex,trackMap);
-  FillMap(REC_Traj_pindex,trajMap);
-  FillMap(REC_CovMat_pindex,covMatMap);
+  FillMap(&get_REC__Calorimeter,REC__Calorimeter,REC__Calorimeter_pindex,calorimeterMap);
+  FillMap(&get_REC__Cherenkov,REC__Cherenkov,REC__Cherenkov_pindex,cherenkovMap);
+  FillMap(&get_REC__Scintillator, REC__Scintillator,REC__Scintillator_pindex,scintillatorMap);
+  FillMap(&get_REC__Track,REC__Track, REC__Track_pindex,trackMap);
+  FillMap(&get_REC__Traj,REC__Traj, REC__Traj_pindex,trajMap);
+  FillMap(&get_REC_CovMat, REC__CovMat,REC__CovMat_pindex,covMatMap);
 
-  FillMap(RICH_hadrons_particle_index,richHadPartMap);
-  FillMapRev(RICH_hadrons_hit_index,richHadClusterMap);
-  FillMap(REC_RICH_pindex,richRRPartMap);
-  FillMapRev(REC_RICH_index,richRRClusterMap);
-  FillMap(RICH_newhits_cluster,richHitClusterMap);
-  
+  FillMap(&get_RICH__hadrons,RICH__hadrons, RICH__hadrons_particle_index,richHadPartMap);
+  FillMapRev(&get_RICH__hadrons, RICH__hadrons, RICH__hadrons_hit_index,richHadClusterMap);
+  FillMap(&get_REC__RICH, REC__RICH, REC__RICH_pindex,richRRPartMap);
+  FillMapRev(&get_REC__RICH, REC__RICH, REC__RICH_index,richRRClusterMap);
+  FillMap(&get_RICH__hits, RICH__hits, RICH__hits_cluster,richHitClusterMap);
 
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMap(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMap(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
 {
-  if (!pi) return 0;
-  int N = (int)pi->getLength();
+  if (!bank) return 0;
+  int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    mp[(int)pi->getValue(i)].push_back(i);
+    getRow(i);
+    mp[(int)pi].push_back(i);
   }
   
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMapRev(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMapRev(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
 {
   if (!pi) return 0;
-  int N = (int)pi->getLength();
+  int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    mp[i].push_back((int)pi->getValue(i));
+    getRow(i);
+    mp[i].push_back((int)pi);
   }
   
   return 0;
@@ -418,10 +431,14 @@ int TIdentificatorCLAS12::PrintMap(std::map <int,std::vector<int>> &mp)
 
 int TIdentificatorCLAS12::Pid(int k,Bool_t kind)
 {
-  if (kind == 0)
-    return (int)REC_Particle_pid->getValue(k);
-  else
-    return (int)MC_Lund_pid->getValue(k);
+  if (kind == 0){
+    get_REC__Particle(k);
+    return REC__Particle_pid;
+  }
+  else{
+    get_MC__Lund(k);    
+    return (int)MC__Lund_pid;
+  }
 }
 
 

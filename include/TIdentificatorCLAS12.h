@@ -3,9 +3,9 @@
 
 #include "TObject.h"
 #include "reader.h"
-#include "node.h"
 #include "TString.h"
 #include "TVector3.h"
+#include "node_declaration.h"
 
 #define  MAXNFILES 2000
 
@@ -312,8 +312,8 @@ public:
 
 
     int FillResponseMaps();
-    int FillMap(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp);
-    int FillMapRev(hipo::node<int16_t> *pi,std::map <int,std::vector<int>> &mp);
+    int FillMap(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
+    int FillMapRev(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
     int ClearMaps();
     int PrintMaps();
     int PrintMap(std::map <int,std::vector<int>> &mp);
@@ -333,7 +333,8 @@ private:
     Int_t Nfiles;
     Int_t kCurrentFileIndex;
     std::vector<TString> flist;
-
+    hipo::event *fEvent;
+    hipo::dictionary *fFactory;
 
     /*
     TClasTool *fCT;           // Pointer to the main ClasTool object

@@ -1,1464 +1,2374 @@
 //// File automatically produced by format_hiponodes.py do not make changes here!!
 #include "TIdentificatorCLAS12.h"
-int TIdentificatorCLAS12::InitNodes()
-{
-         BMT_adc_ADC = fReader->getBranch<int32_t>   ("BMT::adc","ADC");
-         BMT_adc_component = fReader->getBranch<int16_t>   ("BMT::adc","component");
-         BMT_adc_integral = fReader->getBranch<int32_t>   ("BMT::adc","integral");
-         BMT_adc_layer = fReader->getBranch<int8_t>    ("BMT::adc","layer");
-         BMT_adc_order = fReader->getBranch<int8_t>    ("BMT::adc","order");
-         BMT_adc_ped = fReader->getBranch<int16_t>   ("BMT::adc","ped");
-         BMT_adc_sector = fReader->getBranch<int8_t>    ("BMT::adc","sector");
-         BMT_adc_time = fReader->getBranch<float>     ("BMT::adc","time");
-         BMT_adc_timestamp = fReader->getBranch<int64_t>   ("BMT::adc","timestamp");
-         BMTRec_Clusters_ETot = fReader->getBranch<float>     ("BMTRec::Clusters","ETot");
-         BMTRec_Clusters_Hit1_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","Hit1_ID");
-         BMTRec_Clusters_Hit2_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","Hit2_ID");
-         BMTRec_Clusters_Hit3_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","Hit3_ID");
-         BMTRec_Clusters_Hit4_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","Hit4_ID");
-         BMTRec_Clusters_Hit5_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","Hit5_ID");
-         BMTRec_Clusters_ID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","ID");
-         BMTRec_Clusters_centroid = fReader->getBranch<float>     ("BMTRec::Clusters","centroid");
-         BMTRec_Clusters_centroidResidual = fReader->getBranch<float>     ("BMTRec::Clusters","centroidResidual");
-         BMTRec_Clusters_layer = fReader->getBranch<int8_t>    ("BMTRec::Clusters","layer");
-         BMTRec_Clusters_sector = fReader->getBranch<int8_t>    ("BMTRec::Clusters","sector");
-         BMTRec_Clusters_seedE = fReader->getBranch<float>     ("BMTRec::Clusters","seedE");
-         BMTRec_Clusters_seedResidual = fReader->getBranch<float>     ("BMTRec::Clusters","seedResidual");
-         BMTRec_Clusters_seedStrip = fReader->getBranch<int32_t>   ("BMTRec::Clusters","seedStrip");
-         BMTRec_Clusters_size = fReader->getBranch<int16_t>   ("BMTRec::Clusters","size");
-         BMTRec_Clusters_trkID = fReader->getBranch<int16_t>   ("BMTRec::Clusters","trkID");
-         BMTRec_Crosses_Cluster1_ID = fReader->getBranch<int16_t>   ("BMTRec::Crosses","Cluster1_ID");
-         BMTRec_Crosses_Cluster2_ID = fReader->getBranch<int16_t>   ("BMTRec::Crosses","Cluster2_ID");
-         BMTRec_Crosses_ID = fReader->getBranch<int16_t>   ("BMTRec::Crosses","ID");
-         BMTRec_Crosses_err_x = fReader->getBranch<float>     ("BMTRec::Crosses","err_x");
-         BMTRec_Crosses_err_y = fReader->getBranch<float>     ("BMTRec::Crosses","err_y");
-         BMTRec_Crosses_err_z = fReader->getBranch<float>     ("BMTRec::Crosses","err_z");
-         BMTRec_Crosses_region = fReader->getBranch<int8_t>    ("BMTRec::Crosses","region");
-         BMTRec_Crosses_sector = fReader->getBranch<int8_t>    ("BMTRec::Crosses","sector");
-         BMTRec_Crosses_trkID = fReader->getBranch<int16_t>   ("BMTRec::Crosses","trkID");
-         BMTRec_Crosses_ux = fReader->getBranch<float>     ("BMTRec::Crosses","ux");
-         BMTRec_Crosses_uy = fReader->getBranch<float>     ("BMTRec::Crosses","uy");
-         BMTRec_Crosses_uz = fReader->getBranch<float>     ("BMTRec::Crosses","uz");
-         BMTRec_Crosses_x = fReader->getBranch<float>     ("BMTRec::Crosses","x");
-         BMTRec_Crosses_y = fReader->getBranch<float>     ("BMTRec::Crosses","y");
-         BMTRec_Crosses_z = fReader->getBranch<float>     ("BMTRec::Crosses","z");
-         BMTRec_Hits_ID = fReader->getBranch<int16_t>   ("BMTRec::Hits","ID");
-         BMTRec_Hits_clusterID = fReader->getBranch<int16_t>   ("BMTRec::Hits","clusterID");
-         BMTRec_Hits_fitResidual = fReader->getBranch<float>     ("BMTRec::Hits","fitResidual");
-         BMTRec_Hits_layer = fReader->getBranch<int8_t>    ("BMTRec::Hits","layer");
-         BMTRec_Hits_sector = fReader->getBranch<int8_t>    ("BMTRec::Hits","sector");
-         BMTRec_Hits_strip = fReader->getBranch<int32_t>   ("BMTRec::Hits","strip");
-         BMTRec_Hits_trkID = fReader->getBranch<int16_t>   ("BMTRec::Hits","trkID");
-         BMTRec_Hits_trkingStat = fReader->getBranch<int32_t>   ("BMTRec::Hits","trkingStat");
-         BMTRec_LayerEffs_layer = fReader->getBranch<int8_t>    ("BMTRec::LayerEffs","layer");
-         BMTRec_LayerEffs_residual = fReader->getBranch<float>     ("BMTRec::LayerEffs","residual");
-         BMTRec_LayerEffs_sector = fReader->getBranch<int8_t>    ("BMTRec::LayerEffs","sector");
-         BMTRec_LayerEffs_status = fReader->getBranch<int8_t>    ("BMTRec::LayerEffs","status");
-         BST_adc_ADC = fReader->getBranch<int32_t>   ("BST::adc","ADC");
-         BST_adc_component = fReader->getBranch<int16_t>   ("BST::adc","component");
-         BST_adc_layer = fReader->getBranch<int8_t>    ("BST::adc","layer");
-         BST_adc_order = fReader->getBranch<int8_t>    ("BST::adc","order");
-         BST_adc_ped = fReader->getBranch<int16_t>   ("BST::adc","ped");
-         BST_adc_sector = fReader->getBranch<int8_t>    ("BST::adc","sector");
-         BST_adc_time = fReader->getBranch<float>     ("BST::adc","time");
-         BST_adc_timestamp = fReader->getBranch<int64_t>   ("BST::adc","timestamp");
-         BSTRec_Clusters_ETot = fReader->getBranch<float>     ("BSTRec::Clusters","ETot");
-         BSTRec_Clusters_Hit1_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","Hit1_ID");
-         BSTRec_Clusters_Hit2_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","Hit2_ID");
-         BSTRec_Clusters_Hit3_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","Hit3_ID");
-         BSTRec_Clusters_Hit4_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","Hit4_ID");
-         BSTRec_Clusters_Hit5_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","Hit5_ID");
-         BSTRec_Clusters_ID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","ID");
-         BSTRec_Clusters_centroid = fReader->getBranch<float>     ("BSTRec::Clusters","centroid");
-         BSTRec_Clusters_centroidResidual = fReader->getBranch<float>     ("BSTRec::Clusters","centroidResidual");
-         BSTRec_Clusters_layer = fReader->getBranch<int8_t>    ("BSTRec::Clusters","layer");
-         BSTRec_Clusters_sector = fReader->getBranch<int8_t>    ("BSTRec::Clusters","sector");
-         BSTRec_Clusters_seedE = fReader->getBranch<float>     ("BSTRec::Clusters","seedE");
-         BSTRec_Clusters_seedResidual = fReader->getBranch<float>     ("BSTRec::Clusters","seedResidual");
-         BSTRec_Clusters_seedStrip = fReader->getBranch<int32_t>   ("BSTRec::Clusters","seedStrip");
-         BSTRec_Clusters_size = fReader->getBranch<int16_t>   ("BSTRec::Clusters","size");
-         BSTRec_Clusters_trkID = fReader->getBranch<int16_t>   ("BSTRec::Clusters","trkID");
-         BSTRec_Crosses_Cluster1_ID = fReader->getBranch<int16_t>   ("BSTRec::Crosses","Cluster1_ID");
-         BSTRec_Crosses_Cluster2_ID = fReader->getBranch<int16_t>   ("BSTRec::Crosses","Cluster2_ID");
-         BSTRec_Crosses_ID = fReader->getBranch<int16_t>   ("BSTRec::Crosses","ID");
-         BSTRec_Crosses_err_x = fReader->getBranch<float>     ("BSTRec::Crosses","err_x");
-         BSTRec_Crosses_err_y = fReader->getBranch<float>     ("BSTRec::Crosses","err_y");
-         BSTRec_Crosses_err_z = fReader->getBranch<float>     ("BSTRec::Crosses","err_z");
-         BSTRec_Crosses_region = fReader->getBranch<int8_t>    ("BSTRec::Crosses","region");
-         BSTRec_Crosses_sector = fReader->getBranch<int8_t>    ("BSTRec::Crosses","sector");
-         BSTRec_Crosses_trkID = fReader->getBranch<int16_t>   ("BSTRec::Crosses","trkID");
-         BSTRec_Crosses_ux = fReader->getBranch<float>     ("BSTRec::Crosses","ux");
-         BSTRec_Crosses_uy = fReader->getBranch<float>     ("BSTRec::Crosses","uy");
-         BSTRec_Crosses_uz = fReader->getBranch<float>     ("BSTRec::Crosses","uz");
-         BSTRec_Crosses_x = fReader->getBranch<float>     ("BSTRec::Crosses","x");
-         BSTRec_Crosses_y = fReader->getBranch<float>     ("BSTRec::Crosses","y");
-         BSTRec_Crosses_z = fReader->getBranch<float>     ("BSTRec::Crosses","z");
-         BSTRec_Hits_ID = fReader->getBranch<int16_t>   ("BSTRec::Hits","ID");
-         BSTRec_Hits_clusterID = fReader->getBranch<int16_t>   ("BSTRec::Hits","clusterID");
-         BSTRec_Hits_fitResidual = fReader->getBranch<float>     ("BSTRec::Hits","fitResidual");
-         BSTRec_Hits_layer = fReader->getBranch<int8_t>    ("BSTRec::Hits","layer");
-         BSTRec_Hits_sector = fReader->getBranch<int8_t>    ("BSTRec::Hits","sector");
-         BSTRec_Hits_strip = fReader->getBranch<int32_t>   ("BSTRec::Hits","strip");
-         BSTRec_Hits_trkID = fReader->getBranch<int16_t>   ("BSTRec::Hits","trkID");
-         BSTRec_Hits_trkingStat = fReader->getBranch<int32_t>   ("BSTRec::Hits","trkingStat");
-         BSTRec_LayerEffs_layer = fReader->getBranch<int8_t>    ("BSTRec::LayerEffs","layer");
-         BSTRec_LayerEffs_residual = fReader->getBranch<float>     ("BSTRec::LayerEffs","residual");
-         BSTRec_LayerEffs_sector = fReader->getBranch<int8_t>    ("BSTRec::LayerEffs","sector");
-         BSTRec_LayerEffs_status = fReader->getBranch<int8_t>    ("BSTRec::LayerEffs","status");
-         CND_adc_ADC = fReader->getBranch<int32_t>   ("CND::adc","ADC");
-         CND_adc_component = fReader->getBranch<int16_t>   ("CND::adc","component");
-         CND_adc_layer = fReader->getBranch<int8_t>    ("CND::adc","layer");
-         CND_adc_order = fReader->getBranch<int8_t>    ("CND::adc","order");
-         CND_adc_ped = fReader->getBranch<int16_t>   ("CND::adc","ped");
-         CND_adc_sector = fReader->getBranch<int8_t>    ("CND::adc","sector");
-         CND_adc_time = fReader->getBranch<float>     ("CND::adc","time");
-         CND_clusters_component = fReader->getBranch<int16_t>   ("CND::clusters","component");
-         CND_clusters_energy = fReader->getBranch<float>     ("CND::clusters","energy");
-         CND_clusters_id = fReader->getBranch<int16_t>   ("CND::clusters","id");
-         CND_clusters_layer = fReader->getBranch<int8_t>    ("CND::clusters","layer");
-         CND_clusters_nhits = fReader->getBranch<int16_t>   ("CND::clusters","nhits");
-         CND_clusters_sector = fReader->getBranch<int8_t>    ("CND::clusters","sector");
-         CND_clusters_status = fReader->getBranch<int16_t>   ("CND::clusters","status");
-         CND_clusters_time = fReader->getBranch<float>     ("CND::clusters","time");
-         CND_clusters_x = fReader->getBranch<float>     ("CND::clusters","x");
-         CND_clusters_y = fReader->getBranch<float>     ("CND::clusters","y");
-         CND_clusters_z = fReader->getBranch<float>     ("CND::clusters","z");
-         CND_hits_component = fReader->getBranch<int16_t>   ("CND::hits","component");
-         CND_hits_energy = fReader->getBranch<float>     ("CND::hits","energy");
-         CND_hits_energy_unc = fReader->getBranch<float>     ("CND::hits","energy_unc");
-         CND_hits_id = fReader->getBranch<int16_t>   ("CND::hits","id");
-         CND_hits_indexLadc = fReader->getBranch<int16_t>   ("CND::hits","indexLadc");
-         CND_hits_indexLtdc = fReader->getBranch<int16_t>   ("CND::hits","indexLtdc");
-         CND_hits_indexRadc = fReader->getBranch<int16_t>   ("CND::hits","indexRadc");
-         CND_hits_indexRtdc = fReader->getBranch<int16_t>   ("CND::hits","indexRtdc");
-         CND_hits_layer = fReader->getBranch<int8_t>    ("CND::hits","layer");
-         CND_hits_pathlength = fReader->getBranch<float>     ("CND::hits","pathlength");
-         CND_hits_sector = fReader->getBranch<int8_t>    ("CND::hits","sector");
-         CND_hits_status = fReader->getBranch<int16_t>   ("CND::hits","status");
-         CND_hits_time = fReader->getBranch<float>     ("CND::hits","time");
-         CND_hits_time_unc = fReader->getBranch<float>     ("CND::hits","time_unc");
-         CND_hits_tlength = fReader->getBranch<float>     ("CND::hits","tlength");
-         CND_hits_trkID = fReader->getBranch<int16_t>   ("CND::hits","trkID");
-         CND_hits_tx = fReader->getBranch<float>     ("CND::hits","tx");
-         CND_hits_ty = fReader->getBranch<float>     ("CND::hits","ty");
-         CND_hits_tz = fReader->getBranch<float>     ("CND::hits","tz");
-         CND_hits_x = fReader->getBranch<float>     ("CND::hits","x");
-         CND_hits_x_unc = fReader->getBranch<float>     ("CND::hits","x_unc");
-         CND_hits_y = fReader->getBranch<float>     ("CND::hits","y");
-         CND_hits_y_unc = fReader->getBranch<float>     ("CND::hits","y_unc");
-         CND_hits_z = fReader->getBranch<float>     ("CND::hits","z");
-         CND_hits_z_unc = fReader->getBranch<float>     ("CND::hits","z_unc");
-         CND_tdc_TDC = fReader->getBranch<int32_t>   ("CND::tdc","TDC");
-         CND_tdc_component = fReader->getBranch<int16_t>   ("CND::tdc","component");
-         CND_tdc_layer = fReader->getBranch<int8_t>    ("CND::tdc","layer");
-         CND_tdc_order = fReader->getBranch<int8_t>    ("CND::tdc","order");
-         CND_tdc_sector = fReader->getBranch<int8_t>    ("CND::tdc","sector");
-         CTOF_adc_ADC = fReader->getBranch<int32_t>   ("CTOF::adc","ADC");
-         CTOF_adc_component = fReader->getBranch<int16_t>   ("CTOF::adc","component");
-         CTOF_adc_layer = fReader->getBranch<int8_t>    ("CTOF::adc","layer");
-         CTOF_adc_order = fReader->getBranch<int8_t>    ("CTOF::adc","order");
-         CTOF_adc_ped = fReader->getBranch<int16_t>   ("CTOF::adc","ped");
-         CTOF_adc_sector = fReader->getBranch<int8_t>    ("CTOF::adc","sector");
-         CTOF_adc_time = fReader->getBranch<float>     ("CTOF::adc","time");
-         CTOF_hits_adc_idx1 = fReader->getBranch<int16_t>   ("CTOF::hits","adc_idx1");
-         CTOF_hits_adc_idx2 = fReader->getBranch<int16_t>   ("CTOF::hits","adc_idx2");
-         CTOF_hits_component = fReader->getBranch<int16_t>   ("CTOF::hits","component");
-         CTOF_hits_energy = fReader->getBranch<float>     ("CTOF::hits","energy");
-         CTOF_hits_energy_unc = fReader->getBranch<float>     ("CTOF::hits","energy_unc");
-         CTOF_hits_id = fReader->getBranch<int16_t>   ("CTOF::hits","id");
-         CTOF_hits_layer = fReader->getBranch<int8_t>    ("CTOF::hits","layer");
-         CTOF_hits_pathLength = fReader->getBranch<float>     ("CTOF::hits","pathLength");
-         CTOF_hits_pathLengthThruBar = fReader->getBranch<float>     ("CTOF::hits","pathLengthThruBar");
-         CTOF_hits_sector = fReader->getBranch<int8_t>    ("CTOF::hits","sector");
-         CTOF_hits_status = fReader->getBranch<int16_t>   ("CTOF::hits","status");
-         CTOF_hits_tdc_idx1 = fReader->getBranch<int16_t>   ("CTOF::hits","tdc_idx1");
-         CTOF_hits_tdc_idx2 = fReader->getBranch<int16_t>   ("CTOF::hits","tdc_idx2");
-         CTOF_hits_time = fReader->getBranch<float>     ("CTOF::hits","time");
-         CTOF_hits_time_unc = fReader->getBranch<float>     ("CTOF::hits","time_unc");
-         CTOF_hits_trkID = fReader->getBranch<int16_t>   ("CTOF::hits","trkID");
-         CTOF_hits_tx = fReader->getBranch<float>     ("CTOF::hits","tx");
-         CTOF_hits_ty = fReader->getBranch<float>     ("CTOF::hits","ty");
-         CTOF_hits_tz = fReader->getBranch<float>     ("CTOF::hits","tz");
-         CTOF_hits_x = fReader->getBranch<float>     ("CTOF::hits","x");
-         CTOF_hits_x_unc = fReader->getBranch<float>     ("CTOF::hits","x_unc");
-         CTOF_hits_y = fReader->getBranch<float>     ("CTOF::hits","y");
-         CTOF_hits_y_unc = fReader->getBranch<float>     ("CTOF::hits","y_unc");
-         CTOF_hits_z = fReader->getBranch<float>     ("CTOF::hits","z");
-         CTOF_hits_z_unc = fReader->getBranch<float>     ("CTOF::hits","z_unc");
-         CTOF_rawhits_component = fReader->getBranch<int16_t>   ("CTOF::rawhits","component");
-         CTOF_rawhits_energy_down = fReader->getBranch<float>     ("CTOF::rawhits","energy_down");
-         CTOF_rawhits_energy_down_unc = fReader->getBranch<float>     ("CTOF::rawhits","energy_down_unc");
-         CTOF_rawhits_energy_up = fReader->getBranch<float>     ("CTOF::rawhits","energy_up");
-         CTOF_rawhits_energy_up_unc = fReader->getBranch<float>     ("CTOF::rawhits","energy_up_unc");
-         CTOF_rawhits_id = fReader->getBranch<int16_t>   ("CTOF::rawhits","id");
-         CTOF_rawhits_status = fReader->getBranch<int16_t>   ("CTOF::rawhits","status");
-         CTOF_rawhits_time_down = fReader->getBranch<float>     ("CTOF::rawhits","time_down");
-         CTOF_rawhits_time_down_unc = fReader->getBranch<float>     ("CTOF::rawhits","time_down_unc");
-         CTOF_rawhits_time_up = fReader->getBranch<float>     ("CTOF::rawhits","time_up");
-         CTOF_rawhits_time_up_unc = fReader->getBranch<float>     ("CTOF::rawhits","time_up_unc");
-         CTOF_tdc_TDC = fReader->getBranch<int32_t>   ("CTOF::tdc","TDC");
-         CTOF_tdc_component = fReader->getBranch<int16_t>   ("CTOF::tdc","component");
-         CTOF_tdc_layer = fReader->getBranch<int8_t>    ("CTOF::tdc","layer");
-         CTOF_tdc_order = fReader->getBranch<int8_t>    ("CTOF::tdc","order");
-         CTOF_tdc_sector = fReader->getBranch<int8_t>    ("CTOF::tdc","sector");
-         CVTRec_Cosmics_Cross10_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross10_ID");
-         CVTRec_Cosmics_Cross11_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross11_ID");
-         CVTRec_Cosmics_Cross12_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross12_ID");
-         CVTRec_Cosmics_Cross13_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross13_ID");
-         CVTRec_Cosmics_Cross14_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross14_ID");
-         CVTRec_Cosmics_Cross15_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross15_ID");
-         CVTRec_Cosmics_Cross16_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross16_ID");
-         CVTRec_Cosmics_Cross17_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross17_ID");
-         CVTRec_Cosmics_Cross18_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross18_ID");
-         CVTRec_Cosmics_Cross1_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross1_ID");
-         CVTRec_Cosmics_Cross2_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross2_ID");
-         CVTRec_Cosmics_Cross3_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross3_ID");
-         CVTRec_Cosmics_Cross4_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross4_ID");
-         CVTRec_Cosmics_Cross5_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross5_ID");
-         CVTRec_Cosmics_Cross6_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross6_ID");
-         CVTRec_Cosmics_Cross7_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross7_ID");
-         CVTRec_Cosmics_Cross8_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross8_ID");
-         CVTRec_Cosmics_Cross9_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","Cross9_ID");
-         CVTRec_Cosmics_ID = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","ID");
-         CVTRec_Cosmics_chi2 = fReader->getBranch<float>     ("CVTRec::Cosmics","chi2");
-         CVTRec_Cosmics_ndf = fReader->getBranch<int16_t>   ("CVTRec::Cosmics","ndf");
-         CVTRec_Cosmics_phi = fReader->getBranch<float>     ("CVTRec::Cosmics","phi");
-         CVTRec_Cosmics_theta = fReader->getBranch<float>     ("CVTRec::Cosmics","theta");
-         CVTRec_Cosmics_trkline_yx_interc = fReader->getBranch<float>     ("CVTRec::Cosmics","trkline_yx_interc");
-         CVTRec_Cosmics_trkline_yx_slope = fReader->getBranch<float>     ("CVTRec::Cosmics","trkline_yx_slope");
-         CVTRec_Cosmics_trkline_yz_interc = fReader->getBranch<float>     ("CVTRec::Cosmics","trkline_yz_interc");
-         CVTRec_Cosmics_trkline_yz_slope = fReader->getBranch<float>     ("CVTRec::Cosmics","trkline_yz_slope");
-         CVTRec_Tracks_Cross1_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross1_ID");
-         CVTRec_Tracks_Cross2_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross2_ID");
-         CVTRec_Tracks_Cross3_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross3_ID");
-         CVTRec_Tracks_Cross4_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross4_ID");
-         CVTRec_Tracks_Cross5_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross5_ID");
-         CVTRec_Tracks_Cross6_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross6_ID");
-         CVTRec_Tracks_Cross7_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross7_ID");
-         CVTRec_Tracks_Cross8_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross8_ID");
-         CVTRec_Tracks_Cross9_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","Cross9_ID");
-         CVTRec_Tracks_ID = fReader->getBranch<int16_t>   ("CVTRec::Tracks","ID");
-         CVTRec_Tracks_c_ux = fReader->getBranch<float>     ("CVTRec::Tracks","c_ux");
-         CVTRec_Tracks_c_uy = fReader->getBranch<float>     ("CVTRec::Tracks","c_uy");
-         CVTRec_Tracks_c_uz = fReader->getBranch<float>     ("CVTRec::Tracks","c_uz");
-         CVTRec_Tracks_c_x = fReader->getBranch<float>     ("CVTRec::Tracks","c_x");
-         CVTRec_Tracks_c_y = fReader->getBranch<float>     ("CVTRec::Tracks","c_y");
-         CVTRec_Tracks_c_z = fReader->getBranch<float>     ("CVTRec::Tracks","c_z");
-         CVTRec_Tracks_chi2 = fReader->getBranch<float>     ("CVTRec::Tracks","chi2");
-         CVTRec_Tracks_circlefit_chi2_per_ndf = fReader->getBranch<float>     ("CVTRec::Tracks","circlefit_chi2_per_ndf");
-         CVTRec_Tracks_cov_d02 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_d02");
-         CVTRec_Tracks_cov_d0phi0 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_d0phi0");
-         CVTRec_Tracks_cov_d0rho = fReader->getBranch<float>     ("CVTRec::Tracks","cov_d0rho");
-         CVTRec_Tracks_cov_phi02 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_phi02");
-         CVTRec_Tracks_cov_phi0rho = fReader->getBranch<float>     ("CVTRec::Tracks","cov_phi0rho");
-         CVTRec_Tracks_cov_rho2 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_rho2");
-         CVTRec_Tracks_cov_tandip2 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_tandip2");
-         CVTRec_Tracks_cov_z02 = fReader->getBranch<float>     ("CVTRec::Tracks","cov_z02");
-         CVTRec_Tracks_d0 = fReader->getBranch<float>     ("CVTRec::Tracks","d0");
-         CVTRec_Tracks_fittingMethod = fReader->getBranch<int8_t>    ("CVTRec::Tracks","fittingMethod");
-         CVTRec_Tracks_linefit_chi2_per_ndf = fReader->getBranch<float>     ("CVTRec::Tracks","linefit_chi2_per_ndf");
-         CVTRec_Tracks_ndf = fReader->getBranch<int16_t>   ("CVTRec::Tracks","ndf");
-         CVTRec_Tracks_p = fReader->getBranch<float>     ("CVTRec::Tracks","p");
-         CVTRec_Tracks_pathlength = fReader->getBranch<float>     ("CVTRec::Tracks","pathlength");
-         CVTRec_Tracks_phi0 = fReader->getBranch<float>     ("CVTRec::Tracks","phi0");
-         CVTRec_Tracks_pt = fReader->getBranch<float>     ("CVTRec::Tracks","pt");
-         CVTRec_Tracks_q = fReader->getBranch<int8_t>    ("CVTRec::Tracks","q");
-         CVTRec_Tracks_tandip = fReader->getBranch<float>     ("CVTRec::Tracks","tandip");
-         CVTRec_Tracks_z0 = fReader->getBranch<float>     ("CVTRec::Tracks","z0");
-         CVTRec_Trajectory_CalcCentroidStrip = fReader->getBranch<float>     ("CVTRec::Trajectory","CalcCentroidStrip");
-         CVTRec_Trajectory_ID = fReader->getBranch<int16_t>   ("CVTRec::Trajectory","ID");
-         CVTRec_Trajectory_LayerTrackIntersPlane = fReader->getBranch<int8_t>    ("CVTRec::Trajectory","LayerTrackIntersPlane");
-         CVTRec_Trajectory_PhiTrackIntersPlane = fReader->getBranch<float>     ("CVTRec::Trajectory","PhiTrackIntersPlane");
-         CVTRec_Trajectory_SectorTrackIntersPlane = fReader->getBranch<int8_t>    ("CVTRec::Trajectory","SectorTrackIntersPlane");
-         CVTRec_Trajectory_ThetaTrackIntersPlane = fReader->getBranch<float>     ("CVTRec::Trajectory","ThetaTrackIntersPlane");
-         CVTRec_Trajectory_XtrackIntersPlane = fReader->getBranch<float>     ("CVTRec::Trajectory","XtrackIntersPlane");
-         CVTRec_Trajectory_YtrackIntersPlane = fReader->getBranch<float>     ("CVTRec::Trajectory","YtrackIntersPlane");
-         CVTRec_Trajectory_ZtrackIntersPlane = fReader->getBranch<float>     ("CVTRec::Trajectory","ZtrackIntersPlane");
-         CVTRec_Trajectory_trkToMPlnAngl = fReader->getBranch<float>     ("CVTRec::Trajectory","trkToMPlnAngl");
-         DC_doca_LR = fReader->getBranch<int8_t>    ("DC::doca","LR");
-         DC_doca_doca = fReader->getBranch<float>     ("DC::doca","doca");
-         DC_doca_sdoca = fReader->getBranch<float>     ("DC::doca","sdoca");
-         DC_doca_stime = fReader->getBranch<float>     ("DC::doca","stime");
-         DC_doca_time = fReader->getBranch<float>     ("DC::doca","time");
-         DC_tdc_TDC = fReader->getBranch<int32_t>   ("DC::tdc","TDC");
-         DC_tdc_component = fReader->getBranch<int16_t>   ("DC::tdc","component");
-         DC_tdc_layer = fReader->getBranch<int8_t>    ("DC::tdc","layer");
-         DC_tdc_order = fReader->getBranch<int8_t>    ("DC::tdc","order");
-         DC_tdc_sector = fReader->getBranch<int8_t>    ("DC::tdc","sector");
-         DETECTOR_Hits_component = fReader->getBranch<int16_t>   ("DETECTOR::Hits","component");
-         DETECTOR_Hits_detector = fReader->getBranch<int16_t>   ("DETECTOR::Hits","detector");
-         DETECTOR_Hits_energy = fReader->getBranch<float>     ("DETECTOR::Hits","energy");
-         DETECTOR_Hits_layer = fReader->getBranch<int16_t>   ("DETECTOR::Hits","layer");
-         DETECTOR_Hits_path = fReader->getBranch<float>     ("DETECTOR::Hits","path");
-         DETECTOR_Hits_sector = fReader->getBranch<int16_t>   ("DETECTOR::Hits","sector");
-         DETECTOR_Hits_time = fReader->getBranch<float>     ("DETECTOR::Hits","time");
-         DETECTOR_ccpb_nphe = fReader->getBranch<float>     ("DETECTOR::ccpb","nphe");
-         DETECTOR_ccpb_path = fReader->getBranch<float>     ("DETECTOR::ccpb","path");
-         DETECTOR_ccpb_sector = fReader->getBranch<int8_t>    ("DETECTOR::ccpb","sector");
-         DETECTOR_ccpb_time = fReader->getBranch<float>     ("DETECTOR::ccpb","time");
-         DETECTOR_ecpb_ein = fReader->getBranch<float>     ("DETECTOR::ecpb","ein");
-         DETECTOR_ecpb_eout = fReader->getBranch<float>     ("DETECTOR::ecpb","eout");
-         DETECTOR_ecpb_etot = fReader->getBranch<float>     ("DETECTOR::ecpb","etot");
-         DETECTOR_ecpb_path = fReader->getBranch<float>     ("DETECTOR::ecpb","path");
-         DETECTOR_ecpb_sector = fReader->getBranch<int8_t>    ("DETECTOR::ecpb","sector");
-         DETECTOR_ecpb_time = fReader->getBranch<float>     ("DETECTOR::ecpb","time");
-         DETECTOR_ecpb_x = fReader->getBranch<float>     ("DETECTOR::ecpb","x");
-         DETECTOR_ecpb_y = fReader->getBranch<float>     ("DETECTOR::ecpb","y");
-         DETECTOR_ecpb_z = fReader->getBranch<float>     ("DETECTOR::ecpb","z");
-         DETECTOR_icpb_ecc = fReader->getBranch<float>     ("DETECTOR::icpb","ecc");
-         DETECTOR_icpb_etc = fReader->getBranch<float>     ("DETECTOR::icpb","etc");
-         DETECTOR_icpb_tc = fReader->getBranch<float>     ("DETECTOR::icpb","tc");
-         DETECTOR_icpb_xc = fReader->getBranch<float>     ("DETECTOR::icpb","xc");
-         DETECTOR_icpb_yc = fReader->getBranch<float>     ("DETECTOR::icpb","yc");
-         DETECTOR_lcpb_ein = fReader->getBranch<float>     ("DETECTOR::lcpb","ein");
-         DETECTOR_lcpb_etot = fReader->getBranch<float>     ("DETECTOR::lcpb","etot");
-         DETECTOR_lcpb_path = fReader->getBranch<float>     ("DETECTOR::lcpb","path");
-         DETECTOR_lcpb_sector = fReader->getBranch<int8_t>    ("DETECTOR::lcpb","sector");
-         DETECTOR_lcpb_time = fReader->getBranch<float>     ("DETECTOR::lcpb","time");
-         DETECTOR_lcpb_x = fReader->getBranch<float>     ("DETECTOR::lcpb","x");
-         DETECTOR_lcpb_y = fReader->getBranch<float>     ("DETECTOR::lcpb","y");
-         DETECTOR_lcpb_z = fReader->getBranch<float>     ("DETECTOR::lcpb","z");
-         DETECTOR_scpb_edep = fReader->getBranch<float>     ("DETECTOR::scpb","edep");
-         DETECTOR_scpb_paddle = fReader->getBranch<int8_t>    ("DETECTOR::scpb","paddle");
-         DETECTOR_scpb_path = fReader->getBranch<float>     ("DETECTOR::scpb","path");
-         DETECTOR_scpb_sector = fReader->getBranch<int8_t>    ("DETECTOR::scpb","sector");
-         DETECTOR_scpb_time = fReader->getBranch<float>     ("DETECTOR::scpb","time");
-         ECAL_adc_ADC = fReader->getBranch<int32_t>   ("ECAL::adc","ADC");
-         ECAL_adc_component = fReader->getBranch<int16_t>   ("ECAL::adc","component");
-         ECAL_adc_layer = fReader->getBranch<int8_t>    ("ECAL::adc","layer");
-         ECAL_adc_order = fReader->getBranch<int8_t>    ("ECAL::adc","order");
-         ECAL_adc_ped = fReader->getBranch<int16_t>   ("ECAL::adc","ped");
-         ECAL_adc_sector = fReader->getBranch<int8_t>    ("ECAL::adc","sector");
-         ECAL_adc_time = fReader->getBranch<float>     ("ECAL::adc","time");
-         ECAL_calib_energy = fReader->getBranch<float>     ("ECAL::calib","energy");
-         ECAL_calib_layer = fReader->getBranch<int8_t>    ("ECAL::calib","layer");
-         ECAL_calib_rawEU = fReader->getBranch<float>     ("ECAL::calib","rawEU");
-         ECAL_calib_rawEV = fReader->getBranch<float>     ("ECAL::calib","rawEV");
-         ECAL_calib_rawEW = fReader->getBranch<float>     ("ECAL::calib","rawEW");
-         ECAL_calib_recEU = fReader->getBranch<float>     ("ECAL::calib","recEU");
-         ECAL_calib_recEV = fReader->getBranch<float>     ("ECAL::calib","recEV");
-         ECAL_calib_recEW = fReader->getBranch<float>     ("ECAL::calib","recEW");
-         ECAL_calib_sector = fReader->getBranch<int8_t>    ("ECAL::calib","sector");
-         ECAL_clusters_coordU = fReader->getBranch<int32_t>   ("ECAL::clusters","coordU");
-         ECAL_clusters_coordV = fReader->getBranch<int32_t>   ("ECAL::clusters","coordV");
-         ECAL_clusters_coordW = fReader->getBranch<int32_t>   ("ECAL::clusters","coordW");
-         ECAL_clusters_energy = fReader->getBranch<float>     ("ECAL::clusters","energy");
-         ECAL_clusters_id = fReader->getBranch<int16_t>   ("ECAL::clusters","id");
-         ECAL_clusters_idU = fReader->getBranch<int8_t>    ("ECAL::clusters","idU");
-         ECAL_clusters_idV = fReader->getBranch<int8_t>    ("ECAL::clusters","idV");
-         ECAL_clusters_idW = fReader->getBranch<int8_t>    ("ECAL::clusters","idW");
-         ECAL_clusters_layer = fReader->getBranch<int8_t>    ("ECAL::clusters","layer");
-         ECAL_clusters_sector = fReader->getBranch<int8_t>    ("ECAL::clusters","sector");
-         ECAL_clusters_status = fReader->getBranch<int16_t>   ("ECAL::clusters","status");
-         ECAL_clusters_time = fReader->getBranch<float>     ("ECAL::clusters","time");
-         ECAL_clusters_widthU = fReader->getBranch<float>     ("ECAL::clusters","widthU");
-         ECAL_clusters_widthV = fReader->getBranch<float>     ("ECAL::clusters","widthV");
-         ECAL_clusters_widthW = fReader->getBranch<float>     ("ECAL::clusters","widthW");
-         ECAL_clusters_x = fReader->getBranch<float>     ("ECAL::clusters","x");
-         ECAL_clusters_y = fReader->getBranch<float>     ("ECAL::clusters","y");
-         ECAL_clusters_z = fReader->getBranch<float>     ("ECAL::clusters","z");
-         ECAL_hits_energy = fReader->getBranch<float>     ("ECAL::hits","energy");
-         ECAL_hits_id = fReader->getBranch<int16_t>   ("ECAL::hits","id");
-         ECAL_hits_layer = fReader->getBranch<int8_t>    ("ECAL::hits","layer");
-         ECAL_hits_peakid = fReader->getBranch<int8_t>    ("ECAL::hits","peakid");
-         ECAL_hits_sector = fReader->getBranch<int8_t>    ("ECAL::hits","sector");
-         ECAL_hits_status = fReader->getBranch<int16_t>   ("ECAL::hits","status");
-         ECAL_hits_strip = fReader->getBranch<int8_t>    ("ECAL::hits","strip");
-         ECAL_hits_time = fReader->getBranch<float>     ("ECAL::hits","time");
-         ECAL_moments_distU = fReader->getBranch<float>     ("ECAL::moments","distU");
-         ECAL_moments_distV = fReader->getBranch<float>     ("ECAL::moments","distV");
-         ECAL_moments_distW = fReader->getBranch<float>     ("ECAL::moments","distW");
-         ECAL_moments_m1u = fReader->getBranch<float>     ("ECAL::moments","m1u");
-         ECAL_moments_m1v = fReader->getBranch<float>     ("ECAL::moments","m1v");
-         ECAL_moments_m1w = fReader->getBranch<float>     ("ECAL::moments","m1w");
-         ECAL_moments_m2u = fReader->getBranch<float>     ("ECAL::moments","m2u");
-         ECAL_moments_m2v = fReader->getBranch<float>     ("ECAL::moments","m2v");
-         ECAL_moments_m2w = fReader->getBranch<float>     ("ECAL::moments","m2w");
-         ECAL_moments_m3u = fReader->getBranch<float>     ("ECAL::moments","m3u");
-         ECAL_moments_m3v = fReader->getBranch<float>     ("ECAL::moments","m3v");
-         ECAL_moments_m3w = fReader->getBranch<float>     ("ECAL::moments","m3w");
-         ECAL_peaks_energy = fReader->getBranch<float>     ("ECAL::peaks","energy");
-         ECAL_peaks_id = fReader->getBranch<int16_t>   ("ECAL::peaks","id");
-         ECAL_peaks_layer = fReader->getBranch<int8_t>    ("ECAL::peaks","layer");
-         ECAL_peaks_sector = fReader->getBranch<int8_t>    ("ECAL::peaks","sector");
-         ECAL_peaks_status = fReader->getBranch<int16_t>   ("ECAL::peaks","status");
-         ECAL_peaks_time = fReader->getBranch<float>     ("ECAL::peaks","time");
-         ECAL_peaks_width = fReader->getBranch<float>     ("ECAL::peaks","width");
-         ECAL_peaks_xe = fReader->getBranch<float>     ("ECAL::peaks","xe");
-         ECAL_peaks_xo = fReader->getBranch<float>     ("ECAL::peaks","xo");
-         ECAL_peaks_ye = fReader->getBranch<float>     ("ECAL::peaks","ye");
-         ECAL_peaks_yo = fReader->getBranch<float>     ("ECAL::peaks","yo");
-         ECAL_peaks_ze = fReader->getBranch<float>     ("ECAL::peaks","ze");
-         ECAL_peaks_zo = fReader->getBranch<float>     ("ECAL::peaks","zo");
-         ECAL_tdc_TDC = fReader->getBranch<int32_t>   ("ECAL::tdc","TDC");
-         ECAL_tdc_component = fReader->getBranch<int16_t>   ("ECAL::tdc","component");
-         ECAL_tdc_layer = fReader->getBranch<int8_t>    ("ECAL::tdc","layer");
-         ECAL_tdc_order = fReader->getBranch<int8_t>    ("ECAL::tdc","order");
-         ECAL_tdc_sector = fReader->getBranch<int8_t>    ("ECAL::tdc","sector");
-         EVENT_detector_ccnphe = fReader->getBranch<float>     ("EVENT::detector","ccnphe");
-         EVENT_detector_ecin = fReader->getBranch<float>     ("EVENT::detector","ecin");
-         EVENT_detector_ecout = fReader->getBranch<float>     ("EVENT::detector","ecout");
-         EVENT_detector_ecpath = fReader->getBranch<float>     ("EVENT::detector","ecpath");
-         EVENT_detector_ecsector = fReader->getBranch<int32_t>   ("EVENT::detector","ecsector");
-         EVENT_detector_ectime = fReader->getBranch<float>     ("EVENT::detector","ectime");
-         EVENT_detector_ectot = fReader->getBranch<float>     ("EVENT::detector","ectot");
-         EVENT_detector_ecu = fReader->getBranch<float>     ("EVENT::detector","ecu");
-         EVENT_detector_ecv = fReader->getBranch<float>     ("EVENT::detector","ecv");
-         EVENT_detector_ecw = fReader->getBranch<float>     ("EVENT::detector","ecw");
-         EVENT_detector_scpaddle = fReader->getBranch<int32_t>   ("EVENT::detector","scpaddle");
-         EVENT_detector_scpath = fReader->getBranch<float>     ("EVENT::detector","scpath");
-         EVENT_detector_scsector = fReader->getBranch<int32_t>   ("EVENT::detector","scsector");
-         EVENT_detector_sctime = fReader->getBranch<float>     ("EVENT::detector","sctime");
-         EVENT_particle_ccstat = fReader->getBranch<int8_t>    ("EVENT::particle","ccstat");
-         EVENT_particle_charge = fReader->getBranch<int8_t>    ("EVENT::particle","charge");
-         EVENT_particle_dcstat = fReader->getBranch<int8_t>    ("EVENT::particle","dcstat");
-         EVENT_particle_ecstat = fReader->getBranch<int8_t>    ("EVENT::particle","ecstat");
-         EVENT_particle_lcstat = fReader->getBranch<int8_t>    ("EVENT::particle","lcstat");
-         EVENT_particle_mass = fReader->getBranch<float>     ("EVENT::particle","mass");
-         EVENT_particle_pid = fReader->getBranch<int32_t>   ("EVENT::particle","pid");
-         EVENT_particle_px = fReader->getBranch<float>     ("EVENT::particle","px");
-         EVENT_particle_py = fReader->getBranch<float>     ("EVENT::particle","py");
-         EVENT_particle_pz = fReader->getBranch<float>     ("EVENT::particle","pz");
-         EVENT_particle_scstat = fReader->getBranch<int8_t>    ("EVENT::particle","scstat");
-         EVENT_particle_status = fReader->getBranch<int8_t>    ("EVENT::particle","status");
-         EVENT_particle_vx = fReader->getBranch<float>     ("EVENT::particle","vx");
-         EVENT_particle_vy = fReader->getBranch<float>     ("EVENT::particle","vy");
-         EVENT_particle_vz = fReader->getBranch<float>     ("EVENT::particle","vz");
-         FMT_adc_ADC = fReader->getBranch<int32_t>   ("FMT::adc","ADC");
-         FMT_adc_component = fReader->getBranch<int16_t>   ("FMT::adc","component");
-         FMT_adc_integral = fReader->getBranch<int32_t>   ("FMT::adc","integral");
-         FMT_adc_layer = fReader->getBranch<int8_t>    ("FMT::adc","layer");
-         FMT_adc_order = fReader->getBranch<int8_t>    ("FMT::adc","order");
-         FMT_adc_ped = fReader->getBranch<int16_t>   ("FMT::adc","ped");
-         FMT_adc_sector = fReader->getBranch<int8_t>    ("FMT::adc","sector");
-         FMT_adc_time = fReader->getBranch<float>     ("FMT::adc","time");
-         FMT_adc_timestamp = fReader->getBranch<int64_t>   ("FMT::adc","timestamp");
-         FMTRec_Clusters_ETot = fReader->getBranch<float>     ("FMTRec::Clusters","ETot");
-         FMTRec_Clusters_Hit1_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","Hit1_ID");
-         FMTRec_Clusters_Hit2_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","Hit2_ID");
-         FMTRec_Clusters_Hit3_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","Hit3_ID");
-         FMTRec_Clusters_Hit4_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","Hit4_ID");
-         FMTRec_Clusters_Hit5_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","Hit5_ID");
-         FMTRec_Clusters_ID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","ID");
-         FMTRec_Clusters_centroid = fReader->getBranch<float>     ("FMTRec::Clusters","centroid");
-         FMTRec_Clusters_centroidResidual = fReader->getBranch<float>     ("FMTRec::Clusters","centroidResidual");
-         FMTRec_Clusters_layer = fReader->getBranch<int8_t>    ("FMTRec::Clusters","layer");
-         FMTRec_Clusters_sector = fReader->getBranch<int8_t>    ("FMTRec::Clusters","sector");
-         FMTRec_Clusters_seedE = fReader->getBranch<float>     ("FMTRec::Clusters","seedE");
-         FMTRec_Clusters_seedResidual = fReader->getBranch<float>     ("FMTRec::Clusters","seedResidual");
-         FMTRec_Clusters_seedStrip = fReader->getBranch<int32_t>   ("FMTRec::Clusters","seedStrip");
-         FMTRec_Clusters_size = fReader->getBranch<int16_t>   ("FMTRec::Clusters","size");
-         FMTRec_Clusters_trkID = fReader->getBranch<int16_t>   ("FMTRec::Clusters","trkID");
-         FMTRec_Crosses_Cluster1_ID = fReader->getBranch<int16_t>   ("FMTRec::Crosses","Cluster1_ID");
-         FMTRec_Crosses_Cluster2_ID = fReader->getBranch<int16_t>   ("FMTRec::Crosses","Cluster2_ID");
-         FMTRec_Crosses_ID = fReader->getBranch<int16_t>   ("FMTRec::Crosses","ID");
-         FMTRec_Crosses_err_x = fReader->getBranch<float>     ("FMTRec::Crosses","err_x");
-         FMTRec_Crosses_err_y = fReader->getBranch<float>     ("FMTRec::Crosses","err_y");
-         FMTRec_Crosses_err_z = fReader->getBranch<float>     ("FMTRec::Crosses","err_z");
-         FMTRec_Crosses_region = fReader->getBranch<int8_t>    ("FMTRec::Crosses","region");
-         FMTRec_Crosses_sector = fReader->getBranch<int8_t>    ("FMTRec::Crosses","sector");
-         FMTRec_Crosses_trkID = fReader->getBranch<int16_t>   ("FMTRec::Crosses","trkID");
-         FMTRec_Crosses_ux = fReader->getBranch<float>     ("FMTRec::Crosses","ux");
-         FMTRec_Crosses_uy = fReader->getBranch<float>     ("FMTRec::Crosses","uy");
-         FMTRec_Crosses_uz = fReader->getBranch<float>     ("FMTRec::Crosses","uz");
-         FMTRec_Crosses_x = fReader->getBranch<float>     ("FMTRec::Crosses","x");
-         FMTRec_Crosses_y = fReader->getBranch<float>     ("FMTRec::Crosses","y");
-         FMTRec_Crosses_z = fReader->getBranch<float>     ("FMTRec::Crosses","z");
-         FMTRec_Hits_ID = fReader->getBranch<int16_t>   ("FMTRec::Hits","ID");
-         FMTRec_Hits_clusterID = fReader->getBranch<int16_t>   ("FMTRec::Hits","clusterID");
-         FMTRec_Hits_fitResidual = fReader->getBranch<float>     ("FMTRec::Hits","fitResidual");
-         FMTRec_Hits_layer = fReader->getBranch<int8_t>    ("FMTRec::Hits","layer");
-         FMTRec_Hits_sector = fReader->getBranch<int8_t>    ("FMTRec::Hits","sector");
-         FMTRec_Hits_strip = fReader->getBranch<int32_t>   ("FMTRec::Hits","strip");
-         FMTRec_Hits_trkID = fReader->getBranch<int16_t>   ("FMTRec::Hits","trkID");
-         FMTRec_Hits_trkingStat = fReader->getBranch<int32_t>   ("FMTRec::Hits","trkingStat");
-         FT_particles_calID = fReader->getBranch<int16_t>   ("FT::particles","calID");
-         FT_particles_charge = fReader->getBranch<int8_t>    ("FT::particles","charge");
-         FT_particles_cx = fReader->getBranch<float>     ("FT::particles","cx");
-         FT_particles_cy = fReader->getBranch<float>     ("FT::particles","cy");
-         FT_particles_cz = fReader->getBranch<float>     ("FT::particles","cz");
-         FT_particles_energy = fReader->getBranch<float>     ("FT::particles","energy");
-         FT_particles_hodoID = fReader->getBranch<int16_t>   ("FT::particles","hodoID");
-         FT_particles_id = fReader->getBranch<int16_t>   ("FT::particles","id");
-         FT_particles_time = fReader->getBranch<float>     ("FT::particles","time");
-         FT_particles_trkID = fReader->getBranch<int16_t>   ("FT::particles","trkID");
-         FTCAL_adc_ADC = fReader->getBranch<int32_t>   ("FTCAL::adc","ADC");
-         FTCAL_adc_component = fReader->getBranch<int16_t>   ("FTCAL::adc","component");
-         FTCAL_adc_layer = fReader->getBranch<int8_t>    ("FTCAL::adc","layer");
-         FTCAL_adc_order = fReader->getBranch<int8_t>    ("FTCAL::adc","order");
-         FTCAL_adc_ped = fReader->getBranch<int16_t>   ("FTCAL::adc","ped");
-         FTCAL_adc_sector = fReader->getBranch<int8_t>    ("FTCAL::adc","sector");
-         FTCAL_adc_time = fReader->getBranch<float>     ("FTCAL::adc","time");
-         FTCAL_clusters_energy = fReader->getBranch<float>     ("FTCAL::clusters","energy");
-         FTCAL_clusters_id = fReader->getBranch<int16_t>   ("FTCAL::clusters","id");
-         FTCAL_clusters_maxEnergy = fReader->getBranch<float>     ("FTCAL::clusters","maxEnergy");
-         FTCAL_clusters_radius = fReader->getBranch<float>     ("FTCAL::clusters","radius");
-         FTCAL_clusters_recEnergy = fReader->getBranch<float>     ("FTCAL::clusters","recEnergy");
-         FTCAL_clusters_size = fReader->getBranch<int16_t>   ("FTCAL::clusters","size");
-         FTCAL_clusters_time = fReader->getBranch<float>     ("FTCAL::clusters","time");
-         FTCAL_clusters_widthX = fReader->getBranch<float>     ("FTCAL::clusters","widthX");
-         FTCAL_clusters_widthY = fReader->getBranch<float>     ("FTCAL::clusters","widthY");
-         FTCAL_clusters_x = fReader->getBranch<float>     ("FTCAL::clusters","x");
-         FTCAL_clusters_y = fReader->getBranch<float>     ("FTCAL::clusters","y");
-         FTCAL_clusters_z = fReader->getBranch<float>     ("FTCAL::clusters","z");
-         FTCAL_hits_clusterID = fReader->getBranch<int16_t>   ("FTCAL::hits","clusterID");
-         FTCAL_hits_energy = fReader->getBranch<float>     ("FTCAL::hits","energy");
-         FTCAL_hits_hitID = fReader->getBranch<int16_t>   ("FTCAL::hits","hitID");
-         FTCAL_hits_idx = fReader->getBranch<int8_t>    ("FTCAL::hits","idx");
-         FTCAL_hits_idy = fReader->getBranch<int8_t>    ("FTCAL::hits","idy");
-         FTCAL_hits_time = fReader->getBranch<float>     ("FTCAL::hits","time");
-         FTCAL_hits_x = fReader->getBranch<float>     ("FTCAL::hits","x");
-         FTCAL_hits_y = fReader->getBranch<float>     ("FTCAL::hits","y");
-         FTCAL_hits_z = fReader->getBranch<float>     ("FTCAL::hits","z");
-         FTHODO_adc_ADC = fReader->getBranch<int32_t>   ("FTHODO::adc","ADC");
-         FTHODO_adc_component = fReader->getBranch<int16_t>   ("FTHODO::adc","component");
-         FTHODO_adc_layer = fReader->getBranch<int8_t>    ("FTHODO::adc","layer");
-         FTHODO_adc_order = fReader->getBranch<int8_t>    ("FTHODO::adc","order");
-         FTHODO_adc_ped = fReader->getBranch<int16_t>   ("FTHODO::adc","ped");
-         FTHODO_adc_sector = fReader->getBranch<int8_t>    ("FTHODO::adc","sector");
-         FTHODO_adc_time = fReader->getBranch<float>     ("FTHODO::adc","time");
-         FTHODO_clusters_energy = fReader->getBranch<float>     ("FTHODO::clusters","energy");
-         FTHODO_clusters_id = fReader->getBranch<int16_t>   ("FTHODO::clusters","id");
-         FTHODO_clusters_radius = fReader->getBranch<float>     ("FTHODO::clusters","radius");
-         FTHODO_clusters_size = fReader->getBranch<int16_t>   ("FTHODO::clusters","size");
-         FTHODO_clusters_time = fReader->getBranch<float>     ("FTHODO::clusters","time");
-         FTHODO_clusters_widthX = fReader->getBranch<float>     ("FTHODO::clusters","widthX");
-         FTHODO_clusters_widthY = fReader->getBranch<float>     ("FTHODO::clusters","widthY");
-         FTHODO_clusters_x = fReader->getBranch<float>     ("FTHODO::clusters","x");
-         FTHODO_clusters_y = fReader->getBranch<float>     ("FTHODO::clusters","y");
-         FTHODO_clusters_z = fReader->getBranch<float>     ("FTHODO::clusters","z");
-         FTHODO_hits_clusterID = fReader->getBranch<int16_t>   ("FTHODO::hits","clusterID");
-         FTHODO_hits_component = fReader->getBranch<int16_t>   ("FTHODO::hits","component");
-         FTHODO_hits_energy = fReader->getBranch<float>     ("FTHODO::hits","energy");
-         FTHODO_hits_hitID = fReader->getBranch<int16_t>   ("FTHODO::hits","hitID");
-         FTHODO_hits_layer = fReader->getBranch<int8_t>    ("FTHODO::hits","layer");
-         FTHODO_hits_sector = fReader->getBranch<int8_t>    ("FTHODO::hits","sector");
-         FTHODO_hits_time = fReader->getBranch<float>     ("FTHODO::hits","time");
-         FTHODO_hits_x = fReader->getBranch<float>     ("FTHODO::hits","x");
-         FTHODO_hits_y = fReader->getBranch<float>     ("FTHODO::hits","y");
-         FTHODO_hits_z = fReader->getBranch<float>     ("FTHODO::hits","z");
-         FTOF_adc_ADC = fReader->getBranch<int32_t>   ("FTOF::adc","ADC");
-         FTOF_adc_component = fReader->getBranch<int16_t>   ("FTOF::adc","component");
-         FTOF_adc_layer = fReader->getBranch<int8_t>    ("FTOF::adc","layer");
-         FTOF_adc_order = fReader->getBranch<int8_t>    ("FTOF::adc","order");
-         FTOF_adc_ped = fReader->getBranch<int16_t>   ("FTOF::adc","ped");
-         FTOF_adc_sector = fReader->getBranch<int8_t>    ("FTOF::adc","sector");
-         FTOF_adc_time = fReader->getBranch<float>     ("FTOF::adc","time");
-         FTOF_clusters_component = fReader->getBranch<int16_t>   ("FTOF::clusters","component");
-         FTOF_clusters_energy = fReader->getBranch<float>     ("FTOF::clusters","energy");
-         FTOF_clusters_energy_unc = fReader->getBranch<float>     ("FTOF::clusters","energy_unc");
-         FTOF_clusters_id = fReader->getBranch<int16_t>   ("FTOF::clusters","id");
-         FTOF_clusters_layer = fReader->getBranch<int8_t>    ("FTOF::clusters","layer");
-         FTOF_clusters_sector = fReader->getBranch<int8_t>    ("FTOF::clusters","sector");
-         FTOF_clusters_status = fReader->getBranch<int16_t>   ("FTOF::clusters","status");
-         FTOF_clusters_time = fReader->getBranch<float>     ("FTOF::clusters","time");
-         FTOF_clusters_time_unc = fReader->getBranch<float>     ("FTOF::clusters","time_unc");
-         FTOF_clusters_trackid = fReader->getBranch<int16_t>   ("FTOF::clusters","trackid");
-         FTOF_clusters_x = fReader->getBranch<float>     ("FTOF::clusters","x");
-         FTOF_clusters_x_unc = fReader->getBranch<float>     ("FTOF::clusters","x_unc");
-         FTOF_clusters_y = fReader->getBranch<float>     ("FTOF::clusters","y");
-         FTOF_clusters_y_unc = fReader->getBranch<float>     ("FTOF::clusters","y_unc");
-         FTOF_clusters_z = fReader->getBranch<float>     ("FTOF::clusters","z");
-         FTOF_clusters_z_unc = fReader->getBranch<float>     ("FTOF::clusters","z_unc");
-         FTOF_hits_adc_idx1 = fReader->getBranch<int16_t>   ("FTOF::hits","adc_idx1");
-         FTOF_hits_adc_idx2 = fReader->getBranch<int16_t>   ("FTOF::hits","adc_idx2");
-         FTOF_hits_component = fReader->getBranch<int16_t>   ("FTOF::hits","component");
-         FTOF_hits_energy = fReader->getBranch<float>     ("FTOF::hits","energy");
-         FTOF_hits_energy_unc = fReader->getBranch<float>     ("FTOF::hits","energy_unc");
-         FTOF_hits_id = fReader->getBranch<int16_t>   ("FTOF::hits","id");
-         FTOF_hits_layer = fReader->getBranch<int8_t>    ("FTOF::hits","layer");
-         FTOF_hits_pathLength = fReader->getBranch<float>     ("FTOF::hits","pathLength");
-         FTOF_hits_pathLengthThruBar = fReader->getBranch<float>     ("FTOF::hits","pathLengthThruBar");
-         FTOF_hits_sector = fReader->getBranch<int8_t>    ("FTOF::hits","sector");
-         FTOF_hits_status = fReader->getBranch<int16_t>   ("FTOF::hits","status");
-         FTOF_hits_tdc_idx1 = fReader->getBranch<int16_t>   ("FTOF::hits","tdc_idx1");
-         FTOF_hits_tdc_idx2 = fReader->getBranch<int16_t>   ("FTOF::hits","tdc_idx2");
-         FTOF_hits_time = fReader->getBranch<float>     ("FTOF::hits","time");
-         FTOF_hits_time_unc = fReader->getBranch<float>     ("FTOF::hits","time_unc");
-         FTOF_hits_trackid = fReader->getBranch<int16_t>   ("FTOF::hits","trackid");
-         FTOF_hits_tx = fReader->getBranch<float>     ("FTOF::hits","tx");
-         FTOF_hits_ty = fReader->getBranch<float>     ("FTOF::hits","ty");
-         FTOF_hits_tz = fReader->getBranch<float>     ("FTOF::hits","tz");
-         FTOF_hits_x = fReader->getBranch<float>     ("FTOF::hits","x");
-         FTOF_hits_x_unc = fReader->getBranch<float>     ("FTOF::hits","x_unc");
-         FTOF_hits_y = fReader->getBranch<float>     ("FTOF::hits","y");
-         FTOF_hits_y_unc = fReader->getBranch<float>     ("FTOF::hits","y_unc");
-         FTOF_hits_z = fReader->getBranch<float>     ("FTOF::hits","z");
-         FTOF_hits_z_unc = fReader->getBranch<float>     ("FTOF::hits","z_unc");
-         FTOF_matchedclusters_EmaxAlgo_1B_tCorr = fReader->getBranch<float>     ("FTOF::matchedclusters","EmaxAlgo_1B_tCorr");
-         FTOF_matchedclusters_clusSize_1A = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","clusSize_1A");
-         FTOF_matchedclusters_clusSize_1B = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","clusSize_1B");
-         FTOF_matchedclusters_clus_1Aid = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","clus_1Aid");
-         FTOF_matchedclusters_clus_1Bid = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","clus_1Bid");
-         FTOF_matchedclusters_midbarAlgo_1B_tCorr = fReader->getBranch<float>     ("FTOF::matchedclusters","midbarAlgo_1B_tCorr");
-         FTOF_matchedclusters_paddle_id1A = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","paddle_id1A");
-         FTOF_matchedclusters_paddle_id1B = fReader->getBranch<int16_t>   ("FTOF::matchedclusters","paddle_id1B");
-         FTOF_matchedclusters_sector = fReader->getBranch<int8_t>    ("FTOF::matchedclusters","sector");
-         FTOF_matchedclusters_tminAlgo_1B_tCorr = fReader->getBranch<float>     ("FTOF::matchedclusters","tminAlgo_1B_tCorr");
-         FTOF_rawhits_component = fReader->getBranch<int16_t>   ("FTOF::rawhits","component");
-         FTOF_rawhits_energy_left = fReader->getBranch<float>     ("FTOF::rawhits","energy_left");
-         FTOF_rawhits_energy_left_unc = fReader->getBranch<float>     ("FTOF::rawhits","energy_left_unc");
-         FTOF_rawhits_energy_right = fReader->getBranch<float>     ("FTOF::rawhits","energy_right");
-         FTOF_rawhits_energy_right_unc = fReader->getBranch<float>     ("FTOF::rawhits","energy_right_unc");
-         FTOF_rawhits_id = fReader->getBranch<int16_t>   ("FTOF::rawhits","id");
-         FTOF_rawhits_layer = fReader->getBranch<int8_t>    ("FTOF::rawhits","layer");
-         FTOF_rawhits_sector = fReader->getBranch<int8_t>    ("FTOF::rawhits","sector");
-         FTOF_rawhits_status = fReader->getBranch<int16_t>   ("FTOF::rawhits","status");
-         FTOF_rawhits_time_left = fReader->getBranch<float>     ("FTOF::rawhits","time_left");
-         FTOF_rawhits_time_left_unc = fReader->getBranch<float>     ("FTOF::rawhits","time_left_unc");
-         FTOF_rawhits_time_right = fReader->getBranch<float>     ("FTOF::rawhits","time_right");
-         FTOF_rawhits_time_right_unc = fReader->getBranch<float>     ("FTOF::rawhits","time_right_unc");
-         FTOF_tdc_TDC = fReader->getBranch<int32_t>   ("FTOF::tdc","TDC");
-         FTOF_tdc_component = fReader->getBranch<int16_t>   ("FTOF::tdc","component");
-         FTOF_tdc_layer = fReader->getBranch<int8_t>    ("FTOF::tdc","layer");
-         FTOF_tdc_order = fReader->getBranch<int8_t>    ("FTOF::tdc","order");
-         FTOF_tdc_sector = fReader->getBranch<int8_t>    ("FTOF::tdc","sector");
-         FTTRK_adc_ADC = fReader->getBranch<int32_t>   ("FTTRK::adc","ADC");
-         FTTRK_adc_component = fReader->getBranch<int16_t>   ("FTTRK::adc","component");
-         FTTRK_adc_integral = fReader->getBranch<int32_t>   ("FTTRK::adc","integral");
-         FTTRK_adc_layer = fReader->getBranch<int8_t>    ("FTTRK::adc","layer");
-         FTTRK_adc_order = fReader->getBranch<int8_t>    ("FTTRK::adc","order");
-         FTTRK_adc_ped = fReader->getBranch<int16_t>   ("FTTRK::adc","ped");
-         FTTRK_adc_sector = fReader->getBranch<int8_t>    ("FTTRK::adc","sector");
-         FTTRK_adc_time = fReader->getBranch<float>     ("FTTRK::adc","time");
-         FTTRK_adc_timestamp = fReader->getBranch<int64_t>   ("FTTRK::adc","timestamp");
-         HEADER_info_fc = fReader->getBranch<float>     ("HEADER::info","fc");
-         HEADER_info_fcg = fReader->getBranch<float>     ("HEADER::info","fcg");
-         HEADER_info_helicity = fReader->getBranch<int8_t>    ("HEADER::info","helicity");
-         HEADER_info_nevt = fReader->getBranch<int32_t>   ("HEADER::info","nevt");
-         HEADER_info_nrun = fReader->getBranch<int32_t>   ("HEADER::info","nrun");
-         HEADER_info_rastr1 = fReader->getBranch<int16_t>   ("HEADER::info","rastr1");
-         HEADER_info_rastr2 = fReader->getBranch<int16_t>   ("HEADER::info","rastr2");
-         HEADER_info_stt = fReader->getBranch<float>     ("HEADER::info","stt");
-         HEADER_info_trigger = fReader->getBranch<int32_t>   ("HEADER::info","trigger");
-         HEL_adc_ADC = fReader->getBranch<int32_t>   ("HEL::adc","ADC");
-         HEL_adc_component = fReader->getBranch<int16_t>   ("HEL::adc","component");
-         HEL_adc_layer = fReader->getBranch<int8_t>    ("HEL::adc","layer");
-         HEL_adc_order = fReader->getBranch<int8_t>    ("HEL::adc","order");
-         HEL_adc_ped = fReader->getBranch<int16_t>   ("HEL::adc","ped");
-         HEL_adc_sector = fReader->getBranch<int8_t>    ("HEL::adc","sector");
-         HEL_adc_time = fReader->getBranch<float>     ("HEL::adc","time");
-         HTCC_adc_ADC = fReader->getBranch<int32_t>   ("HTCC::adc","ADC");
-         HTCC_adc_component = fReader->getBranch<int16_t>   ("HTCC::adc","component");
-         HTCC_adc_layer = fReader->getBranch<int8_t>    ("HTCC::adc","layer");
-         HTCC_adc_order = fReader->getBranch<int8_t>    ("HTCC::adc","order");
-         HTCC_adc_ped = fReader->getBranch<int16_t>   ("HTCC::adc","ped");
-         HTCC_adc_sector = fReader->getBranch<int8_t>    ("HTCC::adc","sector");
-         HTCC_adc_time = fReader->getBranch<float>     ("HTCC::adc","time");
-         HTCC_rec_dphi = fReader->getBranch<float>     ("HTCC::rec","dphi");
-         HTCC_rec_dtheta = fReader->getBranch<float>     ("HTCC::rec","dtheta");
-         HTCC_rec_id = fReader->getBranch<int16_t>   ("HTCC::rec","id");
-         HTCC_rec_maxphi = fReader->getBranch<int16_t>   ("HTCC::rec","maxphi");
-         HTCC_rec_maxtheta = fReader->getBranch<int16_t>   ("HTCC::rec","maxtheta");
-         HTCC_rec_minphi = fReader->getBranch<int16_t>   ("HTCC::rec","minphi");
-         HTCC_rec_mintheta = fReader->getBranch<int16_t>   ("HTCC::rec","mintheta");
-         HTCC_rec_nhits = fReader->getBranch<int16_t>   ("HTCC::rec","nhits");
-         HTCC_rec_nphe = fReader->getBranch<float>     ("HTCC::rec","nphe");
-         HTCC_rec_nphi = fReader->getBranch<int16_t>   ("HTCC::rec","nphi");
-         HTCC_rec_ntheta = fReader->getBranch<int16_t>   ("HTCC::rec","ntheta");
-         HTCC_rec_phi = fReader->getBranch<float>     ("HTCC::rec","phi");
-         HTCC_rec_theta = fReader->getBranch<float>     ("HTCC::rec","theta");
-         HTCC_rec_time = fReader->getBranch<float>     ("HTCC::rec","time");
-         HTCC_rec_x = fReader->getBranch<float>     ("HTCC::rec","x");
-         HTCC_rec_y = fReader->getBranch<float>     ("HTCC::rec","y");
-         HTCC_rec_z = fReader->getBranch<float>     ("HTCC::rec","z");
-         HTCC_tdc_TDC = fReader->getBranch<int32_t>   ("HTCC::tdc","TDC");
-         HTCC_tdc_component = fReader->getBranch<int16_t>   ("HTCC::tdc","component");
-         HTCC_tdc_layer = fReader->getBranch<int8_t>    ("HTCC::tdc","layer");
-         HTCC_tdc_order = fReader->getBranch<int8_t>    ("HTCC::tdc","order");
-         HTCC_tdc_sector = fReader->getBranch<int8_t>    ("HTCC::tdc","sector");
-         HitBasedTrkg_HBClusters_Hit10_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit10_ID");
-         HitBasedTrkg_HBClusters_Hit11_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit11_ID");
-         HitBasedTrkg_HBClusters_Hit12_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit12_ID");
-         HitBasedTrkg_HBClusters_Hit1_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit1_ID");
-         HitBasedTrkg_HBClusters_Hit2_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit2_ID");
-         HitBasedTrkg_HBClusters_Hit3_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit3_ID");
-         HitBasedTrkg_HBClusters_Hit4_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit4_ID");
-         HitBasedTrkg_HBClusters_Hit5_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit5_ID");
-         HitBasedTrkg_HBClusters_Hit6_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit6_ID");
-         HitBasedTrkg_HBClusters_Hit7_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit7_ID");
-         HitBasedTrkg_HBClusters_Hit8_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit8_ID");
-         HitBasedTrkg_HBClusters_Hit9_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","Hit9_ID");
-         HitBasedTrkg_HBClusters_avgWire = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","avgWire");
-         HitBasedTrkg_HBClusters_fitChisqProb = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","fitChisqProb");
-         HitBasedTrkg_HBClusters_fitInterc = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","fitInterc");
-         HitBasedTrkg_HBClusters_fitIntercErr = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","fitIntercErr");
-         HitBasedTrkg_HBClusters_fitSlope = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","fitSlope");
-         HitBasedTrkg_HBClusters_fitSlopeErr = fReader->getBranch<float>     ("HitBasedTrkg::HBClusters","fitSlopeErr");
-         HitBasedTrkg_HBClusters_id = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","id");
-         HitBasedTrkg_HBClusters_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBClusters","sector");
-         HitBasedTrkg_HBClusters_size = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBClusters","size");
-         HitBasedTrkg_HBClusters_status = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBClusters","status");
-         HitBasedTrkg_HBClusters_superlayer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBClusters","superlayer");
-         HitBasedTrkg_HBCrosses_Segment1_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBCrosses","Segment1_ID");
-         HitBasedTrkg_HBCrosses_Segment2_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBCrosses","Segment2_ID");
-         HitBasedTrkg_HBCrosses_err_ux = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_ux");
-         HitBasedTrkg_HBCrosses_err_uy = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_uy");
-         HitBasedTrkg_HBCrosses_err_uz = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_uz");
-         HitBasedTrkg_HBCrosses_err_x = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_x");
-         HitBasedTrkg_HBCrosses_err_y = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_y");
-         HitBasedTrkg_HBCrosses_err_z = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","err_z");
-         HitBasedTrkg_HBCrosses_id = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBCrosses","id");
-         HitBasedTrkg_HBCrosses_region = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBCrosses","region");
-         HitBasedTrkg_HBCrosses_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBCrosses","sector");
-         HitBasedTrkg_HBCrosses_status = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBCrosses","status");
-         HitBasedTrkg_HBCrosses_ux = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","ux");
-         HitBasedTrkg_HBCrosses_uy = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","uy");
-         HitBasedTrkg_HBCrosses_uz = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","uz");
-         HitBasedTrkg_HBCrosses_x = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","x");
-         HitBasedTrkg_HBCrosses_y = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","y");
-         HitBasedTrkg_HBCrosses_z = fReader->getBranch<float>     ("HitBasedTrkg::HBCrosses","z");
-         HitBasedTrkg_HBHits_B = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","B");
-         HitBasedTrkg_HBHits_LR = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBHits","LR");
-         HitBasedTrkg_HBHits_LocX = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","LocX");
-         HitBasedTrkg_HBHits_LocY = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","LocY");
-         HitBasedTrkg_HBHits_TDC = fReader->getBranch<int32_t>   ("HitBasedTrkg::HBHits","TDC");
-         HitBasedTrkg_HBHits_TFlight = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","TFlight");
-         HitBasedTrkg_HBHits_TProp = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","TProp");
-         HitBasedTrkg_HBHits_X = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","X");
-         HitBasedTrkg_HBHits_Z = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","Z");
-         HitBasedTrkg_HBHits_clusterID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBHits","clusterID");
-         HitBasedTrkg_HBHits_docaError = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","docaError");
-         HitBasedTrkg_HBHits_id = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBHits","id");
-         HitBasedTrkg_HBHits_layer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBHits","layer");
-         HitBasedTrkg_HBHits_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBHits","sector");
-         HitBasedTrkg_HBHits_status = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBHits","status");
-         HitBasedTrkg_HBHits_superlayer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBHits","superlayer");
-         HitBasedTrkg_HBHits_trkDoca = fReader->getBranch<float>     ("HitBasedTrkg::HBHits","trkDoca");
-         HitBasedTrkg_HBHits_trkID = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBHits","trkID");
-         HitBasedTrkg_HBHits_wire = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBHits","wire");
-         HitBasedTrkg_HBSegmentTrajectory_layer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegmentTrajectory","layer");
-         HitBasedTrkg_HBSegmentTrajectory_matchedHitID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegmentTrajectory","matchedHitID");
-         HitBasedTrkg_HBSegmentTrajectory_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegmentTrajectory","sector");
-         HitBasedTrkg_HBSegmentTrajectory_segmentID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegmentTrajectory","segmentID");
-         HitBasedTrkg_HBSegmentTrajectory_superlayer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegmentTrajectory","superlayer");
-         HitBasedTrkg_HBSegmentTrajectory_trkDoca = fReader->getBranch<float>     ("HitBasedTrkg::HBSegmentTrajectory","trkDoca");
-         HitBasedTrkg_HBSegments_Cluster_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Cluster_ID");
-         HitBasedTrkg_HBSegments_Hit10_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit10_ID");
-         HitBasedTrkg_HBSegments_Hit11_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit11_ID");
-         HitBasedTrkg_HBSegments_Hit12_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit12_ID");
-         HitBasedTrkg_HBSegments_Hit1_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit1_ID");
-         HitBasedTrkg_HBSegments_Hit2_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit2_ID");
-         HitBasedTrkg_HBSegments_Hit3_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit3_ID");
-         HitBasedTrkg_HBSegments_Hit4_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit4_ID");
-         HitBasedTrkg_HBSegments_Hit5_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit5_ID");
-         HitBasedTrkg_HBSegments_Hit6_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit6_ID");
-         HitBasedTrkg_HBSegments_Hit7_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit7_ID");
-         HitBasedTrkg_HBSegments_Hit8_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit8_ID");
-         HitBasedTrkg_HBSegments_Hit9_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","Hit9_ID");
-         HitBasedTrkg_HBSegments_SegEndPoint1X = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","SegEndPoint1X");
-         HitBasedTrkg_HBSegments_SegEndPoint1Z = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","SegEndPoint1Z");
-         HitBasedTrkg_HBSegments_SegEndPoint2X = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","SegEndPoint2X");
-         HitBasedTrkg_HBSegments_SegEndPoint2Z = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","SegEndPoint2Z");
-         HitBasedTrkg_HBSegments_avgWire = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","avgWire");
-         HitBasedTrkg_HBSegments_fitChisqProb = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","fitChisqProb");
-         HitBasedTrkg_HBSegments_fitInterc = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","fitInterc");
-         HitBasedTrkg_HBSegments_fitIntercErr = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","fitIntercErr");
-         HitBasedTrkg_HBSegments_fitSlope = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","fitSlope");
-         HitBasedTrkg_HBSegments_fitSlopeErr = fReader->getBranch<float>     ("HitBasedTrkg::HBSegments","fitSlopeErr");
-         HitBasedTrkg_HBSegments_id = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","id");
-         HitBasedTrkg_HBSegments_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegments","sector");
-         HitBasedTrkg_HBSegments_size = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegments","size");
-         HitBasedTrkg_HBSegments_status = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBSegments","status");
-         HitBasedTrkg_HBSegments_superlayer = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBSegments","superlayer");
-         HitBasedTrkg_HBTracks_Cross1_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","Cross1_ID");
-         HitBasedTrkg_HBTracks_Cross2_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","Cross2_ID");
-         HitBasedTrkg_HBTracks_Cross3_ID = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","Cross3_ID");
-         HitBasedTrkg_HBTracks_Vtx0_x = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","Vtx0_x");
-         HitBasedTrkg_HBTracks_Vtx0_y = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","Vtx0_y");
-         HitBasedTrkg_HBTracks_Vtx0_z = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","Vtx0_z");
-         HitBasedTrkg_HBTracks_c1_ux = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_ux");
-         HitBasedTrkg_HBTracks_c1_uy = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_uy");
-         HitBasedTrkg_HBTracks_c1_uz = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_uz");
-         HitBasedTrkg_HBTracks_c1_x = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_x");
-         HitBasedTrkg_HBTracks_c1_y = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_y");
-         HitBasedTrkg_HBTracks_c1_z = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c1_z");
-         HitBasedTrkg_HBTracks_c3_ux = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_ux");
-         HitBasedTrkg_HBTracks_c3_uy = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_uy");
-         HitBasedTrkg_HBTracks_c3_uz = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_uz");
-         HitBasedTrkg_HBTracks_c3_x = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_x");
-         HitBasedTrkg_HBTracks_c3_y = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_y");
-         HitBasedTrkg_HBTracks_c3_z = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","c3_z");
-         HitBasedTrkg_HBTracks_chi2 = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","chi2");
-         HitBasedTrkg_HBTracks_id = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","id");
-         HitBasedTrkg_HBTracks_ndf = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","ndf");
-         HitBasedTrkg_HBTracks_p0_x = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","p0_x");
-         HitBasedTrkg_HBTracks_p0_y = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","p0_y");
-         HitBasedTrkg_HBTracks_p0_z = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","p0_z");
-         HitBasedTrkg_HBTracks_pathlength = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","pathlength");
-         HitBasedTrkg_HBTracks_q = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBTracks","q");
-         HitBasedTrkg_HBTracks_sector = fReader->getBranch<int8_t>    ("HitBasedTrkg::HBTracks","sector");
-         HitBasedTrkg_HBTracks_status = fReader->getBranch<int16_t>   ("HitBasedTrkg::HBTracks","status");
-         HitBasedTrkg_HBTracks_t1_px = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_px");
-         HitBasedTrkg_HBTracks_t1_py = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_py");
-         HitBasedTrkg_HBTracks_t1_pz = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_pz");
-         HitBasedTrkg_HBTracks_t1_x = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_x");
-         HitBasedTrkg_HBTracks_t1_y = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_y");
-         HitBasedTrkg_HBTracks_t1_z = fReader->getBranch<float>     ("HitBasedTrkg::HBTracks","t1_z");
-         LTCC_adc_ADC = fReader->getBranch<int32_t>   ("LTCC::adc","ADC");
-         LTCC_adc_component = fReader->getBranch<int16_t>   ("LTCC::adc","component");
-         LTCC_adc_layer = fReader->getBranch<int8_t>    ("LTCC::adc","layer");
-         LTCC_adc_order = fReader->getBranch<int8_t>    ("LTCC::adc","order");
-         LTCC_adc_ped = fReader->getBranch<int16_t>   ("LTCC::adc","ped");
-         LTCC_adc_sector = fReader->getBranch<int8_t>    ("LTCC::adc","sector");
-         LTCC_adc_time = fReader->getBranch<float>     ("LTCC::adc","time");
-         LTCC_clusters_id = fReader->getBranch<int16_t>   ("LTCC::clusters","id");
-         LTCC_clusters_maxPhi = fReader->getBranch<float>     ("LTCC::clusters","maxPhi");
-         LTCC_clusters_maxTheta = fReader->getBranch<float>     ("LTCC::clusters","maxTheta");
-         LTCC_clusters_minPhi = fReader->getBranch<float>     ("LTCC::clusters","minPhi");
-         LTCC_clusters_minTheta = fReader->getBranch<float>     ("LTCC::clusters","minTheta");
-         LTCC_clusters_nHits = fReader->getBranch<int16_t>   ("LTCC::clusters","nHits");
-         LTCC_clusters_nphe = fReader->getBranch<float>     ("LTCC::clusters","nphe");
-         LTCC_clusters_sector = fReader->getBranch<int8_t>    ("LTCC::clusters","sector");
-         LTCC_clusters_segment = fReader->getBranch<int16_t>   ("LTCC::clusters","segment");
-         LTCC_clusters_status = fReader->getBranch<int8_t>    ("LTCC::clusters","status");
-         LTCC_clusters_time = fReader->getBranch<float>     ("LTCC::clusters","time");
-         LTCC_clusters_x = fReader->getBranch<float>     ("LTCC::clusters","x");
-         LTCC_clusters_y = fReader->getBranch<float>     ("LTCC::clusters","y");
-         LTCC_clusters_z = fReader->getBranch<float>     ("LTCC::clusters","z");
-         LTCC_tdc_TDC = fReader->getBranch<int32_t>   ("LTCC::tdc","TDC");
-         LTCC_tdc_component = fReader->getBranch<int16_t>   ("LTCC::tdc","component");
-         LTCC_tdc_layer = fReader->getBranch<int8_t>    ("LTCC::tdc","layer");
-         LTCC_tdc_order = fReader->getBranch<int8_t>    ("LTCC::tdc","order");
-         LTCC_tdc_sector = fReader->getBranch<int8_t>    ("LTCC::tdc","sector");
-         MC_Event_atarget = fReader->getBranch<int16_t>   ("MC::Event","atarget");
-         MC_Event_btype = fReader->getBranch<int16_t>   ("MC::Event","btype");
-         MC_Event_ebeam = fReader->getBranch<float>     ("MC::Event","ebeam");
-         MC_Event_npart = fReader->getBranch<int16_t>   ("MC::Event","npart");
-         MC_Event_pbeam = fReader->getBranch<float>     ("MC::Event","pbeam");
-         MC_Event_processid = fReader->getBranch<int16_t>   ("MC::Event","processid");
-         MC_Event_ptarget = fReader->getBranch<float>     ("MC::Event","ptarget");
-         MC_Event_targetid = fReader->getBranch<int16_t>   ("MC::Event","targetid");
-         MC_Event_weight = fReader->getBranch<float>     ("MC::Event","weight");
-         MC_Event_ztarget = fReader->getBranch<int16_t>   ("MC::Event","ztarget");
-         MC_Header_event = fReader->getBranch<int32_t>   ("MC::Header","event");
-         MC_Header_helicity = fReader->getBranch<float>     ("MC::Header","helicity");
-         MC_Header_run = fReader->getBranch<int32_t>   ("MC::Header","run");
-         MC_Header_type = fReader->getBranch<int8_t>    ("MC::Header","type");
-         MC_Lund_E = fReader->getBranch<float>     ("MC::Lund","E");
-         MC_Lund_daughter = fReader->getBranch<int8_t>    ("MC::Lund","daughter");
-         MC_Lund_index = fReader->getBranch<int8_t>    ("MC::Lund","index");
-         MC_Lund_ltime = fReader->getBranch<float>     ("MC::Lund","ltime");
-         MC_Lund_mass = fReader->getBranch<float>     ("MC::Lund","mass");
-         MC_Lund_parent = fReader->getBranch<int8_t>    ("MC::Lund","parent");
-         MC_Lund_pid = fReader->getBranch<int32_t>   ("MC::Lund","pid");
-         MC_Lund_px = fReader->getBranch<float>     ("MC::Lund","px");
-         MC_Lund_py = fReader->getBranch<float>     ("MC::Lund","py");
-         MC_Lund_pz = fReader->getBranch<float>     ("MC::Lund","pz");
-         MC_Lund_type = fReader->getBranch<int8_t>    ("MC::Lund","type");
-         MC_Lund_vx = fReader->getBranch<float>     ("MC::Lund","vx");
-         MC_Lund_vy = fReader->getBranch<float>     ("MC::Lund","vy");
-         MC_Lund_vz = fReader->getBranch<float>     ("MC::Lund","vz");
-         MC_Particle_pid = fReader->getBranch<int32_t>   ("MC::Particle","pid");
-         MC_Particle_px = fReader->getBranch<float>     ("MC::Particle","px");
-         MC_Particle_py = fReader->getBranch<float>     ("MC::Particle","py");
-         MC_Particle_pz = fReader->getBranch<float>     ("MC::Particle","pz");
-         MC_Particle_vt = fReader->getBranch<float>     ("MC::Particle","vt");
-         MC_Particle_vx = fReader->getBranch<float>     ("MC::Particle","vx");
-         MC_Particle_vy = fReader->getBranch<float>     ("MC::Particle","vy");
-         MC_Particle_vz = fReader->getBranch<float>     ("MC::Particle","vz");
-         MC_True_avgLx = fReader->getBranch<float>     ("MC::True","avgLx");
-         MC_True_avgLy = fReader->getBranch<float>     ("MC::True","avgLy");
-         MC_True_avgLz = fReader->getBranch<float>     ("MC::True","avgLz");
-         MC_True_avgT = fReader->getBranch<float>     ("MC::True","avgT");
-         MC_True_avgX = fReader->getBranch<float>     ("MC::True","avgX");
-         MC_True_avgY = fReader->getBranch<float>     ("MC::True","avgY");
-         MC_True_avgZ = fReader->getBranch<float>     ("MC::True","avgZ");
-         MC_True_detector = fReader->getBranch<int8_t>    ("MC::True","detector");
-         MC_True_hitn = fReader->getBranch<int32_t>   ("MC::True","hitn");
-         MC_True_mpid = fReader->getBranch<int32_t>   ("MC::True","mpid");
-         MC_True_mtid = fReader->getBranch<int32_t>   ("MC::True","mtid");
-         MC_True_mvx = fReader->getBranch<float>     ("MC::True","mvx");
-         MC_True_mvy = fReader->getBranch<float>     ("MC::True","mvy");
-         MC_True_mvz = fReader->getBranch<float>     ("MC::True","mvz");
-         MC_True_nsteps = fReader->getBranch<int32_t>   ("MC::True","nsteps");
-         MC_True_otid = fReader->getBranch<int32_t>   ("MC::True","otid");
-         MC_True_pid = fReader->getBranch<int32_t>   ("MC::True","pid");
-         MC_True_procID = fReader->getBranch<int32_t>   ("MC::True","procID");
-         MC_True_px = fReader->getBranch<float>     ("MC::True","px");
-         MC_True_py = fReader->getBranch<float>     ("MC::True","py");
-         MC_True_pz = fReader->getBranch<float>     ("MC::True","pz");
-         MC_True_tid = fReader->getBranch<int32_t>   ("MC::True","tid");
-         MC_True_totEdep = fReader->getBranch<float>     ("MC::True","totEdep");
-         MC_True_trackE = fReader->getBranch<float>     ("MC::True","trackE");
-         MC_True_vx = fReader->getBranch<float>     ("MC::True","vx");
-         MC_True_vy = fReader->getBranch<float>     ("MC::True","vy");
-         MC_True_vz = fReader->getBranch<float>     ("MC::True","vz");
-         RAW_adc_ADC = fReader->getBranch<int32_t>   ("RAW::adc","ADC");
-         RAW_adc_channel = fReader->getBranch<int16_t>   ("RAW::adc","channel");
-         RAW_adc_crate = fReader->getBranch<int8_t>    ("RAW::adc","crate");
-         RAW_adc_ped = fReader->getBranch<int16_t>   ("RAW::adc","ped");
-         RAW_adc_slot = fReader->getBranch<int8_t>    ("RAW::adc","slot");
-         RAW_adc_time = fReader->getBranch<float>     ("RAW::adc","time");
-         RAW_scaler_channel = fReader->getBranch<int16_t>   ("RAW::scaler","channel");
-         RAW_scaler_crate = fReader->getBranch<int8_t>    ("RAW::scaler","crate");
-         RAW_scaler_helicity = fReader->getBranch<int8_t>    ("RAW::scaler","helicity");
-         RAW_scaler_quartet = fReader->getBranch<int8_t>    ("RAW::scaler","quartet");
-         RAW_scaler_slot = fReader->getBranch<int8_t>    ("RAW::scaler","slot");
-         RAW_scaler_value = fReader->getBranch<int32_t>   ("RAW::scaler","value");
-         RAW_tdc_TDC = fReader->getBranch<int32_t>   ("RAW::tdc","TDC");
-         RAW_tdc_channel = fReader->getBranch<int16_t>   ("RAW::tdc","channel");
-         RAW_tdc_crate = fReader->getBranch<int8_t>    ("RAW::tdc","crate");
-         RAW_tdc_slot = fReader->getBranch<int8_t>    ("RAW::tdc","slot");
-         RAW_vtp_channel = fReader->getBranch<int16_t>   ("RAW::vtp","channel");
-         RAW_vtp_crate = fReader->getBranch<int8_t>    ("RAW::vtp","crate");
-         RAW_vtp_slot = fReader->getBranch<int8_t>    ("RAW::vtp","slot");
-         RAW_vtp_word = fReader->getBranch<int32_t>   ("RAW::vtp","word");
-         REC_Calorimeter_chi2 = fReader->getBranch<float>     ("REC::Calorimeter","chi2");
-         REC_Calorimeter_detector = fReader->getBranch<int8_t>    ("REC::Calorimeter","detector");
-         REC_Calorimeter_du = fReader->getBranch<float>     ("REC::Calorimeter","du");
-         REC_Calorimeter_dv = fReader->getBranch<float>     ("REC::Calorimeter","dv");
-         REC_Calorimeter_dw = fReader->getBranch<float>     ("REC::Calorimeter","dw");
-         REC_Calorimeter_energy = fReader->getBranch<float>     ("REC::Calorimeter","energy");
-         REC_Calorimeter_hx = fReader->getBranch<float>     ("REC::Calorimeter","hx");
-         REC_Calorimeter_hy = fReader->getBranch<float>     ("REC::Calorimeter","hy");
-         REC_Calorimeter_hz = fReader->getBranch<float>     ("REC::Calorimeter","hz");
-         REC_Calorimeter_index = fReader->getBranch<int16_t>   ("REC::Calorimeter","index");
-         REC_Calorimeter_layer = fReader->getBranch<int8_t>    ("REC::Calorimeter","layer");
-         REC_Calorimeter_lu = fReader->getBranch<float>     ("REC::Calorimeter","lu");
-         REC_Calorimeter_lv = fReader->getBranch<float>     ("REC::Calorimeter","lv");
-         REC_Calorimeter_lw = fReader->getBranch<float>     ("REC::Calorimeter","lw");
-         REC_Calorimeter_m2u = fReader->getBranch<float>     ("REC::Calorimeter","m2u");
-         REC_Calorimeter_m2v = fReader->getBranch<float>     ("REC::Calorimeter","m2v");
-         REC_Calorimeter_m2w = fReader->getBranch<float>     ("REC::Calorimeter","m2w");
-         REC_Calorimeter_m3u = fReader->getBranch<float>     ("REC::Calorimeter","m3u");
-         REC_Calorimeter_m3v = fReader->getBranch<float>     ("REC::Calorimeter","m3v");
-         REC_Calorimeter_m3w = fReader->getBranch<float>     ("REC::Calorimeter","m3w");
-         REC_Calorimeter_path = fReader->getBranch<float>     ("REC::Calorimeter","path");
-         REC_Calorimeter_pindex = fReader->getBranch<int16_t>   ("REC::Calorimeter","pindex");
-         REC_Calorimeter_sector = fReader->getBranch<int8_t>    ("REC::Calorimeter","sector");
-         REC_Calorimeter_status = fReader->getBranch<int16_t>   ("REC::Calorimeter","status");
-         REC_Calorimeter_time = fReader->getBranch<float>     ("REC::Calorimeter","time");
-         REC_Calorimeter_x = fReader->getBranch<float>     ("REC::Calorimeter","x");
-         REC_Calorimeter_y = fReader->getBranch<float>     ("REC::Calorimeter","y");
-         REC_Calorimeter_z = fReader->getBranch<float>     ("REC::Calorimeter","z");
-         REC_Cherenkov_chi2 = fReader->getBranch<float>     ("REC::Cherenkov","chi2");
-         REC_Cherenkov_detector = fReader->getBranch<int8_t>    ("REC::Cherenkov","detector");
-         REC_Cherenkov_dphi = fReader->getBranch<float>     ("REC::Cherenkov","dphi");
-         REC_Cherenkov_dtheta = fReader->getBranch<float>     ("REC::Cherenkov","dtheta");
-         REC_Cherenkov_index = fReader->getBranch<int16_t>   ("REC::Cherenkov","index");
-         REC_Cherenkov_nphe = fReader->getBranch<float>     ("REC::Cherenkov","nphe");
-         REC_Cherenkov_path = fReader->getBranch<float>     ("REC::Cherenkov","path");
-         REC_Cherenkov_phi = fReader->getBranch<float>     ("REC::Cherenkov","phi");
-         REC_Cherenkov_pindex = fReader->getBranch<int16_t>   ("REC::Cherenkov","pindex");
-         REC_Cherenkov_sector = fReader->getBranch<int8_t>    ("REC::Cherenkov","sector");
-         REC_Cherenkov_status = fReader->getBranch<int16_t>   ("REC::Cherenkov","status");
-         REC_Cherenkov_theta = fReader->getBranch<float>     ("REC::Cherenkov","theta");
-         REC_Cherenkov_time = fReader->getBranch<float>     ("REC::Cherenkov","time");
-         REC_Cherenkov_x = fReader->getBranch<float>     ("REC::Cherenkov","x");
-         REC_Cherenkov_y = fReader->getBranch<float>     ("REC::Cherenkov","y");
-         REC_Cherenkov_z = fReader->getBranch<float>     ("REC::Cherenkov","z");
-         REC_CovMat_C11 = fReader->getBranch<float>     ("REC::CovMat","C11");
-         REC_CovMat_C12 = fReader->getBranch<float>     ("REC::CovMat","C12");
-         REC_CovMat_C13 = fReader->getBranch<float>     ("REC::CovMat","C13");
-         REC_CovMat_C14 = fReader->getBranch<float>     ("REC::CovMat","C14");
-         REC_CovMat_C15 = fReader->getBranch<float>     ("REC::CovMat","C15");
-         REC_CovMat_C22 = fReader->getBranch<float>     ("REC::CovMat","C22");
-         REC_CovMat_C23 = fReader->getBranch<float>     ("REC::CovMat","C23");
-         REC_CovMat_C24 = fReader->getBranch<float>     ("REC::CovMat","C24");
-         REC_CovMat_C25 = fReader->getBranch<float>     ("REC::CovMat","C25");
-         REC_CovMat_C33 = fReader->getBranch<float>     ("REC::CovMat","C33");
-         REC_CovMat_C34 = fReader->getBranch<float>     ("REC::CovMat","C34");
-         REC_CovMat_C35 = fReader->getBranch<float>     ("REC::CovMat","C35");
-         REC_CovMat_C44 = fReader->getBranch<float>     ("REC::CovMat","C44");
-         REC_CovMat_C45 = fReader->getBranch<float>     ("REC::CovMat","C45");
-         REC_CovMat_C55 = fReader->getBranch<float>     ("REC::CovMat","C55");
-         REC_CovMat_index = fReader->getBranch<int16_t>   ("REC::CovMat","index");
-         REC_CovMat_pindex = fReader->getBranch<int16_t>   ("REC::CovMat","pindex");
-         REC_Event_BCG = fReader->getBranch<float>     ("REC::Event","BCG");
-         REC_Event_EVNTime = fReader->getBranch<float>     ("REC::Event","EVNTime");
-         REC_Event_EvCAT = fReader->getBranch<int16_t>   ("REC::Event","EvCAT");
-         REC_Event_Helic = fReader->getBranch<int8_t>    ("REC::Event","Helic");
-         REC_Event_LT = fReader->getBranch<double>    ("REC::Event","LT");
-         REC_Event_NEVENT = fReader->getBranch<int32_t>   ("REC::Event","NEVENT");
-         REC_Event_NPGP = fReader->getBranch<int16_t>   ("REC::Event","NPGP");
-         REC_Event_NRUN = fReader->getBranch<int32_t>   ("REC::Event","NRUN");
-         REC_Event_PTIME = fReader->getBranch<float>     ("REC::Event","PTIME");
-         REC_Event_RFTime = fReader->getBranch<float>     ("REC::Event","RFTime");
-         REC_Event_STTime = fReader->getBranch<float>     ("REC::Event","STTime");
-         REC_Event_TRG = fReader->getBranch<int64_t>   ("REC::Event","TRG");
-         REC_Event_TYPE = fReader->getBranch<int8_t>    ("REC::Event","TYPE");
-         REC_ForwardTagger_chi2 = fReader->getBranch<float>     ("REC::ForwardTagger","chi2");
-         REC_ForwardTagger_detector = fReader->getBranch<int8_t>    ("REC::ForwardTagger","detector");
-         REC_ForwardTagger_dx = fReader->getBranch<float>     ("REC::ForwardTagger","dx");
-         REC_ForwardTagger_dy = fReader->getBranch<float>     ("REC::ForwardTagger","dy");
-         REC_ForwardTagger_energy = fReader->getBranch<float>     ("REC::ForwardTagger","energy");
-         REC_ForwardTagger_index = fReader->getBranch<int16_t>   ("REC::ForwardTagger","index");
-         REC_ForwardTagger_path = fReader->getBranch<float>     ("REC::ForwardTagger","path");
-         REC_ForwardTagger_pindex = fReader->getBranch<int16_t>   ("REC::ForwardTagger","pindex");
-         REC_ForwardTagger_radius = fReader->getBranch<float>     ("REC::ForwardTagger","radius");
-         REC_ForwardTagger_size = fReader->getBranch<int16_t>   ("REC::ForwardTagger","size");
-         REC_ForwardTagger_status = fReader->getBranch<int16_t>   ("REC::ForwardTagger","status");
-         REC_ForwardTagger_time = fReader->getBranch<float>     ("REC::ForwardTagger","time");
-         REC_ForwardTagger_x = fReader->getBranch<float>     ("REC::ForwardTagger","x");
-         REC_ForwardTagger_y = fReader->getBranch<float>     ("REC::ForwardTagger","y");
-         REC_ForwardTagger_z = fReader->getBranch<float>     ("REC::ForwardTagger","z");
-         REC_Particle_beta = fReader->getBranch<float>     ("REC::Particle","beta");
-         REC_Particle_charge = fReader->getBranch<int8_t>    ("REC::Particle","charge");
-         REC_Particle_chi2pid = fReader->getBranch<float>     ("REC::Particle","chi2pid");
-         REC_Particle_pid = fReader->getBranch<int32_t>   ("REC::Particle","pid");
-         REC_Particle_px = fReader->getBranch<float>     ("REC::Particle","px");
-         REC_Particle_py = fReader->getBranch<float>     ("REC::Particle","py");
-         REC_Particle_pz = fReader->getBranch<float>     ("REC::Particle","pz");
-         REC_Particle_status = fReader->getBranch<int16_t>   ("REC::Particle","status");
-         REC_Particle_vx = fReader->getBranch<float>     ("REC::Particle","vx");
-         REC_Particle_vy = fReader->getBranch<float>     ("REC::Particle","vy");
-         REC_Particle_vz = fReader->getBranch<float>     ("REC::Particle","vz");
-         REC_Scintillator_chi2 = fReader->getBranch<float>     ("REC::Scintillator","chi2");
-         REC_Scintillator_component = fReader->getBranch<int16_t>   ("REC::Scintillator","component");
-         REC_Scintillator_detector = fReader->getBranch<int8_t>    ("REC::Scintillator","detector");
-         REC_Scintillator_energy = fReader->getBranch<float>     ("REC::Scintillator","energy");
-         REC_Scintillator_hx = fReader->getBranch<float>     ("REC::Scintillator","hx");
-         REC_Scintillator_hy = fReader->getBranch<float>     ("REC::Scintillator","hy");
-         REC_Scintillator_hz = fReader->getBranch<float>     ("REC::Scintillator","hz");
-         REC_Scintillator_index = fReader->getBranch<int16_t>   ("REC::Scintillator","index");
-         REC_Scintillator_layer = fReader->getBranch<int8_t>    ("REC::Scintillator","layer");
-         REC_Scintillator_path = fReader->getBranch<float>     ("REC::Scintillator","path");
-         REC_Scintillator_pindex = fReader->getBranch<int16_t>   ("REC::Scintillator","pindex");
-         REC_Scintillator_sector = fReader->getBranch<int8_t>    ("REC::Scintillator","sector");
-         REC_Scintillator_status = fReader->getBranch<int16_t>   ("REC::Scintillator","status");
-         REC_Scintillator_time = fReader->getBranch<float>     ("REC::Scintillator","time");
-         REC_Scintillator_x = fReader->getBranch<float>     ("REC::Scintillator","x");
-         REC_Scintillator_y = fReader->getBranch<float>     ("REC::Scintillator","y");
-         REC_Scintillator_z = fReader->getBranch<float>     ("REC::Scintillator","z");
-         REC_Track_NDF = fReader->getBranch<int16_t>   ("REC::Track","NDF");
-         REC_Track_NDF_nomm = fReader->getBranch<int16_t>   ("REC::Track","NDF_nomm");
-         REC_Track_chi2 = fReader->getBranch<float>     ("REC::Track","chi2");
-         REC_Track_chi2_nomm = fReader->getBranch<float>     ("REC::Track","chi2_nomm");
-         REC_Track_detector = fReader->getBranch<int8_t>    ("REC::Track","detector");
-         REC_Track_index = fReader->getBranch<int16_t>   ("REC::Track","index");
-         REC_Track_pindex = fReader->getBranch<int16_t>   ("REC::Track","pindex");
-         REC_Track_px_nomm = fReader->getBranch<float>     ("REC::Track","px_nomm");
-         REC_Track_py_nomm = fReader->getBranch<float>     ("REC::Track","py_nomm");
-         REC_Track_pz_nomm = fReader->getBranch<float>     ("REC::Track","pz_nomm");
-         REC_Track_q = fReader->getBranch<int8_t>    ("REC::Track","q");
-         REC_Track_sector = fReader->getBranch<int8_t>    ("REC::Track","sector");
-         REC_Track_status = fReader->getBranch<int16_t>   ("REC::Track","status");
-         REC_Track_vx_nomm = fReader->getBranch<float>     ("REC::Track","vx_nomm");
-         REC_Track_vy_nomm = fReader->getBranch<float>     ("REC::Track","vy_nomm");
-         REC_Track_vz_nomm = fReader->getBranch<float>     ("REC::Track","vz_nomm");
-         REC_TrackCross_c_ux = fReader->getBranch<float>     ("REC::TrackCross","c_ux");
-         REC_TrackCross_c_uy = fReader->getBranch<float>     ("REC::TrackCross","c_uy");
-         REC_TrackCross_c_uz = fReader->getBranch<float>     ("REC::TrackCross","c_uz");
-         REC_TrackCross_c_x = fReader->getBranch<float>     ("REC::TrackCross","c_x");
-         REC_TrackCross_c_y = fReader->getBranch<float>     ("REC::TrackCross","c_y");
-         REC_TrackCross_c_z = fReader->getBranch<float>     ("REC::TrackCross","c_z");
-         REC_TrackCross_detector = fReader->getBranch<int8_t>    ("REC::TrackCross","detector");
-         REC_TrackCross_index = fReader->getBranch<int16_t>   ("REC::TrackCross","index");
-         REC_TrackCross_layer = fReader->getBranch<int8_t>    ("REC::TrackCross","layer");
-         REC_TrackCross_pindex = fReader->getBranch<int16_t>   ("REC::TrackCross","pindex");
-         REC_TrackCross_sector = fReader->getBranch<int8_t>    ("REC::TrackCross","sector");
-         REC_TrackCross_status = fReader->getBranch<int16_t>   ("REC::TrackCross","status");
-         REC_Traj_cx = fReader->getBranch<float>     ("REC::Traj","cx");
-         REC_Traj_cy = fReader->getBranch<float>     ("REC::Traj","cy");
-         REC_Traj_cz = fReader->getBranch<float>     ("REC::Traj","cz");
-         REC_Traj_detId = fReader->getBranch<int16_t>   ("REC::Traj","detId");
-         REC_Traj_index = fReader->getBranch<int16_t>   ("REC::Traj","index");
-         REC_Traj_pathlength = fReader->getBranch<float>     ("REC::Traj","pathlength");
-         REC_Traj_pindex = fReader->getBranch<int16_t>   ("REC::Traj","pindex");
-         REC_Traj_q = fReader->getBranch<int8_t>    ("REC::Traj","q");
-         REC_Traj_x = fReader->getBranch<float>     ("REC::Traj","x");
-         REC_Traj_y = fReader->getBranch<float>     ("REC::Traj","y");
-         REC_Traj_z = fReader->getBranch<float>     ("REC::Traj","z");
-         REC_VertDoca_cx1 = fReader->getBranch<float>     ("REC::VertDoca","cx1");
-         REC_VertDoca_cx2 = fReader->getBranch<float>     ("REC::VertDoca","cx2");
-         REC_VertDoca_cy1 = fReader->getBranch<float>     ("REC::VertDoca","cy1");
-         REC_VertDoca_cy2 = fReader->getBranch<float>     ("REC::VertDoca","cy2");
-         REC_VertDoca_cz1 = fReader->getBranch<float>     ("REC::VertDoca","cz1");
-         REC_VertDoca_cz2 = fReader->getBranch<float>     ("REC::VertDoca","cz2");
-         REC_VertDoca_index1 = fReader->getBranch<int16_t>   ("REC::VertDoca","index1");
-         REC_VertDoca_index2 = fReader->getBranch<int16_t>   ("REC::VertDoca","index2");
-         REC_VertDoca_r = fReader->getBranch<float>     ("REC::VertDoca","r");
-         REC_VertDoca_x = fReader->getBranch<float>     ("REC::VertDoca","x");
-         REC_VertDoca_x1 = fReader->getBranch<float>     ("REC::VertDoca","x1");
-         REC_VertDoca_x2 = fReader->getBranch<float>     ("REC::VertDoca","x2");
-         REC_VertDoca_y = fReader->getBranch<float>     ("REC::VertDoca","y");
-         REC_VertDoca_y1 = fReader->getBranch<float>     ("REC::VertDoca","y1");
-         REC_VertDoca_y2 = fReader->getBranch<float>     ("REC::VertDoca","y2");
-         REC_VertDoca_z = fReader->getBranch<float>     ("REC::VertDoca","z");
-         REC_VertDoca_z1 = fReader->getBranch<float>     ("REC::VertDoca","z1");
-         REC_VertDoca_z2 = fReader->getBranch<float>     ("REC::VertDoca","z2");
-         RECHB_Calorimeter_chi2 = fReader->getBranch<float>     ("RECHB::Calorimeter","chi2");
-         RECHB_Calorimeter_detector = fReader->getBranch<int8_t>    ("RECHB::Calorimeter","detector");
-         RECHB_Calorimeter_du = fReader->getBranch<float>     ("RECHB::Calorimeter","du");
-         RECHB_Calorimeter_dv = fReader->getBranch<float>     ("RECHB::Calorimeter","dv");
-         RECHB_Calorimeter_dw = fReader->getBranch<float>     ("RECHB::Calorimeter","dw");
-         RECHB_Calorimeter_energy = fReader->getBranch<float>     ("RECHB::Calorimeter","energy");
-         RECHB_Calorimeter_hx = fReader->getBranch<float>     ("RECHB::Calorimeter","hx");
-         RECHB_Calorimeter_hy = fReader->getBranch<float>     ("RECHB::Calorimeter","hy");
-         RECHB_Calorimeter_hz = fReader->getBranch<float>     ("RECHB::Calorimeter","hz");
-         RECHB_Calorimeter_index = fReader->getBranch<int16_t>   ("RECHB::Calorimeter","index");
-         RECHB_Calorimeter_layer = fReader->getBranch<int8_t>    ("RECHB::Calorimeter","layer");
-         RECHB_Calorimeter_lu = fReader->getBranch<float>     ("RECHB::Calorimeter","lu");
-         RECHB_Calorimeter_lv = fReader->getBranch<float>     ("RECHB::Calorimeter","lv");
-         RECHB_Calorimeter_lw = fReader->getBranch<float>     ("RECHB::Calorimeter","lw");
-         RECHB_Calorimeter_m2u = fReader->getBranch<float>     ("RECHB::Calorimeter","m2u");
-         RECHB_Calorimeter_m2v = fReader->getBranch<float>     ("RECHB::Calorimeter","m2v");
-         RECHB_Calorimeter_m2w = fReader->getBranch<float>     ("RECHB::Calorimeter","m2w");
-         RECHB_Calorimeter_m3u = fReader->getBranch<float>     ("RECHB::Calorimeter","m3u");
-         RECHB_Calorimeter_m3v = fReader->getBranch<float>     ("RECHB::Calorimeter","m3v");
-         RECHB_Calorimeter_m3w = fReader->getBranch<float>     ("RECHB::Calorimeter","m3w");
-         RECHB_Calorimeter_path = fReader->getBranch<float>     ("RECHB::Calorimeter","path");
-         RECHB_Calorimeter_pindex = fReader->getBranch<int16_t>   ("RECHB::Calorimeter","pindex");
-         RECHB_Calorimeter_sector = fReader->getBranch<int8_t>    ("RECHB::Calorimeter","sector");
-         RECHB_Calorimeter_status = fReader->getBranch<int16_t>   ("RECHB::Calorimeter","status");
-         RECHB_Calorimeter_time = fReader->getBranch<float>     ("RECHB::Calorimeter","time");
-         RECHB_Calorimeter_x = fReader->getBranch<float>     ("RECHB::Calorimeter","x");
-         RECHB_Calorimeter_y = fReader->getBranch<float>     ("RECHB::Calorimeter","y");
-         RECHB_Calorimeter_z = fReader->getBranch<float>     ("RECHB::Calorimeter","z");
-         RECHB_Cherenkov_chi2 = fReader->getBranch<float>     ("RECHB::Cherenkov","chi2");
-         RECHB_Cherenkov_detector = fReader->getBranch<int8_t>    ("RECHB::Cherenkov","detector");
-         RECHB_Cherenkov_dphi = fReader->getBranch<float>     ("RECHB::Cherenkov","dphi");
-         RECHB_Cherenkov_dtheta = fReader->getBranch<float>     ("RECHB::Cherenkov","dtheta");
-         RECHB_Cherenkov_index = fReader->getBranch<int16_t>   ("RECHB::Cherenkov","index");
-         RECHB_Cherenkov_nphe = fReader->getBranch<float>     ("RECHB::Cherenkov","nphe");
-         RECHB_Cherenkov_path = fReader->getBranch<float>     ("RECHB::Cherenkov","path");
-         RECHB_Cherenkov_phi = fReader->getBranch<float>     ("RECHB::Cherenkov","phi");
-         RECHB_Cherenkov_pindex = fReader->getBranch<int16_t>   ("RECHB::Cherenkov","pindex");
-         RECHB_Cherenkov_sector = fReader->getBranch<int8_t>    ("RECHB::Cherenkov","sector");
-         RECHB_Cherenkov_status = fReader->getBranch<int16_t>   ("RECHB::Cherenkov","status");
-         RECHB_Cherenkov_theta = fReader->getBranch<float>     ("RECHB::Cherenkov","theta");
-         RECHB_Cherenkov_time = fReader->getBranch<float>     ("RECHB::Cherenkov","time");
-         RECHB_Cherenkov_x = fReader->getBranch<float>     ("RECHB::Cherenkov","x");
-         RECHB_Cherenkov_y = fReader->getBranch<float>     ("RECHB::Cherenkov","y");
-         RECHB_Cherenkov_z = fReader->getBranch<float>     ("RECHB::Cherenkov","z");
-         RECHB_Event_BCG = fReader->getBranch<float>     ("RECHB::Event","BCG");
-         RECHB_Event_EVNTime = fReader->getBranch<float>     ("RECHB::Event","EVNTime");
-         RECHB_Event_EvCAT = fReader->getBranch<int16_t>   ("RECHB::Event","EvCAT");
-         RECHB_Event_Helic = fReader->getBranch<int8_t>    ("RECHB::Event","Helic");
-         RECHB_Event_LT = fReader->getBranch<double>    ("RECHB::Event","LT");
-         RECHB_Event_NEVENT = fReader->getBranch<int32_t>   ("RECHB::Event","NEVENT");
-         RECHB_Event_NPGP = fReader->getBranch<int16_t>   ("RECHB::Event","NPGP");
-         RECHB_Event_NRUN = fReader->getBranch<int32_t>   ("RECHB::Event","NRUN");
-         RECHB_Event_PTIME = fReader->getBranch<float>     ("RECHB::Event","PTIME");
-         RECHB_Event_RFTime = fReader->getBranch<float>     ("RECHB::Event","RFTime");
-         RECHB_Event_STTime = fReader->getBranch<float>     ("RECHB::Event","STTime");
-         RECHB_Event_TRG = fReader->getBranch<int64_t>   ("RECHB::Event","TRG");
-         RECHB_Event_TYPE = fReader->getBranch<int8_t>    ("RECHB::Event","TYPE");
-         RECHB_ForwardTagger_chi2 = fReader->getBranch<float>     ("RECHB::ForwardTagger","chi2");
-         RECHB_ForwardTagger_detector = fReader->getBranch<int8_t>    ("RECHB::ForwardTagger","detector");
-         RECHB_ForwardTagger_dx = fReader->getBranch<float>     ("RECHB::ForwardTagger","dx");
-         RECHB_ForwardTagger_dy = fReader->getBranch<float>     ("RECHB::ForwardTagger","dy");
-         RECHB_ForwardTagger_energy = fReader->getBranch<float>     ("RECHB::ForwardTagger","energy");
-         RECHB_ForwardTagger_index = fReader->getBranch<int16_t>   ("RECHB::ForwardTagger","index");
-         RECHB_ForwardTagger_path = fReader->getBranch<float>     ("RECHB::ForwardTagger","path");
-         RECHB_ForwardTagger_pindex = fReader->getBranch<int16_t>   ("RECHB::ForwardTagger","pindex");
-         RECHB_ForwardTagger_radius = fReader->getBranch<float>     ("RECHB::ForwardTagger","radius");
-         RECHB_ForwardTagger_size = fReader->getBranch<int16_t>   ("RECHB::ForwardTagger","size");
-         RECHB_ForwardTagger_status = fReader->getBranch<int16_t>   ("RECHB::ForwardTagger","status");
-         RECHB_ForwardTagger_time = fReader->getBranch<float>     ("RECHB::ForwardTagger","time");
-         RECHB_ForwardTagger_x = fReader->getBranch<float>     ("RECHB::ForwardTagger","x");
-         RECHB_ForwardTagger_y = fReader->getBranch<float>     ("RECHB::ForwardTagger","y");
-         RECHB_ForwardTagger_z = fReader->getBranch<float>     ("RECHB::ForwardTagger","z");
-         RECHB_Particle_beta = fReader->getBranch<float>     ("RECHB::Particle","beta");
-         RECHB_Particle_charge = fReader->getBranch<int8_t>    ("RECHB::Particle","charge");
-         RECHB_Particle_chi2pid = fReader->getBranch<float>     ("RECHB::Particle","chi2pid");
-         RECHB_Particle_pid = fReader->getBranch<int32_t>   ("RECHB::Particle","pid");
-         RECHB_Particle_px = fReader->getBranch<float>     ("RECHB::Particle","px");
-         RECHB_Particle_py = fReader->getBranch<float>     ("RECHB::Particle","py");
-         RECHB_Particle_pz = fReader->getBranch<float>     ("RECHB::Particle","pz");
-         RECHB_Particle_status = fReader->getBranch<int16_t>   ("RECHB::Particle","status");
-         RECHB_Particle_vx = fReader->getBranch<float>     ("RECHB::Particle","vx");
-         RECHB_Particle_vy = fReader->getBranch<float>     ("RECHB::Particle","vy");
-         RECHB_Particle_vz = fReader->getBranch<float>     ("RECHB::Particle","vz");
-         RECHB_Scintillator_chi2 = fReader->getBranch<float>     ("RECHB::Scintillator","chi2");
-         RECHB_Scintillator_component = fReader->getBranch<int16_t>   ("RECHB::Scintillator","component");
-         RECHB_Scintillator_detector = fReader->getBranch<int8_t>    ("RECHB::Scintillator","detector");
-         RECHB_Scintillator_energy = fReader->getBranch<float>     ("RECHB::Scintillator","energy");
-         RECHB_Scintillator_hx = fReader->getBranch<float>     ("RECHB::Scintillator","hx");
-         RECHB_Scintillator_hy = fReader->getBranch<float>     ("RECHB::Scintillator","hy");
-         RECHB_Scintillator_hz = fReader->getBranch<float>     ("RECHB::Scintillator","hz");
-         RECHB_Scintillator_index = fReader->getBranch<int16_t>   ("RECHB::Scintillator","index");
-         RECHB_Scintillator_layer = fReader->getBranch<int8_t>    ("RECHB::Scintillator","layer");
-         RECHB_Scintillator_path = fReader->getBranch<float>     ("RECHB::Scintillator","path");
-         RECHB_Scintillator_pindex = fReader->getBranch<int16_t>   ("RECHB::Scintillator","pindex");
-         RECHB_Scintillator_sector = fReader->getBranch<int8_t>    ("RECHB::Scintillator","sector");
-         RECHB_Scintillator_status = fReader->getBranch<int16_t>   ("RECHB::Scintillator","status");
-         RECHB_Scintillator_time = fReader->getBranch<float>     ("RECHB::Scintillator","time");
-         RECHB_Scintillator_x = fReader->getBranch<float>     ("RECHB::Scintillator","x");
-         RECHB_Scintillator_y = fReader->getBranch<float>     ("RECHB::Scintillator","y");
-         RECHB_Scintillator_z = fReader->getBranch<float>     ("RECHB::Scintillator","z");
-         RECHB_Track_NDF = fReader->getBranch<int16_t>   ("RECHB::Track","NDF");
-         RECHB_Track_NDF_nomm = fReader->getBranch<int16_t>   ("RECHB::Track","NDF_nomm");
-         RECHB_Track_chi2 = fReader->getBranch<float>     ("RECHB::Track","chi2");
-         RECHB_Track_chi2_nomm = fReader->getBranch<float>     ("RECHB::Track","chi2_nomm");
-         RECHB_Track_detector = fReader->getBranch<int8_t>    ("RECHB::Track","detector");
-         RECHB_Track_index = fReader->getBranch<int16_t>   ("RECHB::Track","index");
-         RECHB_Track_pindex = fReader->getBranch<int16_t>   ("RECHB::Track","pindex");
-         RECHB_Track_px_nomm = fReader->getBranch<float>     ("RECHB::Track","px_nomm");
-         RECHB_Track_py_nomm = fReader->getBranch<float>     ("RECHB::Track","py_nomm");
-         RECHB_Track_pz_nomm = fReader->getBranch<float>     ("RECHB::Track","pz_nomm");
-         RECHB_Track_q = fReader->getBranch<int8_t>    ("RECHB::Track","q");
-         RECHB_Track_sector = fReader->getBranch<int8_t>    ("RECHB::Track","sector");
-         RECHB_Track_status = fReader->getBranch<int16_t>   ("RECHB::Track","status");
-         RECHB_Track_vx_nomm = fReader->getBranch<float>     ("RECHB::Track","vx_nomm");
-         RECHB_Track_vy_nomm = fReader->getBranch<float>     ("RECHB::Track","vy_nomm");
-         RECHB_Track_vz_nomm = fReader->getBranch<float>     ("RECHB::Track","vz_nomm");
-         RECHB_TrackCross_c_ux = fReader->getBranch<float>     ("RECHB::TrackCross","c_ux");
-         RECHB_TrackCross_c_uy = fReader->getBranch<float>     ("RECHB::TrackCross","c_uy");
-         RECHB_TrackCross_c_uz = fReader->getBranch<float>     ("RECHB::TrackCross","c_uz");
-         RECHB_TrackCross_c_x = fReader->getBranch<float>     ("RECHB::TrackCross","c_x");
-         RECHB_TrackCross_c_y = fReader->getBranch<float>     ("RECHB::TrackCross","c_y");
-         RECHB_TrackCross_c_z = fReader->getBranch<float>     ("RECHB::TrackCross","c_z");
-         RECHB_TrackCross_detector = fReader->getBranch<int8_t>    ("RECHB::TrackCross","detector");
-         RECHB_TrackCross_index = fReader->getBranch<int16_t>   ("RECHB::TrackCross","index");
-         RECHB_TrackCross_layer = fReader->getBranch<int8_t>    ("RECHB::TrackCross","layer");
-         RECHB_TrackCross_pindex = fReader->getBranch<int16_t>   ("RECHB::TrackCross","pindex");
-         RECHB_TrackCross_sector = fReader->getBranch<int8_t>    ("RECHB::TrackCross","sector");
-         RECHB_TrackCross_status = fReader->getBranch<int16_t>   ("RECHB::TrackCross","status");
-         RF_adc_ADC = fReader->getBranch<int32_t>   ("RF::adc","ADC");
-         RF_adc_component = fReader->getBranch<int16_t>   ("RF::adc","component");
-         RF_adc_layer = fReader->getBranch<int8_t>    ("RF::adc","layer");
-         RF_adc_order = fReader->getBranch<int8_t>    ("RF::adc","order");
-         RF_adc_ped = fReader->getBranch<int16_t>   ("RF::adc","ped");
-         RF_adc_sector = fReader->getBranch<int8_t>    ("RF::adc","sector");
-         RF_adc_time = fReader->getBranch<float>     ("RF::adc","time");
-         RF_tdc_TDC = fReader->getBranch<int32_t>   ("RF::tdc","TDC");
-         RF_tdc_component = fReader->getBranch<int16_t>   ("RF::tdc","component");
-         RF_tdc_layer = fReader->getBranch<int8_t>    ("RF::tdc","layer");
-         RF_tdc_order = fReader->getBranch<int8_t>    ("RF::tdc","order");
-         RF_tdc_sector = fReader->getBranch<int8_t>    ("RF::tdc","sector");
-         RICH_adc_ADC = fReader->getBranch<int32_t>   ("RICH::adc","ADC");
-         RICH_adc_component = fReader->getBranch<int16_t>   ("RICH::adc","component");
-         RICH_adc_layer = fReader->getBranch<int8_t>    ("RICH::adc","layer");
-         RICH_adc_order = fReader->getBranch<int8_t>    ("RICH::adc","order");
-         RICH_adc_ped = fReader->getBranch<int16_t>   ("RICH::adc","ped");
-         RICH_adc_sector = fReader->getBranch<int8_t>    ("RICH::adc","sector");
-         RICH_adc_time = fReader->getBranch<float>     ("RICH::adc","time");
-         RICH_clusters_charge = fReader->getBranch<float>     ("RICH::clusters","charge");
-         RICH_clusters_id = fReader->getBranch<int16_t>   ("RICH::clusters","id");
-         RICH_clusters_pmt = fReader->getBranch<int16_t>   ("RICH::clusters","pmt");
-         RICH_clusters_sector = fReader->getBranch<int16_t>   ("RICH::clusters","sector");
-         RICH_clusters_size = fReader->getBranch<int16_t>   ("RICH::clusters","size");
-         RICH_clusters_tile = fReader->getBranch<int16_t>   ("RICH::clusters","tile");
-         RICH_clusters_time = fReader->getBranch<float>     ("RICH::clusters","time");
-         RICH_clusters_wtime = fReader->getBranch<float>     ("RICH::clusters","wtime");
-         RICH_clusters_wx = fReader->getBranch<float>     ("RICH::clusters","wx");
-         RICH_clusters_wy = fReader->getBranch<float>     ("RICH::clusters","wy");
-         RICH_clusters_wz = fReader->getBranch<float>     ("RICH::clusters","wz");
-         RICH_clusters_x = fReader->getBranch<float>     ("RICH::clusters","x");
-         RICH_clusters_y = fReader->getBranch<float>     ("RICH::clusters","y");
-         RICH_clusters_z = fReader->getBranch<float>     ("RICH::clusters","z");
-         RICH_hits_anode = fReader->getBranch<int16_t>   ("RICH::hits","anode");
-         RICH_hits_cluster = fReader->getBranch<int16_t>   ("RICH::hits","cluster");
-         RICH_hits_duration = fReader->getBranch<int16_t>   ("RICH::hits","duration");
-         RICH_hits_glx = fReader->getBranch<int16_t>   ("RICH::hits","glx");
-         RICH_hits_gly = fReader->getBranch<int16_t>   ("RICH::hits","gly");
-         RICH_hits_id = fReader->getBranch<int16_t>   ("RICH::hits","id");
-         RICH_hits_idx = fReader->getBranch<int16_t>   ("RICH::hits","idx");
-         RICH_hits_idy = fReader->getBranch<int16_t>   ("RICH::hits","idy");
-         RICH_hits_pmt = fReader->getBranch<int16_t>   ("RICH::hits","pmt");
-         RICH_hits_sector = fReader->getBranch<int16_t>   ("RICH::hits","sector");
-         RICH_hits_tile = fReader->getBranch<int16_t>   ("RICH::hits","tile");
-         RICH_hits_time = fReader->getBranch<int16_t>   ("RICH::hits","time");
-         RICH_hits_xtalk = fReader->getBranch<int16_t>   ("RICH::hits","xtalk");
-         RICH_tdc_TDC = fReader->getBranch<int32_t>   ("RICH::tdc","TDC");
-         RICH_tdc_component = fReader->getBranch<int16_t>   ("RICH::tdc","component");
-         RICH_tdc_layer = fReader->getBranch<int8_t>    ("RICH::tdc","layer");
-         RICH_tdc_order = fReader->getBranch<int8_t>    ("RICH::tdc","order");
-         RICH_tdc_sector = fReader->getBranch<int8_t>    ("RICH::tdc","sector");
-         RTPC_adc_ADC = fReader->getBranch<int32_t>   ("RTPC::adc","ADC");
-         RTPC_adc_component = fReader->getBranch<int16_t>   ("RTPC::adc","component");
-         RTPC_adc_layer = fReader->getBranch<int8_t>    ("RTPC::adc","layer");
-         RTPC_adc_order = fReader->getBranch<int8_t>    ("RTPC::adc","order");
-         RTPC_adc_ped = fReader->getBranch<int16_t>   ("RTPC::adc","ped");
-         RTPC_adc_sector = fReader->getBranch<int8_t>    ("RTPC::adc","sector");
-         RTPC_adc_time = fReader->getBranch<float>     ("RTPC::adc","time");
-         RTPC_pos_energy = fReader->getBranch<float>     ("RTPC::pos","energy");
-         RTPC_pos_phi = fReader->getBranch<float>     ("RTPC::pos","phi");
-         RTPC_pos_posx = fReader->getBranch<float>     ("RTPC::pos","posx");
-         RTPC_pos_posy = fReader->getBranch<float>     ("RTPC::pos","posy");
-         RTPC_pos_posz = fReader->getBranch<float>     ("RTPC::pos","posz");
-         RTPC_pos_step = fReader->getBranch<int32_t>   ("RTPC::pos","step");
-         RTPC_pos_time = fReader->getBranch<float>     ("RTPC::pos","time");
-         RUN_config_event = fReader->getBranch<int32_t>   ("RUN::config","event");
-         RUN_config_mode = fReader->getBranch<int8_t>    ("RUN::config","mode");
-         RUN_config_run = fReader->getBranch<int32_t>   ("RUN::config","run");
-         RUN_config_solenoid = fReader->getBranch<float>     ("RUN::config","solenoid");
-         RUN_config_timestamp = fReader->getBranch<int64_t>   ("RUN::config","timestamp");
-         RUN_config_torus = fReader->getBranch<float>     ("RUN::config","torus");
-         RUN_config_trigger = fReader->getBranch<int64_t>   ("RUN::config","trigger");
-         RUN_config_type = fReader->getBranch<int8_t>    ("RUN::config","type");
-         RUN_config_unixtime = fReader->getBranch<int32_t>   ("RUN::config","unixtime");
-         RUN_rf_id = fReader->getBranch<int16_t>   ("RUN::rf","id");
-         RUN_rf_time = fReader->getBranch<float>     ("RUN::rf","time");
-         RUN_trigger_id = fReader->getBranch<int32_t>   ("RUN::trigger","id");
-         RUN_trigger_trigger = fReader->getBranch<int32_t>   ("RUN::trigger","trigger");
-         TAGGER_tgpb_eid = fReader->getBranch<int16_t>   ("TAGGER::tgpb","eid");
-         TAGGER_tgpb_energy = fReader->getBranch<float>     ("TAGGER::tgpb","energy");
-         TAGGER_tgpb_status = fReader->getBranch<int8_t>    ("TAGGER::tgpb","status");
-         TAGGER_tgpb_tid = fReader->getBranch<int16_t>   ("TAGGER::tgpb","tid");
-         TAGGER_tgpb_time = fReader->getBranch<float>     ("TAGGER::tgpb","time");
-         TimeBasedTrkg_TBClusters_Hit10_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit10_ID");
-         TimeBasedTrkg_TBClusters_Hit11_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit11_ID");
-         TimeBasedTrkg_TBClusters_Hit12_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit12_ID");
-         TimeBasedTrkg_TBClusters_Hit1_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit1_ID");
-         TimeBasedTrkg_TBClusters_Hit2_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit2_ID");
-         TimeBasedTrkg_TBClusters_Hit3_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit3_ID");
-         TimeBasedTrkg_TBClusters_Hit4_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit4_ID");
-         TimeBasedTrkg_TBClusters_Hit5_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit5_ID");
-         TimeBasedTrkg_TBClusters_Hit6_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit6_ID");
-         TimeBasedTrkg_TBClusters_Hit7_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit7_ID");
-         TimeBasedTrkg_TBClusters_Hit8_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit8_ID");
-         TimeBasedTrkg_TBClusters_Hit9_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","Hit9_ID");
-         TimeBasedTrkg_TBClusters_avgWire = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","avgWire");
-         TimeBasedTrkg_TBClusters_fitChisqProb = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","fitChisqProb");
-         TimeBasedTrkg_TBClusters_fitInterc = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","fitInterc");
-         TimeBasedTrkg_TBClusters_fitIntercErr = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","fitIntercErr");
-         TimeBasedTrkg_TBClusters_fitSlope = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","fitSlope");
-         TimeBasedTrkg_TBClusters_fitSlopeErr = fReader->getBranch<float>     ("TimeBasedTrkg::TBClusters","fitSlopeErr");
-         TimeBasedTrkg_TBClusters_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","id");
-         TimeBasedTrkg_TBClusters_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBClusters","sector");
-         TimeBasedTrkg_TBClusters_size = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBClusters","size");
-         TimeBasedTrkg_TBClusters_status = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBClusters","status");
-         TimeBasedTrkg_TBClusters_superlayer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBClusters","superlayer");
-         TimeBasedTrkg_TBCovMat_C11 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C11");
-         TimeBasedTrkg_TBCovMat_C12 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C12");
-         TimeBasedTrkg_TBCovMat_C13 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C13");
-         TimeBasedTrkg_TBCovMat_C14 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C14");
-         TimeBasedTrkg_TBCovMat_C15 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C15");
-         TimeBasedTrkg_TBCovMat_C21 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C21");
-         TimeBasedTrkg_TBCovMat_C22 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C22");
-         TimeBasedTrkg_TBCovMat_C23 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C23");
-         TimeBasedTrkg_TBCovMat_C24 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C24");
-         TimeBasedTrkg_TBCovMat_C25 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C25");
-         TimeBasedTrkg_TBCovMat_C31 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C31");
-         TimeBasedTrkg_TBCovMat_C32 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C32");
-         TimeBasedTrkg_TBCovMat_C33 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C33");
-         TimeBasedTrkg_TBCovMat_C34 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C34");
-         TimeBasedTrkg_TBCovMat_C35 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C35");
-         TimeBasedTrkg_TBCovMat_C41 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C41");
-         TimeBasedTrkg_TBCovMat_C42 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C42");
-         TimeBasedTrkg_TBCovMat_C43 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C43");
-         TimeBasedTrkg_TBCovMat_C44 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C44");
-         TimeBasedTrkg_TBCovMat_C45 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C45");
-         TimeBasedTrkg_TBCovMat_C51 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C51");
-         TimeBasedTrkg_TBCovMat_C52 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C52");
-         TimeBasedTrkg_TBCovMat_C53 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C53");
-         TimeBasedTrkg_TBCovMat_C54 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C54");
-         TimeBasedTrkg_TBCovMat_C55 = fReader->getBranch<float>     ("TimeBasedTrkg::TBCovMat","C55");
-         TimeBasedTrkg_TBCovMat_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBCovMat","id");
-         TimeBasedTrkg_TBCrosses_Segment1_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBCrosses","Segment1_ID");
-         TimeBasedTrkg_TBCrosses_Segment2_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBCrosses","Segment2_ID");
-         TimeBasedTrkg_TBCrosses_err_ux = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_ux");
-         TimeBasedTrkg_TBCrosses_err_uy = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_uy");
-         TimeBasedTrkg_TBCrosses_err_uz = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_uz");
-         TimeBasedTrkg_TBCrosses_err_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_x");
-         TimeBasedTrkg_TBCrosses_err_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_y");
-         TimeBasedTrkg_TBCrosses_err_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","err_z");
-         TimeBasedTrkg_TBCrosses_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBCrosses","id");
-         TimeBasedTrkg_TBCrosses_region = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBCrosses","region");
-         TimeBasedTrkg_TBCrosses_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBCrosses","sector");
-         TimeBasedTrkg_TBCrosses_status = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBCrosses","status");
-         TimeBasedTrkg_TBCrosses_ux = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","ux");
-         TimeBasedTrkg_TBCrosses_uy = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","uy");
-         TimeBasedTrkg_TBCrosses_uz = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","uz");
-         TimeBasedTrkg_TBCrosses_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","x");
-         TimeBasedTrkg_TBCrosses_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","y");
-         TimeBasedTrkg_TBCrosses_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBCrosses","z");
-         TimeBasedTrkg_TBHits_B = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","B");
-         TimeBasedTrkg_TBHits_LR = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBHits","LR");
-         TimeBasedTrkg_TBHits_T0 = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","T0");
-         TimeBasedTrkg_TBHits_TDC = fReader->getBranch<int32_t>   ("TimeBasedTrkg::TBHits","TDC");
-         TimeBasedTrkg_TBHits_TFlight = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","TFlight");
-         TimeBasedTrkg_TBHits_TProp = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","TProp");
-         TimeBasedTrkg_TBHits_TStart = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","TStart");
-         TimeBasedTrkg_TBHits_X = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","X");
-         TimeBasedTrkg_TBHits_Z = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","Z");
-         TimeBasedTrkg_TBHits_beta = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","beta");
-         TimeBasedTrkg_TBHits_clusterID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBHits","clusterID");
-         TimeBasedTrkg_TBHits_doca = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","doca");
-         TimeBasedTrkg_TBHits_docaError = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","docaError");
-         TimeBasedTrkg_TBHits_fitResidual = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","fitResidual");
-         TimeBasedTrkg_TBHits_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBHits","id");
-         TimeBasedTrkg_TBHits_layer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBHits","layer");
-         TimeBasedTrkg_TBHits_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBHits","sector");
-         TimeBasedTrkg_TBHits_status = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBHits","status");
-         TimeBasedTrkg_TBHits_superlayer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBHits","superlayer");
-         TimeBasedTrkg_TBHits_tBeta = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","tBeta");
-         TimeBasedTrkg_TBHits_time = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","time");
-         TimeBasedTrkg_TBHits_timeResidual = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","timeResidual");
-         TimeBasedTrkg_TBHits_trkDoca = fReader->getBranch<float>     ("TimeBasedTrkg::TBHits","trkDoca");
-         TimeBasedTrkg_TBHits_trkID = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBHits","trkID");
-         TimeBasedTrkg_TBHits_wire = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBHits","wire");
-         TimeBasedTrkg_TBSegmentTrajectory_layer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegmentTrajectory","layer");
-         TimeBasedTrkg_TBSegmentTrajectory_matchedHitID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegmentTrajectory","matchedHitID");
-         TimeBasedTrkg_TBSegmentTrajectory_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegmentTrajectory","sector");
-         TimeBasedTrkg_TBSegmentTrajectory_segmentID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegmentTrajectory","segmentID");
-         TimeBasedTrkg_TBSegmentTrajectory_superlayer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegmentTrajectory","superlayer");
-         TimeBasedTrkg_TBSegmentTrajectory_trkDoca = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegmentTrajectory","trkDoca");
-         TimeBasedTrkg_TBSegments_Cluster_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Cluster_ID");
-         TimeBasedTrkg_TBSegments_Hit10_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit10_ID");
-         TimeBasedTrkg_TBSegments_Hit11_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit11_ID");
-         TimeBasedTrkg_TBSegments_Hit12_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit12_ID");
-         TimeBasedTrkg_TBSegments_Hit1_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit1_ID");
-         TimeBasedTrkg_TBSegments_Hit2_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit2_ID");
-         TimeBasedTrkg_TBSegments_Hit3_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit3_ID");
-         TimeBasedTrkg_TBSegments_Hit4_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit4_ID");
-         TimeBasedTrkg_TBSegments_Hit5_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit5_ID");
-         TimeBasedTrkg_TBSegments_Hit6_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit6_ID");
-         TimeBasedTrkg_TBSegments_Hit7_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit7_ID");
-         TimeBasedTrkg_TBSegments_Hit8_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit8_ID");
-         TimeBasedTrkg_TBSegments_Hit9_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","Hit9_ID");
-         TimeBasedTrkg_TBSegments_SegEndPoint1X = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","SegEndPoint1X");
-         TimeBasedTrkg_TBSegments_SegEndPoint1Z = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","SegEndPoint1Z");
-         TimeBasedTrkg_TBSegments_SegEndPoint2X = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","SegEndPoint2X");
-         TimeBasedTrkg_TBSegments_SegEndPoint2Z = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","SegEndPoint2Z");
-         TimeBasedTrkg_TBSegments_avgWire = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","avgWire");
-         TimeBasedTrkg_TBSegments_fitChisqProb = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","fitChisqProb");
-         TimeBasedTrkg_TBSegments_fitInterc = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","fitInterc");
-         TimeBasedTrkg_TBSegments_fitIntercErr = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","fitIntercErr");
-         TimeBasedTrkg_TBSegments_fitSlope = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","fitSlope");
-         TimeBasedTrkg_TBSegments_fitSlopeErr = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","fitSlopeErr");
-         TimeBasedTrkg_TBSegments_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","id");
-         TimeBasedTrkg_TBSegments_resiSum = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","resiSum");
-         TimeBasedTrkg_TBSegments_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegments","sector");
-         TimeBasedTrkg_TBSegments_size = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegments","size");
-         TimeBasedTrkg_TBSegments_status = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBSegments","status");
-         TimeBasedTrkg_TBSegments_superlayer = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBSegments","superlayer");
-         TimeBasedTrkg_TBSegments_timeSum = fReader->getBranch<float>     ("TimeBasedTrkg::TBSegments","timeSum");
-         TimeBasedTrkg_TBTracks_Cross1_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","Cross1_ID");
-         TimeBasedTrkg_TBTracks_Cross2_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","Cross2_ID");
-         TimeBasedTrkg_TBTracks_Cross3_ID = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","Cross3_ID");
-         TimeBasedTrkg_TBTracks_Vtx0_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","Vtx0_x");
-         TimeBasedTrkg_TBTracks_Vtx0_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","Vtx0_y");
-         TimeBasedTrkg_TBTracks_Vtx0_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","Vtx0_z");
-         TimeBasedTrkg_TBTracks_c1_ux = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_ux");
-         TimeBasedTrkg_TBTracks_c1_uy = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_uy");
-         TimeBasedTrkg_TBTracks_c1_uz = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_uz");
-         TimeBasedTrkg_TBTracks_c1_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_x");
-         TimeBasedTrkg_TBTracks_c1_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_y");
-         TimeBasedTrkg_TBTracks_c1_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c1_z");
-         TimeBasedTrkg_TBTracks_c3_ux = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_ux");
-         TimeBasedTrkg_TBTracks_c3_uy = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_uy");
-         TimeBasedTrkg_TBTracks_c3_uz = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_uz");
-         TimeBasedTrkg_TBTracks_c3_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_x");
-         TimeBasedTrkg_TBTracks_c3_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_y");
-         TimeBasedTrkg_TBTracks_c3_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","c3_z");
-         TimeBasedTrkg_TBTracks_chi2 = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","chi2");
-         TimeBasedTrkg_TBTracks_id = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","id");
-         TimeBasedTrkg_TBTracks_ndf = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","ndf");
-         TimeBasedTrkg_TBTracks_p0_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","p0_x");
-         TimeBasedTrkg_TBTracks_p0_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","p0_y");
-         TimeBasedTrkg_TBTracks_p0_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","p0_z");
-         TimeBasedTrkg_TBTracks_pathlength = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","pathlength");
-         TimeBasedTrkg_TBTracks_q = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBTracks","q");
-         TimeBasedTrkg_TBTracks_sector = fReader->getBranch<int8_t>    ("TimeBasedTrkg::TBTracks","sector");
-         TimeBasedTrkg_TBTracks_status = fReader->getBranch<int16_t>   ("TimeBasedTrkg::TBTracks","status");
-         TimeBasedTrkg_TBTracks_t1_px = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_px");
-         TimeBasedTrkg_TBTracks_t1_py = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_py");
-         TimeBasedTrkg_TBTracks_t1_pz = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_pz");
-         TimeBasedTrkg_TBTracks_t1_x = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_x");
-         TimeBasedTrkg_TBTracks_t1_y = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_y");
-         TimeBasedTrkg_TBTracks_t1_z = fReader->getBranch<float>     ("TimeBasedTrkg::TBTracks","t1_z");
-         TimeBasedTrkg_Trajectory_B = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","B");
-         TimeBasedTrkg_Trajectory_L = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","L");
-         TimeBasedTrkg_Trajectory_did = fReader->getBranch<int16_t>   ("TimeBasedTrkg::Trajectory","did");
-         TimeBasedTrkg_Trajectory_tid = fReader->getBranch<int16_t>   ("TimeBasedTrkg::Trajectory","tid");
-         TimeBasedTrkg_Trajectory_tx = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","tx");
-         TimeBasedTrkg_Trajectory_ty = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","ty");
-         TimeBasedTrkg_Trajectory_tz = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","tz");
-         TimeBasedTrkg_Trajectory_x = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","x");
-         TimeBasedTrkg_Trajectory_y = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","y");
-         TimeBasedTrkg_Trajectory_z = fReader->getBranch<float>     ("TimeBasedTrkg::Trajectory","z");
+
+int TIdentificatorCLAS12::get_BMTRec__Hits(int row){
+	BMTRec__Hits_ID = BMTRec__Hits->getShort("ID",row);
+	BMTRec__Hits_sector = BMTRec__Hits->getByte("sector",row);
+	BMTRec__Hits_layer = BMTRec__Hits->getByte("layer",row);
+	BMTRec__Hits_strip = BMTRec__Hits->getInt("strip",row);
+	BMTRec__Hits_fitResidual = BMTRec__Hits->getFloat("fitResidual",row);
+	BMTRec__Hits_trkingStat = BMTRec__Hits->getInt("trkingStat",row);
+	BMTRec__Hits_clusterID = BMTRec__Hits->getShort("clusterID",row);
+	BMTRec__Hits_trkID = BMTRec__Hits->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RAW__adc(int row){
+	RAW__adc_crate = RAW__adc->getByte("crate",row);
+	RAW__adc_slot = RAW__adc->getByte("slot",row);
+	RAW__adc_channel = RAW__adc->getShort("channel",row);
+	RAW__adc_order = RAW__adc->getByte("order",row);
+	RAW__adc_ADC = RAW__adc->getInt("ADC",row);
+	RAW__adc_time = RAW__adc->getFloat("time",row);
+	RAW__adc_ped = RAW__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BAND__adc(int row){
+	BAND__adc_sector = BAND__adc->getByte("sector",row);
+	BAND__adc_layer = BAND__adc->getByte("layer",row);
+	BAND__adc_component = BAND__adc->getShort("component",row);
+	BAND__adc_order = BAND__adc->getByte("order",row);
+	BAND__adc_ADC = BAND__adc->getInt("ADC",row);
+	BAND__adc_time = BAND__adc->getFloat("time",row);
+	BAND__adc_ped = BAND__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RUN__config(int row){
+	RUN__config_run = RUN__config->getInt("run",row);
+	RUN__config_event = RUN__config->getInt("event",row);
+	RUN__config_unixtime = RUN__config->getInt("unixtime",row);
+	RUN__config_trigger = RUN__config->getLong("trigger",row);
+	RUN__config_timestamp = RUN__config->getLong("timestamp",row);
+	RUN__config_type = RUN__config->getByte("type",row);
+	RUN__config_mode = RUN__config->getByte("mode",row);
+	RUN__config_torus = RUN__config->getFloat("torus",row);
+	RUN__config_solenoid = RUN__config->getFloat("solenoid",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RICH__clusters(int row){
+	RICH__clusters_id = RICH__clusters->getShort("id",row);
+	RICH__clusters_size = RICH__clusters->getShort("size",row);
+	RICH__clusters_sector = RICH__clusters->getShort("sector",row);
+	RICH__clusters_tile = RICH__clusters->getShort("tile",row);
+	RICH__clusters_pmt = RICH__clusters->getShort("pmt",row);
+	RICH__clusters_charge = RICH__clusters->getFloat("charge",row);
+	RICH__clusters_time = RICH__clusters->getFloat("time",row);
+	RICH__clusters_rawtime = RICH__clusters->getFloat("rawtime",row);
+	RICH__clusters_x = RICH__clusters->getFloat("x",row);
+	RICH__clusters_y = RICH__clusters->getFloat("y",row);
+	RICH__clusters_z = RICH__clusters->getFloat("z",row);
+	RICH__clusters_wtime = RICH__clusters->getFloat("wtime",row);
+	RICH__clusters_wx = RICH__clusters->getFloat("wx",row);
+	RICH__clusters_wy = RICH__clusters->getFloat("wy",row);
+	RICH__clusters_wz = RICH__clusters->getFloat("wz",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Scintillator(int row){
+	RECHB__Scintillator_index = RECHB__Scintillator->getShort("index",row);
+	RECHB__Scintillator_pindex = RECHB__Scintillator->getShort("pindex",row);
+	RECHB__Scintillator_detector = RECHB__Scintillator->getByte("detector",row);
+	RECHB__Scintillator_sector = RECHB__Scintillator->getByte("sector",row);
+	RECHB__Scintillator_layer = RECHB__Scintillator->getByte("layer",row);
+	RECHB__Scintillator_component = RECHB__Scintillator->getShort("component",row);
+	RECHB__Scintillator_energy = RECHB__Scintillator->getFloat("energy",row);
+	RECHB__Scintillator_time = RECHB__Scintillator->getFloat("time",row);
+	RECHB__Scintillator_path = RECHB__Scintillator->getFloat("path",row);
+	RECHB__Scintillator_chi2 = RECHB__Scintillator->getFloat("chi2",row);
+	RECHB__Scintillator_x = RECHB__Scintillator->getFloat("x",row);
+	RECHB__Scintillator_y = RECHB__Scintillator->getFloat("y",row);
+	RECHB__Scintillator_z = RECHB__Scintillator->getFloat("z",row);
+	RECHB__Scintillator_hx = RECHB__Scintillator->getFloat("hx",row);
+	RECHB__Scintillator_hy = RECHB__Scintillator->getFloat("hy",row);
+	RECHB__Scintillator_hz = RECHB__Scintillator->getFloat("hz",row);
+	RECHB__Scintillator_status = RECHB__Scintillator->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__RingCher(int row){
+	REC__RingCher_id = REC__RingCher->getShort("id",row);
+	REC__RingCher_hindex = REC__RingCher->getShort("hindex",row);
+	REC__RingCher_pindex = REC__RingCher->getShort("pindex",row);
+	REC__RingCher_apath = REC__RingCher->getFloat("apath",row);
+	REC__RingCher_atime = REC__RingCher->getFloat("atime",row);
+	REC__RingCher_aEtaC = REC__RingCher->getFloat("aEtaC",row);
+	REC__RingCher_tpath = REC__RingCher->getFloat("tpath",row);
+	REC__RingCher_ttime = REC__RingCher->getFloat("ttime",row);
+	REC__RingCher_tEtaC = REC__RingCher->getFloat("tEtaC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BSTRec__LayerEffs(int row){
+	BSTRec__LayerEffs_sector = BSTRec__LayerEffs->getByte("sector",row);
+	BSTRec__LayerEffs_layer = BSTRec__LayerEffs->getByte("layer",row);
+	BSTRec__LayerEffs_residual = BSTRec__LayerEffs->getFloat("residual",row);
+	BSTRec__LayerEffs_status = BSTRec__LayerEffs->getByte("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RTPC__pos(int row){
+	RTPC__pos_step = RTPC__pos->getFloat("step",row);
+	RTPC__pos_time = RTPC__pos->getFloat("time",row);
+	RTPC__pos_energy = RTPC__pos->getFloat("energy",row);
+	RTPC__pos_posx = RTPC__pos->getFloat("posx",row);
+	RTPC__pos_posy = RTPC__pos->getFloat("posy",row);
+	RTPC__pos_posz = RTPC__pos->getFloat("posz",row);
+	RTPC__pos_phi = RTPC__pos->getFloat("phi",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBCrosses(int row){
+	TimeBasedTrkg__TBCrosses_id = TimeBasedTrkg__TBCrosses->getShort("id",row);
+	TimeBasedTrkg__TBCrosses_status = TimeBasedTrkg__TBCrosses->getShort("status",row);
+	TimeBasedTrkg__TBCrosses_sector = TimeBasedTrkg__TBCrosses->getByte("sector",row);
+	TimeBasedTrkg__TBCrosses_region = TimeBasedTrkg__TBCrosses->getByte("region",row);
+	TimeBasedTrkg__TBCrosses_x = TimeBasedTrkg__TBCrosses->getFloat("x",row);
+	TimeBasedTrkg__TBCrosses_y = TimeBasedTrkg__TBCrosses->getFloat("y",row);
+	TimeBasedTrkg__TBCrosses_z = TimeBasedTrkg__TBCrosses->getFloat("z",row);
+	TimeBasedTrkg__TBCrosses_err_x = TimeBasedTrkg__TBCrosses->getFloat("err_x",row);
+	TimeBasedTrkg__TBCrosses_err_y = TimeBasedTrkg__TBCrosses->getFloat("err_y",row);
+	TimeBasedTrkg__TBCrosses_err_z = TimeBasedTrkg__TBCrosses->getFloat("err_z",row);
+	TimeBasedTrkg__TBCrosses_ux = TimeBasedTrkg__TBCrosses->getFloat("ux",row);
+	TimeBasedTrkg__TBCrosses_uy = TimeBasedTrkg__TBCrosses->getFloat("uy",row);
+	TimeBasedTrkg__TBCrosses_uz = TimeBasedTrkg__TBCrosses->getFloat("uz",row);
+	TimeBasedTrkg__TBCrosses_err_ux = TimeBasedTrkg__TBCrosses->getFloat("err_ux",row);
+	TimeBasedTrkg__TBCrosses_err_uy = TimeBasedTrkg__TBCrosses->getFloat("err_uy",row);
+	TimeBasedTrkg__TBCrosses_err_uz = TimeBasedTrkg__TBCrosses->getFloat("err_uz",row);
+	TimeBasedTrkg__TBCrosses_Segment1_ID = TimeBasedTrkg__TBCrosses->getShort("Segment1_ID",row);
+	TimeBasedTrkg__TBCrosses_Segment2_ID = TimeBasedTrkg__TBCrosses->getShort("Segment2_ID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBTracks(int row){
+	HitBasedTrkg__HBTracks_id = HitBasedTrkg__HBTracks->getShort("id",row);
+	HitBasedTrkg__HBTracks_status = HitBasedTrkg__HBTracks->getShort("status",row);
+	HitBasedTrkg__HBTracks_sector = HitBasedTrkg__HBTracks->getByte("sector",row);
+	HitBasedTrkg__HBTracks_c1_x = HitBasedTrkg__HBTracks->getFloat("c1_x",row);
+	HitBasedTrkg__HBTracks_c1_y = HitBasedTrkg__HBTracks->getFloat("c1_y",row);
+	HitBasedTrkg__HBTracks_c1_z = HitBasedTrkg__HBTracks->getFloat("c1_z",row);
+	HitBasedTrkg__HBTracks_c1_ux = HitBasedTrkg__HBTracks->getFloat("c1_ux",row);
+	HitBasedTrkg__HBTracks_c1_uy = HitBasedTrkg__HBTracks->getFloat("c1_uy",row);
+	HitBasedTrkg__HBTracks_c1_uz = HitBasedTrkg__HBTracks->getFloat("c1_uz",row);
+	HitBasedTrkg__HBTracks_c3_x = HitBasedTrkg__HBTracks->getFloat("c3_x",row);
+	HitBasedTrkg__HBTracks_c3_y = HitBasedTrkg__HBTracks->getFloat("c3_y",row);
+	HitBasedTrkg__HBTracks_c3_z = HitBasedTrkg__HBTracks->getFloat("c3_z",row);
+	HitBasedTrkg__HBTracks_c3_ux = HitBasedTrkg__HBTracks->getFloat("c3_ux",row);
+	HitBasedTrkg__HBTracks_c3_uy = HitBasedTrkg__HBTracks->getFloat("c3_uy",row);
+	HitBasedTrkg__HBTracks_c3_uz = HitBasedTrkg__HBTracks->getFloat("c3_uz",row);
+	HitBasedTrkg__HBTracks_t1_x = HitBasedTrkg__HBTracks->getFloat("t1_x",row);
+	HitBasedTrkg__HBTracks_t1_y = HitBasedTrkg__HBTracks->getFloat("t1_y",row);
+	HitBasedTrkg__HBTracks_t1_z = HitBasedTrkg__HBTracks->getFloat("t1_z",row);
+	HitBasedTrkg__HBTracks_t1_px = HitBasedTrkg__HBTracks->getFloat("t1_px",row);
+	HitBasedTrkg__HBTracks_t1_py = HitBasedTrkg__HBTracks->getFloat("t1_py",row);
+	HitBasedTrkg__HBTracks_t1_pz = HitBasedTrkg__HBTracks->getFloat("t1_pz",row);
+	HitBasedTrkg__HBTracks_Vtx0_x = HitBasedTrkg__HBTracks->getFloat("Vtx0_x",row);
+	HitBasedTrkg__HBTracks_Vtx0_y = HitBasedTrkg__HBTracks->getFloat("Vtx0_y",row);
+	HitBasedTrkg__HBTracks_Vtx0_z = HitBasedTrkg__HBTracks->getFloat("Vtx0_z",row);
+	HitBasedTrkg__HBTracks_p0_x = HitBasedTrkg__HBTracks->getFloat("p0_x",row);
+	HitBasedTrkg__HBTracks_p0_y = HitBasedTrkg__HBTracks->getFloat("p0_y",row);
+	HitBasedTrkg__HBTracks_p0_z = HitBasedTrkg__HBTracks->getFloat("p0_z",row);
+	HitBasedTrkg__HBTracks_x = HitBasedTrkg__HBTracks->getFloat("x",row);
+	HitBasedTrkg__HBTracks_y = HitBasedTrkg__HBTracks->getFloat("y",row);
+	HitBasedTrkg__HBTracks_z = HitBasedTrkg__HBTracks->getFloat("z",row);
+	HitBasedTrkg__HBTracks_tx = HitBasedTrkg__HBTracks->getFloat("tx",row);
+	HitBasedTrkg__HBTracks_ty = HitBasedTrkg__HBTracks->getFloat("ty",row);
+	HitBasedTrkg__HBTracks_Cross1_ID = HitBasedTrkg__HBTracks->getShort("Cross1_ID",row);
+	HitBasedTrkg__HBTracks_Cross2_ID = HitBasedTrkg__HBTracks->getShort("Cross2_ID",row);
+	HitBasedTrkg__HBTracks_Cross3_ID = HitBasedTrkg__HBTracks->getShort("Cross3_ID",row);
+	HitBasedTrkg__HBTracks_q = HitBasedTrkg__HBTracks->getByte("q",row);
+	HitBasedTrkg__HBTracks_pathlength = HitBasedTrkg__HBTracks->getFloat("pathlength",row);
+	HitBasedTrkg__HBTracks_chi2 = HitBasedTrkg__HBTracks->getFloat("chi2",row);
+	HitBasedTrkg__HBTracks_ndf = HitBasedTrkg__HBTracks->getShort("ndf",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CVTRec__Cosmics(int row){
+	CVTRec__Cosmics_ID = CVTRec__Cosmics->getShort("ID",row);
+	CVTRec__Cosmics_trkline_yx_slope = CVTRec__Cosmics->getFloat("trkline_yx_slope",row);
+	CVTRec__Cosmics_trkline_yx_interc = CVTRec__Cosmics->getFloat("trkline_yx_interc",row);
+	CVTRec__Cosmics_trkline_yz_slope = CVTRec__Cosmics->getFloat("trkline_yz_slope",row);
+	CVTRec__Cosmics_trkline_yz_interc = CVTRec__Cosmics->getFloat("trkline_yz_interc",row);
+	CVTRec__Cosmics_theta = CVTRec__Cosmics->getFloat("theta",row);
+	CVTRec__Cosmics_phi = CVTRec__Cosmics->getFloat("phi",row);
+	CVTRec__Cosmics_chi2 = CVTRec__Cosmics->getFloat("chi2",row);
+	CVTRec__Cosmics_ndf = CVTRec__Cosmics->getShort("ndf",row);
+	CVTRec__Cosmics_Cross1_ID = CVTRec__Cosmics->getShort("Cross1_ID",row);
+	CVTRec__Cosmics_Cross2_ID = CVTRec__Cosmics->getShort("Cross2_ID",row);
+	CVTRec__Cosmics_Cross3_ID = CVTRec__Cosmics->getShort("Cross3_ID",row);
+	CVTRec__Cosmics_Cross4_ID = CVTRec__Cosmics->getShort("Cross4_ID",row);
+	CVTRec__Cosmics_Cross5_ID = CVTRec__Cosmics->getShort("Cross5_ID",row);
+	CVTRec__Cosmics_Cross6_ID = CVTRec__Cosmics->getShort("Cross6_ID",row);
+	CVTRec__Cosmics_Cross7_ID = CVTRec__Cosmics->getShort("Cross7_ID",row);
+	CVTRec__Cosmics_Cross8_ID = CVTRec__Cosmics->getShort("Cross8_ID",row);
+	CVTRec__Cosmics_Cross9_ID = CVTRec__Cosmics->getShort("Cross9_ID",row);
+	CVTRec__Cosmics_Cross10_ID = CVTRec__Cosmics->getShort("Cross10_ID",row);
+	CVTRec__Cosmics_Cross11_ID = CVTRec__Cosmics->getShort("Cross11_ID",row);
+	CVTRec__Cosmics_Cross12_ID = CVTRec__Cosmics->getShort("Cross12_ID",row);
+	CVTRec__Cosmics_Cross13_ID = CVTRec__Cosmics->getShort("Cross13_ID",row);
+	CVTRec__Cosmics_Cross14_ID = CVTRec__Cosmics->getShort("Cross14_ID",row);
+	CVTRec__Cosmics_Cross15_ID = CVTRec__Cosmics->getShort("Cross15_ID",row);
+	CVTRec__Cosmics_Cross16_ID = CVTRec__Cosmics->getShort("Cross16_ID",row);
+	CVTRec__Cosmics_Cross17_ID = CVTRec__Cosmics->getShort("Cross17_ID",row);
+	CVTRec__Cosmics_Cross18_ID = CVTRec__Cosmics->getShort("Cross18_ID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Cherenkov(int row){
+	RECHB__Cherenkov_index = RECHB__Cherenkov->getShort("index",row);
+	RECHB__Cherenkov_pindex = RECHB__Cherenkov->getShort("pindex",row);
+	RECHB__Cherenkov_detector = RECHB__Cherenkov->getByte("detector",row);
+	RECHB__Cherenkov_sector = RECHB__Cherenkov->getByte("sector",row);
+	RECHB__Cherenkov_nphe = RECHB__Cherenkov->getFloat("nphe",row);
+	RECHB__Cherenkov_time = RECHB__Cherenkov->getFloat("time",row);
+	RECHB__Cherenkov_path = RECHB__Cherenkov->getFloat("path",row);
+	RECHB__Cherenkov_chi2 = RECHB__Cherenkov->getFloat("chi2",row);
+	RECHB__Cherenkov_x = RECHB__Cherenkov->getFloat("x",row);
+	RECHB__Cherenkov_y = RECHB__Cherenkov->getFloat("y",row);
+	RECHB__Cherenkov_z = RECHB__Cherenkov->getFloat("z",row);
+	RECHB__Cherenkov_dtheta = RECHB__Cherenkov->getFloat("dtheta",row);
+	RECHB__Cherenkov_dphi = RECHB__Cherenkov->getFloat("dphi",row);
+	RECHB__Cherenkov_status = RECHB__Cherenkov->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BSTRec__Clusters(int row){
+	BSTRec__Clusters_ID = BSTRec__Clusters->getShort("ID",row);
+	BSTRec__Clusters_sector = BSTRec__Clusters->getByte("sector",row);
+	BSTRec__Clusters_layer = BSTRec__Clusters->getByte("layer",row);
+	BSTRec__Clusters_size = BSTRec__Clusters->getShort("size",row);
+	BSTRec__Clusters_ETot = BSTRec__Clusters->getFloat("ETot",row);
+	BSTRec__Clusters_seedE = BSTRec__Clusters->getFloat("seedE",row);
+	BSTRec__Clusters_seedStrip = BSTRec__Clusters->getInt("seedStrip",row);
+	BSTRec__Clusters_centroid = BSTRec__Clusters->getFloat("centroid",row);
+	BSTRec__Clusters_centroidResidual = BSTRec__Clusters->getFloat("centroidResidual",row);
+	BSTRec__Clusters_seedResidual = BSTRec__Clusters->getFloat("seedResidual",row);
+	BSTRec__Clusters_Hit1_ID = BSTRec__Clusters->getShort("Hit1_ID",row);
+	BSTRec__Clusters_Hit2_ID = BSTRec__Clusters->getShort("Hit2_ID",row);
+	BSTRec__Clusters_Hit3_ID = BSTRec__Clusters->getShort("Hit3_ID",row);
+	BSTRec__Clusters_Hit4_ID = BSTRec__Clusters->getShort("Hit4_ID",row);
+	BSTRec__Clusters_Hit5_ID = BSTRec__Clusters->getShort("Hit5_ID",row);
+	BSTRec__Clusters_trkID = BSTRec__Clusters->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CVTRec__Trajectory(int row){
+	CVTRec__Trajectory_id = CVTRec__Trajectory->getShort("id",row);
+	CVTRec__Trajectory_detector = CVTRec__Trajectory->getShort("detector",row);
+	CVTRec__Trajectory_sector = CVTRec__Trajectory->getByte("sector",row);
+	CVTRec__Trajectory_layer = CVTRec__Trajectory->getByte("layer",row);
+	CVTRec__Trajectory_x = CVTRec__Trajectory->getFloat("x",row);
+	CVTRec__Trajectory_y = CVTRec__Trajectory->getFloat("y",row);
+	CVTRec__Trajectory_z = CVTRec__Trajectory->getFloat("z",row);
+	CVTRec__Trajectory_phi = CVTRec__Trajectory->getFloat("phi",row);
+	CVTRec__Trajectory_theta = CVTRec__Trajectory->getFloat("theta",row);
+	CVTRec__Trajectory_langle = CVTRec__Trajectory->getFloat("langle",row);
+	CVTRec__Trajectory_centroid = CVTRec__Trajectory->getFloat("centroid",row);
+	CVTRec__Trajectory_path = CVTRec__Trajectory->getFloat("path",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Calorimeter(int row){
+	RECHB__Calorimeter_index = RECHB__Calorimeter->getShort("index",row);
+	RECHB__Calorimeter_pindex = RECHB__Calorimeter->getShort("pindex",row);
+	RECHB__Calorimeter_detector = RECHB__Calorimeter->getByte("detector",row);
+	RECHB__Calorimeter_sector = RECHB__Calorimeter->getByte("sector",row);
+	RECHB__Calorimeter_layer = RECHB__Calorimeter->getByte("layer",row);
+	RECHB__Calorimeter_energy = RECHB__Calorimeter->getFloat("energy",row);
+	RECHB__Calorimeter_time = RECHB__Calorimeter->getFloat("time",row);
+	RECHB__Calorimeter_path = RECHB__Calorimeter->getFloat("path",row);
+	RECHB__Calorimeter_chi2 = RECHB__Calorimeter->getFloat("chi2",row);
+	RECHB__Calorimeter_x = RECHB__Calorimeter->getFloat("x",row);
+	RECHB__Calorimeter_y = RECHB__Calorimeter->getFloat("y",row);
+	RECHB__Calorimeter_z = RECHB__Calorimeter->getFloat("z",row);
+	RECHB__Calorimeter_hx = RECHB__Calorimeter->getFloat("hx",row);
+	RECHB__Calorimeter_hy = RECHB__Calorimeter->getFloat("hy",row);
+	RECHB__Calorimeter_hz = RECHB__Calorimeter->getFloat("hz",row);
+	RECHB__Calorimeter_lu = RECHB__Calorimeter->getFloat("lu",row);
+	RECHB__Calorimeter_lv = RECHB__Calorimeter->getFloat("lv",row);
+	RECHB__Calorimeter_lw = RECHB__Calorimeter->getFloat("lw",row);
+	RECHB__Calorimeter_du = RECHB__Calorimeter->getFloat("du",row);
+	RECHB__Calorimeter_dv = RECHB__Calorimeter->getFloat("dv",row);
+	RECHB__Calorimeter_dw = RECHB__Calorimeter->getFloat("dw",row);
+	RECHB__Calorimeter_m2u = RECHB__Calorimeter->getFloat("m2u",row);
+	RECHB__Calorimeter_m2v = RECHB__Calorimeter->getFloat("m2v",row);
+	RECHB__Calorimeter_m2w = RECHB__Calorimeter->getFloat("m2w",row);
+	RECHB__Calorimeter_m3u = RECHB__Calorimeter->getFloat("m3u",row);
+	RECHB__Calorimeter_m3v = RECHB__Calorimeter->getFloat("m3v",row);
+	RECHB__Calorimeter_m3w = RECHB__Calorimeter->getFloat("m3w",row);
+	RECHB__Calorimeter_status = RECHB__Calorimeter->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBSegmentTrajectory(int row){
+	TimeBasedTrkg__TBSegmentTrajectory_segmentID = TimeBasedTrkg__TBSegmentTrajectory->getShort("segmentID",row);
+	TimeBasedTrkg__TBSegmentTrajectory_sector = TimeBasedTrkg__TBSegmentTrajectory->getByte("sector",row);
+	TimeBasedTrkg__TBSegmentTrajectory_superlayer = TimeBasedTrkg__TBSegmentTrajectory->getByte("superlayer",row);
+	TimeBasedTrkg__TBSegmentTrajectory_layer = TimeBasedTrkg__TBSegmentTrajectory->getByte("layer",row);
+	TimeBasedTrkg__TBSegmentTrajectory_matchedHitID = TimeBasedTrkg__TBSegmentTrajectory->getShort("matchedHitID",row);
+	TimeBasedTrkg__TBSegmentTrajectory_trkDoca = TimeBasedTrkg__TBSegmentTrajectory->getFloat("trkDoca",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CTOF__tdc(int row){
+	CTOF__tdc_sector = CTOF__tdc->getByte("sector",row);
+	CTOF__tdc_layer = CTOF__tdc->getByte("layer",row);
+	CTOF__tdc_component = CTOF__tdc->getShort("component",row);
+	CTOF__tdc_order = CTOF__tdc->getByte("order",row);
+	CTOF__tdc_TDC = CTOF__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Cherenkov(int row){
+	REC__Cherenkov_index = REC__Cherenkov->getShort("index",row);
+	REC__Cherenkov_pindex = REC__Cherenkov->getShort("pindex",row);
+	REC__Cherenkov_detector = REC__Cherenkov->getByte("detector",row);
+	REC__Cherenkov_sector = REC__Cherenkov->getByte("sector",row);
+	REC__Cherenkov_nphe = REC__Cherenkov->getFloat("nphe",row);
+	REC__Cherenkov_time = REC__Cherenkov->getFloat("time",row);
+	REC__Cherenkov_path = REC__Cherenkov->getFloat("path",row);
+	REC__Cherenkov_chi2 = REC__Cherenkov->getFloat("chi2",row);
+	REC__Cherenkov_x = REC__Cherenkov->getFloat("x",row);
+	REC__Cherenkov_y = REC__Cherenkov->getFloat("y",row);
+	REC__Cherenkov_z = REC__Cherenkov->getFloat("z",row);
+	REC__Cherenkov_dtheta = REC__Cherenkov->getFloat("dtheta",row);
+	REC__Cherenkov_dphi = REC__Cherenkov->getFloat("dphi",row);
+	REC__Cherenkov_status = REC__Cherenkov->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BMTRec__LayerEffs(int row){
+	BMTRec__LayerEffs_sector = BMTRec__LayerEffs->getByte("sector",row);
+	BMTRec__LayerEffs_layer = BMTRec__LayerEffs->getByte("layer",row);
+	BMTRec__LayerEffs_residual = BMTRec__LayerEffs->getFloat("residual",row);
+	BMTRec__LayerEffs_status = BMTRec__LayerEffs->getByte("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__adc(int row){
+	FTOF__adc_sector = FTOF__adc->getByte("sector",row);
+	FTOF__adc_layer = FTOF__adc->getByte("layer",row);
+	FTOF__adc_component = FTOF__adc->getShort("component",row);
+	FTOF__adc_order = FTOF__adc->getByte("order",row);
+	FTOF__adc_ADC = FTOF__adc->getInt("ADC",row);
+	FTOF__adc_time = FTOF__adc->getFloat("time",row);
+	FTOF__adc_ped = FTOF__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_MC__Lund(int row){
+	MC__Lund_index = MC__Lund->getByte("index",row);
+	MC__Lund_lifetime = MC__Lund->getFloat("lifetime",row);
+	MC__Lund_type = MC__Lund->getByte("type",row);
+	MC__Lund_pid = MC__Lund->getInt("pid",row);
+	MC__Lund_parent = MC__Lund->getByte("parent",row);
+	MC__Lund_daughter = MC__Lund->getByte("daughter",row);
+	MC__Lund_px = MC__Lund->getFloat("px",row);
+	MC__Lund_py = MC__Lund->getFloat("py",row);
+	MC__Lund_pz = MC__Lund->getFloat("pz",row);
+	MC__Lund_energy = MC__Lund->getFloat("energy",row);
+	MC__Lund_mass = MC__Lund->getFloat("mass",row);
+	MC__Lund_vx = MC__Lund->getFloat("vx",row);
+	MC__Lund_vy = MC__Lund->getFloat("vy",row);
+	MC__Lund_vz = MC__Lund->getFloat("vz",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DETECTOR__lcpb(int row){
+	DETECTOR__lcpb_sector = DETECTOR__lcpb->getByte("sector",row);
+	DETECTOR__lcpb_etot = DETECTOR__lcpb->getFloat("etot",row);
+	DETECTOR__lcpb_ein = DETECTOR__lcpb->getFloat("ein",row);
+	DETECTOR__lcpb_time = DETECTOR__lcpb->getFloat("time",row);
+	DETECTOR__lcpb_path = DETECTOR__lcpb->getFloat("path",row);
+	DETECTOR__lcpb_x = DETECTOR__lcpb->getFloat("x",row);
+	DETECTOR__lcpb_y = DETECTOR__lcpb->getFloat("y",row);
+	DETECTOR__lcpb_z = DETECTOR__lcpb->getFloat("z",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_MC__Header(int row){
+	MC__Header_run = MC__Header->getInt("run",row);
+	MC__Header_event = MC__Header->getInt("event",row);
+	MC__Header_type = MC__Header->getByte("type",row);
+	MC__Header_helicity = MC__Header->getFloat("helicity",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CND__clusters(int row){
+	CND__clusters_id = CND__clusters->getShort("id",row);
+	CND__clusters_sector = CND__clusters->getByte("sector",row);
+	CND__clusters_layer = CND__clusters->getByte("layer",row);
+	CND__clusters_component = CND__clusters->getShort("component",row);
+	CND__clusters_nhits = CND__clusters->getShort("nhits",row);
+	CND__clusters_energy = CND__clusters->getFloat("energy",row);
+	CND__clusters_x = CND__clusters->getFloat("x",row);
+	CND__clusters_y = CND__clusters->getFloat("y",row);
+	CND__clusters_z = CND__clusters->getFloat("z",row);
+	CND__clusters_time = CND__clusters->getFloat("time",row);
+	CND__clusters_status = CND__clusters->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBCovMat(int row){
+	TimeBasedTrkg__TBCovMat_id = TimeBasedTrkg__TBCovMat->getShort("id",row);
+	TimeBasedTrkg__TBCovMat_C11 = TimeBasedTrkg__TBCovMat->getFloat("C11",row);
+	TimeBasedTrkg__TBCovMat_C12 = TimeBasedTrkg__TBCovMat->getFloat("C12",row);
+	TimeBasedTrkg__TBCovMat_C13 = TimeBasedTrkg__TBCovMat->getFloat("C13",row);
+	TimeBasedTrkg__TBCovMat_C14 = TimeBasedTrkg__TBCovMat->getFloat("C14",row);
+	TimeBasedTrkg__TBCovMat_C15 = TimeBasedTrkg__TBCovMat->getFloat("C15",row);
+	TimeBasedTrkg__TBCovMat_C21 = TimeBasedTrkg__TBCovMat->getFloat("C21",row);
+	TimeBasedTrkg__TBCovMat_C22 = TimeBasedTrkg__TBCovMat->getFloat("C22",row);
+	TimeBasedTrkg__TBCovMat_C23 = TimeBasedTrkg__TBCovMat->getFloat("C23",row);
+	TimeBasedTrkg__TBCovMat_C24 = TimeBasedTrkg__TBCovMat->getFloat("C24",row);
+	TimeBasedTrkg__TBCovMat_C25 = TimeBasedTrkg__TBCovMat->getFloat("C25",row);
+	TimeBasedTrkg__TBCovMat_C31 = TimeBasedTrkg__TBCovMat->getFloat("C31",row);
+	TimeBasedTrkg__TBCovMat_C32 = TimeBasedTrkg__TBCovMat->getFloat("C32",row);
+	TimeBasedTrkg__TBCovMat_C33 = TimeBasedTrkg__TBCovMat->getFloat("C33",row);
+	TimeBasedTrkg__TBCovMat_C34 = TimeBasedTrkg__TBCovMat->getFloat("C34",row);
+	TimeBasedTrkg__TBCovMat_C35 = TimeBasedTrkg__TBCovMat->getFloat("C35",row);
+	TimeBasedTrkg__TBCovMat_C41 = TimeBasedTrkg__TBCovMat->getFloat("C41",row);
+	TimeBasedTrkg__TBCovMat_C42 = TimeBasedTrkg__TBCovMat->getFloat("C42",row);
+	TimeBasedTrkg__TBCovMat_C43 = TimeBasedTrkg__TBCovMat->getFloat("C43",row);
+	TimeBasedTrkg__TBCovMat_C44 = TimeBasedTrkg__TBCovMat->getFloat("C44",row);
+	TimeBasedTrkg__TBCovMat_C45 = TimeBasedTrkg__TBCovMat->getFloat("C45",row);
+	TimeBasedTrkg__TBCovMat_C51 = TimeBasedTrkg__TBCovMat->getFloat("C51",row);
+	TimeBasedTrkg__TBCovMat_C52 = TimeBasedTrkg__TBCovMat->getFloat("C52",row);
+	TimeBasedTrkg__TBCovMat_C53 = TimeBasedTrkg__TBCovMat->getFloat("C53",row);
+	TimeBasedTrkg__TBCovMat_C54 = TimeBasedTrkg__TBCovMat->getFloat("C54",row);
+	TimeBasedTrkg__TBCovMat_C55 = TimeBasedTrkg__TBCovMat->getFloat("C55",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RICH__hits(int row){
+	RICH__hits_id = RICH__hits->getShort("id",row);
+	RICH__hits_sector = RICH__hits->getShort("sector",row);
+	RICH__hits_tile = RICH__hits->getShort("tile",row);
+	RICH__hits_pmt = RICH__hits->getShort("pmt",row);
+	RICH__hits_anode = RICH__hits->getShort("anode",row);
+	RICH__hits_x = RICH__hits->getFloat("x",row);
+	RICH__hits_y = RICH__hits->getFloat("y",row);
+	RICH__hits_z = RICH__hits->getFloat("z",row);
+	RICH__hits_time = RICH__hits->getFloat("time",row);
+	RICH__hits_rawtime = RICH__hits->getFloat("rawtime",row);
+	RICH__hits_cluster = RICH__hits->getShort("cluster",row);
+	RICH__hits_xtalk = RICH__hits->getShort("xtalk",row);
+	RICH__hits_duration = RICH__hits->getShort("duration",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Track(int row){
+	RECHB__Track_index = RECHB__Track->getShort("index",row);
+	RECHB__Track_pindex = RECHB__Track->getShort("pindex",row);
+	RECHB__Track_detector = RECHB__Track->getByte("detector",row);
+	RECHB__Track_sector = RECHB__Track->getByte("sector",row);
+	RECHB__Track_status = RECHB__Track->getShort("status",row);
+	RECHB__Track_q = RECHB__Track->getByte("q",row);
+	RECHB__Track_chi2 = RECHB__Track->getFloat("chi2",row);
+	RECHB__Track_NDF = RECHB__Track->getShort("NDF",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_MC__True(int row){
+	MC__True_detector = MC__True->getByte("detector",row);
+	MC__True_pid = MC__True->getInt("pid",row);
+	MC__True_mpid = MC__True->getInt("mpid",row);
+	MC__True_tid = MC__True->getInt("tid",row);
+	MC__True_mtid = MC__True->getInt("mtid",row);
+	MC__True_otid = MC__True->getInt("otid",row);
+	MC__True_trackE = MC__True->getFloat("trackE",row);
+	MC__True_totEdep = MC__True->getFloat("totEdep",row);
+	MC__True_avgX = MC__True->getFloat("avgX",row);
+	MC__True_avgY = MC__True->getFloat("avgY",row);
+	MC__True_avgZ = MC__True->getFloat("avgZ",row);
+	MC__True_avgLx = MC__True->getFloat("avgLx",row);
+	MC__True_avgLy = MC__True->getFloat("avgLy",row);
+	MC__True_avgLz = MC__True->getFloat("avgLz",row);
+	MC__True_px = MC__True->getFloat("px",row);
+	MC__True_py = MC__True->getFloat("py",row);
+	MC__True_pz = MC__True->getFloat("pz",row);
+	MC__True_vx = MC__True->getFloat("vx",row);
+	MC__True_vy = MC__True->getFloat("vy",row);
+	MC__True_vz = MC__True->getFloat("vz",row);
+	MC__True_mvx = MC__True->getFloat("mvx",row);
+	MC__True_mvy = MC__True->getFloat("mvy",row);
+	MC__True_mvz = MC__True->getFloat("mvz",row);
+	MC__True_avgT = MC__True->getFloat("avgT",row);
+	MC__True_nsteps = MC__True->getInt("nsteps",row);
+	MC__True_procID = MC__True->getInt("procID",row);
+	MC__True_hitn = MC__True->getInt("hitn",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BST__adc(int row){
+	BST__adc_sector = BST__adc->getByte("sector",row);
+	BST__adc_layer = BST__adc->getByte("layer",row);
+	BST__adc_component = BST__adc->getShort("component",row);
+	BST__adc_order = BST__adc->getByte("order",row);
+	BST__adc_ADC = BST__adc->getInt("ADC",row);
+	BST__adc_time = BST__adc->getFloat("time",row);
+	BST__adc_ped = BST__adc->getShort("ped",row);
+	BST__adc_timestamp = BST__adc->getLong("timestamp",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_MC__Event(int row){
+	MC__Event_npart = MC__Event->getShort("npart",row);
+	MC__Event_atarget = MC__Event->getShort("atarget",row);
+	MC__Event_ztarget = MC__Event->getShort("ztarget",row);
+	MC__Event_ptarget = MC__Event->getFloat("ptarget",row);
+	MC__Event_pbeam = MC__Event->getFloat("pbeam",row);
+	MC__Event_btype = MC__Event->getShort("btype",row);
+	MC__Event_ebeam = MC__Event->getFloat("ebeam",row);
+	MC__Event_targetid = MC__Event->getShort("targetid",row);
+	MC__Event_processid = MC__Event->getShort("processid",row);
+	MC__Event_weight = MC__Event->getFloat("weight",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBCrosses(int row){
+	HitBasedTrkg__HBCrosses_id = HitBasedTrkg__HBCrosses->getShort("id",row);
+	HitBasedTrkg__HBCrosses_status = HitBasedTrkg__HBCrosses->getShort("status",row);
+	HitBasedTrkg__HBCrosses_sector = HitBasedTrkg__HBCrosses->getByte("sector",row);
+	HitBasedTrkg__HBCrosses_region = HitBasedTrkg__HBCrosses->getByte("region",row);
+	HitBasedTrkg__HBCrosses_x = HitBasedTrkg__HBCrosses->getFloat("x",row);
+	HitBasedTrkg__HBCrosses_y = HitBasedTrkg__HBCrosses->getFloat("y",row);
+	HitBasedTrkg__HBCrosses_z = HitBasedTrkg__HBCrosses->getFloat("z",row);
+	HitBasedTrkg__HBCrosses_err_x = HitBasedTrkg__HBCrosses->getFloat("err_x",row);
+	HitBasedTrkg__HBCrosses_err_y = HitBasedTrkg__HBCrosses->getFloat("err_y",row);
+	HitBasedTrkg__HBCrosses_err_z = HitBasedTrkg__HBCrosses->getFloat("err_z",row);
+	HitBasedTrkg__HBCrosses_ux = HitBasedTrkg__HBCrosses->getFloat("ux",row);
+	HitBasedTrkg__HBCrosses_uy = HitBasedTrkg__HBCrosses->getFloat("uy",row);
+	HitBasedTrkg__HBCrosses_uz = HitBasedTrkg__HBCrosses->getFloat("uz",row);
+	HitBasedTrkg__HBCrosses_err_ux = HitBasedTrkg__HBCrosses->getFloat("err_ux",row);
+	HitBasedTrkg__HBCrosses_err_uy = HitBasedTrkg__HBCrosses->getFloat("err_uy",row);
+	HitBasedTrkg__HBCrosses_err_uz = HitBasedTrkg__HBCrosses->getFloat("err_uz",row);
+	HitBasedTrkg__HBCrosses_Segment1_ID = HitBasedTrkg__HBCrosses->getShort("Segment1_ID",row);
+	HitBasedTrkg__HBCrosses_Segment2_ID = HitBasedTrkg__HBCrosses->getShort("Segment2_ID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__clusters(int row){
+	FTOF__clusters_id = FTOF__clusters->getShort("id",row);
+	FTOF__clusters_status = FTOF__clusters->getShort("status",row);
+	FTOF__clusters_trackid = FTOF__clusters->getShort("trackid",row);
+	FTOF__clusters_sector = FTOF__clusters->getByte("sector",row);
+	FTOF__clusters_layer = FTOF__clusters->getByte("layer",row);
+	FTOF__clusters_component = FTOF__clusters->getShort("component",row);
+	FTOF__clusters_energy = FTOF__clusters->getFloat("energy",row);
+	FTOF__clusters_time = FTOF__clusters->getFloat("time",row);
+	FTOF__clusters_energy_unc = FTOF__clusters->getFloat("energy_unc",row);
+	FTOF__clusters_time_unc = FTOF__clusters->getFloat("time_unc",row);
+	FTOF__clusters_x = FTOF__clusters->getFloat("x",row);
+	FTOF__clusters_y = FTOF__clusters->getFloat("y",row);
+	FTOF__clusters_z = FTOF__clusters->getFloat("z",row);
+	FTOF__clusters_x_unc = FTOF__clusters->getFloat("x_unc",row);
+	FTOF__clusters_y_unc = FTOF__clusters->getFloat("y_unc",row);
+	FTOF__clusters_z_unc = FTOF__clusters->getFloat("z_unc",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__TrackCross(int row){
+	REC__TrackCross_index = REC__TrackCross->getShort("index",row);
+	REC__TrackCross_pindex = REC__TrackCross->getShort("pindex",row);
+	REC__TrackCross_detector = REC__TrackCross->getByte("detector",row);
+	REC__TrackCross_sector = REC__TrackCross->getByte("sector",row);
+	REC__TrackCross_layer = REC__TrackCross->getByte("layer",row);
+	REC__TrackCross_c_x = REC__TrackCross->getFloat("c_x",row);
+	REC__TrackCross_c_y = REC__TrackCross->getFloat("c_y",row);
+	REC__TrackCross_c_z = REC__TrackCross->getFloat("c_z",row);
+	REC__TrackCross_c_ux = REC__TrackCross->getFloat("c_ux",row);
+	REC__TrackCross_c_uy = REC__TrackCross->getFloat("c_uy",row);
+	REC__TrackCross_c_uz = REC__TrackCross->getFloat("c_uz",row);
+	REC__TrackCross_status = REC__TrackCross->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Scintillator(int row){
+	REC__Scintillator_index = REC__Scintillator->getShort("index",row);
+	REC__Scintillator_pindex = REC__Scintillator->getShort("pindex",row);
+	REC__Scintillator_detector = REC__Scintillator->getByte("detector",row);
+	REC__Scintillator_sector = REC__Scintillator->getByte("sector",row);
+	REC__Scintillator_layer = REC__Scintillator->getByte("layer",row);
+	REC__Scintillator_component = REC__Scintillator->getShort("component",row);
+	REC__Scintillator_energy = REC__Scintillator->getFloat("energy",row);
+	REC__Scintillator_time = REC__Scintillator->getFloat("time",row);
+	REC__Scintillator_path = REC__Scintillator->getFloat("path",row);
+	REC__Scintillator_chi2 = REC__Scintillator->getFloat("chi2",row);
+	REC__Scintillator_x = REC__Scintillator->getFloat("x",row);
+	REC__Scintillator_y = REC__Scintillator->getFloat("y",row);
+	REC__Scintillator_z = REC__Scintillator->getFloat("z",row);
+	REC__Scintillator_hx = REC__Scintillator->getFloat("hx",row);
+	REC__Scintillator_hy = REC__Scintillator->getFloat("hy",row);
+	REC__Scintillator_hz = REC__Scintillator->getFloat("hz",row);
+	REC__Scintillator_status = REC__Scintillator->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__peaks(int row){
+	ECAL__peaks_id = ECAL__peaks->getShort("id",row);
+	ECAL__peaks_status = ECAL__peaks->getShort("status",row);
+	ECAL__peaks_sector = ECAL__peaks->getByte("sector",row);
+	ECAL__peaks_layer = ECAL__peaks->getByte("layer",row);
+	ECAL__peaks_energy = ECAL__peaks->getFloat("energy",row);
+	ECAL__peaks_time = ECAL__peaks->getFloat("time",row);
+	ECAL__peaks_xo = ECAL__peaks->getFloat("xo",row);
+	ECAL__peaks_yo = ECAL__peaks->getFloat("yo",row);
+	ECAL__peaks_zo = ECAL__peaks->getFloat("zo",row);
+	ECAL__peaks_xe = ECAL__peaks->getFloat("xe",row);
+	ECAL__peaks_ye = ECAL__peaks->getFloat("ye",row);
+	ECAL__peaks_ze = ECAL__peaks->getFloat("ze",row);
+	ECAL__peaks_width = ECAL__peaks->getFloat("width",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBClusters(int row){
+	TimeBasedTrkg__TBClusters_id = TimeBasedTrkg__TBClusters->getShort("id",row);
+	TimeBasedTrkg__TBClusters_status = TimeBasedTrkg__TBClusters->getShort("status",row);
+	TimeBasedTrkg__TBClusters_sector = TimeBasedTrkg__TBClusters->getByte("sector",row);
+	TimeBasedTrkg__TBClusters_superlayer = TimeBasedTrkg__TBClusters->getByte("superlayer",row);
+	TimeBasedTrkg__TBClusters_Hit1_ID = TimeBasedTrkg__TBClusters->getShort("Hit1_ID",row);
+	TimeBasedTrkg__TBClusters_Hit2_ID = TimeBasedTrkg__TBClusters->getShort("Hit2_ID",row);
+	TimeBasedTrkg__TBClusters_Hit3_ID = TimeBasedTrkg__TBClusters->getShort("Hit3_ID",row);
+	TimeBasedTrkg__TBClusters_Hit4_ID = TimeBasedTrkg__TBClusters->getShort("Hit4_ID",row);
+	TimeBasedTrkg__TBClusters_Hit5_ID = TimeBasedTrkg__TBClusters->getShort("Hit5_ID",row);
+	TimeBasedTrkg__TBClusters_Hit6_ID = TimeBasedTrkg__TBClusters->getShort("Hit6_ID",row);
+	TimeBasedTrkg__TBClusters_Hit7_ID = TimeBasedTrkg__TBClusters->getShort("Hit7_ID",row);
+	TimeBasedTrkg__TBClusters_Hit8_ID = TimeBasedTrkg__TBClusters->getShort("Hit8_ID",row);
+	TimeBasedTrkg__TBClusters_Hit9_ID = TimeBasedTrkg__TBClusters->getShort("Hit9_ID",row);
+	TimeBasedTrkg__TBClusters_Hit10_ID = TimeBasedTrkg__TBClusters->getShort("Hit10_ID",row);
+	TimeBasedTrkg__TBClusters_Hit11_ID = TimeBasedTrkg__TBClusters->getShort("Hit11_ID",row);
+	TimeBasedTrkg__TBClusters_Hit12_ID = TimeBasedTrkg__TBClusters->getShort("Hit12_ID",row);
+	TimeBasedTrkg__TBClusters_avgWire = TimeBasedTrkg__TBClusters->getFloat("avgWire",row);
+	TimeBasedTrkg__TBClusters_fitChisqProb = TimeBasedTrkg__TBClusters->getFloat("fitChisqProb",row);
+	TimeBasedTrkg__TBClusters_fitSlope = TimeBasedTrkg__TBClusters->getFloat("fitSlope",row);
+	TimeBasedTrkg__TBClusters_fitSlopeErr = TimeBasedTrkg__TBClusters->getFloat("fitSlopeErr",row);
+	TimeBasedTrkg__TBClusters_fitInterc = TimeBasedTrkg__TBClusters->getFloat("fitInterc",row);
+	TimeBasedTrkg__TBClusters_fitIntercErr = TimeBasedTrkg__TBClusters->getFloat("fitIntercErr",row);
+	TimeBasedTrkg__TBClusters_size = TimeBasedTrkg__TBClusters->getByte("size",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TAGGER__tgpb(int row){
+	TAGGER__tgpb_status = TAGGER__tgpb->getByte("status",row);
+	TAGGER__tgpb_tid = TAGGER__tgpb->getShort("tid",row);
+	TAGGER__tgpb_eid = TAGGER__tgpb->getShort("eid",row);
+	TAGGER__tgpb_time = TAGGER__tgpb->getFloat("time",row);
+	TAGGER__tgpb_energy = TAGGER__tgpb->getFloat("energy",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_LTCC__clusters(int row){
+	LTCC__clusters_id = LTCC__clusters->getShort("id",row);
+	LTCC__clusters_status = LTCC__clusters->getByte("status",row);
+	LTCC__clusters_sector = LTCC__clusters->getByte("sector",row);
+	LTCC__clusters_segment = LTCC__clusters->getShort("segment",row);
+	LTCC__clusters_x = LTCC__clusters->getFloat("x",row);
+	LTCC__clusters_y = LTCC__clusters->getFloat("y",row);
+	LTCC__clusters_z = LTCC__clusters->getFloat("z",row);
+	LTCC__clusters_nphe = LTCC__clusters->getFloat("nphe",row);
+	LTCC__clusters_time = LTCC__clusters->getFloat("time",row);
+	LTCC__clusters_nHits = LTCC__clusters->getShort("nHits",row);
+	LTCC__clusters_minTheta = LTCC__clusters->getFloat("minTheta",row);
+	LTCC__clusters_maxTheta = LTCC__clusters->getFloat("maxTheta",row);
+	LTCC__clusters_minPhi = LTCC__clusters->getFloat("minPhi",row);
+	LTCC__clusters_maxPhi = LTCC__clusters->getFloat("maxPhi",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RICH__hadrons(int row){
+	RICH__hadrons_id = RICH__hadrons->getShort("id",row);
+	RICH__hadrons_hit_index = RICH__hadrons->getShort("hit_index",row);
+	RICH__hadrons_particle_index = RICH__hadrons->getShort("particle_index",row);
+	RICH__hadrons_traced_the = RICH__hadrons->getFloat("traced_the",row);
+	RICH__hadrons_traced_phi = RICH__hadrons->getFloat("traced_phi",row);
+	RICH__hadrons_traced_hitx = RICH__hadrons->getFloat("traced_hitx",row);
+	RICH__hadrons_traced_hity = RICH__hadrons->getFloat("traced_hity",row);
+	RICH__hadrons_traced_hitz = RICH__hadrons->getFloat("traced_hitz",row);
+	RICH__hadrons_traced_time = RICH__hadrons->getFloat("traced_time",row);
+	RICH__hadrons_traced_path = RICH__hadrons->getFloat("traced_path",row);
+	RICH__hadrons_traced_ilay = RICH__hadrons->getShort("traced_ilay",row);
+	RICH__hadrons_traced_ico = RICH__hadrons->getShort("traced_ico",row);
+	RICH__hadrons_traced_emix = RICH__hadrons->getFloat("traced_emix",row);
+	RICH__hadrons_traced_emiy = RICH__hadrons->getFloat("traced_emiy",row);
+	RICH__hadrons_traced_emiz = RICH__hadrons->getFloat("traced_emiz",row);
+	RICH__hadrons_EtaC_ele = RICH__hadrons->getFloat("EtaC_ele",row);
+	RICH__hadrons_EtaC_pi = RICH__hadrons->getFloat("EtaC_pi",row);
+	RICH__hadrons_EtaC_k = RICH__hadrons->getFloat("EtaC_k",row);
+	RICH__hadrons_EtaC_pr = RICH__hadrons->getFloat("EtaC_pr",row);
+	RICH__hadrons_EtaC_min = RICH__hadrons->getFloat("EtaC_min",row);
+	RICH__hadrons_EtaC_max = RICH__hadrons->getFloat("EtaC_max",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DC__tdc(int row){
+	DC__tdc_sector = DC__tdc->getByte("sector",row);
+	DC__tdc_layer = DC__tdc->getByte("layer",row);
+	DC__tdc_component = DC__tdc->getShort("component",row);
+	DC__tdc_order = DC__tdc->getByte("order",row);
+	DC__tdc_TDC = DC__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BSTRec__Crosses(int row){
+	BSTRec__Crosses_ID = BSTRec__Crosses->getShort("ID",row);
+	BSTRec__Crosses_sector = BSTRec__Crosses->getByte("sector",row);
+	BSTRec__Crosses_region = BSTRec__Crosses->getByte("region",row);
+	BSTRec__Crosses_x = BSTRec__Crosses->getFloat("x",row);
+	BSTRec__Crosses_y = BSTRec__Crosses->getFloat("y",row);
+	BSTRec__Crosses_z = BSTRec__Crosses->getFloat("z",row);
+	BSTRec__Crosses_err_x = BSTRec__Crosses->getFloat("err_x",row);
+	BSTRec__Crosses_err_y = BSTRec__Crosses->getFloat("err_y",row);
+	BSTRec__Crosses_err_z = BSTRec__Crosses->getFloat("err_z",row);
+	BSTRec__Crosses_ux = BSTRec__Crosses->getFloat("ux",row);
+	BSTRec__Crosses_uy = BSTRec__Crosses->getFloat("uy",row);
+	BSTRec__Crosses_uz = BSTRec__Crosses->getFloat("uz",row);
+	BSTRec__Crosses_Cluster1_ID = BSTRec__Crosses->getShort("Cluster1_ID",row);
+	BSTRec__Crosses_Cluster2_ID = BSTRec__Crosses->getShort("Cluster2_ID",row);
+	BSTRec__Crosses_trkID = BSTRec__Crosses->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HTCC__rec(int row){
+	HTCC__rec_id = HTCC__rec->getShort("id",row);
+	HTCC__rec_nhits = HTCC__rec->getShort("nhits",row);
+	HTCC__rec_nphe = HTCC__rec->getFloat("nphe",row);
+	HTCC__rec_ntheta = HTCC__rec->getShort("ntheta",row);
+	HTCC__rec_nphi = HTCC__rec->getShort("nphi",row);
+	HTCC__rec_mintheta = HTCC__rec->getShort("mintheta",row);
+	HTCC__rec_maxtheta = HTCC__rec->getShort("maxtheta",row);
+	HTCC__rec_minphi = HTCC__rec->getShort("minphi",row);
+	HTCC__rec_maxphi = HTCC__rec->getShort("maxphi",row);
+	HTCC__rec_time = HTCC__rec->getFloat("time",row);
+	HTCC__rec_theta = HTCC__rec->getFloat("theta",row);
+	HTCC__rec_dtheta = HTCC__rec->getFloat("dtheta",row);
+	HTCC__rec_phi = HTCC__rec->getFloat("phi",row);
+	HTCC__rec_dphi = HTCC__rec->getFloat("dphi",row);
+	HTCC__rec_x = HTCC__rec->getFloat("x",row);
+	HTCC__rec_y = HTCC__rec->getFloat("y",row);
+	HTCC__rec_z = HTCC__rec->getFloat("z",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTHODO__adc(int row){
+	FTHODO__adc_sector = FTHODO__adc->getByte("sector",row);
+	FTHODO__adc_layer = FTHODO__adc->getByte("layer",row);
+	FTHODO__adc_component = FTHODO__adc->getShort("component",row);
+	FTHODO__adc_order = FTHODO__adc->getByte("order",row);
+	FTHODO__adc_ADC = FTHODO__adc->getInt("ADC",row);
+	FTHODO__adc_time = FTHODO__adc->getFloat("time",row);
+	FTHODO__adc_ped = FTHODO__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__matchedclusters(int row){
+	FTOF__matchedclusters_sector = FTOF__matchedclusters->getByte("sector",row);
+	FTOF__matchedclusters_paddle_id1A = FTOF__matchedclusters->getShort("paddle_id1A",row);
+	FTOF__matchedclusters_paddle_id1B = FTOF__matchedclusters->getShort("paddle_id1B",row);
+	FTOF__matchedclusters_clus_1Aid = FTOF__matchedclusters->getShort("clus_1Aid",row);
+	FTOF__matchedclusters_clus_1Bid = FTOF__matchedclusters->getShort("clus_1Bid",row);
+	FTOF__matchedclusters_clusSize_1A = FTOF__matchedclusters->getShort("clusSize_1A",row);
+	FTOF__matchedclusters_clusSize_1B = FTOF__matchedclusters->getShort("clusSize_1B",row);
+	FTOF__matchedclusters_tminAlgo_1B_tCorr = FTOF__matchedclusters->getFloat("tminAlgo_1B_tCorr",row);
+	FTOF__matchedclusters_midbarAlgo_1B_tCorr = FTOF__matchedclusters->getFloat("midbarAlgo_1B_tCorr",row);
+	FTOF__matchedclusters_EmaxAlgo_1B_tCorr = FTOF__matchedclusters->getFloat("EmaxAlgo_1B_tCorr",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__adc(int row){
+	ECAL__adc_sector = ECAL__adc->getByte("sector",row);
+	ECAL__adc_layer = ECAL__adc->getByte("layer",row);
+	ECAL__adc_component = ECAL__adc->getShort("component",row);
+	ECAL__adc_order = ECAL__adc->getByte("order",row);
+	ECAL__adc_ADC = ECAL__adc->getInt("ADC",row);
+	ECAL__adc_time = ECAL__adc->getFloat("time",row);
+	ECAL__adc_ped = ECAL__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FMT__adc(int row){
+	FMT__adc_sector = FMT__adc->getByte("sector",row);
+	FMT__adc_layer = FMT__adc->getByte("layer",row);
+	FMT__adc_component = FMT__adc->getShort("component",row);
+	FMT__adc_order = FMT__adc->getByte("order",row);
+	FMT__adc_ADC = FMT__adc->getInt("ADC",row);
+	FMT__adc_time = FMT__adc->getFloat("time",row);
+	FMT__adc_ped = FMT__adc->getShort("ped",row);
+	FMT__adc_integral = FMT__adc->getInt("integral",row);
+	FMT__adc_timestamp = FMT__adc->getLong("timestamp",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BMT__adc(int row){
+	BMT__adc_sector = BMT__adc->getByte("sector",row);
+	BMT__adc_layer = BMT__adc->getByte("layer",row);
+	BMT__adc_component = BMT__adc->getShort("component",row);
+	BMT__adc_order = BMT__adc->getByte("order",row);
+	BMT__adc_ADC = BMT__adc->getInt("ADC",row);
+	BMT__adc_time = BMT__adc->getFloat("time",row);
+	BMT__adc_ped = BMT__adc->getShort("ped",row);
+	BMT__adc_integral = BMT__adc->getInt("integral",row);
+	BMT__adc_timestamp = BMT__adc->getLong("timestamp",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__calib(int row){
+	ECAL__calib_sector = ECAL__calib->getByte("sector",row);
+	ECAL__calib_layer = ECAL__calib->getByte("layer",row);
+	ECAL__calib_energy = ECAL__calib->getFloat("energy",row);
+	ECAL__calib_rawEU = ECAL__calib->getFloat("rawEU",row);
+	ECAL__calib_rawEV = ECAL__calib->getFloat("rawEV",row);
+	ECAL__calib_rawEW = ECAL__calib->getFloat("rawEW",row);
+	ECAL__calib_recEU = ECAL__calib->getFloat("recEU",row);
+	ECAL__calib_recEV = ECAL__calib->getFloat("recEV",row);
+	ECAL__calib_recEW = ECAL__calib->getFloat("recEW",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BMTRec__Crosses(int row){
+	BMTRec__Crosses_ID = BMTRec__Crosses->getShort("ID",row);
+	BMTRec__Crosses_sector = BMTRec__Crosses->getByte("sector",row);
+	BMTRec__Crosses_region = BMTRec__Crosses->getByte("region",row);
+	BMTRec__Crosses_x = BMTRec__Crosses->getFloat("x",row);
+	BMTRec__Crosses_y = BMTRec__Crosses->getFloat("y",row);
+	BMTRec__Crosses_z = BMTRec__Crosses->getFloat("z",row);
+	BMTRec__Crosses_err_x = BMTRec__Crosses->getFloat("err_x",row);
+	BMTRec__Crosses_err_y = BMTRec__Crosses->getFloat("err_y",row);
+	BMTRec__Crosses_err_z = BMTRec__Crosses->getFloat("err_z",row);
+	BMTRec__Crosses_ux = BMTRec__Crosses->getFloat("ux",row);
+	BMTRec__Crosses_uy = BMTRec__Crosses->getFloat("uy",row);
+	BMTRec__Crosses_uz = BMTRec__Crosses->getFloat("uz",row);
+	BMTRec__Crosses_Cluster1_ID = BMTRec__Crosses->getShort("Cluster1_ID",row);
+	BMTRec__Crosses_Cluster2_ID = BMTRec__Crosses->getShort("Cluster2_ID",row);
+	BMTRec__Crosses_trkID = BMTRec__Crosses->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RUN__rf(int row){
+	RUN__rf_id = RUN__rf->getShort("id",row);
+	RUN__rf_time = RUN__rf->getFloat("time",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BSTRec__Hits(int row){
+	BSTRec__Hits_ID = BSTRec__Hits->getShort("ID",row);
+	BSTRec__Hits_sector = BSTRec__Hits->getByte("sector",row);
+	BSTRec__Hits_layer = BSTRec__Hits->getByte("layer",row);
+	BSTRec__Hits_strip = BSTRec__Hits->getInt("strip",row);
+	BSTRec__Hits_fitResidual = BSTRec__Hits->getFloat("fitResidual",row);
+	BSTRec__Hits_trkingStat = BSTRec__Hits->getInt("trkingStat",row);
+	BSTRec__Hits_clusterID = BSTRec__Hits->getShort("clusterID",row);
+	BSTRec__Hits_trkID = BSTRec__Hits->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBSegmentTrajectory(int row){
+	HitBasedTrkg__HBSegmentTrajectory_segmentID = HitBasedTrkg__HBSegmentTrajectory->getShort("segmentID",row);
+	HitBasedTrkg__HBSegmentTrajectory_sector = HitBasedTrkg__HBSegmentTrajectory->getByte("sector",row);
+	HitBasedTrkg__HBSegmentTrajectory_superlayer = HitBasedTrkg__HBSegmentTrajectory->getByte("superlayer",row);
+	HitBasedTrkg__HBSegmentTrajectory_layer = HitBasedTrkg__HBSegmentTrajectory->getByte("layer",row);
+	HitBasedTrkg__HBSegmentTrajectory_matchedHitID = HitBasedTrkg__HBSegmentTrajectory->getShort("matchedHitID",row);
+	HitBasedTrkg__HBSegmentTrajectory_trkDoca = HitBasedTrkg__HBSegmentTrajectory->getFloat("trkDoca",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_LTCC__adc(int row){
+	LTCC__adc_sector = LTCC__adc->getByte("sector",row);
+	LTCC__adc_layer = LTCC__adc->getByte("layer",row);
+	LTCC__adc_component = LTCC__adc->getShort("component",row);
+	LTCC__adc_order = LTCC__adc->getByte("order",row);
+	LTCC__adc_ADC = LTCC__adc->getInt("ADC",row);
+	LTCC__adc_time = LTCC__adc->getFloat("time",row);
+	LTCC__adc_ped = LTCC__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CND__tdc(int row){
+	CND__tdc_sector = CND__tdc->getByte("sector",row);
+	CND__tdc_layer = CND__tdc->getByte("layer",row);
+	CND__tdc_component = CND__tdc->getShort("component",row);
+	CND__tdc_order = CND__tdc->getByte("order",row);
+	CND__tdc_TDC = CND__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HTCC__adc(int row){
+	HTCC__adc_sector = HTCC__adc->getByte("sector",row);
+	HTCC__adc_layer = HTCC__adc->getByte("layer",row);
+	HTCC__adc_component = HTCC__adc->getShort("component",row);
+	HTCC__adc_order = HTCC__adc->getByte("order",row);
+	HTCC__adc_ADC = HTCC__adc->getInt("ADC",row);
+	HTCC__adc_time = HTCC__adc->getFloat("time",row);
+	HTCC__adc_ped = HTCC__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RAW__vtp(int row){
+	RAW__vtp_crate = RAW__vtp->getByte("crate",row);
+	RAW__vtp_word = RAW__vtp->getInt("word",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CVTRec__Tracks(int row){
+	CVTRec__Tracks_ID = CVTRec__Tracks->getShort("ID",row);
+	CVTRec__Tracks_fittingMethod = CVTRec__Tracks->getByte("fittingMethod",row);
+	CVTRec__Tracks_c_x = CVTRec__Tracks->getFloat("c_x",row);
+	CVTRec__Tracks_c_y = CVTRec__Tracks->getFloat("c_y",row);
+	CVTRec__Tracks_c_z = CVTRec__Tracks->getFloat("c_z",row);
+	CVTRec__Tracks_c_ux = CVTRec__Tracks->getFloat("c_ux",row);
+	CVTRec__Tracks_c_uy = CVTRec__Tracks->getFloat("c_uy",row);
+	CVTRec__Tracks_c_uz = CVTRec__Tracks->getFloat("c_uz",row);
+	CVTRec__Tracks_pathlength = CVTRec__Tracks->getFloat("pathlength",row);
+	CVTRec__Tracks_q = CVTRec__Tracks->getByte("q",row);
+	CVTRec__Tracks_p = CVTRec__Tracks->getFloat("p",row);
+	CVTRec__Tracks_pt = CVTRec__Tracks->getFloat("pt",row);
+	CVTRec__Tracks_phi0 = CVTRec__Tracks->getFloat("phi0",row);
+	CVTRec__Tracks_tandip = CVTRec__Tracks->getFloat("tandip",row);
+	CVTRec__Tracks_z0 = CVTRec__Tracks->getFloat("z0",row);
+	CVTRec__Tracks_d0 = CVTRec__Tracks->getFloat("d0",row);
+	CVTRec__Tracks_cov_d02 = CVTRec__Tracks->getFloat("cov_d02",row);
+	CVTRec__Tracks_cov_d0phi0 = CVTRec__Tracks->getFloat("cov_d0phi0",row);
+	CVTRec__Tracks_cov_d0rho = CVTRec__Tracks->getFloat("cov_d0rho",row);
+	CVTRec__Tracks_cov_phi02 = CVTRec__Tracks->getFloat("cov_phi02",row);
+	CVTRec__Tracks_cov_phi0rho = CVTRec__Tracks->getFloat("cov_phi0rho",row);
+	CVTRec__Tracks_cov_rho2 = CVTRec__Tracks->getFloat("cov_rho2",row);
+	CVTRec__Tracks_cov_z02 = CVTRec__Tracks->getFloat("cov_z02",row);
+	CVTRec__Tracks_cov_tandip2 = CVTRec__Tracks->getFloat("cov_tandip2",row);
+	CVTRec__Tracks_circlefit_chi2_per_ndf = CVTRec__Tracks->getFloat("circlefit_chi2_per_ndf",row);
+	CVTRec__Tracks_linefit_chi2_per_ndf = CVTRec__Tracks->getFloat("linefit_chi2_per_ndf",row);
+	CVTRec__Tracks_chi2 = CVTRec__Tracks->getFloat("chi2",row);
+	CVTRec__Tracks_ndf = CVTRec__Tracks->getShort("ndf",row);
+	CVTRec__Tracks_Cross1_ID = CVTRec__Tracks->getShort("Cross1_ID",row);
+	CVTRec__Tracks_Cross2_ID = CVTRec__Tracks->getShort("Cross2_ID",row);
+	CVTRec__Tracks_Cross3_ID = CVTRec__Tracks->getShort("Cross3_ID",row);
+	CVTRec__Tracks_Cross4_ID = CVTRec__Tracks->getShort("Cross4_ID",row);
+	CVTRec__Tracks_Cross5_ID = CVTRec__Tracks->getShort("Cross5_ID",row);
+	CVTRec__Tracks_Cross6_ID = CVTRec__Tracks->getShort("Cross6_ID",row);
+	CVTRec__Tracks_Cross7_ID = CVTRec__Tracks->getShort("Cross7_ID",row);
+	CVTRec__Tracks_Cross8_ID = CVTRec__Tracks->getShort("Cross8_ID",row);
+	CVTRec__Tracks_Cross9_ID = CVTRec__Tracks->getShort("Cross9_ID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECFT__Particle(int row){
+	RECFT__Particle_pid = RECFT__Particle->getInt("pid",row);
+	RECFT__Particle_beta = RECFT__Particle->getFloat("beta",row);
+	RECFT__Particle_chi2pid = RECFT__Particle->getFloat("chi2pid",row);
+	RECFT__Particle_status = RECFT__Particle->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBTracks(int row){
+	TimeBasedTrkg__TBTracks_id = TimeBasedTrkg__TBTracks->getShort("id",row);
+	TimeBasedTrkg__TBTracks_status = TimeBasedTrkg__TBTracks->getShort("status",row);
+	TimeBasedTrkg__TBTracks_sector = TimeBasedTrkg__TBTracks->getByte("sector",row);
+	TimeBasedTrkg__TBTracks_c1_x = TimeBasedTrkg__TBTracks->getFloat("c1_x",row);
+	TimeBasedTrkg__TBTracks_c1_y = TimeBasedTrkg__TBTracks->getFloat("c1_y",row);
+	TimeBasedTrkg__TBTracks_c1_z = TimeBasedTrkg__TBTracks->getFloat("c1_z",row);
+	TimeBasedTrkg__TBTracks_c1_ux = TimeBasedTrkg__TBTracks->getFloat("c1_ux",row);
+	TimeBasedTrkg__TBTracks_c1_uy = TimeBasedTrkg__TBTracks->getFloat("c1_uy",row);
+	TimeBasedTrkg__TBTracks_c1_uz = TimeBasedTrkg__TBTracks->getFloat("c1_uz",row);
+	TimeBasedTrkg__TBTracks_c3_x = TimeBasedTrkg__TBTracks->getFloat("c3_x",row);
+	TimeBasedTrkg__TBTracks_c3_y = TimeBasedTrkg__TBTracks->getFloat("c3_y",row);
+	TimeBasedTrkg__TBTracks_c3_z = TimeBasedTrkg__TBTracks->getFloat("c3_z",row);
+	TimeBasedTrkg__TBTracks_c3_ux = TimeBasedTrkg__TBTracks->getFloat("c3_ux",row);
+	TimeBasedTrkg__TBTracks_c3_uy = TimeBasedTrkg__TBTracks->getFloat("c3_uy",row);
+	TimeBasedTrkg__TBTracks_c3_uz = TimeBasedTrkg__TBTracks->getFloat("c3_uz",row);
+	TimeBasedTrkg__TBTracks_t1_x = TimeBasedTrkg__TBTracks->getFloat("t1_x",row);
+	TimeBasedTrkg__TBTracks_t1_y = TimeBasedTrkg__TBTracks->getFloat("t1_y",row);
+	TimeBasedTrkg__TBTracks_t1_z = TimeBasedTrkg__TBTracks->getFloat("t1_z",row);
+	TimeBasedTrkg__TBTracks_t1_px = TimeBasedTrkg__TBTracks->getFloat("t1_px",row);
+	TimeBasedTrkg__TBTracks_t1_py = TimeBasedTrkg__TBTracks->getFloat("t1_py",row);
+	TimeBasedTrkg__TBTracks_t1_pz = TimeBasedTrkg__TBTracks->getFloat("t1_pz",row);
+	TimeBasedTrkg__TBTracks_Vtx0_x = TimeBasedTrkg__TBTracks->getFloat("Vtx0_x",row);
+	TimeBasedTrkg__TBTracks_Vtx0_y = TimeBasedTrkg__TBTracks->getFloat("Vtx0_y",row);
+	TimeBasedTrkg__TBTracks_Vtx0_z = TimeBasedTrkg__TBTracks->getFloat("Vtx0_z",row);
+	TimeBasedTrkg__TBTracks_p0_x = TimeBasedTrkg__TBTracks->getFloat("p0_x",row);
+	TimeBasedTrkg__TBTracks_p0_y = TimeBasedTrkg__TBTracks->getFloat("p0_y",row);
+	TimeBasedTrkg__TBTracks_p0_z = TimeBasedTrkg__TBTracks->getFloat("p0_z",row);
+	TimeBasedTrkg__TBTracks_Cross1_ID = TimeBasedTrkg__TBTracks->getShort("Cross1_ID",row);
+	TimeBasedTrkg__TBTracks_Cross2_ID = TimeBasedTrkg__TBTracks->getShort("Cross2_ID",row);
+	TimeBasedTrkg__TBTracks_Cross3_ID = TimeBasedTrkg__TBTracks->getShort("Cross3_ID",row);
+	TimeBasedTrkg__TBTracks_q = TimeBasedTrkg__TBTracks->getByte("q",row);
+	TimeBasedTrkg__TBTracks_pathlength = TimeBasedTrkg__TBTracks->getFloat("pathlength",row);
+	TimeBasedTrkg__TBTracks_chi2 = TimeBasedTrkg__TBTracks->getFloat("chi2",row);
+	TimeBasedTrkg__TBTracks_ndf = TimeBasedTrkg__TBTracks->getShort("ndf",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DETECTOR__icpb(int row){
+	DETECTOR__icpb_etc = DETECTOR__icpb->getFloat("etc",row);
+	DETECTOR__icpb_ecc = DETECTOR__icpb->getFloat("ecc",row);
+	DETECTOR__icpb_tc = DETECTOR__icpb->getFloat("tc",row);
+	DETECTOR__icpb_xc = DETECTOR__icpb->getFloat("xc",row);
+	DETECTOR__icpb_yc = DETECTOR__icpb->getFloat("yc",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RF__tdc(int row){
+	RF__tdc_sector = RF__tdc->getByte("sector",row);
+	RF__tdc_layer = RF__tdc->getByte("layer",row);
+	RF__tdc_component = RF__tdc->getShort("component",row);
+	RF__tdc_order = RF__tdc->getByte("order",row);
+	RF__tdc_TDC = RF__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HEADER__info(int row){
+	HEADER__info_nrun = HEADER__info->getInt("nrun",row);
+	HEADER__info_nevt = HEADER__info->getInt("nevt",row);
+	HEADER__info_trigger = HEADER__info->getInt("trigger",row);
+	HEADER__info_helicity = HEADER__info->getByte("helicity",row);
+	HEADER__info_fc = HEADER__info->getFloat("fc",row);
+	HEADER__info_fcg = HEADER__info->getFloat("fcg",row);
+	HEADER__info_stt = HEADER__info->getFloat("stt",row);
+	HEADER__info_rastr1 = HEADER__info->getShort("rastr1",row);
+	HEADER__info_rastr2 = HEADER__info->getShort("rastr2",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTCAL__clusters(int row){
+	FTCAL__clusters_size = FTCAL__clusters->getShort("size",row);
+	FTCAL__clusters_id = FTCAL__clusters->getShort("id",row);
+	FTCAL__clusters_x = FTCAL__clusters->getFloat("x",row);
+	FTCAL__clusters_y = FTCAL__clusters->getFloat("y",row);
+	FTCAL__clusters_z = FTCAL__clusters->getFloat("z",row);
+	FTCAL__clusters_widthX = FTCAL__clusters->getFloat("widthX",row);
+	FTCAL__clusters_widthY = FTCAL__clusters->getFloat("widthY",row);
+	FTCAL__clusters_radius = FTCAL__clusters->getFloat("radius",row);
+	FTCAL__clusters_time = FTCAL__clusters->getFloat("time",row);
+	FTCAL__clusters_energy = FTCAL__clusters->getFloat("energy",row);
+	FTCAL__clusters_maxEnergy = FTCAL__clusters->getFloat("maxEnergy",row);
+	FTCAL__clusters_recEnergy = FTCAL__clusters->getFloat("recEnergy",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RAW__scaler(int row){
+	RAW__scaler_crate = RAW__scaler->getByte("crate",row);
+	RAW__scaler_slot = RAW__scaler->getByte("slot",row);
+	RAW__scaler_channel = RAW__scaler->getShort("channel",row);
+	RAW__scaler_helicity = RAW__scaler->getByte("helicity",row);
+	RAW__scaler_quartet = RAW__scaler->getByte("quartet",row);
+	RAW__scaler_value = RAW__scaler->getLong("value",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BMTRec__Clusters(int row){
+	BMTRec__Clusters_ID = BMTRec__Clusters->getShort("ID",row);
+	BMTRec__Clusters_sector = BMTRec__Clusters->getByte("sector",row);
+	BMTRec__Clusters_layer = BMTRec__Clusters->getByte("layer",row);
+	BMTRec__Clusters_size = BMTRec__Clusters->getShort("size",row);
+	BMTRec__Clusters_ETot = BMTRec__Clusters->getFloat("ETot",row);
+	BMTRec__Clusters_seedE = BMTRec__Clusters->getFloat("seedE",row);
+	BMTRec__Clusters_seedStrip = BMTRec__Clusters->getInt("seedStrip",row);
+	BMTRec__Clusters_centroid = BMTRec__Clusters->getFloat("centroid",row);
+	BMTRec__Clusters_centroidResidual = BMTRec__Clusters->getFloat("centroidResidual",row);
+	BMTRec__Clusters_seedResidual = BMTRec__Clusters->getFloat("seedResidual",row);
+	BMTRec__Clusters_Hit1_ID = BMTRec__Clusters->getShort("Hit1_ID",row);
+	BMTRec__Clusters_Hit2_ID = BMTRec__Clusters->getShort("Hit2_ID",row);
+	BMTRec__Clusters_Hit3_ID = BMTRec__Clusters->getShort("Hit3_ID",row);
+	BMTRec__Clusters_Hit4_ID = BMTRec__Clusters->getShort("Hit4_ID",row);
+	BMTRec__Clusters_Hit5_ID = BMTRec__Clusters->getShort("Hit5_ID",row);
+	BMTRec__Clusters_trkID = BMTRec__Clusters->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBSegments(int row){
+	TimeBasedTrkg__TBSegments_id = TimeBasedTrkg__TBSegments->getShort("id",row);
+	TimeBasedTrkg__TBSegments_status = TimeBasedTrkg__TBSegments->getShort("status",row);
+	TimeBasedTrkg__TBSegments_sector = TimeBasedTrkg__TBSegments->getByte("sector",row);
+	TimeBasedTrkg__TBSegments_superlayer = TimeBasedTrkg__TBSegments->getByte("superlayer",row);
+	TimeBasedTrkg__TBSegments_Cluster_ID = TimeBasedTrkg__TBSegments->getShort("Cluster_ID",row);
+	TimeBasedTrkg__TBSegments_Hit1_ID = TimeBasedTrkg__TBSegments->getShort("Hit1_ID",row);
+	TimeBasedTrkg__TBSegments_Hit2_ID = TimeBasedTrkg__TBSegments->getShort("Hit2_ID",row);
+	TimeBasedTrkg__TBSegments_Hit3_ID = TimeBasedTrkg__TBSegments->getShort("Hit3_ID",row);
+	TimeBasedTrkg__TBSegments_Hit4_ID = TimeBasedTrkg__TBSegments->getShort("Hit4_ID",row);
+	TimeBasedTrkg__TBSegments_Hit5_ID = TimeBasedTrkg__TBSegments->getShort("Hit5_ID",row);
+	TimeBasedTrkg__TBSegments_Hit6_ID = TimeBasedTrkg__TBSegments->getShort("Hit6_ID",row);
+	TimeBasedTrkg__TBSegments_Hit7_ID = TimeBasedTrkg__TBSegments->getShort("Hit7_ID",row);
+	TimeBasedTrkg__TBSegments_Hit8_ID = TimeBasedTrkg__TBSegments->getShort("Hit8_ID",row);
+	TimeBasedTrkg__TBSegments_Hit9_ID = TimeBasedTrkg__TBSegments->getShort("Hit9_ID",row);
+	TimeBasedTrkg__TBSegments_Hit10_ID = TimeBasedTrkg__TBSegments->getShort("Hit10_ID",row);
+	TimeBasedTrkg__TBSegments_Hit11_ID = TimeBasedTrkg__TBSegments->getShort("Hit11_ID",row);
+	TimeBasedTrkg__TBSegments_Hit12_ID = TimeBasedTrkg__TBSegments->getShort("Hit12_ID",row);
+	TimeBasedTrkg__TBSegments_avgWire = TimeBasedTrkg__TBSegments->getFloat("avgWire",row);
+	TimeBasedTrkg__TBSegments_fitChisqProb = TimeBasedTrkg__TBSegments->getFloat("fitChisqProb",row);
+	TimeBasedTrkg__TBSegments_fitSlope = TimeBasedTrkg__TBSegments->getFloat("fitSlope",row);
+	TimeBasedTrkg__TBSegments_fitSlopeErr = TimeBasedTrkg__TBSegments->getFloat("fitSlopeErr",row);
+	TimeBasedTrkg__TBSegments_fitInterc = TimeBasedTrkg__TBSegments->getFloat("fitInterc",row);
+	TimeBasedTrkg__TBSegments_fitIntercErr = TimeBasedTrkg__TBSegments->getFloat("fitIntercErr",row);
+	TimeBasedTrkg__TBSegments_SegEndPoint1X = TimeBasedTrkg__TBSegments->getFloat("SegEndPoint1X",row);
+	TimeBasedTrkg__TBSegments_SegEndPoint1Z = TimeBasedTrkg__TBSegments->getFloat("SegEndPoint1Z",row);
+	TimeBasedTrkg__TBSegments_SegEndPoint2X = TimeBasedTrkg__TBSegments->getFloat("SegEndPoint2X",row);
+	TimeBasedTrkg__TBSegments_SegEndPoint2Z = TimeBasedTrkg__TBSegments->getFloat("SegEndPoint2Z",row);
+	TimeBasedTrkg__TBSegments_resiSum = TimeBasedTrkg__TBSegments->getFloat("resiSum",row);
+	TimeBasedTrkg__TBSegments_timeSum = TimeBasedTrkg__TBSegments->getFloat("timeSum",row);
+	TimeBasedTrkg__TBSegments_size = TimeBasedTrkg__TBSegments->getByte("size",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__ForwardTagger(int row){
+	RECHB__ForwardTagger_index = RECHB__ForwardTagger->getShort("index",row);
+	RECHB__ForwardTagger_pindex = RECHB__ForwardTagger->getShort("pindex",row);
+	RECHB__ForwardTagger_detector = RECHB__ForwardTagger->getByte("detector",row);
+	RECHB__ForwardTagger_layer = RECHB__ForwardTagger->getByte("layer",row);
+	RECHB__ForwardTagger_energy = RECHB__ForwardTagger->getFloat("energy",row);
+	RECHB__ForwardTagger_time = RECHB__ForwardTagger->getFloat("time",row);
+	RECHB__ForwardTagger_path = RECHB__ForwardTagger->getFloat("path",row);
+	RECHB__ForwardTagger_chi2 = RECHB__ForwardTagger->getFloat("chi2",row);
+	RECHB__ForwardTagger_x = RECHB__ForwardTagger->getFloat("x",row);
+	RECHB__ForwardTagger_y = RECHB__ForwardTagger->getFloat("y",row);
+	RECHB__ForwardTagger_z = RECHB__ForwardTagger->getFloat("z",row);
+	RECHB__ForwardTagger_dx = RECHB__ForwardTagger->getFloat("dx",row);
+	RECHB__ForwardTagger_dy = RECHB__ForwardTagger->getFloat("dy",row);
+	RECHB__ForwardTagger_radius = RECHB__ForwardTagger->getFloat("radius",row);
+	RECHB__ForwardTagger_size = RECHB__ForwardTagger->getShort("size",row);
+	RECHB__ForwardTagger_status = RECHB__ForwardTagger->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Calorimeter(int row){
+	REC__Calorimeter_index = REC__Calorimeter->getShort("index",row);
+	REC__Calorimeter_pindex = REC__Calorimeter->getShort("pindex",row);
+	REC__Calorimeter_detector = REC__Calorimeter->getByte("detector",row);
+	REC__Calorimeter_sector = REC__Calorimeter->getByte("sector",row);
+	REC__Calorimeter_layer = REC__Calorimeter->getByte("layer",row);
+	REC__Calorimeter_energy = REC__Calorimeter->getFloat("energy",row);
+	REC__Calorimeter_time = REC__Calorimeter->getFloat("time",row);
+	REC__Calorimeter_path = REC__Calorimeter->getFloat("path",row);
+	REC__Calorimeter_chi2 = REC__Calorimeter->getFloat("chi2",row);
+	REC__Calorimeter_x = REC__Calorimeter->getFloat("x",row);
+	REC__Calorimeter_y = REC__Calorimeter->getFloat("y",row);
+	REC__Calorimeter_z = REC__Calorimeter->getFloat("z",row);
+	REC__Calorimeter_hx = REC__Calorimeter->getFloat("hx",row);
+	REC__Calorimeter_hy = REC__Calorimeter->getFloat("hy",row);
+	REC__Calorimeter_hz = REC__Calorimeter->getFloat("hz",row);
+	REC__Calorimeter_lu = REC__Calorimeter->getFloat("lu",row);
+	REC__Calorimeter_lv = REC__Calorimeter->getFloat("lv",row);
+	REC__Calorimeter_lw = REC__Calorimeter->getFloat("lw",row);
+	REC__Calorimeter_du = REC__Calorimeter->getFloat("du",row);
+	REC__Calorimeter_dv = REC__Calorimeter->getFloat("dv",row);
+	REC__Calorimeter_dw = REC__Calorimeter->getFloat("dw",row);
+	REC__Calorimeter_m2u = REC__Calorimeter->getFloat("m2u",row);
+	REC__Calorimeter_m2v = REC__Calorimeter->getFloat("m2v",row);
+	REC__Calorimeter_m2w = REC__Calorimeter->getFloat("m2w",row);
+	REC__Calorimeter_m3u = REC__Calorimeter->getFloat("m3u",row);
+	REC__Calorimeter_m3v = REC__Calorimeter->getFloat("m3v",row);
+	REC__Calorimeter_m3w = REC__Calorimeter->getFloat("m3w",row);
+	REC__Calorimeter_status = REC__Calorimeter->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__CovMat(int row){
+	REC__CovMat_index = REC__CovMat->getShort("index",row);
+	REC__CovMat_pindex = REC__CovMat->getShort("pindex",row);
+	REC__CovMat_C11 = REC__CovMat->getFloat("C11",row);
+	REC__CovMat_C12 = REC__CovMat->getFloat("C12",row);
+	REC__CovMat_C13 = REC__CovMat->getFloat("C13",row);
+	REC__CovMat_C14 = REC__CovMat->getFloat("C14",row);
+	REC__CovMat_C15 = REC__CovMat->getFloat("C15",row);
+	REC__CovMat_C22 = REC__CovMat->getFloat("C22",row);
+	REC__CovMat_C23 = REC__CovMat->getFloat("C23",row);
+	REC__CovMat_C24 = REC__CovMat->getFloat("C24",row);
+	REC__CovMat_C25 = REC__CovMat->getFloat("C25",row);
+	REC__CovMat_C33 = REC__CovMat->getFloat("C33",row);
+	REC__CovMat_C34 = REC__CovMat->getFloat("C34",row);
+	REC__CovMat_C35 = REC__CovMat->getFloat("C35",row);
+	REC__CovMat_C44 = REC__CovMat->getFloat("C44",row);
+	REC__CovMat_C45 = REC__CovMat->getFloat("C45",row);
+	REC__CovMat_C55 = REC__CovMat->getFloat("C55",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RAW__epics(int row){
+	RAW__epics_json = RAW__epics->getByte("json",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__VertDoca(int row){
+	REC__VertDoca_index1 = REC__VertDoca->getShort("index1",row);
+	REC__VertDoca_index2 = REC__VertDoca->getShort("index2",row);
+	REC__VertDoca_x = REC__VertDoca->getFloat("x",row);
+	REC__VertDoca_y = REC__VertDoca->getFloat("y",row);
+	REC__VertDoca_z = REC__VertDoca->getFloat("z",row);
+	REC__VertDoca_x1 = REC__VertDoca->getFloat("x1",row);
+	REC__VertDoca_y1 = REC__VertDoca->getFloat("y1",row);
+	REC__VertDoca_z1 = REC__VertDoca->getFloat("z1",row);
+	REC__VertDoca_cx1 = REC__VertDoca->getFloat("cx1",row);
+	REC__VertDoca_cy1 = REC__VertDoca->getFloat("cy1",row);
+	REC__VertDoca_cz1 = REC__VertDoca->getFloat("cz1",row);
+	REC__VertDoca_x2 = REC__VertDoca->getFloat("x2",row);
+	REC__VertDoca_y2 = REC__VertDoca->getFloat("y2",row);
+	REC__VertDoca_z2 = REC__VertDoca->getFloat("z2",row);
+	REC__VertDoca_cx2 = REC__VertDoca->getFloat("cx2",row);
+	REC__VertDoca_cy2 = REC__VertDoca->getFloat("cy2",row);
+	REC__VertDoca_cz2 = REC__VertDoca->getFloat("cz2",row);
+	REC__VertDoca_r = REC__VertDoca->getFloat("r",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTHODO__clusters(int row){
+	FTHODO__clusters_size = FTHODO__clusters->getShort("size",row);
+	FTHODO__clusters_id = FTHODO__clusters->getShort("id",row);
+	FTHODO__clusters_x = FTHODO__clusters->getFloat("x",row);
+	FTHODO__clusters_y = FTHODO__clusters->getFloat("y",row);
+	FTHODO__clusters_z = FTHODO__clusters->getFloat("z",row);
+	FTHODO__clusters_widthX = FTHODO__clusters->getFloat("widthX",row);
+	FTHODO__clusters_widthY = FTHODO__clusters->getFloat("widthY",row);
+	FTHODO__clusters_radius = FTHODO__clusters->getFloat("radius",row);
+	FTHODO__clusters_time = FTHODO__clusters->getFloat("time",row);
+	FTHODO__clusters_energy = FTHODO__clusters->getFloat("energy",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RUN__scaler(int row){
+	RUN__scaler_fcupgated = RUN__scaler->getFloat("fcupgated",row);
+	RUN__scaler_fcup = RUN__scaler->getFloat("fcup",row);
+	RUN__scaler_livetime = RUN__scaler->getFloat("livetime",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BAND__hits(int row){
+	BAND__hits_id = BAND__hits->getShort("id",row);
+	BAND__hits_sector = BAND__hits->getByte("sector",row);
+	BAND__hits_layer = BAND__hits->getByte("layer",row);
+	BAND__hits_component = BAND__hits->getShort("component",row);
+	BAND__hits_meantimeTdc = BAND__hits->getFloat("meantimeTdc",row);
+	BAND__hits_meantimeFadc = BAND__hits->getFloat("meantimeFadc",row);
+	BAND__hits_difftimeTdc = BAND__hits->getFloat("difftimeTdc",row);
+	BAND__hits_difftimeFadc = BAND__hits->getFloat("difftimeFadc",row);
+	BAND__hits_adcLcorr = BAND__hits->getFloat("adcLcorr",row);
+	BAND__hits_adcRcorr = BAND__hits->getFloat("adcRcorr",row);
+	BAND__hits_tFadcLcorr = BAND__hits->getFloat("tFadcLcorr",row);
+	BAND__hits_tFadcRcorr = BAND__hits->getFloat("tFadcRcorr",row);
+	BAND__hits_tTdcLcorr = BAND__hits->getFloat("tTdcLcorr",row);
+	BAND__hits_tTdcRcorr = BAND__hits->getFloat("tTdcRcorr",row);
+	BAND__hits_x = BAND__hits->getFloat("x",row);
+	BAND__hits_y = BAND__hits->getFloat("y",row);
+	BAND__hits_z = BAND__hits->getFloat("z",row);
+	BAND__hits_ux = BAND__hits->getFloat("ux",row);
+	BAND__hits_uy = BAND__hits->getFloat("uy",row);
+	BAND__hits_uz = BAND__hits->getFloat("uz",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__hits(int row){
+	ECAL__hits_id = ECAL__hits->getShort("id",row);
+	ECAL__hits_status = ECAL__hits->getShort("status",row);
+	ECAL__hits_sector = ECAL__hits->getByte("sector",row);
+	ECAL__hits_layer = ECAL__hits->getByte("layer",row);
+	ECAL__hits_strip = ECAL__hits->getByte("strip",row);
+	ECAL__hits_peakid = ECAL__hits->getByte("peakid",row);
+	ECAL__hits_energy = ECAL__hits->getFloat("energy",row);
+	ECAL__hits_time = ECAL__hits->getFloat("time",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__clusters(int row){
+	ECAL__clusters_id = ECAL__clusters->getShort("id",row);
+	ECAL__clusters_status = ECAL__clusters->getShort("status",row);
+	ECAL__clusters_sector = ECAL__clusters->getByte("sector",row);
+	ECAL__clusters_layer = ECAL__clusters->getByte("layer",row);
+	ECAL__clusters_x = ECAL__clusters->getFloat("x",row);
+	ECAL__clusters_y = ECAL__clusters->getFloat("y",row);
+	ECAL__clusters_z = ECAL__clusters->getFloat("z",row);
+	ECAL__clusters_energy = ECAL__clusters->getFloat("energy",row);
+	ECAL__clusters_time = ECAL__clusters->getFloat("time",row);
+	ECAL__clusters_widthU = ECAL__clusters->getFloat("widthU",row);
+	ECAL__clusters_widthV = ECAL__clusters->getFloat("widthV",row);
+	ECAL__clusters_widthW = ECAL__clusters->getFloat("widthW",row);
+	ECAL__clusters_idU = ECAL__clusters->getByte("idU",row);
+	ECAL__clusters_idV = ECAL__clusters->getByte("idV",row);
+	ECAL__clusters_idW = ECAL__clusters->getByte("idW",row);
+	ECAL__clusters_coordU = ECAL__clusters->getInt("coordU",row);
+	ECAL__clusters_coordV = ECAL__clusters->getInt("coordV",row);
+	ECAL__clusters_coordW = ECAL__clusters->getInt("coordW",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FT__particles(int row){
+	FT__particles_id = FT__particles->getShort("id",row);
+	FT__particles_charge = FT__particles->getByte("charge",row);
+	FT__particles_energy = FT__particles->getFloat("energy",row);
+	FT__particles_cx = FT__particles->getFloat("cx",row);
+	FT__particles_cy = FT__particles->getFloat("cy",row);
+	FT__particles_cz = FT__particles->getFloat("cz",row);
+	FT__particles_time = FT__particles->getFloat("time",row);
+	FT__particles_calID = FT__particles->getShort("calID",row);
+	FT__particles_hodoID = FT__particles->getShort("hodoID",row);
+	FT__particles_trkID = FT__particles->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBClusters(int row){
+	HitBasedTrkg__HBClusters_id = HitBasedTrkg__HBClusters->getShort("id",row);
+	HitBasedTrkg__HBClusters_status = HitBasedTrkg__HBClusters->getShort("status",row);
+	HitBasedTrkg__HBClusters_sector = HitBasedTrkg__HBClusters->getByte("sector",row);
+	HitBasedTrkg__HBClusters_superlayer = HitBasedTrkg__HBClusters->getByte("superlayer",row);
+	HitBasedTrkg__HBClusters_Hit1_ID = HitBasedTrkg__HBClusters->getShort("Hit1_ID",row);
+	HitBasedTrkg__HBClusters_Hit2_ID = HitBasedTrkg__HBClusters->getShort("Hit2_ID",row);
+	HitBasedTrkg__HBClusters_Hit3_ID = HitBasedTrkg__HBClusters->getShort("Hit3_ID",row);
+	HitBasedTrkg__HBClusters_Hit4_ID = HitBasedTrkg__HBClusters->getShort("Hit4_ID",row);
+	HitBasedTrkg__HBClusters_Hit5_ID = HitBasedTrkg__HBClusters->getShort("Hit5_ID",row);
+	HitBasedTrkg__HBClusters_Hit6_ID = HitBasedTrkg__HBClusters->getShort("Hit6_ID",row);
+	HitBasedTrkg__HBClusters_Hit7_ID = HitBasedTrkg__HBClusters->getShort("Hit7_ID",row);
+	HitBasedTrkg__HBClusters_Hit8_ID = HitBasedTrkg__HBClusters->getShort("Hit8_ID",row);
+	HitBasedTrkg__HBClusters_Hit9_ID = HitBasedTrkg__HBClusters->getShort("Hit9_ID",row);
+	HitBasedTrkg__HBClusters_Hit10_ID = HitBasedTrkg__HBClusters->getShort("Hit10_ID",row);
+	HitBasedTrkg__HBClusters_Hit11_ID = HitBasedTrkg__HBClusters->getShort("Hit11_ID",row);
+	HitBasedTrkg__HBClusters_Hit12_ID = HitBasedTrkg__HBClusters->getShort("Hit12_ID",row);
+	HitBasedTrkg__HBClusters_avgWire = HitBasedTrkg__HBClusters->getFloat("avgWire",row);
+	HitBasedTrkg__HBClusters_fitChisqProb = HitBasedTrkg__HBClusters->getFloat("fitChisqProb",row);
+	HitBasedTrkg__HBClusters_fitSlope = HitBasedTrkg__HBClusters->getFloat("fitSlope",row);
+	HitBasedTrkg__HBClusters_fitSlopeErr = HitBasedTrkg__HBClusters->getFloat("fitSlopeErr",row);
+	HitBasedTrkg__HBClusters_fitInterc = HitBasedTrkg__HBClusters->getFloat("fitInterc",row);
+	HitBasedTrkg__HBClusters_fitIntercErr = HitBasedTrkg__HBClusters->getFloat("fitIntercErr",row);
+	HitBasedTrkg__HBClusters_size = HitBasedTrkg__HBClusters->getByte("size",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__RICH(int row){
+	REC__RICH_index = REC__RICH->getShort("index",row);
+	REC__RICH_pindex = REC__RICH->getShort("pindex",row);
+	REC__RICH_detector = REC__RICH->getByte("detector",row);
+	REC__RICH_sector = REC__RICH->getByte("sector",row);
+	REC__RICH_layer = REC__RICH->getByte("layer",row);
+	REC__RICH_energy = REC__RICH->getFloat("energy",row);
+	REC__RICH_time = REC__RICH->getFloat("time",row);
+	REC__RICH_path = REC__RICH->getFloat("path",row);
+	REC__RICH_chi2 = REC__RICH->getFloat("chi2",row);
+	REC__RICH_x = REC__RICH->getFloat("x",row);
+	REC__RICH_y = REC__RICH->getFloat("y",row);
+	REC__RICH_z = REC__RICH->getFloat("z",row);
+	REC__RICH_hx = REC__RICH->getFloat("hx",row);
+	REC__RICH_hy = REC__RICH->getFloat("hy",row);
+	REC__RICH_hz = REC__RICH->getFloat("hz",row);
+	REC__RICH_status = REC__RICH->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Track(int row){
+	REC__Track_index = REC__Track->getShort("index",row);
+	REC__Track_pindex = REC__Track->getShort("pindex",row);
+	REC__Track_detector = REC__Track->getByte("detector",row);
+	REC__Track_sector = REC__Track->getByte("sector",row);
+	REC__Track_status = REC__Track->getShort("status",row);
+	REC__Track_q = REC__Track->getByte("q",row);
+	REC__Track_chi2 = REC__Track->getFloat("chi2",row);
+	REC__Track_NDF = REC__Track->getShort("NDF",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Event(int row){
+	RECHB__Event_category = RECHB__Event->getLong("category",row);
+	RECHB__Event_topology = RECHB__Event->getLong("topology",row);
+	RECHB__Event_beamCharge = RECHB__Event->getFloat("beamCharge",row);
+	RECHB__Event_liveTime = RECHB__Event->getDouble("liveTime",row);
+	RECHB__Event_startTime = RECHB__Event->getFloat("startTime",row);
+	RECHB__Event_RFTime = RECHB__Event->getFloat("RFTime",row);
+	RECHB__Event_helicity = RECHB__Event->getByte("helicity",row);
+	RECHB__Event_helicityRaw = RECHB__Event->getByte("helicityRaw",row);
+	RECHB__Event_procTime = RECHB__Event->getFloat("procTime",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__hbhits(int row){
+	FTOF__hbhits_id = FTOF__hbhits->getShort("id",row);
+	FTOF__hbhits_status = FTOF__hbhits->getShort("status",row);
+	FTOF__hbhits_trackid = FTOF__hbhits->getShort("trackid",row);
+	FTOF__hbhits_sector = FTOF__hbhits->getByte("sector",row);
+	FTOF__hbhits_layer = FTOF__hbhits->getByte("layer",row);
+	FTOF__hbhits_component = FTOF__hbhits->getShort("component",row);
+	FTOF__hbhits_energy = FTOF__hbhits->getFloat("energy",row);
+	FTOF__hbhits_time = FTOF__hbhits->getFloat("time",row);
+	FTOF__hbhits_energy_unc = FTOF__hbhits->getFloat("energy_unc",row);
+	FTOF__hbhits_time_unc = FTOF__hbhits->getFloat("time_unc",row);
+	FTOF__hbhits_x = FTOF__hbhits->getFloat("x",row);
+	FTOF__hbhits_y = FTOF__hbhits->getFloat("y",row);
+	FTOF__hbhits_z = FTOF__hbhits->getFloat("z",row);
+	FTOF__hbhits_x_unc = FTOF__hbhits->getFloat("x_unc",row);
+	FTOF__hbhits_y_unc = FTOF__hbhits->getFloat("y_unc",row);
+	FTOF__hbhits_z_unc = FTOF__hbhits->getFloat("z_unc",row);
+	FTOF__hbhits_tx = FTOF__hbhits->getFloat("tx",row);
+	FTOF__hbhits_ty = FTOF__hbhits->getFloat("ty",row);
+	FTOF__hbhits_tz = FTOF__hbhits->getFloat("tz",row);
+	FTOF__hbhits_adc_idx1 = FTOF__hbhits->getShort("adc_idx1",row);
+	FTOF__hbhits_adc_idx2 = FTOF__hbhits->getShort("adc_idx2",row);
+	FTOF__hbhits_tdc_idx1 = FTOF__hbhits->getShort("tdc_idx1",row);
+	FTOF__hbhits_tdc_idx2 = FTOF__hbhits->getShort("tdc_idx2",row);
+	FTOF__hbhits_pathLength = FTOF__hbhits->getFloat("pathLength",row);
+	FTOF__hbhits_pathLengthThruBar = FTOF__hbhits->getFloat("pathLengthThruBar",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RTPC__adc(int row){
+	RTPC__adc_sector = RTPC__adc->getByte("sector",row);
+	RTPC__adc_layer = RTPC__adc->getByte("layer",row);
+	RTPC__adc_component = RTPC__adc->getShort("component",row);
+	RTPC__adc_order = RTPC__adc->getByte("order",row);
+	RTPC__adc_ADC = RTPC__adc->getInt("ADC",row);
+	RTPC__adc_time = RTPC__adc->getFloat("time",row);
+	RTPC__adc_ped = RTPC__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTCAL__adc(int row){
+	FTCAL__adc_sector = FTCAL__adc->getByte("sector",row);
+	FTCAL__adc_layer = FTCAL__adc->getByte("layer",row);
+	FTCAL__adc_component = FTCAL__adc->getShort("component",row);
+	FTCAL__adc_order = FTCAL__adc->getByte("order",row);
+	FTCAL__adc_ADC = FTCAL__adc->getInt("ADC",row);
+	FTCAL__adc_time = FTCAL__adc->getFloat("time",row);
+	FTCAL__adc_ped = FTCAL__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CTOF__rawhits(int row){
+	CTOF__rawhits_id = CTOF__rawhits->getShort("id",row);
+	CTOF__rawhits_status = CTOF__rawhits->getShort("status",row);
+	CTOF__rawhits_component = CTOF__rawhits->getShort("component",row);
+	CTOF__rawhits_energy_up = CTOF__rawhits->getFloat("energy_up",row);
+	CTOF__rawhits_energy_down = CTOF__rawhits->getFloat("energy_down",row);
+	CTOF__rawhits_time_up = CTOF__rawhits->getFloat("time_up",row);
+	CTOF__rawhits_time_down = CTOF__rawhits->getFloat("time_down",row);
+	CTOF__rawhits_energy_up_unc = CTOF__rawhits->getFloat("energy_up_unc",row);
+	CTOF__rawhits_energy_down_unc = CTOF__rawhits->getFloat("energy_down_unc",row);
+	CTOF__rawhits_time_up_unc = CTOF__rawhits->getFloat("time_up_unc",row);
+	CTOF__rawhits_time_down_unc = CTOF__rawhits->getFloat("time_down_unc",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CND__adc(int row){
+	CND__adc_sector = CND__adc->getByte("sector",row);
+	CND__adc_layer = CND__adc->getByte("layer",row);
+	CND__adc_component = CND__adc->getShort("component",row);
+	CND__adc_order = CND__adc->getByte("order",row);
+	CND__adc_ADC = CND__adc->getInt("ADC",row);
+	CND__adc_time = CND__adc->getFloat("time",row);
+	CND__adc_ped = CND__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__hits(int row){
+	FTOF__hits_id = FTOF__hits->getShort("id",row);
+	FTOF__hits_status = FTOF__hits->getShort("status",row);
+	FTOF__hits_trackid = FTOF__hits->getShort("trackid",row);
+	FTOF__hits_sector = FTOF__hits->getByte("sector",row);
+	FTOF__hits_layer = FTOF__hits->getByte("layer",row);
+	FTOF__hits_component = FTOF__hits->getShort("component",row);
+	FTOF__hits_energy = FTOF__hits->getFloat("energy",row);
+	FTOF__hits_time = FTOF__hits->getFloat("time",row);
+	FTOF__hits_energy_unc = FTOF__hits->getFloat("energy_unc",row);
+	FTOF__hits_time_unc = FTOF__hits->getFloat("time_unc",row);
+	FTOF__hits_x = FTOF__hits->getFloat("x",row);
+	FTOF__hits_y = FTOF__hits->getFloat("y",row);
+	FTOF__hits_z = FTOF__hits->getFloat("z",row);
+	FTOF__hits_x_unc = FTOF__hits->getFloat("x_unc",row);
+	FTOF__hits_y_unc = FTOF__hits->getFloat("y_unc",row);
+	FTOF__hits_z_unc = FTOF__hits->getFloat("z_unc",row);
+	FTOF__hits_tx = FTOF__hits->getFloat("tx",row);
+	FTOF__hits_ty = FTOF__hits->getFloat("ty",row);
+	FTOF__hits_tz = FTOF__hits->getFloat("tz",row);
+	FTOF__hits_adc_idx1 = FTOF__hits->getShort("adc_idx1",row);
+	FTOF__hits_adc_idx2 = FTOF__hits->getShort("adc_idx2",row);
+	FTOF__hits_tdc_idx1 = FTOF__hits->getShort("tdc_idx1",row);
+	FTOF__hits_tdc_idx2 = FTOF__hits->getShort("tdc_idx2",row);
+	FTOF__hits_pathLength = FTOF__hits->getFloat("pathLength",row);
+	FTOF__hits_pathLengthThruBar = FTOF__hits->getFloat("pathLengthThruBar",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FMTRec__Clusters(int row){
+	FMTRec__Clusters_ID = FMTRec__Clusters->getShort("ID",row);
+	FMTRec__Clusters_sector = FMTRec__Clusters->getByte("sector",row);
+	FMTRec__Clusters_layer = FMTRec__Clusters->getByte("layer",row);
+	FMTRec__Clusters_size = FMTRec__Clusters->getShort("size",row);
+	FMTRec__Clusters_ETot = FMTRec__Clusters->getFloat("ETot",row);
+	FMTRec__Clusters_seedE = FMTRec__Clusters->getFloat("seedE",row);
+	FMTRec__Clusters_seedStrip = FMTRec__Clusters->getInt("seedStrip",row);
+	FMTRec__Clusters_centroid = FMTRec__Clusters->getFloat("centroid",row);
+	FMTRec__Clusters_centroidResidual = FMTRec__Clusters->getFloat("centroidResidual",row);
+	FMTRec__Clusters_seedResidual = FMTRec__Clusters->getFloat("seedResidual",row);
+	FMTRec__Clusters_Hit1_ID = FMTRec__Clusters->getShort("Hit1_ID",row);
+	FMTRec__Clusters_Hit2_ID = FMTRec__Clusters->getShort("Hit2_ID",row);
+	FMTRec__Clusters_Hit3_ID = FMTRec__Clusters->getShort("Hit3_ID",row);
+	FMTRec__Clusters_Hit4_ID = FMTRec__Clusters->getShort("Hit4_ID",row);
+	FMTRec__Clusters_Hit5_ID = FMTRec__Clusters->getShort("Hit5_ID",row);
+	FMTRec__Clusters_trkID = FMTRec__Clusters->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HEL__adc(int row){
+	HEL__adc_sector = HEL__adc->getByte("sector",row);
+	HEL__adc_layer = HEL__adc->getByte("layer",row);
+	HEL__adc_component = HEL__adc->getShort("component",row);
+	HEL__adc_order = HEL__adc->getByte("order",row);
+	HEL__adc_ADC = HEL__adc->getInt("ADC",row);
+	HEL__adc_time = HEL__adc->getFloat("time",row);
+	HEL__adc_ped = HEL__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DETECTOR__ccpb(int row){
+	DETECTOR__ccpb_sector = DETECTOR__ccpb->getByte("sector",row);
+	DETECTOR__ccpb_nphe = DETECTOR__ccpb->getFloat("nphe",row);
+	DETECTOR__ccpb_time = DETECTOR__ccpb->getFloat("time",row);
+	DETECTOR__ccpb_path = DETECTOR__ccpb->getFloat("path",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__ForwardTagger(int row){
+	REC__ForwardTagger_index = REC__ForwardTagger->getShort("index",row);
+	REC__ForwardTagger_pindex = REC__ForwardTagger->getShort("pindex",row);
+	REC__ForwardTagger_detector = REC__ForwardTagger->getByte("detector",row);
+	REC__ForwardTagger_layer = REC__ForwardTagger->getByte("layer",row);
+	REC__ForwardTagger_energy = REC__ForwardTagger->getFloat("energy",row);
+	REC__ForwardTagger_time = REC__ForwardTagger->getFloat("time",row);
+	REC__ForwardTagger_path = REC__ForwardTagger->getFloat("path",row);
+	REC__ForwardTagger_chi2 = REC__ForwardTagger->getFloat("chi2",row);
+	REC__ForwardTagger_x = REC__ForwardTagger->getFloat("x",row);
+	REC__ForwardTagger_y = REC__ForwardTagger->getFloat("y",row);
+	REC__ForwardTagger_z = REC__ForwardTagger->getFloat("z",row);
+	REC__ForwardTagger_dx = REC__ForwardTagger->getFloat("dx",row);
+	REC__ForwardTagger_dy = REC__ForwardTagger->getFloat("dy",row);
+	REC__ForwardTagger_radius = REC__ForwardTagger->getFloat("radius",row);
+	REC__ForwardTagger_size = REC__ForwardTagger->getShort("size",row);
+	REC__ForwardTagger_status = REC__ForwardTagger->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTTRK__adc(int row){
+	FTTRK__adc_sector = FTTRK__adc->getByte("sector",row);
+	FTTRK__adc_layer = FTTRK__adc->getByte("layer",row);
+	FTTRK__adc_component = FTTRK__adc->getShort("component",row);
+	FTTRK__adc_order = FTTRK__adc->getByte("order",row);
+	FTTRK__adc_ADC = FTTRK__adc->getInt("ADC",row);
+	FTTRK__adc_time = FTTRK__adc->getFloat("time",row);
+	FTTRK__adc_ped = FTTRK__adc->getShort("ped",row);
+	FTTRK__adc_integral = FTTRK__adc->getInt("integral",row);
+	FTTRK__adc_timestamp = FTTRK__adc->getLong("timestamp",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__rawhits(int row){
+	FTOF__rawhits_id = FTOF__rawhits->getShort("id",row);
+	FTOF__rawhits_status = FTOF__rawhits->getShort("status",row);
+	FTOF__rawhits_sector = FTOF__rawhits->getByte("sector",row);
+	FTOF__rawhits_layer = FTOF__rawhits->getByte("layer",row);
+	FTOF__rawhits_component = FTOF__rawhits->getShort("component",row);
+	FTOF__rawhits_energy_left = FTOF__rawhits->getFloat("energy_left",row);
+	FTOF__rawhits_energy_right = FTOF__rawhits->getFloat("energy_right",row);
+	FTOF__rawhits_time_left = FTOF__rawhits->getFloat("time_left",row);
+	FTOF__rawhits_time_right = FTOF__rawhits->getFloat("time_right",row);
+	FTOF__rawhits_energy_left_unc = FTOF__rawhits->getFloat("energy_left_unc",row);
+	FTOF__rawhits_energy_right_unc = FTOF__rawhits->getFloat("energy_right_unc",row);
+	FTOF__rawhits_time_left_unc = FTOF__rawhits->getFloat("time_left_unc",row);
+	FTOF__rawhits_time_right_unc = FTOF__rawhits->getFloat("time_right_unc",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__TrackCross(int row){
+	RECHB__TrackCross_index = RECHB__TrackCross->getShort("index",row);
+	RECHB__TrackCross_pindex = RECHB__TrackCross->getShort("pindex",row);
+	RECHB__TrackCross_detector = RECHB__TrackCross->getByte("detector",row);
+	RECHB__TrackCross_sector = RECHB__TrackCross->getByte("sector",row);
+	RECHB__TrackCross_layer = RECHB__TrackCross->getByte("layer",row);
+	RECHB__TrackCross_c_x = RECHB__TrackCross->getFloat("c_x",row);
+	RECHB__TrackCross_c_y = RECHB__TrackCross->getFloat("c_y",row);
+	RECHB__TrackCross_c_z = RECHB__TrackCross->getFloat("c_z",row);
+	RECHB__TrackCross_c_ux = RECHB__TrackCross->getFloat("c_ux",row);
+	RECHB__TrackCross_c_uy = RECHB__TrackCross->getFloat("c_uy",row);
+	RECHB__TrackCross_c_uz = RECHB__TrackCross->getFloat("c_uz",row);
+	RECHB__TrackCross_status = RECHB__TrackCross->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DETECTOR__scpb(int row){
+	DETECTOR__scpb_sector = DETECTOR__scpb->getByte("sector",row);
+	DETECTOR__scpb_paddle = DETECTOR__scpb->getByte("paddle",row);
+	DETECTOR__scpb_edep = DETECTOR__scpb->getFloat("edep",row);
+	DETECTOR__scpb_time = DETECTOR__scpb->getFloat("time",row);
+	DETECTOR__scpb_path = DETECTOR__scpb->getFloat("path",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTHODO__hits(int row){
+	FTHODO__hits_sector = FTHODO__hits->getByte("sector",row);
+	FTHODO__hits_layer = FTHODO__hits->getByte("layer",row);
+	FTHODO__hits_component = FTHODO__hits->getShort("component",row);
+	FTHODO__hits_x = FTHODO__hits->getFloat("x",row);
+	FTHODO__hits_y = FTHODO__hits->getFloat("y",row);
+	FTHODO__hits_z = FTHODO__hits->getFloat("z",row);
+	FTHODO__hits_energy = FTHODO__hits->getFloat("energy",row);
+	FTHODO__hits_time = FTHODO__hits->getFloat("time",row);
+	FTHODO__hits_hitID = FTHODO__hits->getShort("hitID",row);
+	FTHODO__hits_clusterID = FTHODO__hits->getShort("clusterID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECFT__Event(int row){
+	RECFT__Event_EvCAT = RECFT__Event->getShort("EvCAT",row);
+	RECFT__Event_startTime = RECFT__Event->getFloat("startTime",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CTOF__adc(int row){
+	CTOF__adc_sector = CTOF__adc->getByte("sector",row);
+	CTOF__adc_layer = CTOF__adc->getByte("layer",row);
+	CTOF__adc_component = CTOF__adc->getShort("component",row);
+	CTOF__adc_order = CTOF__adc->getByte("order",row);
+	CTOF__adc_ADC = CTOF__adc->getInt("ADC",row);
+	CTOF__adc_time = CTOF__adc->getFloat("time",row);
+	CTOF__adc_ped = CTOF__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_EVENT__detector(int row){
+	EVENT__detector_scsector = EVENT__detector->getInt("scsector",row);
+	EVENT__detector_scpaddle = EVENT__detector->getInt("scpaddle",row);
+	EVENT__detector_ecsector = EVENT__detector->getInt("ecsector",row);
+	EVENT__detector_ccnphe = EVENT__detector->getFloat("ccnphe",row);
+	EVENT__detector_sctime = EVENT__detector->getFloat("sctime",row);
+	EVENT__detector_scpath = EVENT__detector->getFloat("scpath",row);
+	EVENT__detector_ectime = EVENT__detector->getFloat("ectime",row);
+	EVENT__detector_ecpath = EVENT__detector->getFloat("ecpath",row);
+	EVENT__detector_ecin = EVENT__detector->getFloat("ecin",row);
+	EVENT__detector_ecout = EVENT__detector->getFloat("ecout",row);
+	EVENT__detector_ectot = EVENT__detector->getFloat("ectot",row);
+	EVENT__detector_ecu = EVENT__detector->getFloat("ecu",row);
+	EVENT__detector_ecv = EVENT__detector->getFloat("ecv",row);
+	EVENT__detector_ecw = EVENT__detector->getFloat("ecw",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DC__doca(int row){
+	DC__doca_LR = DC__doca->getByte("LR",row);
+	DC__doca_doca = DC__doca->getFloat("doca",row);
+	DC__doca_sdoca = DC__doca->getFloat("sdoca",row);
+	DC__doca_time = DC__doca->getFloat("time",row);
+	DC__doca_stime = DC__doca->getFloat("stime",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HTCC__tdc(int row){
+	HTCC__tdc_sector = HTCC__tdc->getByte("sector",row);
+	HTCC__tdc_layer = HTCC__tdc->getByte("layer",row);
+	HTCC__tdc_component = HTCC__tdc->getShort("component",row);
+	HTCC__tdc_order = HTCC__tdc->getByte("order",row);
+	HTCC__tdc_TDC = HTCC__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HEL__online(int row){
+	HEL__online_helicity = HEL__online->getByte("helicity",row);
+	HEL__online_helicityRaw = HEL__online->getByte("helicityRaw",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Event(int row){
+	REC__Event_category = REC__Event->getLong("category",row);
+	REC__Event_topology = REC__Event->getLong("topology",row);
+	REC__Event_beamCharge = REC__Event->getFloat("beamCharge",row);
+	REC__Event_liveTime = REC__Event->getDouble("liveTime",row);
+	REC__Event_startTime = REC__Event->getFloat("startTime",row);
+	REC__Event_RFTime = REC__Event->getFloat("RFTime",row);
+	REC__Event_helicity = REC__Event->getByte("helicity",row);
+	REC__Event_helicityRaw = REC__Event->getByte("helicityRaw",row);
+	REC__Event_procTime = REC__Event->getFloat("procTime",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Particle(int row){
+	REC__Particle_pid = REC__Particle->getInt("pid",row);
+	REC__Particle_px = REC__Particle->getFloat("px",row);
+	REC__Particle_py = REC__Particle->getFloat("py",row);
+	REC__Particle_pz = REC__Particle->getFloat("pz",row);
+	REC__Particle_vx = REC__Particle->getFloat("vx",row);
+	REC__Particle_vy = REC__Particle->getFloat("vy",row);
+	REC__Particle_vz = REC__Particle->getFloat("vz",row);
+	REC__Particle_charge = REC__Particle->getByte("charge",row);
+	REC__Particle_beta = REC__Particle->getFloat("beta",row);
+	REC__Particle_chi2pid = REC__Particle->getFloat("chi2pid",row);
+	REC__Particle_status = REC__Particle->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_REC__Traj(int row){
+	REC__Traj_pindex = REC__Traj->getShort("pindex",row);
+	REC__Traj_index = REC__Traj->getShort("index",row);
+	REC__Traj_detector = REC__Traj->getByte("detector",row);
+	REC__Traj_layer = REC__Traj->getByte("layer",row);
+	REC__Traj_x = REC__Traj->getFloat("x",row);
+	REC__Traj_y = REC__Traj->getFloat("y",row);
+	REC__Traj_z = REC__Traj->getFloat("z",row);
+	REC__Traj_cx = REC__Traj->getFloat("cx",row);
+	REC__Traj_cy = REC__Traj->getFloat("cy",row);
+	REC__Traj_cz = REC__Traj->getFloat("cz",row);
+	REC__Traj_path = REC__Traj->getFloat("path",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTOF__tdc(int row){
+	FTOF__tdc_sector = FTOF__tdc->getByte("sector",row);
+	FTOF__tdc_layer = FTOF__tdc->getByte("layer",row);
+	FTOF__tdc_component = FTOF__tdc->getShort("component",row);
+	FTOF__tdc_order = FTOF__tdc->getByte("order",row);
+	FTOF__tdc_TDC = FTOF__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBSegments(int row){
+	HitBasedTrkg__HBSegments_id = HitBasedTrkg__HBSegments->getShort("id",row);
+	HitBasedTrkg__HBSegments_status = HitBasedTrkg__HBSegments->getShort("status",row);
+	HitBasedTrkg__HBSegments_sector = HitBasedTrkg__HBSegments->getByte("sector",row);
+	HitBasedTrkg__HBSegments_superlayer = HitBasedTrkg__HBSegments->getByte("superlayer",row);
+	HitBasedTrkg__HBSegments_Cluster_ID = HitBasedTrkg__HBSegments->getShort("Cluster_ID",row);
+	HitBasedTrkg__HBSegments_Hit1_ID = HitBasedTrkg__HBSegments->getShort("Hit1_ID",row);
+	HitBasedTrkg__HBSegments_Hit2_ID = HitBasedTrkg__HBSegments->getShort("Hit2_ID",row);
+	HitBasedTrkg__HBSegments_Hit3_ID = HitBasedTrkg__HBSegments->getShort("Hit3_ID",row);
+	HitBasedTrkg__HBSegments_Hit4_ID = HitBasedTrkg__HBSegments->getShort("Hit4_ID",row);
+	HitBasedTrkg__HBSegments_Hit5_ID = HitBasedTrkg__HBSegments->getShort("Hit5_ID",row);
+	HitBasedTrkg__HBSegments_Hit6_ID = HitBasedTrkg__HBSegments->getShort("Hit6_ID",row);
+	HitBasedTrkg__HBSegments_Hit7_ID = HitBasedTrkg__HBSegments->getShort("Hit7_ID",row);
+	HitBasedTrkg__HBSegments_Hit8_ID = HitBasedTrkg__HBSegments->getShort("Hit8_ID",row);
+	HitBasedTrkg__HBSegments_Hit9_ID = HitBasedTrkg__HBSegments->getShort("Hit9_ID",row);
+	HitBasedTrkg__HBSegments_Hit10_ID = HitBasedTrkg__HBSegments->getShort("Hit10_ID",row);
+	HitBasedTrkg__HBSegments_Hit11_ID = HitBasedTrkg__HBSegments->getShort("Hit11_ID",row);
+	HitBasedTrkg__HBSegments_Hit12_ID = HitBasedTrkg__HBSegments->getShort("Hit12_ID",row);
+	HitBasedTrkg__HBSegments_avgWire = HitBasedTrkg__HBSegments->getFloat("avgWire",row);
+	HitBasedTrkg__HBSegments_fitChisqProb = HitBasedTrkg__HBSegments->getFloat("fitChisqProb",row);
+	HitBasedTrkg__HBSegments_fitSlope = HitBasedTrkg__HBSegments->getFloat("fitSlope",row);
+	HitBasedTrkg__HBSegments_fitSlopeErr = HitBasedTrkg__HBSegments->getFloat("fitSlopeErr",row);
+	HitBasedTrkg__HBSegments_fitInterc = HitBasedTrkg__HBSegments->getFloat("fitInterc",row);
+	HitBasedTrkg__HBSegments_fitIntercErr = HitBasedTrkg__HBSegments->getFloat("fitIntercErr",row);
+	HitBasedTrkg__HBSegments_SegEndPoint1X = HitBasedTrkg__HBSegments->getFloat("SegEndPoint1X",row);
+	HitBasedTrkg__HBSegments_SegEndPoint1Z = HitBasedTrkg__HBSegments->getFloat("SegEndPoint1Z",row);
+	HitBasedTrkg__HBSegments_SegEndPoint2X = HitBasedTrkg__HBSegments->getFloat("SegEndPoint2X",row);
+	HitBasedTrkg__HBSegments_SegEndPoint2Z = HitBasedTrkg__HBSegments->getFloat("SegEndPoint2Z",row);
+	HitBasedTrkg__HBSegments_size = HitBasedTrkg__HBSegments->getByte("size",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FTCAL__hits(int row){
+	FTCAL__hits_idx = FTCAL__hits->getByte("idx",row);
+	FTCAL__hits_idy = FTCAL__hits->getByte("idy",row);
+	FTCAL__hits_x = FTCAL__hits->getFloat("x",row);
+	FTCAL__hits_y = FTCAL__hits->getFloat("y",row);
+	FTCAL__hits_z = FTCAL__hits->getFloat("z",row);
+	FTCAL__hits_energy = FTCAL__hits->getFloat("energy",row);
+	FTCAL__hits_time = FTCAL__hits->getFloat("time",row);
+	FTCAL__hits_hitID = FTCAL__hits->getShort("hitID",row);
+	FTCAL__hits_clusterID = FTCAL__hits->getShort("clusterID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FMTRec__Hits(int row){
+	FMTRec__Hits_ID = FMTRec__Hits->getShort("ID",row);
+	FMTRec__Hits_sector = FMTRec__Hits->getByte("sector",row);
+	FMTRec__Hits_layer = FMTRec__Hits->getByte("layer",row);
+	FMTRec__Hits_strip = FMTRec__Hits->getInt("strip",row);
+	FMTRec__Hits_fitResidual = FMTRec__Hits->getFloat("fitResidual",row);
+	FMTRec__Hits_trkingStat = FMTRec__Hits->getInt("trkingStat",row);
+	FMTRec__Hits_clusterID = FMTRec__Hits->getShort("clusterID",row);
+	FMTRec__Hits_trkID = FMTRec__Hits->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_BAND__tdc(int row){
+	BAND__tdc_sector = BAND__tdc->getByte("sector",row);
+	BAND__tdc_layer = BAND__tdc->getByte("layer",row);
+	BAND__tdc_component = BAND__tdc->getShort("component",row);
+	BAND__tdc_order = BAND__tdc->getByte("order",row);
+	BAND__tdc_TDC = BAND__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RF__adc(int row){
+	RF__adc_sector = RF__adc->getByte("sector",row);
+	RF__adc_layer = RF__adc->getByte("layer",row);
+	RF__adc_component = RF__adc->getShort("component",row);
+	RF__adc_order = RF__adc->getByte("order",row);
+	RF__adc_ADC = RF__adc->getInt("ADC",row);
+	RF__adc_time = RF__adc->getFloat("time",row);
+	RF__adc_ped = RF__adc->getShort("ped",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_FMTRec__Crosses(int row){
+	FMTRec__Crosses_ID = FMTRec__Crosses->getShort("ID",row);
+	FMTRec__Crosses_sector = FMTRec__Crosses->getByte("sector",row);
+	FMTRec__Crosses_region = FMTRec__Crosses->getByte("region",row);
+	FMTRec__Crosses_x = FMTRec__Crosses->getFloat("x",row);
+	FMTRec__Crosses_y = FMTRec__Crosses->getFloat("y",row);
+	FMTRec__Crosses_z = FMTRec__Crosses->getFloat("z",row);
+	FMTRec__Crosses_err_x = FMTRec__Crosses->getFloat("err_x",row);
+	FMTRec__Crosses_err_y = FMTRec__Crosses->getFloat("err_y",row);
+	FMTRec__Crosses_err_z = FMTRec__Crosses->getFloat("err_z",row);
+	FMTRec__Crosses_ux = FMTRec__Crosses->getFloat("ux",row);
+	FMTRec__Crosses_uy = FMTRec__Crosses->getFloat("uy",row);
+	FMTRec__Crosses_uz = FMTRec__Crosses->getFloat("uz",row);
+	FMTRec__Crosses_Cluster1_ID = FMTRec__Crosses->getShort("Cluster1_ID",row);
+	FMTRec__Crosses_Cluster2_ID = FMTRec__Crosses->getShort("Cluster2_ID",row);
+	FMTRec__Crosses_trkID = FMTRec__Crosses->getShort("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_MC__Particle(int row){
+	MC__Particle_pid = MC__Particle->getInt("pid",row);
+	MC__Particle_px = MC__Particle->getFloat("px",row);
+	MC__Particle_py = MC__Particle->getFloat("py",row);
+	MC__Particle_pz = MC__Particle->getFloat("pz",row);
+	MC__Particle_vx = MC__Particle->getFloat("vx",row);
+	MC__Particle_vy = MC__Particle->getFloat("vy",row);
+	MC__Particle_vz = MC__Particle->getFloat("vz",row);
+	MC__Particle_vt = MC__Particle->getFloat("vt",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__tdc(int row){
+	ECAL__tdc_sector = ECAL__tdc->getByte("sector",row);
+	ECAL__tdc_layer = ECAL__tdc->getByte("layer",row);
+	ECAL__tdc_component = ECAL__tdc->getShort("component",row);
+	ECAL__tdc_order = ECAL__tdc->getByte("order",row);
+	ECAL__tdc_TDC = ECAL__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RICH__tdc(int row){
+	RICH__tdc_sector = RICH__tdc->getByte("sector",row);
+	RICH__tdc_layer = RICH__tdc->getByte("layer",row);
+	RICH__tdc_component = RICH__tdc->getShort("component",row);
+	RICH__tdc_order = RICH__tdc->getByte("order",row);
+	RICH__tdc_TDC = RICH__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_LTCC__tdc(int row){
+	LTCC__tdc_sector = LTCC__tdc->getByte("sector",row);
+	LTCC__tdc_layer = LTCC__tdc->getByte("layer",row);
+	LTCC__tdc_component = LTCC__tdc->getShort("component",row);
+	LTCC__tdc_order = LTCC__tdc->getByte("order",row);
+	LTCC__tdc_TDC = LTCC__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_ECAL__moments(int row){
+	ECAL__moments_distU = ECAL__moments->getFloat("distU",row);
+	ECAL__moments_distV = ECAL__moments->getFloat("distV",row);
+	ECAL__moments_distW = ECAL__moments->getFloat("distW",row);
+	ECAL__moments_m1u = ECAL__moments->getFloat("m1u",row);
+	ECAL__moments_m1v = ECAL__moments->getFloat("m1v",row);
+	ECAL__moments_m1w = ECAL__moments->getFloat("m1w",row);
+	ECAL__moments_m2u = ECAL__moments->getFloat("m2u",row);
+	ECAL__moments_m2v = ECAL__moments->getFloat("m2v",row);
+	ECAL__moments_m2w = ECAL__moments->getFloat("m2w",row);
+	ECAL__moments_m3u = ECAL__moments->getFloat("m3u",row);
+	ECAL__moments_m3v = ECAL__moments->getFloat("m3v",row);
+	ECAL__moments_m3w = ECAL__moments->getFloat("m3w",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_EVENT__particle(int row){
+	EVENT__particle_status = EVENT__particle->getByte("status",row);
+	EVENT__particle_charge = EVENT__particle->getByte("charge",row);
+	EVENT__particle_pid = EVENT__particle->getInt("pid",row);
+	EVENT__particle_mass = EVENT__particle->getFloat("mass",row);
+	EVENT__particle_px = EVENT__particle->getFloat("px",row);
+	EVENT__particle_py = EVENT__particle->getFloat("py",row);
+	EVENT__particle_pz = EVENT__particle->getFloat("pz",row);
+	EVENT__particle_vx = EVENT__particle->getFloat("vx",row);
+	EVENT__particle_vy = EVENT__particle->getFloat("vy",row);
+	EVENT__particle_vz = EVENT__particle->getFloat("vz",row);
+	EVENT__particle_dcstat = EVENT__particle->getByte("dcstat",row);
+	EVENT__particle_ecstat = EVENT__particle->getByte("ecstat",row);
+	EVENT__particle_scstat = EVENT__particle->getByte("scstat",row);
+	EVENT__particle_ccstat = EVENT__particle->getByte("ccstat",row);
+	EVENT__particle_lcstat = EVENT__particle->getByte("lcstat",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RUN__trigger(int row){
+	RUN__trigger_id = RUN__trigger->getInt("id",row);
+	RUN__trigger_trigger = RUN__trigger->getInt("trigger",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HitBasedTrkg__HBHits(int row){
+	HitBasedTrkg__HBHits_id = HitBasedTrkg__HBHits->getShort("id",row);
+	HitBasedTrkg__HBHits_status = HitBasedTrkg__HBHits->getShort("status",row);
+	HitBasedTrkg__HBHits_sector = HitBasedTrkg__HBHits->getByte("sector",row);
+	HitBasedTrkg__HBHits_superlayer = HitBasedTrkg__HBHits->getByte("superlayer",row);
+	HitBasedTrkg__HBHits_layer = HitBasedTrkg__HBHits->getByte("layer",row);
+	HitBasedTrkg__HBHits_wire = HitBasedTrkg__HBHits->getShort("wire",row);
+	HitBasedTrkg__HBHits_TDC = HitBasedTrkg__HBHits->getInt("TDC",row);
+	HitBasedTrkg__HBHits_trkDoca = HitBasedTrkg__HBHits->getFloat("trkDoca",row);
+	HitBasedTrkg__HBHits_docaError = HitBasedTrkg__HBHits->getFloat("docaError",row);
+	HitBasedTrkg__HBHits_LR = HitBasedTrkg__HBHits->getByte("LR",row);
+	HitBasedTrkg__HBHits_LocX = HitBasedTrkg__HBHits->getFloat("LocX",row);
+	HitBasedTrkg__HBHits_LocY = HitBasedTrkg__HBHits->getFloat("LocY",row);
+	HitBasedTrkg__HBHits_X = HitBasedTrkg__HBHits->getFloat("X",row);
+	HitBasedTrkg__HBHits_Z = HitBasedTrkg__HBHits->getFloat("Z",row);
+	HitBasedTrkg__HBHits_B = HitBasedTrkg__HBHits->getFloat("B",row);
+	HitBasedTrkg__HBHits_TProp = HitBasedTrkg__HBHits->getFloat("TProp",row);
+	HitBasedTrkg__HBHits_TFlight = HitBasedTrkg__HBHits->getFloat("TFlight",row);
+	HitBasedTrkg__HBHits_clusterID = HitBasedTrkg__HBHits->getShort("clusterID",row);
+	HitBasedTrkg__HBHits_trkID = HitBasedTrkg__HBHits->getByte("trkID",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__TBHits(int row){
+	TimeBasedTrkg__TBHits_id = TimeBasedTrkg__TBHits->getShort("id",row);
+	TimeBasedTrkg__TBHits_status = TimeBasedTrkg__TBHits->getShort("status",row);
+	TimeBasedTrkg__TBHits_sector = TimeBasedTrkg__TBHits->getByte("sector",row);
+	TimeBasedTrkg__TBHits_superlayer = TimeBasedTrkg__TBHits->getByte("superlayer",row);
+	TimeBasedTrkg__TBHits_layer = TimeBasedTrkg__TBHits->getByte("layer",row);
+	TimeBasedTrkg__TBHits_wire = TimeBasedTrkg__TBHits->getShort("wire",row);
+	TimeBasedTrkg__TBHits_TDC = TimeBasedTrkg__TBHits->getInt("TDC",row);
+	TimeBasedTrkg__TBHits_doca = TimeBasedTrkg__TBHits->getFloat("doca",row);
+	TimeBasedTrkg__TBHits_docaError = TimeBasedTrkg__TBHits->getFloat("docaError",row);
+	TimeBasedTrkg__TBHits_trkDoca = TimeBasedTrkg__TBHits->getFloat("trkDoca",row);
+	TimeBasedTrkg__TBHits_timeResidual = TimeBasedTrkg__TBHits->getFloat("timeResidual",row);
+	TimeBasedTrkg__TBHits_fitResidual = TimeBasedTrkg__TBHits->getFloat("fitResidual",row);
+	TimeBasedTrkg__TBHits_LR = TimeBasedTrkg__TBHits->getByte("LR",row);
+	TimeBasedTrkg__TBHits_X = TimeBasedTrkg__TBHits->getFloat("X",row);
+	TimeBasedTrkg__TBHits_Z = TimeBasedTrkg__TBHits->getFloat("Z",row);
+	TimeBasedTrkg__TBHits_B = TimeBasedTrkg__TBHits->getFloat("B",row);
+	TimeBasedTrkg__TBHits_Alpha = TimeBasedTrkg__TBHits->getFloat("Alpha",row);
+	TimeBasedTrkg__TBHits_TProp = TimeBasedTrkg__TBHits->getFloat("TProp",row);
+	TimeBasedTrkg__TBHits_TFlight = TimeBasedTrkg__TBHits->getFloat("TFlight",row);
+	TimeBasedTrkg__TBHits_T0 = TimeBasedTrkg__TBHits->getFloat("T0",row);
+	TimeBasedTrkg__TBHits_TStart = TimeBasedTrkg__TBHits->getFloat("TStart",row);
+	TimeBasedTrkg__TBHits_clusterID = TimeBasedTrkg__TBHits->getShort("clusterID",row);
+	TimeBasedTrkg__TBHits_trkID = TimeBasedTrkg__TBHits->getByte("trkID",row);
+	TimeBasedTrkg__TBHits_time = TimeBasedTrkg__TBHits->getFloat("time",row);
+	TimeBasedTrkg__TBHits_beta = TimeBasedTrkg__TBHits->getFloat("beta",row);
+	TimeBasedTrkg__TBHits_tBeta = TimeBasedTrkg__TBHits->getFloat("tBeta",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CTOF__hits(int row){
+	CTOF__hits_id = CTOF__hits->getShort("id",row);
+	CTOF__hits_status = CTOF__hits->getShort("status",row);
+	CTOF__hits_trkID = CTOF__hits->getShort("trkID",row);
+	CTOF__hits_sector = CTOF__hits->getByte("sector",row);
+	CTOF__hits_layer = CTOF__hits->getByte("layer",row);
+	CTOF__hits_component = CTOF__hits->getShort("component",row);
+	CTOF__hits_energy = CTOF__hits->getFloat("energy",row);
+	CTOF__hits_time = CTOF__hits->getFloat("time",row);
+	CTOF__hits_energy_unc = CTOF__hits->getFloat("energy_unc",row);
+	CTOF__hits_time_unc = CTOF__hits->getFloat("time_unc",row);
+	CTOF__hits_x = CTOF__hits->getFloat("x",row);
+	CTOF__hits_y = CTOF__hits->getFloat("y",row);
+	CTOF__hits_z = CTOF__hits->getFloat("z",row);
+	CTOF__hits_x_unc = CTOF__hits->getFloat("x_unc",row);
+	CTOF__hits_y_unc = CTOF__hits->getFloat("y_unc",row);
+	CTOF__hits_z_unc = CTOF__hits->getFloat("z_unc",row);
+	CTOF__hits_tx = CTOF__hits->getFloat("tx",row);
+	CTOF__hits_ty = CTOF__hits->getFloat("ty",row);
+	CTOF__hits_tz = CTOF__hits->getFloat("tz",row);
+	CTOF__hits_adc_idx1 = CTOF__hits->getShort("adc_idx1",row);
+	CTOF__hits_adc_idx2 = CTOF__hits->getShort("adc_idx2",row);
+	CTOF__hits_tdc_idx1 = CTOF__hits->getShort("tdc_idx1",row);
+	CTOF__hits_tdc_idx2 = CTOF__hits->getShort("tdc_idx2",row);
+	CTOF__hits_pathLength = CTOF__hits->getFloat("pathLength",row);
+	CTOF__hits_pathLengthThruBar = CTOF__hits->getFloat("pathLengthThruBar",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RECHB__Particle(int row){
+	RECHB__Particle_pid = RECHB__Particle->getInt("pid",row);
+	RECHB__Particle_px = RECHB__Particle->getFloat("px",row);
+	RECHB__Particle_py = RECHB__Particle->getFloat("py",row);
+	RECHB__Particle_pz = RECHB__Particle->getFloat("pz",row);
+	RECHB__Particle_vx = RECHB__Particle->getFloat("vx",row);
+	RECHB__Particle_vy = RECHB__Particle->getFloat("vy",row);
+	RECHB__Particle_vz = RECHB__Particle->getFloat("vz",row);
+	RECHB__Particle_charge = RECHB__Particle->getByte("charge",row);
+	RECHB__Particle_beta = RECHB__Particle->getFloat("beta",row);
+	RECHB__Particle_chi2pid = RECHB__Particle->getFloat("chi2pid",row);
+	RECHB__Particle_status = RECHB__Particle->getShort("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RAW__tdc(int row){
+	RAW__tdc_crate = RAW__tdc->getByte("crate",row);
+	RAW__tdc_slot = RAW__tdc->getByte("slot",row);
+	RAW__tdc_channel = RAW__tdc->getShort("channel",row);
+	RAW__tdc_order = RAW__tdc->getByte("order",row);
+	RAW__tdc_TDC = RAW__tdc->getInt("TDC",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_RICH__photons(int row){
+	RICH__photons_id = RICH__photons->getShort("id",row);
+	RICH__photons_type = RICH__photons->getShort("type",row);
+	RICH__photons_hit_index = RICH__photons->getShort("hit_index",row);
+	RICH__photons_hadron_index = RICH__photons->getShort("hadron_index",row);
+	RICH__photons_start_time = RICH__photons->getFloat("start_time",row);
+	RICH__photons_analytic_the = RICH__photons->getFloat("analytic_the",row);
+	RICH__photons_analytic_phi = RICH__photons->getFloat("analytic_phi",row);
+	RICH__photons_analytic_path = RICH__photons->getFloat("analytic_path",row);
+	RICH__photons_analytic_time = RICH__photons->getFloat("analytic_time",row);
+	RICH__photons_analytic_EtaC = RICH__photons->getFloat("analytic_EtaC",row);
+	RICH__photons_analytic_aeron = RICH__photons->getFloat("analytic_aeron",row);
+	RICH__photons_analytic_elpr = RICH__photons->getFloat("analytic_elpr",row);
+	RICH__photons_analytic_pipr = RICH__photons->getFloat("analytic_pipr",row);
+	RICH__photons_analytic_kpr = RICH__photons->getFloat("analytic_kpr",row);
+	RICH__photons_analytic_prpr = RICH__photons->getFloat("analytic_prpr",row);
+	RICH__photons_analytic_bgpr = RICH__photons->getFloat("analytic_bgpr",row);
+	RICH__photons_traced_the = RICH__photons->getFloat("traced_the",row);
+	RICH__photons_traced_phi = RICH__photons->getFloat("traced_phi",row);
+	RICH__photons_traced_hitx = RICH__photons->getFloat("traced_hitx",row);
+	RICH__photons_traced_hity = RICH__photons->getFloat("traced_hity",row);
+	RICH__photons_traced_hitz = RICH__photons->getFloat("traced_hitz",row);
+	RICH__photons_traced_path = RICH__photons->getFloat("traced_path",row);
+	RICH__photons_traced_time = RICH__photons->getFloat("traced_time",row);
+	RICH__photons_traced_nrfl = RICH__photons->getShort("traced_nrfl",row);
+	RICH__photons_traced_nrfr = RICH__photons->getShort("traced_nrfr",row);
+	RICH__photons_traced_1rfl = RICH__photons->getShort("traced_1rfl",row);
+	RICH__photons_traced_EtaC = RICH__photons->getFloat("traced_EtaC",row);
+	RICH__photons_traced_aeron = RICH__photons->getFloat("traced_aeron",row);
+	RICH__photons_traced_elpr = RICH__photons->getFloat("traced_elpr",row);
+	RICH__photons_traced_pipr = RICH__photons->getFloat("traced_pipr",row);
+	RICH__photons_traced_kpr = RICH__photons->getFloat("traced_kpr",row);
+	RICH__photons_traced_prpr = RICH__photons->getFloat("traced_prpr",row);
+	RICH__photons_traced_bgpr = RICH__photons->getFloat("traced_bgpr",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_HEL__flip(int row){
+	HEL__flip_run = HEL__flip->getInt("run",row);
+	HEL__flip_event = HEL__flip->getInt("event",row);
+	HEL__flip_timestamp = HEL__flip->getLong("timestamp",row);
+	HEL__flip_helicity = HEL__flip->getByte("helicity",row);
+	HEL__flip_helicityRaw = HEL__flip->getByte("helicityRaw",row);
+	HEL__flip_pair = HEL__flip->getByte("pair",row);
+	HEL__flip_pattern = HEL__flip->getByte("pattern",row);
+	HEL__flip_status = HEL__flip->getByte("status",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_TimeBasedTrkg__Trajectory(int row){
+	TimeBasedTrkg__Trajectory_id = TimeBasedTrkg__Trajectory->getShort("id",row);
+	TimeBasedTrkg__Trajectory_detector = TimeBasedTrkg__Trajectory->getShort("detector",row);
+	TimeBasedTrkg__Trajectory_layer = TimeBasedTrkg__Trajectory->getByte("layer",row);
+	TimeBasedTrkg__Trajectory_x = TimeBasedTrkg__Trajectory->getFloat("x",row);
+	TimeBasedTrkg__Trajectory_y = TimeBasedTrkg__Trajectory->getFloat("y",row);
+	TimeBasedTrkg__Trajectory_z = TimeBasedTrkg__Trajectory->getFloat("z",row);
+	TimeBasedTrkg__Trajectory_tx = TimeBasedTrkg__Trajectory->getFloat("tx",row);
+	TimeBasedTrkg__Trajectory_ty = TimeBasedTrkg__Trajectory->getFloat("ty",row);
+	TimeBasedTrkg__Trajectory_tz = TimeBasedTrkg__Trajectory->getFloat("tz",row);
+	TimeBasedTrkg__Trajectory_B = TimeBasedTrkg__Trajectory->getFloat("B",row);
+	TimeBasedTrkg__Trajectory_path = TimeBasedTrkg__Trajectory->getFloat("path",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_DETECTOR__ecpb(int row){
+	DETECTOR__ecpb_sector = DETECTOR__ecpb->getByte("sector",row);
+	DETECTOR__ecpb_etot = DETECTOR__ecpb->getFloat("etot",row);
+	DETECTOR__ecpb_ein = DETECTOR__ecpb->getFloat("ein",row);
+	DETECTOR__ecpb_eout = DETECTOR__ecpb->getFloat("eout",row);
+	DETECTOR__ecpb_time = DETECTOR__ecpb->getFloat("time",row);
+	DETECTOR__ecpb_path = DETECTOR__ecpb->getFloat("path",row);
+	DETECTOR__ecpb_x = DETECTOR__ecpb->getFloat("x",row);
+	DETECTOR__ecpb_y = DETECTOR__ecpb->getFloat("y",row);
+	DETECTOR__ecpb_z = DETECTOR__ecpb->getFloat("z",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::get_CND__hits(int row){
+	CND__hits_id = CND__hits->getShort("id",row);
+	CND__hits_status = CND__hits->getShort("status",row);
+	CND__hits_trkID = CND__hits->getShort("trkID",row);
+	CND__hits_sector = CND__hits->getByte("sector",row);
+	CND__hits_layer = CND__hits->getByte("layer",row);
+	CND__hits_component = CND__hits->getShort("component",row);
+	CND__hits_energy = CND__hits->getFloat("energy",row);
+	CND__hits_time = CND__hits->getFloat("time",row);
+	CND__hits_energy_unc = CND__hits->getFloat("energy_unc",row);
+	CND__hits_time_unc = CND__hits->getFloat("time_unc",row);
+	CND__hits_x = CND__hits->getFloat("x",row);
+	CND__hits_y = CND__hits->getFloat("y",row);
+	CND__hits_z = CND__hits->getFloat("z",row);
+	CND__hits_x_unc = CND__hits->getFloat("x_unc",row);
+	CND__hits_y_unc = CND__hits->getFloat("y_unc",row);
+	CND__hits_z_unc = CND__hits->getFloat("z_unc",row);
+	CND__hits_tx = CND__hits->getFloat("tx",row);
+	CND__hits_ty = CND__hits->getFloat("ty",row);
+	CND__hits_tz = CND__hits->getFloat("tz",row);
+	CND__hits_tlength = CND__hits->getFloat("tlength",row);
+	CND__hits_pathlength = CND__hits->getFloat("pathlength",row);
+	CND__hits_indexLadc = CND__hits->getShort("indexLadc",row);
+	CND__hits_indexRadc = CND__hits->getShort("indexRadc",row);
+	CND__hits_indexLtdc = CND__hits->getShort("indexLtdc",row);
+	CND__hits_indexRtdc = CND__hits->getShort("indexRtdc",row);
+	 return 0;
+} 
+
+int TIdentificatorCLAS12::InitBanks(){
+	BMTRec__Hits = new hipo::bank(fFactory->getSchema("BMTRec::Hits");
+	RAW__adc = new hipo::bank(fFactory->getSchema("RAW::adc");
+	BAND__adc = new hipo::bank(fFactory->getSchema("BAND::adc");
+	RUN__config = new hipo::bank(fFactory->getSchema("RUN::config");
+	RICH__clusters = new hipo::bank(fFactory->getSchema("RICH::clusters");
+	RECHB__Scintillator = new hipo::bank(fFactory->getSchema("RECHB::Scintillator");
+	REC__RingCher = new hipo::bank(fFactory->getSchema("REC::RingCher");
+	BSTRec__LayerEffs = new hipo::bank(fFactory->getSchema("BSTRec::LayerEffs");
+	RTPC__pos = new hipo::bank(fFactory->getSchema("RTPC::pos");
+	TimeBasedTrkg__TBCrosses = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBCrosses");
+	HitBasedTrkg__HBTracks = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBTracks");
+	CVTRec__Cosmics = new hipo::bank(fFactory->getSchema("CVTRec::Cosmics");
+	RECHB__Cherenkov = new hipo::bank(fFactory->getSchema("RECHB::Cherenkov");
+	BSTRec__Clusters = new hipo::bank(fFactory->getSchema("BSTRec::Clusters");
+	CVTRec__Trajectory = new hipo::bank(fFactory->getSchema("CVTRec::Trajectory");
+	RECHB__Calorimeter = new hipo::bank(fFactory->getSchema("RECHB::Calorimeter");
+	TimeBasedTrkg__TBSegmentTrajectory = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBSegmentTrajectory");
+	CTOF__tdc = new hipo::bank(fFactory->getSchema("CTOF::tdc");
+	REC__Cherenkov = new hipo::bank(fFactory->getSchema("REC::Cherenkov");
+	BMTRec__LayerEffs = new hipo::bank(fFactory->getSchema("BMTRec::LayerEffs");
+	FTOF__adc = new hipo::bank(fFactory->getSchema("FTOF::adc");
+	MC__Lund = new hipo::bank(fFactory->getSchema("MC::Lund");
+	DETECTOR__lcpb = new hipo::bank(fFactory->getSchema("DETECTOR::lcpb");
+	MC__Header = new hipo::bank(fFactory->getSchema("MC::Header");
+	CND__clusters = new hipo::bank(fFactory->getSchema("CND::clusters");
+	TimeBasedTrkg__TBCovMat = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBCovMat");
+	RICH__hits = new hipo::bank(fFactory->getSchema("RICH::hits");
+	RECHB__Track = new hipo::bank(fFactory->getSchema("RECHB::Track");
+	MC__True = new hipo::bank(fFactory->getSchema("MC::True");
+	BST__adc = new hipo::bank(fFactory->getSchema("BST::adc");
+	MC__Event = new hipo::bank(fFactory->getSchema("MC::Event");
+	HitBasedTrkg__HBCrosses = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBCrosses");
+	FTOF__clusters = new hipo::bank(fFactory->getSchema("FTOF::clusters");
+	REC__TrackCross = new hipo::bank(fFactory->getSchema("REC::TrackCross");
+	REC__Scintillator = new hipo::bank(fFactory->getSchema("REC::Scintillator");
+	ECAL__peaks = new hipo::bank(fFactory->getSchema("ECAL::peaks");
+	TimeBasedTrkg__TBClusters = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBClusters");
+	TAGGER__tgpb = new hipo::bank(fFactory->getSchema("TAGGER::tgpb");
+	LTCC__clusters = new hipo::bank(fFactory->getSchema("LTCC::clusters");
+	RICH__hadrons = new hipo::bank(fFactory->getSchema("RICH::hadrons");
+	DC__tdc = new hipo::bank(fFactory->getSchema("DC::tdc");
+	BSTRec__Crosses = new hipo::bank(fFactory->getSchema("BSTRec::Crosses");
+	HTCC__rec = new hipo::bank(fFactory->getSchema("HTCC::rec");
+	FTHODO__adc = new hipo::bank(fFactory->getSchema("FTHODO::adc");
+	FTOF__matchedclusters = new hipo::bank(fFactory->getSchema("FTOF::matchedclusters");
+	ECAL__adc = new hipo::bank(fFactory->getSchema("ECAL::adc");
+	FMT__adc = new hipo::bank(fFactory->getSchema("FMT::adc");
+	BMT__adc = new hipo::bank(fFactory->getSchema("BMT::adc");
+	ECAL__calib = new hipo::bank(fFactory->getSchema("ECAL::calib");
+	BMTRec__Crosses = new hipo::bank(fFactory->getSchema("BMTRec::Crosses");
+	RUN__rf = new hipo::bank(fFactory->getSchema("RUN::rf");
+	BSTRec__Hits = new hipo::bank(fFactory->getSchema("BSTRec::Hits");
+	HitBasedTrkg__HBSegmentTrajectory = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBSegmentTrajectory");
+	LTCC__adc = new hipo::bank(fFactory->getSchema("LTCC::adc");
+	CND__tdc = new hipo::bank(fFactory->getSchema("CND::tdc");
+	HTCC__adc = new hipo::bank(fFactory->getSchema("HTCC::adc");
+	RAW__vtp = new hipo::bank(fFactory->getSchema("RAW::vtp");
+	CVTRec__Tracks = new hipo::bank(fFactory->getSchema("CVTRec::Tracks");
+	RECFT__Particle = new hipo::bank(fFactory->getSchema("RECFT::Particle");
+	TimeBasedTrkg__TBTracks = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBTracks");
+	DETECTOR__icpb = new hipo::bank(fFactory->getSchema("DETECTOR::icpb");
+	RF__tdc = new hipo::bank(fFactory->getSchema("RF::tdc");
+	HEADER__info = new hipo::bank(fFactory->getSchema("HEADER::info");
+	FTCAL__clusters = new hipo::bank(fFactory->getSchema("FTCAL::clusters");
+	RAW__scaler = new hipo::bank(fFactory->getSchema("RAW::scaler");
+	BMTRec__Clusters = new hipo::bank(fFactory->getSchema("BMTRec::Clusters");
+	TimeBasedTrkg__TBSegments = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBSegments");
+	RECHB__ForwardTagger = new hipo::bank(fFactory->getSchema("RECHB::ForwardTagger");
+	REC__Calorimeter = new hipo::bank(fFactory->getSchema("REC::Calorimeter");
+	REC__CovMat = new hipo::bank(fFactory->getSchema("REC::CovMat");
+	RAW__epics = new hipo::bank(fFactory->getSchema("RAW::epics");
+	REC__VertDoca = new hipo::bank(fFactory->getSchema("REC::VertDoca");
+	FTHODO__clusters = new hipo::bank(fFactory->getSchema("FTHODO::clusters");
+	RUN__scaler = new hipo::bank(fFactory->getSchema("RUN::scaler");
+	BAND__hits = new hipo::bank(fFactory->getSchema("BAND::hits");
+	ECAL__hits = new hipo::bank(fFactory->getSchema("ECAL::hits");
+	ECAL__clusters = new hipo::bank(fFactory->getSchema("ECAL::clusters");
+	FT__particles = new hipo::bank(fFactory->getSchema("FT::particles");
+	HitBasedTrkg__HBClusters = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBClusters");
+	REC__RICH = new hipo::bank(fFactory->getSchema("REC::RICH");
+	REC__Track = new hipo::bank(fFactory->getSchema("REC::Track");
+	RECHB__Event = new hipo::bank(fFactory->getSchema("RECHB::Event");
+	FTOF__hbhits = new hipo::bank(fFactory->getSchema("FTOF::hbhits");
+	RTPC__adc = new hipo::bank(fFactory->getSchema("RTPC::adc");
+	FTCAL__adc = new hipo::bank(fFactory->getSchema("FTCAL::adc");
+	CTOF__rawhits = new hipo::bank(fFactory->getSchema("CTOF::rawhits");
+	CND__adc = new hipo::bank(fFactory->getSchema("CND::adc");
+	FTOF__hits = new hipo::bank(fFactory->getSchema("FTOF::hits");
+	FMTRec__Clusters = new hipo::bank(fFactory->getSchema("FMTRec::Clusters");
+	HEL__adc = new hipo::bank(fFactory->getSchema("HEL::adc");
+	DETECTOR__ccpb = new hipo::bank(fFactory->getSchema("DETECTOR::ccpb");
+	REC__ForwardTagger = new hipo::bank(fFactory->getSchema("REC::ForwardTagger");
+	FTTRK__adc = new hipo::bank(fFactory->getSchema("FTTRK::adc");
+	FTOF__rawhits = new hipo::bank(fFactory->getSchema("FTOF::rawhits");
+	RECHB__TrackCross = new hipo::bank(fFactory->getSchema("RECHB::TrackCross");
+	DETECTOR__scpb = new hipo::bank(fFactory->getSchema("DETECTOR::scpb");
+	FTHODO__hits = new hipo::bank(fFactory->getSchema("FTHODO::hits");
+	RECFT__Event = new hipo::bank(fFactory->getSchema("RECFT::Event");
+	CTOF__adc = new hipo::bank(fFactory->getSchema("CTOF::adc");
+	EVENT__detector = new hipo::bank(fFactory->getSchema("EVENT::detector");
+	DC__doca = new hipo::bank(fFactory->getSchema("DC::doca");
+	HTCC__tdc = new hipo::bank(fFactory->getSchema("HTCC::tdc");
+	HEL__online = new hipo::bank(fFactory->getSchema("HEL::online");
+	REC__Event = new hipo::bank(fFactory->getSchema("REC::Event");
+	REC__Particle = new hipo::bank(fFactory->getSchema("REC::Particle");
+	REC__Traj = new hipo::bank(fFactory->getSchema("REC::Traj");
+	FTOF__tdc = new hipo::bank(fFactory->getSchema("FTOF::tdc");
+	HitBasedTrkg__HBSegments = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBSegments");
+	FTCAL__hits = new hipo::bank(fFactory->getSchema("FTCAL::hits");
+	FMTRec__Hits = new hipo::bank(fFactory->getSchema("FMTRec::Hits");
+	BAND__tdc = new hipo::bank(fFactory->getSchema("BAND::tdc");
+	RF__adc = new hipo::bank(fFactory->getSchema("RF::adc");
+	FMTRec__Crosses = new hipo::bank(fFactory->getSchema("FMTRec::Crosses");
+	MC__Particle = new hipo::bank(fFactory->getSchema("MC::Particle");
+	ECAL__tdc = new hipo::bank(fFactory->getSchema("ECAL::tdc");
+	RICH__tdc = new hipo::bank(fFactory->getSchema("RICH::tdc");
+	LTCC__tdc = new hipo::bank(fFactory->getSchema("LTCC::tdc");
+	ECAL__moments = new hipo::bank(fFactory->getSchema("ECAL::moments");
+	EVENT__particle = new hipo::bank(fFactory->getSchema("EVENT::particle");
+	RUN__trigger = new hipo::bank(fFactory->getSchema("RUN::trigger");
+	HitBasedTrkg__HBHits = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBHits");
+	TimeBasedTrkg__TBHits = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBHits");
+	CTOF__hits = new hipo::bank(fFactory->getSchema("CTOF::hits");
+	RECHB__Particle = new hipo::bank(fFactory->getSchema("RECHB::Particle");
+	RAW__tdc = new hipo::bank(fFactory->getSchema("RAW::tdc");
+	RICH__photons = new hipo::bank(fFactory->getSchema("RICH::photons");
+	HEL__flip = new hipo::bank(fFactory->getSchema("HEL::flip");
+	TimeBasedTrkg__Trajectory = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::Trajectory");
+	DETECTOR__ecpb = new hipo::bank(fFactory->getSchema("DETECTOR::ecpb");
+	CND__hits = new hipo::bank(fFactory->getSchema("CND::hits");
 }
+
+int TIdentificatorCLAS12::FillBanks(){
+	 fFactory->getStructure(BMTRec__Hits);
+	 fFactory->getStructure(RAW__adc);
+	 fFactory->getStructure(BAND__adc);
+	 fFactory->getStructure(RUN__config);
+	 fFactory->getStructure(RICH__clusters);
+	 fFactory->getStructure(RECHB__Scintillator);
+	 fFactory->getStructure(REC__RingCher);
+	 fFactory->getStructure(BSTRec__LayerEffs);
+	 fFactory->getStructure(RTPC__pos);
+	 fFactory->getStructure(TimeBasedTrkg__TBCrosses);
+	 fFactory->getStructure(HitBasedTrkg__HBTracks);
+	 fFactory->getStructure(CVTRec__Cosmics);
+	 fFactory->getStructure(RECHB__Cherenkov);
+	 fFactory->getStructure(BSTRec__Clusters);
+	 fFactory->getStructure(CVTRec__Trajectory);
+	 fFactory->getStructure(RECHB__Calorimeter);
+	 fFactory->getStructure(TimeBasedTrkg__TBSegmentTrajectory);
+	 fFactory->getStructure(CTOF__tdc);
+	 fFactory->getStructure(REC__Cherenkov);
+	 fFactory->getStructure(BMTRec__LayerEffs);
+	 fFactory->getStructure(FTOF__adc);
+	 fFactory->getStructure(MC__Lund);
+	 fFactory->getStructure(DETECTOR__lcpb);
+	 fFactory->getStructure(MC__Header);
+	 fFactory->getStructure(CND__clusters);
+	 fFactory->getStructure(TimeBasedTrkg__TBCovMat);
+	 fFactory->getStructure(RICH__hits);
+	 fFactory->getStructure(RECHB__Track);
+	 fFactory->getStructure(MC__True);
+	 fFactory->getStructure(BST__adc);
+	 fFactory->getStructure(MC__Event);
+	 fFactory->getStructure(HitBasedTrkg__HBCrosses);
+	 fFactory->getStructure(FTOF__clusters);
+	 fFactory->getStructure(REC__TrackCross);
+	 fFactory->getStructure(REC__Scintillator);
+	 fFactory->getStructure(ECAL__peaks);
+	 fFactory->getStructure(TimeBasedTrkg__TBClusters);
+	 fFactory->getStructure(TAGGER__tgpb);
+	 fFactory->getStructure(LTCC__clusters);
+	 fFactory->getStructure(RICH__hadrons);
+	 fFactory->getStructure(DC__tdc);
+	 fFactory->getStructure(BSTRec__Crosses);
+	 fFactory->getStructure(HTCC__rec);
+	 fFactory->getStructure(FTHODO__adc);
+	 fFactory->getStructure(FTOF__matchedclusters);
+	 fFactory->getStructure(ECAL__adc);
+	 fFactory->getStructure(FMT__adc);
+	 fFactory->getStructure(BMT__adc);
+	 fFactory->getStructure(ECAL__calib);
+	 fFactory->getStructure(BMTRec__Crosses);
+	 fFactory->getStructure(RUN__rf);
+	 fFactory->getStructure(BSTRec__Hits);
+	 fFactory->getStructure(HitBasedTrkg__HBSegmentTrajectory);
+	 fFactory->getStructure(LTCC__adc);
+	 fFactory->getStructure(CND__tdc);
+	 fFactory->getStructure(HTCC__adc);
+	 fFactory->getStructure(RAW__vtp);
+	 fFactory->getStructure(CVTRec__Tracks);
+	 fFactory->getStructure(RECFT__Particle);
+	 fFactory->getStructure(TimeBasedTrkg__TBTracks);
+	 fFactory->getStructure(DETECTOR__icpb);
+	 fFactory->getStructure(RF__tdc);
+	 fFactory->getStructure(HEADER__info);
+	 fFactory->getStructure(FTCAL__clusters);
+	 fFactory->getStructure(RAW__scaler);
+	 fFactory->getStructure(BMTRec__Clusters);
+	 fFactory->getStructure(TimeBasedTrkg__TBSegments);
+	 fFactory->getStructure(RECHB__ForwardTagger);
+	 fFactory->getStructure(REC__Calorimeter);
+	 fFactory->getStructure(REC__CovMat);
+	 fFactory->getStructure(RAW__epics);
+	 fFactory->getStructure(REC__VertDoca);
+	 fFactory->getStructure(FTHODO__clusters);
+	 fFactory->getStructure(RUN__scaler);
+	 fFactory->getStructure(BAND__hits);
+	 fFactory->getStructure(ECAL__hits);
+	 fFactory->getStructure(ECAL__clusters);
+	 fFactory->getStructure(FT__particles);
+	 fFactory->getStructure(HitBasedTrkg__HBClusters);
+	 fFactory->getStructure(REC__RICH);
+	 fFactory->getStructure(REC__Track);
+	 fFactory->getStructure(RECHB__Event);
+	 fFactory->getStructure(FTOF__hbhits);
+	 fFactory->getStructure(RTPC__adc);
+	 fFactory->getStructure(FTCAL__adc);
+	 fFactory->getStructure(CTOF__rawhits);
+	 fFactory->getStructure(CND__adc);
+	 fFactory->getStructure(FTOF__hits);
+	 fFactory->getStructure(FMTRec__Clusters);
+	 fFactory->getStructure(HEL__adc);
+	 fFactory->getStructure(DETECTOR__ccpb);
+	 fFactory->getStructure(REC__ForwardTagger);
+	 fFactory->getStructure(FTTRK__adc);
+	 fFactory->getStructure(FTOF__rawhits);
+	 fFactory->getStructure(RECHB__TrackCross);
+	 fFactory->getStructure(DETECTOR__scpb);
+	 fFactory->getStructure(FTHODO__hits);
+	 fFactory->getStructure(RECFT__Event);
+	 fFactory->getStructure(CTOF__adc);
+	 fFactory->getStructure(EVENT__detector);
+	 fFactory->getStructure(DC__doca);
+	 fFactory->getStructure(HTCC__tdc);
+	 fFactory->getStructure(HEL__online);
+	 fFactory->getStructure(REC__Event);
+	 fFactory->getStructure(REC__Particle);
+	 fFactory->getStructure(REC__Traj);
+	 fFactory->getStructure(FTOF__tdc);
+	 fFactory->getStructure(HitBasedTrkg__HBSegments);
+	 fFactory->getStructure(FTCAL__hits);
+	 fFactory->getStructure(FMTRec__Hits);
+	 fFactory->getStructure(BAND__tdc);
+	 fFactory->getStructure(RF__adc);
+	 fFactory->getStructure(FMTRec__Crosses);
+	 fFactory->getStructure(MC__Particle);
+	 fFactory->getStructure(ECAL__tdc);
+	 fFactory->getStructure(RICH__tdc);
+	 fFactory->getStructure(LTCC__tdc);
+	 fFactory->getStructure(ECAL__moments);
+	 fFactory->getStructure(EVENT__particle);
+	 fFactory->getStructure(RUN__trigger);
+	 fFactory->getStructure(HitBasedTrkg__HBHits);
+	 fFactory->getStructure(TimeBasedTrkg__TBHits);
+	 fFactory->getStructure(CTOF__hits);
+	 fFactory->getStructure(RECHB__Particle);
+	 fFactory->getStructure(RAW__tdc);
+	 fFactory->getStructure(RICH__photons);
+	 fFactory->getStructure(HEL__flip);
+	 fFactory->getStructure(TimeBasedTrkg__Trajectory);
+	 fFactory->getStructure(DETECTOR__ecpb);
+	 fFactory->getStructure(CND__hits);
+}
+
