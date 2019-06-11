@@ -1,6 +1,5 @@
 #include "TIdentificatorCLAS12.h"
 
-
 TString TIdentificatorCLAS12::GetCategorization(Int_t k)
 {
   TString partId;

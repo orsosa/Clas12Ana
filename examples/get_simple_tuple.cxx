@@ -51,10 +51,10 @@ int main(int argc, char **argv)
 
   if(simul_key == 0) {
     NtupleName = "ntuple_data";
-    output = new TFile("outfiles/pruned_data.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/pruned_dataH4.root", "RECREATE", "Data of particles");
   } else { 
     NtupleName = "ntuple_accept";
-    output = new TFile("outfiles/pruned_simul.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/pruned_simulH4.root", "RECREATE", "Data of particles");
   }
 
   TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2");
@@ -141,15 +141,15 @@ int main(int argc, char **argv)
       DataElec[37] = t->HY_ECOUT();
       DataElec[38] = t->HZ_ECOUT();
 
-      DataElec[39] = t->TrajDCX(0,0);
-      DataElec[40] = t->TrajDCX(0,1);
-      DataElec[41] = t->TrajDCX(0,2);
-      DataElec[42] = t->TrajDCY(0,0);
-      DataElec[43] = t->TrajDCY(0,1);
-      DataElec[44] = t->TrajDCY(0,2);
-      DataElec[45] = t->TrajDCZ(0,0);
-      DataElec[46] = t->TrajDCZ(0,1);
-      DataElec[47] = t->TrajDCZ(0,2);
+      DataElec[39] = 0;//t->TrajDCX(0,0);
+      DataElec[40] = 0;//t->TrajDCX(0,1);
+      DataElec[41] = 0;//t->TrajDCX(0,2);
+      DataElec[42] = 0;//t->TrajDCY(0,0);
+      DataElec[43] = 0;//t->TrajDCY(0,1);
+      DataElec[44] = 0;//t->TrajDCY(0,2);
+      DataElec[45] = 0;//t->TrajDCZ(0,0);
+      DataElec[46] = 0;//t->TrajDCZ(0,1);
+      DataElec[47] = 0;//t->TrajDCZ(0,2);
 
       DataElec[48] = t->PathTOF(0);
       DataElec[49] = t->TimeTOF(0);
@@ -159,6 +159,7 @@ int main(int argc, char **argv)
       DataElec[53] = t->RFTime();
       
       Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
+      /*
       dcx   = t->TrajDCX(0,0);
       dcy   = t->TrajDCY(0,0);
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
@@ -174,7 +175,7 @@ int main(int argc, char **argv)
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[58] = dcx_rot;//region 2
       DataElec[59] = dcy_rot;//region 2
-
+      */
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
@@ -240,9 +241,9 @@ int main(int argc, char **argv)
           vars[31] = vert->Y(); 
           vars[32] = vert->Z(); 
           vars[33] = 0;//t->TimeEC(i);
-          vars[34] = t->VX_DC(i);//t->XEC(i);
-          vars[35] = t->VY_DC(i);//t->YEC(i);
-          vars[36] = t->VZ_DC(i);//t->ZEC(i);
+          vars[34] = 0;//t->VX_DC(i);//t->XEC(i);
+          vars[35] = 0;//t->VY_DC(i);//t->YEC(i);
+          vars[36] = 0;//t->VZ_DC(i);//t->ZEC(i);
           vars[37] = t->Px(0);
           vars[38] = t->Py(0);
           vars[39] = t->Pz(0);
@@ -304,7 +305,7 @@ int main(int argc, char **argv)
 	  vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
 	  vars[92] = t->Status(i);
 	  vars[93] = t->Status(0);
-
+	  /*
 	  vars[94] = t->Px_DC(0);
 	  vars[95] = t->Py_DC(0);
 	  vars[96] = t->Pz_DC(0);
@@ -350,7 +351,7 @@ int main(int argc, char **argv)
 	  vars[133] = t->TrajDCZ(0,0);
 	  vars[134] = t->TrajDCZ(0,1);
 	  vars[135] = t->TrajDCZ(0,2);
-
+	  */
 	  vars[136] = t->PathTOF(0);
 	  vars[137] = t->TimeTOF(0);
 	  vars[138] = t->PathTOF(i);
@@ -365,6 +366,7 @@ int main(int argc, char **argv)
 
 
 	  Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
+	  /*
 	  dcx   = t->TrajDCX(0,0);
 	  dcy   = t->TrajDCY(0,0);
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
@@ -397,6 +399,7 @@ int main(int argc, char **argv)
 	  vars[155] = dcx_rot;//region 2
 	  vars[156] = dcy_rot;//region 2
 	  vars[157] = 0;// mc mass
+	  */
 	  vars[158] = t->Event();// event number
 
 	  vars[159] = Npip_rec;
@@ -408,6 +411,7 @@ int main(int argc, char **argv)
 	  //dc_chi2:ftof1ax:ftof1ay:ftof1az
 
 	  vars[164] = t->DCChi2(i);
+	  /*
 	  vars[165] = t->TrajFTOF1AX(i);
 	  vars[166] = t->TrajFTOF1AY(i);
 	  vars[167] = t->TrajFTOF1AZ(i);
@@ -423,8 +427,9 @@ int main(int argc, char **argv)
 	  vars[177] = t->TrajHTCCX(i);
 	  vars[178] = t->TrajHTCCY(i);
 	  vars[179] = t->TrajHTCCZ(i);
-
+	  */
 	  vars[180] = t->DCChi2(0);
+	  /*
 	  vars[181] = t->TrajFTOF1AX(0);
 	  vars[182] = t->TrajFTOF1AY(0);
 	  vars[183] = t->TrajFTOF1AZ(0);
@@ -440,7 +445,7 @@ int main(int argc, char **argv)
 	  vars[193] = t->TrajHTCCX(0);
 	  vars[194] = t->TrajHTCCY(0);
 	  vars[195] = t->TrajHTCCZ(0);
-
+	  
 	  //:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z
 
 	  vars[196] = t->TrajFTOF1BX(i);
@@ -455,7 +460,7 @@ int main(int argc, char **argv)
 	  vars[205] = t->TrajFTOF2X(0);
 	  vars[206] = t->TrajFTOF2Y(0);
 	  vars[207] = t->TrajFTOF2Z(0);
-
+	  */
 	  ntuple->Fill(vars);
 	}
       }

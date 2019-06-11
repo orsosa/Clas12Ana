@@ -133,8 +133,8 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   fEvent = new hipo::event();
   fFactory = new hipo::dictionary();
   this->fReader = reader;
-  fReader->readDictionary(fFactory);
-  InitNodes();
+  fReader->readDictionary(*fFactory);
+  InitBanks();
   InitDetectorMap();
   InitLayerMap();
   InitTrajDetId();
@@ -168,7 +168,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   fFactory = new hipo::dictionary();
   this->fReader = new hipo::reader();
   fReader->open(flist[kCurrentFileIndex]);
-  fReader->readDictionary(fFactory);
+  fReader->readDictionary(*fFactory);
   InitBanks();
   InitDetectorMap();
   InitLayerMap();
@@ -187,7 +187,8 @@ Bool_t TIdentificatorCLAS12::Next()
 
   bool ret = fReader->next();
   if (ret)  {
-    fReader->read(fEvent);
+    fReader->read(*fEvent);
+    FillBanks();
     FillResponseMaps();
   }
   else
@@ -198,7 +199,8 @@ Bool_t TIdentificatorCLAS12::Next()
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
       if (ret)  {
-	fReader->read(fEvent);
+	fReader->read(*fEvent);
+	FillBanks();
 	FillResponseMaps();
       }
     }
@@ -319,42 +321,42 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
 int TIdentificatorCLAS12::FillResponseMaps()
 {
   ClearMaps();
-  FillMap(&get_REC__Calorimeter,REC__Calorimeter,REC__Calorimeter_pindex,calorimeterMap);
-  FillMap(&get_REC__Cherenkov,REC__Cherenkov,REC__Cherenkov_pindex,cherenkovMap);
-  FillMap(&get_REC__Scintillator, REC__Scintillator,REC__Scintillator_pindex,scintillatorMap);
-  FillMap(&get_REC__Track,REC__Track, REC__Track_pindex,trackMap);
-  FillMap(&get_REC__Traj,REC__Traj, REC__Traj_pindex,trajMap);
-  FillMap(&get_REC_CovMat, REC__CovMat,REC__CovMat_pindex,covMatMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__Calorimeter,REC__Calorimeter,REC__Calorimeter_pindex,calorimeterMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__Cherenkov,REC__Cherenkov,REC__Cherenkov_pindex,cherenkovMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__Scintillator, REC__Scintillator,REC__Scintillator_pindex,scintillatorMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__Track,REC__Track, REC__Track_pindex,trackMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__Traj,REC__Traj, REC__Traj_pindex,trajMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__CovMat, REC__CovMat,REC__CovMat_pindex,covMatMap);
 
-  FillMap(&get_RICH__hadrons,RICH__hadrons, RICH__hadrons_particle_index,richHadPartMap);
-  FillMapRev(&get_RICH__hadrons, RICH__hadrons, RICH__hadrons_hit_index,richHadClusterMap);
-  FillMap(&get_REC__RICH, REC__RICH, REC__RICH_pindex,richRRPartMap);
-  FillMapRev(&get_REC__RICH, REC__RICH, REC__RICH_index,richRRClusterMap);
-  FillMap(&get_RICH__hits, RICH__hits, RICH__hits_cluster,richHitClusterMap);
+  FillMap(&TIdentificatorCLAS12::get_RICH__hadrons,RICH__hadrons, RICH__hadrons_particle_index,richHadPartMap);
+  FillMapRev(&TIdentificatorCLAS12::get_RICH__hadrons, RICH__hadrons, RICH__hadrons_hit_index,richHadClusterMap);
+  FillMap(&TIdentificatorCLAS12::get_REC__RICH, REC__RICH, REC__RICH_pindex,richRRPartMap);
+  FillMapRev(&TIdentificatorCLAS12::get_REC__RICH, REC__RICH, REC__RICH_index,richRRClusterMap);
+  FillMap(&TIdentificatorCLAS12::get_RICH__hits, RICH__hits, RICH__hits_cluster,richHitClusterMap);
 
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMap(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMap(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
 {
   if (!bank) return 0;
   int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    getRow(i);
+    (this->*getRow)(i);
     mp[(int)pi].push_back(i);
   }
   
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMapRev(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMapRev(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
 {
   if (!pi) return 0;
   int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    getRow(i);
+    (this->*getRow)(i);
     mp[i].push_back((int)pi);
   }
   

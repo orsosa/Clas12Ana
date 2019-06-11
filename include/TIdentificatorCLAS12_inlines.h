@@ -317,7 +317,7 @@ inline Int_t TIdentificatorCLAS12::GetNPart(Int_t pid, Bool_t kind)
   }
   else
   {
-    int n = MC__Lund_pid->getRows();
+    int n = MC__Lund->getRows();
     for (int k=kIndLundFirst;k<n;k++){
       get_MC__Lund(k);
       if (MC__Lund_pid == pid && MC__Lund_type == 1)
@@ -733,7 +733,7 @@ inline Float_t TIdentificatorCLAS12::LW_ECOUT(Int_t k)
     }
   }
   if (index>=0){
-    get_REC__Calorimeter(calorimeterMap[k][i]);
+    get_REC__Calorimeter(index);
     return REC__Calorimeter_lw;
   }
   else 
@@ -949,7 +949,7 @@ inline Float_t TIdentificatorCLAS12::HZ_ECOUT(Int_t k)
 }
 
 
-
+/*
 inline Float_t TIdentificatorCLAS12::VX_DC(Int_t k)
 {
   
@@ -1015,6 +1015,7 @@ inline Float_t TIdentificatorCLAS12::VZ_DC(Int_t k)
   else 
     return -1111;
 }
+*/
 
 inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
 {
@@ -1037,7 +1038,7 @@ inline Int_t TIdentificatorCLAS12::SectorDC(Int_t k)
   else 
     return -111;
 }
-
+/*
 inline Float_t TIdentificatorCLAS12::Px_DC(Int_t k)
 {
   
@@ -1104,6 +1105,8 @@ inline Float_t TIdentificatorCLAS12::Pz_DC(Int_t k)
     return -111;
 }
 
+
+///////////// Trajectory bank
 
 inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl)
 {
@@ -1588,7 +1591,7 @@ inline Float_t TIdentificatorCLAS12::TrajDCZ(Int_t k,Int_t reg)
     return -1111;
 }
 
-
+*/
 inline Float_t TIdentificatorCLAS12::PathTOF(Int_t k)
 {
   Int_t N = scintillatorMap[k].size();

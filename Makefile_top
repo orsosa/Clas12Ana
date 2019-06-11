@@ -1,9 +1,7 @@
-.DELETE_ON_ERROR:
-
 ROOTCFLAGS  := $(shell root-config --cflags)
 ROOTLDFLAGS := $(shell root-config --ldflags)
 ROOTLIBS    := $(shell root-config --libs) -lEG
-ROOTGLIBS   := $(shell root-config --glibs)
+ROOTGLIBS   := $(shell root-config --glibs) -lEG
 
 HIPOCFLAGS  := -I$(HIPO4INC)
 HIPOLIBS    := -L$(HIPO4LIB) -lhipo4
@@ -11,24 +9,22 @@ HIPOLIBS    := -L$(HIPO4LIB) -lhipo4
 LZ4LIBS     := -L$(LZ4DIR)/lib -llz4
 LZ4INCLUDES := -I$(LZ4DIR)/lib
 
-CLAS12ANALIB  := -L$(CLAS12ANAHIPO4)/shlib -lTIdentificatorCLAS12
-#CLAS12ANASTLIB := -L$(CLAS12ANAHIPO4)/stlib -lTIdentificatorCLAS12
-INC_DIR   := -I$(CLAS12ANAHIPO4)/include
-
 CXX       := g++
 CXXFLAGS  += -Wall -fPIC $(ROOTCFLAGS) -std=c++11
 LD        := g++
 LDFLAGS   := $(ROOTLDFLAGS)
+SOFLAGS   = -Wl,-soname,$(notdir $@) -shared
+
+SRC_DIR   := src
+SLIB_DIR  := shlib
+STLIB_DIR := stlib
+OBJ_DIR   := .obj
+INC_DIR   := include
 
 AR	  = ar
 ARFLAGS	  = -cvr #create,verbose,quick (don't check for replacement, otherwise use r instead)
 
+SH_LIB     := libTIdentificatorCLAS12.so
+ST_LIB	   := libTIdentificatorCLAS12.a
 
-all:  getSchema get_simple_tuple particle_mix
-
-%: %.o
-	$(CXX) -o $@ $< $(ROOTCFLAGS) $(ROOTLDFLAGS) $(HIPOLIBS) $(LZ4LIBS)  $(ROOTLIBS) $(CLAS12ANALIB) 
-
-%.o: %.cxx
-	$(CXX) $(CXXFLAGS) -c -o $@ $< $(ROOTCFLAGS) $(HIPOCFLAGS) $(LZ4INCLUDES) $(INC_DIR)
-
+LIBS := $(LZ4LIBS) $(HIPOLIBS) $(ROOTGLIBS)

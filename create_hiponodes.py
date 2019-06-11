@@ -16,6 +16,7 @@ for line in fin:
     branches = line.strip().split("schema : {")[-1].split("}{")[-1].replace("}","").split(",")
 
     fout0.write("hipo::bank *" + bname + " ;\n")
+    fout0.write("int get_"+ bname + '(int row);\n')
     fout1.write("int TIdentificatorCLAS12::get_"+ bname + '(int row){\n')
     for br in branches:
         typ =  br.split("/")[1]
@@ -53,7 +54,7 @@ fout1.write("int TIdentificatorCLAS12::InitBanks(){\n")
 for line in fin:
     if 'schema : ' not in line: continue
     bname = line.strip().split("schema : {")[-1].split("}{")[0].replace("}","").split("/")[0]
-    fout1.write("\t" + bname.replace(":","_") + ' = new hipo::bank(fFactory->getSchema("'+ bname + '");\n')
+    fout1.write("\t" + bname.replace(":","_") + ' = new hipo::bank(fFactory->getSchema("'+ bname + '"));\n')
 
 fout1.write("}\n\n")
 
@@ -62,7 +63,7 @@ fout1.write("int TIdentificatorCLAS12::FillBanks(){\n")
 for line in fin:
     if 'schema : ' not in line: continue
     bname = line.strip().split("schema : {")[-1].split("}{")[0].replace("}","").split("/")[0].replace(":","_")
-    fout1.write('\t fFactory->getStructure('+ bname + ');\n')
+    fout1.write('\t fEvent->getStructure(*'+ bname + ');\n')
 
 fout1.write("}\n\n")
     

@@ -5,7 +5,6 @@
 #include "reader.h"
 #include "TString.h"
 #include "TVector3.h"
-#include "node_declaration.h"
 
 #define  MAXNFILES 2000
 
@@ -31,7 +30,15 @@ public:
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
     Int_t Helic();                       // inline
+    Int_t HelicOnline();                       // inline
+    Int_t HelicOnlineRaw();                       // inline
+    Int_t HelicFlip();                       // inline
+    Int_t HelicFlipRaw();                       // inline
+    Int_t HelicFlipEvent();                       // inline
     Int_t Event();                       // inline
+    Int_t RunN();                       // inline
+    Float_t Torus();
+    Float_t Solenoid();
     Float_t STTime(Int_t k=0);
     Float_t RFTime(Int_t k=0);
     Int_t GetNRows();                             // inline
@@ -312,8 +319,8 @@ public:
 
 
     int FillResponseMaps();
-    int FillMap(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
-    int FillMapRev(void (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
+    int FillMap(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
+    int FillMapRev(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
     int ClearMaps();
     int PrintMaps();
     int PrintMap(std::map <int,std::vector<int>> &mp);
@@ -351,7 +358,8 @@ private:
     std::map<int,int> DCSuperLayer;
     std::map<TString,int> trajDetId;
 
-    int InitNodes();
+    int InitBanks();
+    int FillBanks();
     int InitDetectorMap();
     int InitLayerMap();
     int InitDCSuperLayerMap();
