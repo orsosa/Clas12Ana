@@ -45,7 +45,7 @@ for line in fin:
         fout0.write(typ + " " + vname + " ;\n")
 
         fout1.write("\t" + vname + " = "+ bname + "->" + get + '"' + br + '",row);\n')
-    fout1.write('\t return 0;\n')
+    fout1.write('\treturn 0;\n')
     fout1.write("} \n\n")
 
     
@@ -54,7 +54,8 @@ fout1.write("int TIdentificatorCLAS12::InitBanks(){\n")
 for line in fin:
     if 'schema : ' not in line: continue
     bname = line.strip().split("schema : {")[-1].split("}{")[0].replace("}","").split("/")[0]
-    fout1.write("\t" + bname.replace(":","_") + ' = new hipo::bank(fFactory->getSchema("'+ bname + '"));\n')
+    fout1.write('\tif (fFactory->hasSchema("'+ bname + '"))\n');
+    fout1.write("\t\t" + bname.replace(":","_") + ' = new hipo::bank(fFactory->getSchema("'+ bname + '"));\n')
 
 fout1.write("}\n\n")
 
@@ -62,8 +63,9 @@ fin = open("schemas.txt")
 fout1.write("int TIdentificatorCLAS12::FillBanks(){\n")
 for line in fin:
     if 'schema : ' not in line: continue
-    bname = line.strip().split("schema : {")[-1].split("}{")[0].replace("}","").split("/")[0].replace(":","_")
-    fout1.write('\t fEvent->getStructure(*'+ bname + ');\n')
+    bname = line.strip().split("schema : {")[-1].split("}{")[0].replace("}","").split("/")[0]
+    fout1.write('\tif (fFactory->hasSchema("'+ bname + '"))\n');
+    fout1.write('\t\t fEvent->getStructure(*'+ bname.replace(":","_") + ');\n')
 
 fout1.write("}\n\n")
     
