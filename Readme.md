@@ -1,4 +1,15 @@
 # Clas12 Analysis tool for Hipo4 format
+## Requisites
+- hipo library
+  https://github.com/gavalian/Clas12Tool/tree/hipo4
+```
+git clone -b hipo4 --recurse-submodules https://github.com/gavalian/Clas12Tool.git
+cd Clas12Tool.git
+mkdir lib # could be included in Makefile...
+make
+```
+
+  
 ## Compiling
 - define the environment variables HIPO4DIR, LZ4DIR and CLAS12ANA to the root installation of the different packages (the last one to this folder)
 - run make on this folder
