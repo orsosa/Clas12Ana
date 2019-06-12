@@ -5,6 +5,14 @@ ROOTLDFLAGS := $(shell root-config --ldflags)
 ROOTLIBS    := $(shell root-config --libs) -lEG
 ROOTGLIBS   := $(shell root-config --glibs)
 
+ifndef CLAS12TOOL
+$(error CLAS12TOOL is not set)
+endif
+
+HIPO4INC := $(if $(HIPO4INC),$(HIPO4INC),$(CLAS12TOOL)/Hipo4 )
+HIPO4LIB := $(if $(HIPO4LIB),$(HIPO4LIB),$(CLAS12TOOL)/lib )
+
+
 HIPOCFLAGS  := -I$(HIPO4INC)
 HIPOLIBS    := -L$(HIPO4LIB) -lhipo4
 
