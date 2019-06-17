@@ -185,14 +185,22 @@ public:
     Float_t TrajDCY(Int_t k=0,Int_t reg=0);
     Float_t TrajDCZ(Int_t k=0,Int_t reg=0);
     
-    Float_t TrajDetIdX(Int_t k=0, TString dname="");
-    Float_t TrajDetIdY(Int_t k=0, TString dname="");
-    Float_t TrajDetIdZ(Int_t k=0, TString dname="");
+    Float_t TrajDetIdX(Int_t k=0, TString dname="", TString layer="");
+    Float_t TrajDetIdY(Int_t k=0, TString dname="", TString layer="");
+    Float_t TrajDetIdZ(Int_t k=0, TString dname="", TString layer="");
 
-    Float_t TrajECX(Int_t k=0);
-    Float_t TrajECY(Int_t k=0);
-    Float_t TrajECZ(Int_t k=0);
+    Float_t TrajDetId_CX(Int_t k=0, TString dname="", TString layer="");
+    Float_t TrajDetId_CY(Int_t k=0, TString dname="", TString layer="");
+    Float_t TrajDetId_CZ(Int_t k=0, TString dname="", TString layer="");
+    
+    Float_t TrajECINX(Int_t k=0);
+    Float_t TrajECINY(Int_t k=0);
+    Float_t TrajECINZ(Int_t k=0);
 
+    Float_t TrajECOUTX(Int_t k=0);
+    Float_t TrajECOUTY(Int_t k=0);
+    Float_t TrajECOUTZ(Int_t k=0);
+    
     Float_t TrajPCALX(Int_t k=0);
     Float_t TrajPCALY(Int_t k=0);
     Float_t TrajPCALZ(Int_t k=0);
@@ -248,7 +256,74 @@ public:
     Float_t TrajFMT6X(Int_t k=0);
     Float_t TrajFMT6Y(Int_t k=0);
     Float_t TrajFMT6Z(Int_t k=0);
+
+    ///CXCYCZ
+    Float_t TrajECIN_CX(Int_t k=0);
+    Float_t TrajECIN_CY(Int_t k=0);
+    Float_t TrajECIN_CZ(Int_t k=0);
+
+    Float_t TrajECOUT_CX(Int_t k=0);
+    Float_t TrajECOUT_CY(Int_t k=0);
+    Float_t TrajECOUT_CZ(Int_t k=0);
     
+    Float_t TrajPCAL_CX(Int_t k=0);
+    Float_t TrajPCAL_CY(Int_t k=0);
+    Float_t TrajPCAL_CZ(Int_t k=0);
+
+    Float_t TrajLTCC_CX(Int_t k=0);
+    Float_t TrajLTCC_CY(Int_t k=0);
+    Float_t TrajLTCC_CZ(Int_t k=0);
+
+    Float_t TrajFTOF1A_CX(Int_t k=0);
+    Float_t TrajFTOF1A_CY(Int_t k=0);
+    Float_t TrajFTOF1A_CZ(Int_t k=0);
+
+    Float_t TrajFTOF1B_CX(Int_t k=0);
+    Float_t TrajFTOF1B_CY(Int_t k=0);
+    Float_t TrajFTOF1B_CZ(Int_t k=0);
+
+    Float_t TrajFTOF2_CX(Int_t k=0);
+    Float_t TrajFTOF2_CY(Int_t k=0);
+    Float_t TrajFTOF2_CZ(Int_t k=0);
+
+    Float_t Traj101_CX(Int_t k=0);
+    Float_t Traj101_CY(Int_t k=0);
+    Float_t Traj101_CZ(Int_t k=0);
+
+    Float_t Traj102_CX(Int_t k=0);
+    Float_t Traj102_CY(Int_t k=0);
+    Float_t Traj102_CZ(Int_t k=0);
+
+    Float_t TrajHTCC_CX(Int_t k=0);
+    Float_t TrajHTCC_CY(Int_t k=0);
+    Float_t TrajHTCC_CZ(Int_t k=0);
+
+    Float_t TrajFMT1_CX(Int_t k=0);
+    Float_t TrajFMT1_CY(Int_t k=0);
+    Float_t TrajFMT1_CZ(Int_t k=0);
+
+    Float_t TrajFMT2_CX(Int_t k=0);
+    Float_t TrajFMT2_CY(Int_t k=0);
+    Float_t TrajFMT2_CZ(Int_t k=0);
+
+    Float_t TrajFMT3_CX(Int_t k=0);
+    Float_t TrajFMT3_CY(Int_t k=0);
+    Float_t TrajFMT3_CZ(Int_t k=0);
+
+    Float_t TrajFMT4_CX(Int_t k=0);
+    Float_t TrajFMT4_CY(Int_t k=0);
+    Float_t TrajFMT4_CZ(Int_t k=0);
+
+    Float_t TrajFMT5_CX(Int_t k=0);
+    Float_t TrajFMT5_CY(Int_t k=0);
+    Float_t TrajFMT5_CZ(Int_t k=0);
+
+    Float_t TrajFMT6_CX(Int_t k=0);
+    Float_t TrajFMT6_CY(Int_t k=0);
+    Float_t TrajFMT6_CZ(Int_t k=0);
+
+
+    ///
     Float_t PathTOF(Int_t k);
     Float_t TimeTOF(Int_t k);
     Int_t SectorTOF(Int_t k);
@@ -319,12 +394,12 @@ public:
 
 
     int FillResponseMaps();
-    int FillMap(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
-    int FillMapRev(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp);
+    int FillMap(hipo::bank *bank, std::map <int,std::vector<int>> &mp, TString piname = "pindex");
+    int FillMapRev(hipo::bank *bank, std::map <int,std::vector<int>> &mp, TString piname = "pindex");
     int ClearMaps();
     int PrintMaps();
     int PrintMap(std::map <int,std::vector<int>> &mp);
-
+    long getMapAddr(){return (long)&calorimeterMap;}
 
 private:
 #include "node_declaration.h" // got from hipo-io --code file.hipo all and format_nodes.py

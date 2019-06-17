@@ -32,7 +32,7 @@ AR	  = ar
 ARFLAGS	  = -cvr #create,verbose,quick (don't check for replacement, otherwise use r instead)
 
 
-all:  getSchema get_simple_tuple particle_mix
+all:  getSchema get_simple_tuple get_simple_tuple_rich particle_mix 
 
 %: %.o
 	$(CXX) -o $@ $< $(ROOTCFLAGS) $(ROOTLDFLAGS) $(HIPOLIBS) $(LZ4LIBS)  $(ROOTLIBS) $(CLAS12ANALIB) 

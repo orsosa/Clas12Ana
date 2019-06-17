@@ -57,7 +57,7 @@ for line in fin:
     fout1.write('\tif (fFactory->hasSchema("'+ bname + '"))\n');
     fout1.write("\t\t" + bname.replace(":","_") + ' = new hipo::bank(fFactory->getSchema("'+ bname + '"));\n')
 
-fout1.write("}\n\n")
+fout1.write("return 0;\n}\n\n")
 
 fin = open("schemas.txt")
 fout1.write("int TIdentificatorCLAS12::FillBanks(){\n")
@@ -67,7 +67,7 @@ for line in fin:
     fout1.write('\tif (fFactory->hasSchema("'+ bname + '"))\n');
     fout1.write('\t\t fEvent->getStructure(*'+ bname.replace(":","_") + ');\n')
 
-fout1.write("}\n\n")
+fout1.write("return 0;\n}\n\n")
     
         
 

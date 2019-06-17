@@ -1105,9 +1105,10 @@ inline Float_t TIdentificatorCLAS12::Pz_DC(Int_t k)
     return -111;
 }
 
-
+*/
 ///////////// Trajectory bank
 
+/*
 inline Float_t TIdentificatorCLAS12::TrajX(Int_t k,Int_t sl)
 {
   
@@ -1241,10 +1242,11 @@ inline Float_t TIdentificatorCLAS12::TrajCZ(Int_t k,Int_t sl)
   else 
     return -1111;
 }
+*/
 
 ////
 /// Traj detID XYZ ///
-inline Float_t TIdentificatorCLAS12::TrajDetIdX(Int_t k,TString dname)
+inline Float_t TIdentificatorCLAS12::TrajDetIdX(Int_t k,TString dname, TString layer)
 {
   
   Int_t N = trajMap[k].size();
@@ -1252,7 +1254,7 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdX(Int_t k,TString dname)
   for (int i=0;i<N;i++)
   {
     get_REC__Traj(trajMap[k][i]);
-    if (REC__Traj_detId==trajDetId[dname])
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
     {
       index = trajMap[k][i];
       break;
@@ -1266,7 +1268,7 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdX(Int_t k,TString dname)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajDetIdY(Int_t k,TString dname)
+inline Float_t TIdentificatorCLAS12::TrajDetIdY(Int_t k,TString dname, TString layer)
 {
   
   Int_t N = trajMap[k].size();
@@ -1274,7 +1276,7 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdY(Int_t k,TString dname)
   for (int i=0;i<N;i++)
   {
     get_REC__Traj(trajMap[k][i]);
-    if (REC__Traj_detId==trajDetId[dname])
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
     {
       index = trajMap[k][i];
       break;
@@ -1288,7 +1290,7 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdY(Int_t k,TString dname)
     return -1111;
 }
 
-inline Float_t TIdentificatorCLAS12::TrajDetIdZ(Int_t k,TString dname)
+inline Float_t TIdentificatorCLAS12::TrajDetIdZ(Int_t k,TString dname, TString layer)
 {
   
   Int_t N = trajMap[k].size();
@@ -1296,7 +1298,7 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdZ(Int_t k,TString dname)
   for (int i=0;i<N;i++)
   {
     get_REC__Traj(trajMap[k][i]);
-    if (REC__Traj_detId==trajDetId[dname])
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
     {
       index = trajMap[k][i];
       break;
@@ -1310,219 +1312,527 @@ inline Float_t TIdentificatorCLAS12::TrajDetIdZ(Int_t k,TString dname)
     return -1111;
 }
 
-//////////
-/// Traj XYZ EC
-inline Float_t TIdentificatorCLAS12::TrajECX(Int_t k)
+///// CXCYCZ
+/// Traj detID XYZ ///
+inline Float_t TIdentificatorCLAS12::TrajDetId_CX(Int_t k,TString dname, TString layer)
 {
-  return TrajDetIdX(k,"EC");
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cx;
+  }
+  else 
+    return -1111;
 }
-inline Float_t TIdentificatorCLAS12::TrajECY(Int_t k)
+
+inline Float_t TIdentificatorCLAS12::TrajDetId_CY(Int_t k,TString dname, TString layer)
 {
-  return TrajDetIdY(k,"EC");
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cy;
+  }
+  else 
+    return -1111;
 }
-inline Float_t TIdentificatorCLAS12::TrajECZ(Int_t k)
+
+inline Float_t TIdentificatorCLAS12::TrajDetId_CZ(Int_t k,TString dname, TString layer)
 {
-  return TrajDetIdZ(k,"EC");
+  
+  Int_t N = trajMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    get_REC__Traj(trajMap[k][i]);
+    if (REC__Traj_layer==trajDetId[layer]&&REC__Traj_detector==detectorType[dname])
+    {
+      index = trajMap[k][i];
+      break;
+    }
+  }
+  if (index>=0){
+    get_REC__Traj(index);
+    return REC__Traj_cz;
+  }
+  else 
+    return -1111;
+}
+
+////
+
+/// Traj XYZ ECIN
+inline Float_t TIdentificatorCLAS12::TrajECINX(Int_t k)
+{
+  return TrajDetIdX(k,"ECAL","ECIN");
+}
+inline Float_t TIdentificatorCLAS12::TrajECINY(Int_t k)
+{
+  return TrajDetIdY(k,"ECAL","ECIN");
+}
+inline Float_t TIdentificatorCLAS12::TrajECINZ(Int_t k)
+{
+  return TrajDetIdZ(k,"ECAL","ECIN");
+}
+/// Traj XYZ ECOUT
+inline Float_t TIdentificatorCLAS12::TrajECOUTX(Int_t k)
+{
+  return TrajDetIdX(k,"ECAL","ECOUT");
+}
+inline Float_t TIdentificatorCLAS12::TrajECOUTY(Int_t k)
+{
+  return TrajDetIdY(k,"ECAL","ECOUT");
+}
+inline Float_t TIdentificatorCLAS12::TrajECOUTZ(Int_t k)
+{
+  return TrajDetIdZ(k,"ECAL","ECOUT");
 }
 /////////////
 ////// Traj XYZ PCAL
 inline Float_t TIdentificatorCLAS12::TrajPCALX(Int_t k)
 {
-  return TrajDetIdX(k,"PCAL");
+  return TrajDetIdX(k,"ECAL","PCAL");
 }
 inline Float_t TIdentificatorCLAS12::TrajPCALY(Int_t k)
 {
-  return TrajDetIdY(k,"PCAL");
+  return TrajDetIdY(k,"ECAL","PCAL");
 }
 inline Float_t TIdentificatorCLAS12::TrajPCALZ(Int_t k)
 {
-  return TrajDetIdZ(k,"PCAL");
+  return TrajDetIdZ(k,"ECAL","PCAL");
 }
 //////////
 ////// Traj XYZ LTCC
 inline Float_t TIdentificatorCLAS12::TrajLTCCX(Int_t k)
 {
-  return TrajDetIdX(k,"LTCC");
+  return TrajDetIdX(k,"LTCC","LTCC");
 }
 inline Float_t TIdentificatorCLAS12::TrajLTCCY(Int_t k)
 {
-  return TrajDetIdY(k,"LTCC");
+  return TrajDetIdY(k,"LTCC","LTCC");
 }
 inline Float_t TIdentificatorCLAS12::TrajLTCCZ(Int_t k)
 {
-  return TrajDetIdZ(k,"LTCC");
+  return TrajDetIdZ(k,"LTCC","LTCC");
 }
 ////////
 ////// Traj XYZ FTOF1A
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AX(Int_t k)
 {
-  return TrajDetIdX(k,"FTOF1A");
+  return TrajDetIdX(k,"FTOF","FTOF1A");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AY(Int_t k)
 {
-  return TrajDetIdY(k,"FTOF1A");
+  return TrajDetIdY(k,"FTOF","FTOF1A");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1AZ(Int_t k)
 {
-  return TrajDetIdZ(k,"FTOF1A");
+  return TrajDetIdZ(k,"FTOF","FTOF1A");
 }
 ////////
 ////// Traj XYZ FTOF1B
 inline Float_t TIdentificatorCLAS12::TrajFTOF1BX(Int_t k)
 {
-  return TrajDetIdX(k,"FTOF1B");
+  return TrajDetIdX(k,"FTOF","FTOF1B");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1BY(Int_t k)
 {
-  return TrajDetIdY(k,"FTOF1B");
+  return TrajDetIdY(k,"FTOF","FTOF1B");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF1BZ(Int_t k)
 {
-  return TrajDetIdZ(k,"FTOF1B");
+  return TrajDetIdZ(k,"FTOF","FTOF1B");
 }
 ////////
 ////// Traj XYZ FTOF2
 inline Float_t TIdentificatorCLAS12::TrajFTOF2X(Int_t k)
 {
-  return TrajDetIdX(k,"FTOF2");
+  return TrajDetIdX(k,"FTOF","FTOF2");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF2Y(Int_t k)
 {
-  return TrajDetIdY(k,"FTOF2");
+  return TrajDetIdY(k,"FTOF","FTOF2");
 }
 inline Float_t TIdentificatorCLAS12::TrajFTOF2Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FTOF2");
+  return TrajDetIdZ(k,"FTOF","FTOF2");
 }
 ////////
 ////// Traj XYZ 101
 inline Float_t TIdentificatorCLAS12::Traj101X(Int_t k)
 {
-  return TrajDetIdX(k,"101");
+  return TrajDetIdX(k,"100","101");
 }
 inline Float_t TIdentificatorCLAS12::Traj101Y(Int_t k)
 {
-  return TrajDetIdY(k,"101");
+  return TrajDetIdY(k,"100","101");
 }
 inline Float_t TIdentificatorCLAS12::Traj101Z(Int_t k)
 {
-  return TrajDetIdZ(k,"101");
+  return TrajDetIdZ(k,"100","101");
 }
 ////////
 ////// Traj XYZ 102
 inline Float_t TIdentificatorCLAS12::Traj102X(Int_t k)
 {
-  return TrajDetIdX(k,"102");
+  return TrajDetIdX(k,"100","102");
 }
 inline Float_t TIdentificatorCLAS12::Traj102Y(Int_t k)
 {
-  return TrajDetIdY(k,"102");
+  return TrajDetIdY(k,"100","102");
 }
 inline Float_t TIdentificatorCLAS12::Traj102Z(Int_t k)
 {
-  return TrajDetIdZ(k,"102");
+  return TrajDetIdZ(k,"100","102");
 }
 ///////////
 ////// Traj XYZ HTCC
 inline Float_t TIdentificatorCLAS12::TrajHTCCX(Int_t k)
 {
-  return TrajDetIdX(k,"HTCC");
+  return TrajDetIdX(k,"HTCC","HTCC");
 }
 inline Float_t TIdentificatorCLAS12::TrajHTCCY(Int_t k)
 {
-  return TrajDetIdY(k,"HTCC");
+  return TrajDetIdY(k,"HTCC","HTCC");
 }
 inline Float_t TIdentificatorCLAS12::TrajHTCCZ(Int_t k)
 {
-  return TrajDetIdZ(k,"HTCC");
+  return TrajDetIdZ(k,"HTCC","HTCC");
 }
 ///////////
 ////// Traj XYZ FMT1
 inline Float_t TIdentificatorCLAS12::TrajFMT1X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT1");
+  return TrajDetIdX(k,"FMT","FMT1");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT1Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT1");
+  return TrajDetIdY(k,"FMT","FMT1");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT1Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT1");
+  return TrajDetIdZ(k,"FMT","FMT1");
 }
 ///////////
 ////// Traj XYZ FMT2
 inline Float_t TIdentificatorCLAS12::TrajFMT2X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT2");
+  return TrajDetIdX(k,"FMT","FMT2");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT2Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT2");
+  return TrajDetIdY(k,"FMT","FMT2");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT2Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT2");
+  return TrajDetIdZ(k,"FMT","FMT2");
 }
 ///////////
 ////// Traj XYZ FMT3
 inline Float_t TIdentificatorCLAS12::TrajFMT3X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT3");
+  return TrajDetIdX(k,"FMT","FMT3");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT3Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT3");
+  return TrajDetIdY(k,"FMT","FMT3");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT3Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT3");
+  return TrajDetIdZ(k,"FMT","FMT3");
 }
 ///////////
 ////// Traj XYZ FMT4
 inline Float_t TIdentificatorCLAS12::TrajFMT4X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT4");
+  return TrajDetIdX(k,"FMT","FMT4");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT4Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT4");
+  return TrajDetIdY(k,"FMT","FMT4");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT4Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT4");
+  return TrajDetIdZ(k,"FMT","FMT4");
 }
 ///////////
 ////// Traj XYZ FMT5
 inline Float_t TIdentificatorCLAS12::TrajFMT5X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT5");
+  return TrajDetIdX(k,"FMT","FMT5");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT5Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT5");
+  return TrajDetIdY(k,"FMT","FMT5");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT5Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT5");
+  return TrajDetIdZ(k,"FMT","FMT5");
 }
 ///////////
 ////// Traj XYZ FMT6
 inline Float_t TIdentificatorCLAS12::TrajFMT6X(Int_t k)
 {
-  return TrajDetIdX(k,"FMT6");
+  return TrajDetIdX(k,"FMT","FMT6");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT6Y(Int_t k)
 {
-  return TrajDetIdY(k,"FMT6");
+  return TrajDetIdY(k,"FMT","FMT6");
 }
 inline Float_t TIdentificatorCLAS12::TrajFMT6Z(Int_t k)
 {
-  return TrajDetIdZ(k,"FMT6");
+  return TrajDetIdZ(k,"FMT","FMT6");
 }
 ///////////
+///////REC::Traj_cxcycz /////
+/// Traj CXCYCZ ECIN
+inline Float_t TIdentificatorCLAS12::TrajECIN_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"ECAL","ECIN");
+}
+inline Float_t TIdentificatorCLAS12::TrajECIN_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"ECAL","ECIN");
+}
+inline Float_t TIdentificatorCLAS12::TrajECIN_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"ECAL","ECIN");
+}
+/// Traj CXCYCZ ECOUT
+inline Float_t TIdentificatorCLAS12::TrajECOUT_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"ECAL","ECOUT");
+}
+inline Float_t TIdentificatorCLAS12::TrajECOUT_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"ECAL","ECOUT");
+}
+inline Float_t TIdentificatorCLAS12::TrajECOUT_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"ECAL","ECOUT");
+}
+/////////////
+////// Traj CXCYCZ PCAL
+inline Float_t TIdentificatorCLAS12::TrajPCAL_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"ECAL","PCAL");
+}
+inline Float_t TIdentificatorCLAS12::TrajPCAL_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"ECAL","PCAL");
+}
+inline Float_t TIdentificatorCLAS12::TrajPCAL_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"ECAL","PCAL");
+}
+//////////
+////// Traj CXCYCZ LTCC
+inline Float_t TIdentificatorCLAS12::TrajLTCC_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"LTCC","LTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajLTCC_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"LTCC","LTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajLTCC_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"LTCC","LTCC");
+}
+////////
+////// Traj CXCYCZ FTOF1A
+inline Float_t TIdentificatorCLAS12::TrajFTOF1A_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FTOF","FTOF1A");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1A_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FTOF","FTOF1A");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1A_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FTOF","FTOF1A");
+}
+////////
+////// Traj CXCYCZ FTOF1B
+inline Float_t TIdentificatorCLAS12::TrajFTOF1B_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FTOF","FTOF1B");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1B_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FTOF","FTOF1B");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF1B_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FTOF","FTOF1B");
+}
+////////
+////// Traj CXCYCZ FTOF2
+inline Float_t TIdentificatorCLAS12::TrajFTOF2_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FTOF","FTOF2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF2_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FTOF","FTOF2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFTOF2_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FTOF","FTOF2");
+}
+////////
+////// Traj CXCYCZ 101
+inline Float_t TIdentificatorCLAS12::Traj101_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"100","101");
+}
+inline Float_t TIdentificatorCLAS12::Traj101_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"100","101");
+}
+inline Float_t TIdentificatorCLAS12::Traj101_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"100","101");
+}
+////////
+////// Traj CXCYCZ 102
+inline Float_t TIdentificatorCLAS12::Traj102_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"100","102");
+}
+inline Float_t TIdentificatorCLAS12::Traj102_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"100","102");
+}
+inline Float_t TIdentificatorCLAS12::Traj102_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"100","102");
+}
+///////////
+////// Traj CXCYCZ HTCC
+inline Float_t TIdentificatorCLAS12::TrajHTCC_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"HTCC","HTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajHTCC_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"HTCC","HTCC");
+}
+inline Float_t TIdentificatorCLAS12::TrajHTCC_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"HTCC","HTCC");
+}
+///////////
+////// Traj CXCYCZ FMT1
+inline Float_t TIdentificatorCLAS12::TrajFMT1_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT1");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT1_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT1");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT1_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT1");
+}
+///////////
+////// Traj CXCYCZ FMT2
+inline Float_t TIdentificatorCLAS12::TrajFMT2_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT2_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT2");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT2_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT2");
+}
+///////////
+////// Traj CXCYCZ FMT3
+inline Float_t TIdentificatorCLAS12::TrajFMT3_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT3");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT3_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT3");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT3_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT3");
+}
+///////////
+////// Traj CXCYCZ FMT4
+inline Float_t TIdentificatorCLAS12::TrajFMT4_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT4");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT4_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT4");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT4_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT4");
+}
+///////////
+////// Traj CXCYCZ FMT5
+inline Float_t TIdentificatorCLAS12::TrajFMT5_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT5");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT5_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT5");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT5_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT5");
+}
+///////////
+////// Traj CXCYCZ FMT6
+inline Float_t TIdentificatorCLAS12::TrajFMT6_CX(Int_t k)
+{
+  return TrajDetId_CX(k,"FMT","FMT6");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT6_CY(Int_t k)
+{
+  return TrajDetId_CY(k,"FMT","FMT6");
+}
+inline Float_t TIdentificatorCLAS12::TrajFMT6_CZ(Int_t k)
+{
+  return TrajDetId_CZ(k,"FMT","FMT6");
+}
+
+////////////////////
 
 
+/*
 inline Float_t TIdentificatorCLAS12::TrajDCX(Int_t k,Int_t reg)
 {
   Int_t N = trajMap[k].size();
@@ -1767,7 +2077,6 @@ inline Float_t TIdentificatorCLAS12::RICH_HAD_T(Int_t k)
 
 inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_X(Int_t k)
 {
-  
   Int_t N = richHadPartMap[k].size();
   Int_t index=-1;
   if (N>0)
@@ -1775,7 +2084,6 @@ inline Float_t TIdentificatorCLAS12::RICH_CLUSTER_X(Int_t k)
     index=richHadClusterMap[richHadPartMap[k][0]][0];
   }
   if (N>1) std::cout<<"Warning, more than one hit per event!! taking the first one. NEWCLUSTER\n";
-  
   if (index>=0){
     get_RICH__clusters(index);
     return RICH__clusters_x;

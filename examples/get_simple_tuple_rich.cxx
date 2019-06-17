@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   TDatabasePDG pdg;
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
-
+  
   TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt:W2p:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz";
 
   Int_t Nvar = VarList.CountChar(':')+1;
@@ -50,16 +50,15 @@ int main(int argc, char **argv)
 
   if(simul_key == 0) {
     NtupleName = "ntuple_data";
-    output = new TFile("outfiles/prune_data_test.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/prune_data_richH4.root", "RECREATE", "Data of particles");
   } else { 
     NtupleName = "ntuple_accept";
-    output = new TFile("outfiles/prune_simul.root", "RECREATE", "Data of particles");
+    output = new TFile("outfiles/prune_simul_richH4.root", "RECREATE", "Data of particles");
   }
-
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:dcxsl4:dcysl4:dczsl4:dccxsl4:dccysl4:dcczsl4:sectorDC:tr_ecx:tr_ecy:tr_ecz:tr_pcalx:tr_pcaly:tr_pcalz:tr_ltccx:tr_ltccy:tr_ltccz:revent:tr_ftof1a_x::tr_ftof1a_y:tr_ftof1a_z:tr_ftof1b_x:tr_ftof1b_y:tr_ftof1b_z:tr_ftof2_x:tr_ftof2_y:tr_ftof2_z:tr_101_x:tr_101_y:tr_101_z:tr_102_x:tr_102_y:tr_102_z:tr_fmt1_x:tr_fmt1_y:tr_fmt1_z:tr_fmt2_x:tr_fmt2_y:tr_fmt2_z:tr_fmt3_x:tr_fmt3_y:tr_fmt3_z:tr_fmt4_x:tr_fmt4_y:tr_fmt4_z:tr_fmt5_x:tr_fmt5_y:tr_fmt5_z:tr_fmt6_x:tr_fmt6_y:tr_fmt6_z:tr_htcc_x:tr_htcc_y:tr_htcc_z");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:rich_h_x:rich_h_y:rich_h_z:rich_h_t:rich_c_x:rich_c_y:rich_c_z:rich_c_t:rich_rr_x:rich_rr_y:rich_rr_z:rich_rr_hx:rich_rr_hy:rich_rr_hz:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz:wx:wy:wz:dcxsl6:dcysl6:dczsl6:dccxsl6:dccysl6:dcczsl6:dcxsl4:dcysl4:dczsl4:dccxsl4:dccysl4:dcczsl4:sectorDC:tr_ecx:tr_ecy:tr_ecz:tr_pcalx:tr_pcaly:tr_pcalz:tr_ltccx:tr_ltccy:tr_ltccz:revent:tr_ftof1a_x:tr_ftof1a_y:tr_ftof1a_z:tr_ftof1b_x:tr_ftof1b_y:tr_ftof1b_z:tr_ftof2_x:tr_ftof2_y:tr_ftof2_z:tr_101_x:tr_101_y:tr_101_z:tr_102_x:tr_102_y:tr_102_z:tr_fmt1_x:tr_fmt1_y:tr_fmt1_z:tr_fmt2_x:tr_fmt2_y:tr_fmt2_z:tr_fmt3_x:tr_fmt3_y:tr_fmt3_z:tr_fmt4_x:tr_fmt4_y:tr_fmt4_z:tr_fmt5_x:tr_fmt5_y:tr_fmt5_z:tr_fmt6_x:tr_fmt6_y:tr_fmt6_z:tr_htcc_x:tr_htcc_y:tr_htcc_z");
 
   Float_t DataElec[tElec->GetNvar()];
-
+  std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
   TNtuple *ntuple = new TNtuple(NtupleName,"stable particles",VarList);
   TNtuple *ntuple_thrown = 0;
   TNtuple *e_thrown=0;
@@ -67,20 +66,18 @@ int main(int argc, char **argv)
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",VarList);
     e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event");
 }
-
+  
 //  TH1F *ht = new TH1F("ht","tdiff",1000,-15,15); 
   cout.width(4);
   Int_t event=0;
 
   while (t->Next())
   {
-      //    t->PrintMaps();
     Int_t nRows = t->GetNRows();
     //    const char * tt = "C";
     //if(nRows>0 && (t->GetCategorization(0,tt)) == "electron" && t -> Q2() > 1. && t -> W() > 2. && t -> Nu() / 5.015 < 0.85)
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-
       DataElec[0] = t -> Q2();
       DataElec[1] = t -> W();
       DataElec[2] = t -> Nu();
@@ -128,16 +125,16 @@ int main(int argc, char **argv)
       DataElec[36] = t->HX_ECOUT();
       DataElec[37] = t->HY_ECOUT();
       DataElec[38] = t->HZ_ECOUT();
-      
-      DataElec[39] = t->TrajDCX(0,0);
-      DataElec[40] = t->TrajDCX(0,1);
-      DataElec[41] = t->TrajDCX(0,2);
-      DataElec[42] = t->TrajDCY(0,0);
-      DataElec[43] = t->TrajDCY(0,1);
-      DataElec[44] = t->TrajDCY(0,2);
-      DataElec[45] = t->TrajDCZ(0,0);
-      DataElec[46] = t->TrajDCZ(0,1);
-      DataElec[47] = t->TrajDCZ(0,2);
+
+      DataElec[39] = t->TrajDetIdX(0,"DC","DCSL1");
+      DataElec[40] = t->TrajDetIdX(0,"DC","DCSL3");
+      DataElec[41] = t->TrajDetIdX(0,"DC","DCSL5");
+      DataElec[42] = t->TrajDetIdY(0,"DC","DCSL1");
+      DataElec[43] = t->TrajDetIdY(0,"DC","DCSL3");
+      DataElec[44] = t->TrajDetIdY(0,"DC","DCSL5");
+      DataElec[45] = t->TrajDetIdZ(0,"DC","DCSL1");
+      DataElec[46] = t->TrajDetIdZ(0,"DC","DCSL3");
+      DataElec[47] = t->TrajDetIdZ(0,"DC","DCSL5");
 
       DataElec[48] = t->PathTOF(0);
       DataElec[49] = t->TimeTOF(0);
@@ -148,28 +145,27 @@ int main(int argc, char **argv)
 
       
       Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
-      dcx   = t->TrajDCX(0,0);
-      dcy   = t->TrajDCY(0,0);
+      
+      dcx = t->TrajDetIdX(0,"DC","DCSL1");
+      dcy = t->TrajDetIdY(0,"DC","DCSL1");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[54] = dcx_rot;//region 0
       DataElec[55] = dcy_rot;//region 0
-      dcx   = t->TrajDCX(0,1);
-      dcy   = t->TrajDCY(0,1);
+      dcx = t->TrajDetIdX(0,"DC","DCSL3");
+      dcy = t->TrajDetIdY(0,"DC","DCSL3");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[56] = dcx_rot;//region 1
       DataElec[57] = dcy_rot;//region 1
-      dcx   = t->TrajDCX(0,2);
-      dcy   = t->TrajDCY(0,2);
+      dcx = t->TrajDetIdX(0,"DC","DCSL5");
+      dcy = t->TrajDetIdY(0,"DC","DCSL5");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[58] = dcx_rot;//region 2
       DataElec[59] = dcy_rot;//region 2
-      
+
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
-
       //:DCVX:DCVY:DCVZ:DCPx:DCPy:DCPz"
-      
       DataElec[63] = t->RICH_HAD_X();
       DataElec[64] = t->RICH_HAD_Y();
       DataElec[65] = t->RICH_HAD_Z();
@@ -178,14 +174,13 @@ int main(int argc, char **argv)
       DataElec[68] = t->RICH_CLUSTER_Y();
       DataElec[69] = t->RICH_CLUSTER_Z();
       DataElec[70] = t->RICH_CLUSTER_T();
-
       DataElec[71] = t->RICH_RR_X();
       DataElec[72] = t->RICH_RR_Y();
       DataElec[73] = t->RICH_RR_Z();
       DataElec[74] = t->RICH_RR_HX();
       DataElec[75] = t->RICH_RR_HY();
       DataElec[76] = t->RICH_RR_HZ();
-
+      /*
       DataElec[77] = t->VX_DC();
       DataElec[78] = t->VY_DC();
       DataElec[79] = t->VZ_DC();
@@ -193,40 +188,40 @@ int main(int argc, char **argv)
       DataElec[80] = t->Px_DC();
       DataElec[81] = t->Py_DC();
       DataElec[82] = t->Pz_DC();
-
+      */
       DataElec[83] = t->RICH_CLUSTER_WX();
       DataElec[84] = t->RICH_CLUSTER_WY();
       DataElec[85] = t->RICH_CLUSTER_WZ();
+      /*
 
-      DataElec[86] = t->TrajX(0,5);
-      DataElec[87] = t->TrajY(0,5);
-      DataElec[88] = t->TrajZ(0,5);
-      DataElec[89] = t->TrajCX(0,5);
-      DataElec[90] = t->TrajCY(0,5);
-      DataElec[91] = t->TrajCZ(0,5);
 
-      DataElec[92] = t->TrajX(0,3);
-      DataElec[93] = t->TrajY(0,3);
-      DataElec[94] = t->TrajZ(0,3);
-      DataElec[95] = t->TrajCX(0,3);
-      DataElec[96] = t->TrajCY(0,3);
-      DataElec[97] = t->TrajCZ(0,3);
-      
+      DataElec[86] = t->TrajDetIdX(0,"DC","DCSL6");
+      DataElec[87] = t->TrajDetIdY(0,"DC","DCSL6");
+      DataElec[88] = t->TrajDetIdZ(0,"DC","DCSL6");
+      DataElec[89] = t->TrajDetId_CX(0,"DC","DCSL6");
+      DataElec[90] = t->TrajDetId_CY(0,"DC","DCSL6");
+      DataElec[91] = t->TrajDetId_CZ(0,"DC","DCSL6");
+
+      DataElec[92] = t->TrajDetIdX(0,"DC","DCSL4");
+      DataElec[93] = t->TrajDetIdY(0,"DC","DCSL4");
+      DataElec[94] = t->TrajDetIdZ(0,"DC","DCSL4");
+      DataElec[95] = t->TrajDetId_CX(0,"DC","DCSL4");
+      DataElec[96] = t->TrajDetId_CY(0,"DC","DCSL4");
+      DataElec[97] = t->TrajDetId_CZ(0,"DC","DCSL4");
+      */
       DataElec[98] = t->SectorDC();
-            
-      DataElec[99] = t->TrajECX();
-      DataElec[100] = t->TrajECY();
-      DataElec[101] = t->TrajECZ();
+
+      DataElec[99] = t->TrajECINX();
+      DataElec[100] = t->TrajECINY();
+      DataElec[101] = t->TrajECINZ();
       DataElec[102] = t->TrajPCALX();
       DataElec[103] = t->TrajPCALY();
       DataElec[104] = t->TrajPCALZ();
       DataElec[105] = t->TrajLTCCX();
       DataElec[106] = t->TrajLTCCY();
       DataElec[107] = t->TrajLTCCZ();
+
       DataElec[108] = t->Event();
-
-
-      ////////////      
 
       DataElec[109] = t->TrajFTOF1AX();
       DataElec[110] = t->TrajFTOF1AY();
@@ -266,7 +261,6 @@ int main(int argc, char **argv)
       DataElec[143] = t->TrajHTCCY();
       DataElec[144] = t->TrajHTCCZ();
 
-      
       tElec->Fill(DataElec);
 
       Int_t NmbPion = 0;

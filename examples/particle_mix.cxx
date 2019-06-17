@@ -47,7 +47,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
+Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -376,7 +376,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -656,7 +656,7 @@ public:
     kData[60] = p1Tv.Mag2();
     kData[61] = phi_pq;
     kData[62] = phTv.Mag2();
-
+    kData[63] = revent_prev;
     
     /*  
     Double_t *W = new Double_t[4];
@@ -764,7 +764,6 @@ public:
 
 
     return ttree->Fill();
-      
 
   }
   Bool_t FidCheck(int pid)
@@ -806,8 +805,6 @@ public:
       ret = true;
     
     return ret;
-
-					       
 
   }
   //////////////////////////
@@ -954,6 +951,7 @@ public:
     TargType_prev = TargType;
     TargTypeO_prev = TargTypeO;
     helic_prev = helic;
+    revent_prev = revent;
   }
 
   //int takeN(int N,int kspid, int pos=0,Particle p=Particle(),int count=0)
@@ -1077,10 +1075,9 @@ public:
       if (evnt==evnt_prev)
       {
 	//std::cout<<__LINE__<<" "<<findSecondary()<<std::endl;
-	if (FidCheck(pid))
-	//	if (FidCheck(11))
+	//if (data_type<2&&FidCheck(pid))
+	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	
 	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
 	  push_bkgnd(p);
 	  findSecondary();
@@ -1123,8 +1120,9 @@ public:
 	clear();
 	setElectVar();
 	evnt_prev=evnt;
-	if (FidCheck(pid))
-	  //if (FidCheck(11))
+	//	if (data_type<2&&FidCheck(pid))
+
+	if ((data_type==2)||FidCheck(11))// no fid
 	{
 	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
 	  push_bkgnd(p);
@@ -1284,6 +1282,7 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("Py",1);
   t->SetBranchStatus("Pz",1);
   t->SetBranchStatus("evnt",1);
+  t->SetBranchStatus("revent",1);
   t->SetBranchStatus("Ze",1);
   t->SetBranchStatus("Ye",1);
   t->SetBranchStatus("Xe",1);
@@ -1308,6 +1307,7 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("DCPz",1);
   t->SetBranchStatus("dcx_rot_0",1);
   t->SetBranchStatus("dcy_rot_0",1);
+  
 
   //  t->SetBranchStatus("TargTypeO",1);
 
@@ -1321,6 +1321,7 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("Ye",&Ye);
   t->SetBranchAddress("Xe",&Xe);
   t->SetBranchAddress("evnt",&evnt);
+  t->SetBranchAddress("revent",&revent);
   t->SetBranchAddress("TEc",&TEc);
   t->SetBranchAddress("Q2",&Q2);
   t->SetBranchAddress("Nu",&Nu);
@@ -1350,8 +1351,6 @@ int main(int argc, char *argv[])
   if (Ne==-1)  Ne = t->GetEntries();
   std::cout<<"Number of entries to be processed: "<<Ne<<std::endl;
 
-  
-  
   /*
   /// eta -> pi+ pi- a
   Reaction r("eta -> pi+ pi- a","test_pipapimOnly.root",true); 
@@ -1402,11 +1401,11 @@ int main(int argc, char *argv[])
     
   /*
   //pi0 -> a a
-  Reaction r("pi0 -> a a","aa_all.root",false);
+  Reaction r("pi0 -> a a","outfiles/aa_all.root",false);
   r.addPrimary("pi0");
   r.addSecondary("gamma");
   r.addSecondary("gamma");
-  */
+  */  
 
   /*
   // Lambda0 -> p pi-
@@ -1414,15 +1413,21 @@ int main(int argc, char *argv[])
   r.addPrimary("Lambda0");
   r.addSecondary("proton");
   r.addSecondary("pi-");
-*/  
+  */  
   
-      
+  /*      
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  
+  */
+
+  // K0 -> pi+ pi-
+  Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
+  r.addPrimary("K0");
+  r.addSecondary("pi+");
+  r.addSecondary("pi-");
 
   
   /*  
@@ -1431,17 +1436,10 @@ int main(int argc, char *argv[])
   r.addPrimary("eta");
   r.addSecondary("gamma");
   r.addSecondary("gamma");  
+  
   */
+  
 
-  
-  /*
-    // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","pippim_all.root",false);
-  r.addPrimary("K0");
-  r.addSecondary("pi+");
-  r.addSecondary("pi-");
-  */
-  
 
   /*
   // w -> pi+ pi- a a

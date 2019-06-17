@@ -37,9 +37,8 @@ int main(int argc, char **argv)
   Double_t kMe =pdg.GetParticle(11)->Mass();
   const char* NtupleName;
 
-  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt2:Mx2:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z";
+  TString  VarList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt2:Mx2:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event";
 
-  //  :ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z
   Int_t Nvar = VarList.CountChar(':')+1;
  
   Float_t *vars = new Float_t[Nvar];
@@ -57,7 +56,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/pruned_simulH4.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -68,7 +67,6 @@ int main(int argc, char **argv)
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",VarList);
     e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:event");
 }
-
   cout.width(4);
   Int_t event=0;
   Int_t rec_elec;
@@ -79,8 +77,6 @@ int main(int argc, char **argv)
 
   while (t->Next())
   {
-    
-    
     Int_t nRows = t->GetNRows();
 
     Npip_mc = t->GetNPart(211,1);
@@ -141,15 +137,15 @@ int main(int argc, char **argv)
       DataElec[37] = t->HY_ECOUT();
       DataElec[38] = t->HZ_ECOUT();
 
-      DataElec[39] = 0;//t->TrajDCX(0,0);
-      DataElec[40] = 0;//t->TrajDCX(0,1);
-      DataElec[41] = 0;//t->TrajDCX(0,2);
-      DataElec[42] = 0;//t->TrajDCY(0,0);
-      DataElec[43] = 0;//t->TrajDCY(0,1);
-      DataElec[44] = 0;//t->TrajDCY(0,2);
-      DataElec[45] = 0;//t->TrajDCZ(0,0);
-      DataElec[46] = 0;//t->TrajDCZ(0,1);
-      DataElec[47] = 0;//t->TrajDCZ(0,2);
+      DataElec[39] = t->TrajDetIdX(0,"DC","DCSL1");
+      DataElec[40] = t->TrajDetIdX(0,"DC","DCSL3");
+      DataElec[41] = t->TrajDetIdX(0,"DC","DCSL5");
+      DataElec[42] = t->TrajDetIdY(0,"DC","DCSL1");
+      DataElec[43] = t->TrajDetIdY(0,"DC","DCSL3");
+      DataElec[44] = t->TrajDetIdY(0,"DC","DCSL5");
+      DataElec[45] = t->TrajDetIdZ(0,"DC","DCSL1");
+      DataElec[46] = t->TrajDetIdZ(0,"DC","DCSL3");
+      DataElec[47] = t->TrajDetIdZ(0,"DC","DCSL5");
 
       DataElec[48] = t->PathTOF(0);
       DataElec[49] = t->TimeTOF(0);
@@ -157,30 +153,29 @@ int main(int argc, char **argv)
       DataElec[51] = t->Beta(0);
       DataElec[52] = t->STTime();
       DataElec[53] = t->RFTime();
-      
+     
       Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
-      /*
-      dcx   = t->TrajDCX(0,0);
-      dcy   = t->TrajDCY(0,0);
+
+      dcx = t->TrajDetIdX(0,"DC","DCSL1");
+      dcy = t->TrajDetIdY(0,"DC","DCSL1");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[54] = dcx_rot;//region 0
       DataElec[55] = dcy_rot;//region 0
-      dcx   = t->TrajDCX(0,1);
-      dcy   = t->TrajDCY(0,1);
+      dcx = t->TrajDetIdX(0,"DC","DCSL3");
+      dcy = t->TrajDetIdY(0,"DC","DCSL3");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[56] = dcx_rot;//region 1
       DataElec[57] = dcy_rot;//region 1
-      dcx   = t->TrajDCX(0,2);
-      dcy   = t->TrajDCY(0,2);
+      dcx = t->TrajDetIdX(0,"DC","DCSL5");
+      dcy = t->TrajDetIdY(0,"DC","DCSL5");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[58] = dcx_rot;//region 2
       DataElec[59] = dcy_rot;//region 2
-      */
+
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
       DataElec[63] = t->Event();
-
       DataElec[64] = Npip_rec;
       DataElec[65] = Npim_rec;
       DataElec[66] = Npip_mc;
@@ -189,17 +184,23 @@ int main(int argc, char **argv)
       DataElec[68] = rec_elec;
       DataElec[69] = t->DCChi2(0);
 
+      DataElec[70] = t->HelicOnline();
+      DataElec[71] = t->HelicOnlineRaw();
+      DataElec[72] = t->HelicFlip();
+      DataElec[73] = t->HelicFlipRaw();
+      DataElec[74] = t->HelicFlipEvent();
+     
+
       tElec->Fill(DataElec);
-      
+  
       
       for (Int_t i = 1; i < nRows; i++) 
       {
-
+	
       	TString category = t->GetCategorization(i);
-	
-	
       	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron")
 	{
+
 	  vars[0] = 0;//t -> ElecVertTarg();
 	  vars[1] = t -> Q2();
 	  vars[2] = t -> Nu();
@@ -214,9 +215,7 @@ int main(int argc, char **argv)
 	  vars[8] = t -> Zh(i,mass);
 	  
 	  vars[9] = t -> Pt2(i);
-	  
 	  vars[10] = t -> Mx2(i,mass);
-	  
 	  vars[11] = t -> Xf(i,mass);
 	  vars[12] = t -> T(i,mass);
 	  vars[13] = t -> Momentum(i);
@@ -302,7 +301,7 @@ int main(int argc, char **argv)
 	  vars[88] = t->HX_ECOUT();
 	  vars[89] = t->HY_ECOUT();
 	  vars[90] = t->HZ_ECOUT();
-	  vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!1
+	  vars[91] = t->SectorDC(i);  // Warning seg. fault. on sim files, must be fixed!!!!!!!!!
 	  vars[92] = t->Status(i);
 	  vars[93] = t->Status(0);
 	  /*
@@ -312,46 +311,47 @@ int main(int argc, char **argv)
 	  vars[97] = t->Px_DC(i);
 	  vars[98] = t->Py_DC(i);
 	  vars[99] = t->Pz_DC(i);
-
-	  vars[100] = t->TrajX(i,0);
-	  vars[101] = t->TrajX(i,1);
-	  vars[102] = t->TrajX(i,2);
-	  vars[103] = t->TrajX(i,3);
-	  vars[104] = t->TrajX(i,4);
-	  vars[105] = t->TrajX(i,5);
-	  vars[106] = t->TrajY(i,0);
-	  vars[107] = t->TrajY(i,1);
-	  vars[108] = t->TrajY(i,2);
-	  vars[109] = t->TrajY(i,3);
-	  vars[110] = t->TrajY(i,4);
-	  vars[111] = t->TrajY(i,5);
-	  vars[112] = t->TrajZ(i,0);
-	  vars[113] = t->TrajZ(i,1);
-	  vars[114] = t->TrajZ(i,2);
-	  vars[115] = t->TrajZ(i,3);
-	  vars[116] = t->TrajZ(i,4);
-	  vars[117] = t->TrajZ(i,5);
-
-	  vars[118] = t->TrajDCX(i,0);
-	  vars[119] = t->TrajDCX(i,1);
-	  vars[120] = t->TrajDCX(i,2);
-	  vars[121] = t->TrajDCY(i,0);
-	  vars[122] = t->TrajDCY(i,1);
-	  vars[123] = t->TrajDCY(i,2);
-	  vars[124] = t->TrajDCZ(i,0);
-	  vars[125] = t->TrajDCZ(i,1);
-	  vars[126] = t->TrajDCZ(i,2);
-
-	  vars[127] = t->TrajDCX(0,0);
-	  vars[128] = t->TrajDCX(0,1);
-	  vars[129] = t->TrajDCX(0,2);
-	  vars[130] = t->TrajDCY(0,0);
-	  vars[131] = t->TrajDCY(0,1);
-	  vars[132] = t->TrajDCY(0,2);
-	  vars[133] = t->TrajDCZ(0,0);
-	  vars[134] = t->TrajDCZ(0,1);
-	  vars[135] = t->TrajDCZ(0,2);
 	  */
+	  
+	  vars[100] = t->TrajDetIdX(i,"DC","DCSL1");
+	  vars[101] = t->TrajDetIdX(i,"DC","DCSL2");
+	  vars[102] = t->TrajDetIdX(i,"DC","DCSL3");
+	  vars[103] = t->TrajDetIdX(i,"DC","DCSL4");
+	  vars[104] = t->TrajDetIdX(i,"DC","DCSL5");
+	  vars[105] = t->TrajDetIdX(i,"DC","DCSL6");
+	  vars[106] = t->TrajDetIdY(i,"DC","DCSL1");
+	  vars[107] = t->TrajDetIdY(i,"DC","DCSL2");
+	  vars[108] = t->TrajDetIdY(i,"DC","DCSL3");
+	  vars[109] = t->TrajDetIdY(i,"DC","DCSL4");
+	  vars[110] = t->TrajDetIdY(i,"DC","DCSL5");
+	  vars[111] = t->TrajDetIdY(i,"DC","DCSL6");
+	  vars[112] = t->TrajDetIdZ(i,"DC","DCSL1");
+	  vars[113] = t->TrajDetIdZ(i,"DC","DCSL2");
+	  vars[114] = t->TrajDetIdZ(i,"DC","DCSL3");
+	  vars[115] = t->TrajDetIdZ(i,"DC","DCSL4");
+	  vars[116] = t->TrajDetIdZ(i,"DC","DCSL5");
+	  vars[117] = t->TrajDetIdZ(i,"DC","DCSL6");
+
+	  vars[118] = t->TrajDetIdX(i,"DC","DCSL1");
+	  vars[119] = t->TrajDetIdX(i,"DC","DCSL3");
+	  vars[120] = t->TrajDetIdX(i,"DC","DCSL5");
+	  vars[121] = t->TrajDetIdY(i,"DC","DCSL1");
+	  vars[122] = t->TrajDetIdY(i,"DC","DCSL3");
+	  vars[123] = t->TrajDetIdY(i,"DC","DCSL5");
+	  vars[124] = t->TrajDetIdZ(i,"DC","DCSL1");
+	  vars[125] = t->TrajDetIdZ(i,"DC","DCSL3");
+	  vars[126] = t->TrajDetIdZ(i,"DC","DCSL5");
+
+	  vars[127] = t->TrajDetIdX(0,"DC","DCSL1");
+	  vars[128] = t->TrajDetIdX(0,"DC","DCSL3");
+	  vars[129] = t->TrajDetIdX(0,"DC","DCSL5");
+	  vars[130] = t->TrajDetIdY(0,"DC","DCSL1");
+	  vars[131] = t->TrajDetIdY(0,"DC","DCSL3");
+	  vars[132] = t->TrajDetIdY(0,"DC","DCSL5");
+	  vars[133] = t->TrajDetIdZ(0,"DC","DCSL1");
+	  vars[134] = t->TrajDetIdZ(0,"DC","DCSL3");
+	  vars[135] = t->TrajDetIdZ(0,"DC","DCSL5");
+	  
 	  vars[136] = t->PathTOF(0);
 	  vars[137] = t->TimeTOF(0);
 	  vars[138] = t->PathTOF(i);
@@ -366,40 +366,40 @@ int main(int argc, char **argv)
 
 
 	  Float_t dcx,dcy,dcx_rot,dcy_rot,dcth,DCsec;
-	  /*
-	  dcx   = t->TrajDCX(0,0);
-	  dcy   = t->TrajDCY(0,0);
+	  
+	  dcx   = t->TrajDetIdX(0,"DC","DCSL1");
+	  dcy   = t->TrajDetIdY(0,"DC","DCSL1");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[145] = dcx_rot;//region 0
 	  vars[146] = dcy_rot;//region 0
-	  dcx   = t->TrajDCX(0,1);
-	  dcy   = t->TrajDCY(0,1);
+	  dcx   = t->TrajDetIdX(0,"DC","DCSL3");
+	  dcy   = t->TrajDetIdY(0,"DC","DCSL3");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[147] = dcx_rot;//region 1
 	  vars[148] = dcy_rot;//region 1
-	  dcx   = t->TrajDCX(0,2);
-	  dcy   = t->TrajDCY(0,2);
+	  dcx   = t->TrajDetIdX(0,"DC","DCSL5");
+	  dcy   = t->TrajDetIdY(0,"DC","DCSL5");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[149] = dcx_rot;//region 2
 	  vars[150] = dcy_rot;//region 2
 
-	  dcx   = t->TrajDCX(i,0);
-	  dcy   = t->TrajDCY(i,0);
+	  dcx   = t->TrajDetIdX(i,"DC","DCSL1");
+	  dcy   = t->TrajDetIdY(i,"DC","DCSL1");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[151] = dcx_rot;//region 0
 	  vars[152] = dcy_rot;//region 0
-	  dcx   = t->TrajDCX(i,1);
-	  dcy   = t->TrajDCY(i,1);
+	  dcx   = t->TrajDetIdX(i,"DC","DCSL3");
+	  dcy   = t->TrajDetIdY(i,"DC","DCSL3");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[153] = dcx_rot;//region 1
 	  vars[154] = dcy_rot;//region 1
-	  dcx   = t->TrajDCX(i,2);
-	  dcy   = t->TrajDCY(i,2);
+	  dcx   = t->TrajDetIdX(i,"DC","DCSL5");
+	  dcy   = t->TrajDetIdY(i,"DC","DCSL5");
 	  rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
 	  vars[155] = dcx_rot;//region 2
 	  vars[156] = dcy_rot;//region 2
 	  vars[157] = 0;// mc mass
-	  */
+
 	  vars[158] = t->Event();// event number
 
 	  vars[159] = Npip_rec;
@@ -408,46 +408,41 @@ int main(int argc, char **argv)
 	  vars[162] = Npim_mc;
 
 	  vars[163] = rec_elec;
-	  //dc_chi2:ftof1ax:ftof1ay:ftof1az
-
 	  vars[164] = t->DCChi2(i);
-	  /*
+
 	  vars[165] = t->TrajFTOF1AX(i);
 	  vars[166] = t->TrajFTOF1AY(i);
 	  vars[167] = t->TrajFTOF1AZ(i);
    	  vars[168] = t->TrajPCALX(i);
 	  vars[169] = t->TrajPCALY(i);
 	  vars[170] = t->TrajPCALZ(i);
-	  vars[171] = t->TrajECX(i);
-	  vars[172] = t->TrajECY(i);
-	  vars[173] = t->TrajECZ(i);
+	  vars[171] = t->TrajECINX(i);
+	  vars[172] = t->TrajECINY(i);
+	  vars[173] = t->TrajECINZ(i);
 	  vars[174] = t->TrajLTCCX(i);
 	  vars[175] = t->TrajLTCCY(i);
 	  vars[176] = t->TrajLTCCZ(i);
 	  vars[177] = t->TrajHTCCX(i);
 	  vars[178] = t->TrajHTCCY(i);
 	  vars[179] = t->TrajHTCCZ(i);
-	  */
+
 	  vars[180] = t->DCChi2(0);
-	  /*
+
 	  vars[181] = t->TrajFTOF1AX(0);
 	  vars[182] = t->TrajFTOF1AY(0);
 	  vars[183] = t->TrajFTOF1AZ(0);
    	  vars[184] = t->TrajPCALX(0);
 	  vars[185] = t->TrajPCALY(0);
 	  vars[186] = t->TrajPCALZ(0);
-	  vars[187] = t->TrajECX(0);
-	  vars[188] = t->TrajECY(0);
-	  vars[189] = t->TrajECZ(0);
+	  vars[187] = t->TrajECINX(0);
+	  vars[188] = t->TrajECINY(0);
+	  vars[189] = t->TrajECINZ(0);
 	  vars[190] = t->TrajLTCCX(0);
 	  vars[191] = t->TrajLTCCY(0);
 	  vars[192] = t->TrajLTCCZ(0);
 	  vars[193] = t->TrajHTCCX(0);
 	  vars[194] = t->TrajHTCCY(0);
 	  vars[195] = t->TrajHTCCZ(0);
-	  
-	  //:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z
-
 	  vars[196] = t->TrajFTOF1BX(i);
 	  vars[197] = t->TrajFTOF1BY(i);
 	  vars[198] = t->TrajFTOF1BZ(i);
@@ -460,7 +455,13 @@ int main(int argc, char **argv)
 	  vars[205] = t->TrajFTOF2X(0);
 	  vars[206] = t->TrajFTOF2Y(0);
 	  vars[207] = t->TrajFTOF2Z(0);
-	  */
+
+	  vars[208] = t->HelicOnline();
+	  vars[209] = t->HelicOnlineRaw();
+	  vars[210] = t->HelicFlip();
+	  vars[211] = t->HelicFlipRaw();
+	  vars[212] = t->HelicFlipEvent();
+
 	  ntuple->Fill(vars);
 	}
       }

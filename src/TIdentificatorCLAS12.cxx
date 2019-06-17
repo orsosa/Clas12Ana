@@ -250,44 +250,53 @@ int TIdentificatorCLAS12::InitLayerMap()
   layerType["PCAL"] = 1;
   layerType["EC_Inner"] = 4;
   layerType["EC_Outer"] = 7;
+  layerType["CND_Inner"] = 1;
+  layerType["CND_Middle"] = 2;
+  layerType["CND_Outer"] = 3;
   return 0;
 }
 
 int TIdentificatorCLAS12::InitTrajDetId()
 { // Traj detId field map.
   
-  trajDetId["HTCC"] = 0; 
+  trajDetId["HTCC"] = 1; 
   trajDetId["FMT1"] = 1;
   trajDetId["FMT2"] = 2;
   trajDetId["FMT3"] = 3;
   trajDetId["FMT4"] = 4;
   trajDetId["FMT5"] = 5;
   trajDetId["FMT6"] = 6;
-  if (kMCFlag==false)
-  {
-    trajDetId["DCSL1"] = 12;
-    trajDetId["DCSL2"] = 18;
-    trajDetId["DCSL3"] = 24;
-    trajDetId["DCSL4"] = 30;
-    trajDetId["DCSL5"] = 36;
-    trajDetId["DCSL6"] = 42;
-  }
-  else
-  {
-    trajDetId["DCSL1"] = 10;
-    trajDetId["DCSL2"] = 16;
-    trajDetId["DCSL3"] = 22;
-    trajDetId["DCSL4"] = 28;
-    trajDetId["DCSL5"] = 34;
-    trajDetId["DCSL6"] = 40;
-  }
-  trajDetId["LTCC"] = 43;
-  trajDetId["FTOF2"] = 44;
-  trajDetId["FTOF1B"] = 45;
-  trajDetId["FTOF1A"] = 46;
-  trajDetId["PCAL"] = 47;
-  trajDetId["EC"] = 48;
 
+  trajDetId["DCSL1"] = 6;
+  trajDetId["DCSL2"] = 12;
+  trajDetId["DCSL3"] = 18;
+  trajDetId["DCSL4"] = 24;
+  trajDetId["DCSL5"] = 30;
+  trajDetId["DCSL6"] = 36;
+
+  trajDetId["CVT1"] = 1;
+  trajDetId["CVT2"] = 2;
+  trajDetId["CVT3"] = 3;
+  trajDetId["CVT4"] = 4;
+  trajDetId["CVT5"] = 5;
+  trajDetId["CVT6"] = 6;
+  trajDetId["CVT7"] = 7;
+  trajDetId["CVT8"] = 8;
+  trajDetId["CVT9"] = 9;
+  trajDetId["CVT10"] = 10;
+  trajDetId["CVT11"] = 11;
+  trajDetId["CVT12"] = 12;
+  
+  trajDetId["LTCC"] = 1;
+  trajDetId["FTOF2"] = 3;
+  trajDetId["FTOF1B"] = 2;
+  trajDetId["FTOF1A"] = 1;
+  trajDetId["PCAL"] = 2;
+  trajDetId["ECIN"] = 5;
+  trajDetId["ECOUT"] = 8;
+
+  trajDetId["RICH"] = 1;
+    
   trajDetId["101"] = 101;
   trajDetId["102"] = 102;
 
@@ -321,42 +330,42 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
 int TIdentificatorCLAS12::FillResponseMaps()
 {
   ClearMaps();
-  FillMap(&TIdentificatorCLAS12::get_REC__Calorimeter,REC__Calorimeter,REC__Calorimeter_pindex,calorimeterMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__Cherenkov,REC__Cherenkov,REC__Cherenkov_pindex,cherenkovMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__Scintillator, REC__Scintillator,REC__Scintillator_pindex,scintillatorMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__Track,REC__Track, REC__Track_pindex,trackMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__Traj,REC__Traj, REC__Traj_pindex,trajMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__CovMat, REC__CovMat,REC__CovMat_pindex,covMatMap);
+  FillMap(REC__Calorimeter,calorimeterMap);
+  FillMap(REC__Cherenkov,cherenkovMap);
+  FillMap(REC__Scintillator,scintillatorMap);
+  FillMap(REC__Track,trackMap);
+  FillMap(REC__Traj,trajMap);
+  FillMap(REC__CovMat,covMatMap);
 
-  FillMap(&TIdentificatorCLAS12::get_RICH__hadrons,RICH__hadrons, RICH__hadrons_particle_index,richHadPartMap);
-  FillMapRev(&TIdentificatorCLAS12::get_RICH__hadrons, RICH__hadrons, RICH__hadrons_hit_index,richHadClusterMap);
-  FillMap(&TIdentificatorCLAS12::get_REC__RICH, REC__RICH, REC__RICH_pindex,richRRPartMap);
-  FillMapRev(&TIdentificatorCLAS12::get_REC__RICH, REC__RICH, REC__RICH_index,richRRClusterMap);
-  FillMap(&TIdentificatorCLAS12::get_RICH__hits, RICH__hits, RICH__hits_cluster,richHitClusterMap);
-
+  FillMap(RICH__hadrons,richHadPartMap,"particle_index");
+  FillMapRev(RICH__hadrons,richHadClusterMap,"hit_index");
+  FillMap(REC__RICH,richRRPartMap);
+  FillMapRev(REC__RICH,richRRClusterMap,"index");
+  FillMap(RICH__hits,richHitClusterMap,"hits_cluster");
+ 
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMap(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMap(hipo::bank *bank, std::map <int,std::vector<int>> &mp, TString piname)
 {
   if (!bank) return 0;
   int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    (this->*getRow)(i);
+    short pi = bank->getShort(piname.Data(),i);
     mp[(int)pi].push_back(i);
   }
-  
+
   return 0;
 }
 
-int TIdentificatorCLAS12::FillMapRev(int (TIdentificatorCLAS12::*getRow)(int), hipo::bank *bank, short pi, std::map <int,std::vector<int>> &mp)
+int TIdentificatorCLAS12::FillMapRev(hipo::bank *bank,  std::map <int,std::vector<int>> &mp, TString piname)
 {
-  if (!pi) return 0;
+  if (!bank) return 0;
   int N = (int)bank->getRows();
   for (int i =0;i<N;i++)
   {
-    (this->*getRow)(i);
+    short pi = bank->getShort(piname.Data(),i);
     mp[i].push_back((int)pi);
   }
   
@@ -382,6 +391,7 @@ int TIdentificatorCLAS12::ClearMaps()
 
 int TIdentificatorCLAS12::PrintMaps()
 {
+  std::cout<<"### Printing Maps####\n\n";
   std::cout<<"calorimeter:\n";
   PrintMap(calorimeterMap);
   std::cout<<std::endl;
@@ -413,16 +423,20 @@ int TIdentificatorCLAS12::PrintMaps()
   std::cout<<"richHadCluster:\n";
   PrintMap(richHadClusterMap);
   std::cout<<std::endl;
+  std::cout<<"### END Printing Maps####\n";
   
   return 0;
 }
 
 int TIdentificatorCLAS12::PrintMap(std::map <int,std::vector<int>> &mp)
 {
-  for (map <int,std::vector<int>> ::iterator it = mp.begin();it != mp.end();++it)
+  map <int,std::vector<int>>::iterator it;
+  for ( it = mp.begin();it != mp.end();++it)
   {
+    std::vector<int>::iterator vit;
+    if (it->second.size()==0) break;
     cout<<it->first<<" => {";
-    for (std::vector<int>::iterator vit=it->second.begin();vit!=it->second.end();++vit)
+    for (vit = it->second.begin();vit!=it->second.end();++vit)
     {
       cout<<(int)*vit<<",";
     }

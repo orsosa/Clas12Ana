@@ -2367,6 +2367,7 @@ int TIdentificatorCLAS12::InitBanks(){
 		DETECTOR__ecpb = new hipo::bank(fFactory->getSchema("DETECTOR::ecpb"));
 	if (fFactory->hasSchema("CND::hits"))
 		CND__hits = new hipo::bank(fFactory->getSchema("CND::hits"));
+return 0;
 }
 
 int TIdentificatorCLAS12::FillBanks(){
@@ -2630,5 +2631,6 @@ int TIdentificatorCLAS12::FillBanks(){
 		 fEvent->getStructure(*DETECTOR__ecpb);
 	if (fFactory->hasSchema("CND::hits"))
 		 fEvent->getStructure(*CND__hits);
+return 0;
 }
 
