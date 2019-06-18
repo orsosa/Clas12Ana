@@ -4,10 +4,10 @@
   https://github.com/gavalian/Clas12Tool/tree/hipo4
 ```
 git clone -b hipo4 --recurse-submodules https://github.com/gavalian/Clas12Tool.git
-cd Clas12Tool.git
+cd Clas12Tool
 mkdir lib # could be included in Makefile...
 make
-setenv CLAS12TOOL `pwd`
+setenv CLAS12TOOL `pwd` # or you can add it to your login script
 ```
   
 ## Compiling
@@ -22,7 +22,7 @@ cd Clas12Ana
 setenv CLAS12ANAHIPO4 `pwd`
 make
 ```
-- don't forget to include the CLAS12ANA/shlib to $LD_LIBRARY_PATH
+- don't forget to include the CLAS12ANA/shlib to $LD_LIBRARY_PATH or $DYLD_LIBRARY_PATH
 
 ## Two examples included:
 
