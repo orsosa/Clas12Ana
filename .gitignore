@@ -50,3 +50,4 @@ examples/particle_mix
 examples/particle_mix_asym
 examples/particle_mix_asym_clean
 examples/getSchema
+examples/getBankInfo

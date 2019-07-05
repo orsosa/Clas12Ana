@@ -134,20 +134,34 @@ inline Int_t TIdentificatorCLAS12::HelicOnlineRaw() /// from event
 
 inline Int_t TIdentificatorCLAS12::HelicFlip() /// from event
 {
-  get_HEL__flip(0);
-  return HEL__flip_helicity;
+  if (HEL__flip->getRows()>0){
+    get_HEL__flip(0);
+    return HEL__flip_helicity;
+  }
+  else
+    return -111;
 }
 
 inline Int_t TIdentificatorCLAS12::HelicFlipRaw() /// from event
 {
-  get_HEL__flip(0);
-  return HEL__flip_helicityRaw;
+  if (HEL__flip->getRows()>0){
+    get_HEL__flip(0);
+    return HEL__flip_helicityRaw;
+  }
+  else
+    return -111;
+  
 }
 
 inline Int_t TIdentificatorCLAS12::HelicFlipEvent() /// from event
 {
-  get_HEL__flip(0);
-  return HEL__flip_event;
+  if (HEL__flip->getRows()>0){
+    get_HEL__flip(0);
+    return HEL__flip_event;
+  }
+  else
+    return -111;
+
 }
 
 
