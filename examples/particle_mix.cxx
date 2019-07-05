@@ -1604,13 +1604,14 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");
   r.addSecondary("gamma");
 */
+  /*
   // Sigma0 -> L(p pi-) a
   Reaction r("Sigma0 -> p pi- a","outfiles/ppima_all.root",false);
   r.addPrimary("Xi0");
   r.addSecondary("proton");
   r.addSecondary("pi-");
   r.addSecondary("gamma");
-  
+  */
 
   
   /*  
