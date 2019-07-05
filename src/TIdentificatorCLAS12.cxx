@@ -324,6 +324,7 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
     DCSuperLayer[4]=34;
     DCSuperLayer[5]=40;
   }
+  return 0;
 }
 
 

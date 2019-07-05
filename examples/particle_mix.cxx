@@ -38,6 +38,7 @@ TH2F *hEpi0_th;
 Float_t kMpi = TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
 Float_t kMPi0=1.33196e-1;//Got from sim.
 Float_t kSPi0=1.94034e-2;//Got from sim.
+Float_t kMh =  TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
 //Float_t kMPi0=5.39609e-01;
 //Float_t kSPi0=5.98542e-02;
 bool GSIM=false;
@@ -376,7 +377,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent:etaCM0:etaCM1:etaBF0p:etaBF1p:etaBF0m:etaBF1m:etaBF0:etaBF1:phiH0:phiH1:qx:qy:qz:phiR_ha:plcm0_r:plcm1_r:phiR_covH";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -471,6 +472,123 @@ public:
     P1_dicm.Boost(-Ph.BoostVector());
     /////////////////////////////////
 
+    /*
+      TLorentzVector P0_BF(0.1939,0.0749,0.3729,0.8912),
+      P1_BF(0.4010,0.1279,0.4797,0.6522),
+      q_BF(0.6616,0.8348,2.5974,2.5268),
+      P_BF(0,0,0,0.93827),
+      qin_BF(0,0,q_BF.M(),0);
+      TLorentzVector PX_BF = q_BF + P_BF - P0_BF - P1_BF;
+
+
+      TLorentzVector p_BF_boost(q_BF-qin_BF );
+      q_BF.Boost ( -p_BF_boost.BoostVector() );
+      q_BF.Print();
+
+     */
+    
+    //// pseudorapidity in Breit frame (light-front coor.)
+    Float_t fact1,fact2;
+    TLorentzVector P0_BF = P0;
+    TLorentzVector P1_BF = P1;
+    TLorentzVector q_BF = q_lv;
+    TLorentzVector P_BF = P_lv;
+    TLorentzVector PX_BF = q_BF + P_BF - P0_BF - P1_BF;
+    
+    //    TLorentzVector p_BF_boost(((P_BF + PX_BF).Vect()*q_BF.Vect().Unit())*q_BF.Vect().Unit(),(P_BF + PX_BF).E()-q_BF.E());
+    /*
+    TLorentzVector p_BF_boost(q_BF-qin_BF );
+    
+    P0_BF.Boost( -p_BF_boost.BoostVector() );
+    P1_BF.Boost( -p_BF_boost.BoostVector() );
+    q_BF.Boost ( -p_BF_boost.BoostVector() );
+    P_BF.Boost ( -p_BF_boost.BoostVector() );
+    PX_BF.Boost( -p_BF_boost.BoostVector() );
+    */
+    Float_t xbj = Q2_prev/2/Nu_prev/0.93827;
+    //Nachtmann variable
+    Float_t xn = 2*xbj/(1 + sqrt(1 + 4*xbj*xbj*0.93827*0.93827/Q2_prev));
+    Float_t Q = sqrt(Q2_prev);
+
+    Float_t z0 = (*comb)[0]->E()/Nu_prev;
+    Float_t z1 = (*comb)[1]->E()/Nu_prev;
+    Float_t ztot_inv = 1./(z0+z1);
+    
+    // pip /////    
+
+    fact1 = 1./(P_BF*P0_BF);
+    fact1 *= q_BF*P0_BF;
+
+    fact2 = 1./(P_BF*P0_BF);
+    fact2 *= q_BF*P_BF;
+
+    TLorentzVector qT0 = q_BF - fact1*P_BF -fact2*P0_BF;
+    Float_t qT20 =  -qT0.M2();
+    
+
+    P0_BF.SetXYZT(1+qT20/Q2_prev, 2*sqrt(qT20)/Q,0,qT20/Q2_prev -1);
+
+    Float_t P0T2 = 2*sqrt(qT20)/Q;
+    P0T2 *= P0T2;
+    
+    
+    Float_t MhT20 = P0T2 + kMh*kMh;
+    Float_t etaBF_0plus = Q*z0*(Q2_prev - xn*xn*0.93827*0.93827)/
+      (2*xn*xn*0.93827*0.93827*sqrt(MhT20));
+
+    Float_t etaBF_0minus = Q*z0*(Q2_prev - xn*xn*0.93827*0.93827)/
+      (2*xn*xn*0.93827*0.93827*sqrt(MhT20));
+
+    etaBF_0plus += Q/(0.93827*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT20) -1);
+    
+
+    etaBF_0minus -= Q/(0.93827*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT20) -1); 
+
+    etaBF_0plus = TMath::Log(etaBF_0plus);
+    etaBF_0minus = TMath::Log(etaBF_0minus);
+
+    Float_t etaBF0 = TMath::Log(sqrt(qT20)/Q);
+    
+    //////// end pip ////////
+
+    // pim /////    
+
+    fact1 = 1/(P_BF*P1_BF);
+    fact1 *= q_BF*P1_BF;
+
+    fact2 = 1/(P_BF*P1_BF);
+    fact2 *= q_BF*P_BF;
+
+    TLorentzVector qT1 = q_BF - fact1*P_BF -fact2*P1_BF;
+    Float_t qT21 =  -qT1.M2();
+    
+
+    P1_BF.SetXYZT(1+qT21/Q2_prev, 2*sqrt(qT21)/Q,0,qT21/Q2_prev -1);
+
+    Float_t P1T2 = 2*sqrt(qT21)/Q;
+    P1T2 *= P1T2;
+    
+    
+    Float_t MhT21 = P1T2 + kMh*kMh;
+    Float_t etaBF_1plus = Q*z1*(Q2_prev - xn*xn*0.93827*0.93827)/
+      (2*xn*xn*0.93827*0.93827*sqrt(MhT21));
+
+    Float_t etaBF_1minus = Q*z1*(Q2_prev - xn*xn*0.93827*0.93827)/
+      (2*xn*xn*0.93827*0.93827*sqrt(MhT21));
+
+    etaBF_1plus += Q/(xn*0.93827)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT21) -1);
+
+    etaBF_1minus -= Q/(xn*0.93827)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT21) -1); 
+
+    etaBF_1plus = log(etaBF_1plus);
+    etaBF_1minus = log(etaBF_1minus);
+
+    Float_t etaBF1 = TMath::Log(sqrt(qT21)/Q);
+    //////// end pim ////////
+
+    
+    
+    
     Float_t cos_theta_P0cm = P0_dicm.Vect()*Ph.Vect()/P0_dicm.Vect().Mag()/Ph.Vect().Mag();
 
     // -Ptot_lv.BoostVector() // to the a-P c.m.
@@ -488,6 +606,12 @@ public:
     Float_t Pl0m = P0.Vect()*q_lv.Vect().Unit();
     Float_t Pl1m = P1.Vect()*q_lv.Vect().Unit();
 
+    //// rapidity in CM
+    Float_t etaCM_0 = 0.5*TMath::Log( (P0.E() + Pl0m) / (P0.E() - Pl0m) );
+    Float_t etaCM_1 = 0.5*TMath::Log( (P1.E() + Pl1m) / (P1.E() - Pl1m) );
+    
+
+    
     //// phiR //////////////////
     TVector3 Ph_u = Ph.Vect().Unit();
     TVector3 R = P0.Vect() - P1.Vect();
@@ -514,9 +638,6 @@ public:
     TVector3 p0Tv = P0.Vect() - p0Lv;
     TVector3 p1Tv = P1.Vect() - p1Lv; 
 
-    Float_t z0 = (*comb)[0]->E()/Nu_prev;
-    Float_t z1 = (*comb)[1]->E()/Nu_prev;
-    Float_t ztot_inv = 1./(z0+z1);
     TVector3 RT_cov = (z1*p0Tv - z0*p1Tv)*ztot_inv;
 
     Float_t qxkRT_cov_sign = q_lv.Vect().Cross(k_in.Vect())*RT_cov;
@@ -529,6 +650,42 @@ public:
     phiR_cov=phiR_cov<0?phiR_cov+360:phiR_cov;
     ////////////////
 
+    /////// phiR_ha transverse to q ///
+
+    TVector3 RTha = 0.5*(p0Tv - p1Tv);
+
+    Float_t qxkRTha_sign = q_lv.Vect().Cross(k_in.Vect())*RTha;
+    qxkRTha_sign /= TMath::Abs(qxkRTha_sign);
+
+    // Float_t qxkST_sign = q_lv.Vect().Cross(k_in)*ST;
+    // qxkST_sign /= TMath::Abs(qxkST_sign);
+
+    Float_t qxkqxRTha = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(RTha));
+    Float_t qxkqxRTha_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RTha)).Mag();
+    
+    Float_t phiR_ha =  qxkRTha_sign*TMath::ACos(qxkqxRTha/qxkqxRTha_max)*TMath::RadToDeg();
+    phiR_ha=phiR_ha<0?phiR_ha+360:phiR_ha;
+    ////////////////
+
+    
+    //// phiR_covH Transverse to Hadron //////////////////
+    TVector3 p0LvH = (P0.Vect()*Ph_u)*Ph_u;
+    TVector3 p1LvH = (P1.Vect()*Ph_u)*Ph_u;
+    TVector3 p0TvH = P0.Vect() - p0LvH;
+    TVector3 p1TvH = P1.Vect() - p1LvH; 
+
+    TVector3 RTH_cov = (z1*p0TvH - z0*p1TvH)*ztot_inv;
+
+    Float_t qxkRTH_cov_sign = q_lv.Vect().Cross(k_in.Vect())*RTH_cov;
+    qxkRTH_cov_sign /= TMath::Abs(qxkRTH_cov_sign);
+
+    Float_t qxkqxRTH_cov = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(RTH_cov));
+    Float_t qxkqxRTH_cov_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(RTH_cov)).Mag();
+    
+    Float_t phiR_covH =  qxkRTH_cov_sign*TMath::ACos(qxkqxRTH_cov/qxkqxRTH_cov_max)*TMath::RadToDeg();
+    phiR_covH=phiR_covH<0?phiR_covH+360:phiR_covH;
+    ////////////////
+
     //// phiH //////////////////
     TVector3 Phv = Ph.Vect();
     Float_t qxkPhv_sign = q_lv.Vect().Cross(k_in.Vect())*Phv;
@@ -539,11 +696,30 @@ public:
     
     Float_t phiH =  qxkPhv_sign*TMath::ACos(qxkqxPhv/qxkqxPhv_max)*TMath::RadToDeg();
     phiH=phiH<0?phiH+360:phiH;
-   
     ////////////////
 
+    //// phiH0 /// TRENTO ////
+    TVector3 P0v = P0.Vect();
+    Float_t qxkP0v_sign = q_lv.Vect().Cross(k_in.Vect())*P0v;
+    qxkP0v_sign /= TMath::Abs(qxkP0v_sign);
     
+    Float_t qxkqxP0v = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(P0v));
+    Float_t qxkqxP0v_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(P0v)).Mag();
+    Float_t phiH0 =  qxkP0v_sign*TMath::ACos(qxkqxP0v/qxkqxP0v_max)*TMath::RadToDeg();
+    phiH0=phiH0<0?phiH0+360:phiH0;
+    //////////////////
+
+    //// phiH1 /// TRENTO ////
+    TVector3 P1v = P1.Vect();
+    Float_t qxkP1v_sign = q_lv.Vect().Cross(k_in.Vect())*P1v;
+    qxkP1v_sign /= TMath::Abs(qxkP1v_sign);
     
+    Float_t qxkqxP1v = (q_lv.Vect().Cross(k_in.Vect()))*(q_lv.Vect().Cross(P1v));
+    Float_t qxkqxP1v_max = (q_lv.Vect().Cross(k_in.Vect())).Mag()*(q_lv.Vect().Cross(P1v)).Mag();
+    Float_t phiH1 =  qxkP1v_sign*TMath::ACos(qxkqxP1v/qxkqxP1v_max)*TMath::RadToDeg();
+    phiH1=phiH1<0?phiH1+360:phiH1;
+    //////////////////
+  
     Float_t Mx2 = W_prev*W_prev + M*M - 2*( (Nu_prev+kMprt)*E - sqrt((Q2_prev + Nu_prev*Nu_prev)*Pl2));
 
     Float_t Phmax = TMath::Sqrt( TMath::Power( W_prev*W_prev + M*M - kMprt*kMprt, 2 ) - 4*W_prev*W_prev*M*M )/(2* W_prev);
@@ -657,6 +833,28 @@ public:
     kData[61] = phi_pq;
     kData[62] = phTv.Mag2();
     kData[63] = revent_prev;
+
+    kData[64] = etaCM_0;
+    kData[65] = etaCM_1;
+    kData[66] = etaBF_0plus;
+    kData[67] = etaBF_1plus;
+    kData[68] = etaBF_0minus;
+    kData[69] = etaBF_1minus;
+
+    kData[70] = etaBF0;
+    kData[71] = etaBF1;
+    
+    kData[72] = phiH0;
+    kData[73] = phiH1;
+
+    kData[74] = -Pex_prev;
+    kData[75] = -Pey_prev;
+    kData[76] = kEbeam -Pez_prev;
+
+    kData[77] = phiR_ha;
+    kData[78] = Pl0m;
+    kData[79] = Pl1m;
+    kData[80] = phiR_covH;
     
     /*  
     Double_t *W = new Double_t[4];
@@ -1421,14 +1619,44 @@ int main(int argc, char *argv[])
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  */
-
+*/  
+  
+  
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
+  
 
+  /*
+  // Xi0 -> L(p pi-) pi0(a a)
+  Reaction r("Xi0 -> p pi- a a","outfiles/ppimaa_all.root",false);
+  r.addPrimary("Xi0");
+  r.addSecondary("proton");
+  r.addSecondary("pi-");
+  r.addSecondary("gamma");
+  r.addSecondary("gamma");
+  */
+
+  /*
+  // Xi- -> L(p pi-) pi-
+  Reaction r("Sigma0 -> p pi- pi-","outfiles/ppimpim_all.root",false);
+  r.addPrimary("Xi-");
+  r.addSecondary("proton");
+  r.addSecondary("pi-");
+  r.addSecondary("pi-");
+  */
+  
+  /*    
+  // Sigma0 -> L(p pi-) a
+  Reaction r("Sigma0 -> p pi- a","outfiles/ppima_all.root",false);
+  r.addPrimary("Xi0");
+  r.addSecondary("proton");
+  r.addSecondary("pi-");
+  r.addSecondary("gamma");
+  */
+ 
   
   /*  
   //eta -> a a
@@ -1459,9 +1687,7 @@ int main(int argc, char *argv[])
   r.addSecondary("gamma");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-  
   */
-
   
   /*
   //eta -> a a
