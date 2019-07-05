@@ -356,7 +356,6 @@ int TIdentificatorCLAS12::FillMap(hipo::bank *bank, std::map <int,std::vector<in
     short pi = bank->getShort(piname.Data(),i);
     mp[(int)pi].push_back(i);
   }
-
   return 0;
 }
 

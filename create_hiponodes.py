@@ -15,7 +15,7 @@ for line in fin:
 
     branches = line.strip().split("schema : {")[-1].split("}{")[-1].replace("}","").split(",")
 
-    fout0.write("hipo::bank *" + bname + " ;\n")
+    fout0.write("hipo::bank *" + bname + " = 0;\n")
     fout0.write("int get_"+ bname + '(int row);\n')
     fout1.write("int TIdentificatorCLAS12::get_"+ bname + '(int row){\n')
     for br in branches:
