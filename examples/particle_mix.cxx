@@ -1398,24 +1398,32 @@ int main(int argc, char *argv[])
   r.addSecondary("e+");  
   r.addSecondary("gamma");
   */
-    
-  /*
+  /*  
+  
   //pi0 -> a a
   Reaction r("pi0 -> a a","outfiles/aa_all.root",false);
   r.addPrimary("pi0");
   r.addSecondary("gamma");
   r.addSecondary("gamma");
-  */  
+*/
+  // Sigma0 -> L(p pi-) a
+  Reaction r("Sigma0 -> p pi- a","outfiles/ppima_all.root",false);
+  r.addPrimary("Xi0");
+  r.addSecondary("proton");
+  r.addSecondary("pi-");
+  r.addSecondary("gamma");
+  
 
-  /*
+  
+  /*  
   // Lambda0 -> p pi-
   Reaction r("Lambda0 -> p pi-","outfiles/ppim_all.root",false);
   r.addPrimary("Lambda0");
   r.addSecondary("proton");
   r.addSecondary("pi-");
-  */  
-  
-  /*      
+  */
+
+  /*        
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
@@ -1423,12 +1431,13 @@ int main(int argc, char *argv[])
   r.addSecondary("pi-");
   */
 
+  /*
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-
+  */
   
   /*  
   //eta -> a a
@@ -1510,7 +1519,6 @@ int main(int argc, char *argv[])
   r.addSecondary("pi+"); 
   r.addSecondary("pi-");
   */
-
 
 
   r.getCombinations(t);

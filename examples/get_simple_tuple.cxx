@@ -43,7 +43,7 @@ int main(int argc, char **argv)
  
   Float_t *vars = new Float_t[Nvar];
   TVector3 *vert;
-  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,10.6,true); // March - 19 cooking
+  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,10.2,true); // March - 19 cooking
   //TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,10.6,false); // Nov-18 cooking
   
   TFile *output;
@@ -198,7 +198,7 @@ int main(int argc, char **argv)
       {
 	
       	TString category = t->GetCategorization(i);
-      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron")
+      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
 	{
 
 	  vars[0] = 0;//t -> ElecVertTarg();
