@@ -48,7 +48,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.6,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
+Float_t kEbeam=10.2,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -1622,22 +1622,22 @@ int main(int argc, char *argv[])
   r.addSecondary("pi-");
   */
 
-  /*        
+          
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
 
-*/  
+
   
-  
+  /*
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-
+*/
   
 
   /*
