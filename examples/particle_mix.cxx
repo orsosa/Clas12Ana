@@ -24,6 +24,7 @@
 #include <map>
 #include <string.h>
 #include "particle_mix.h"
+#define MAXPART 10
 
 bool DEBUG=false;
 Float_t HELIC=-111;
@@ -48,7 +49,21 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.2,E,Ee,Ee_prev,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0;
+Float_t kEbeam=10.2,E,Ee,Ee_prev,Beta,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0,dcz_r0;
+
+typedef struct {
+  Int_t npart;
+  Float_t beta[MAXPART];
+  Float_t m2b[MAXPART];
+  Float_t vx[MAXPART];
+  Float_t vy[MAXPART];
+  Float_t vz[MAXPART];
+  Float_t dcx[MAXPART];
+  Float_t dcy[MAXPART];
+  Float_t dcz[MAXPART];
+} detData_t;
+
+
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
@@ -56,16 +71,18 @@ char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
 Float_t kMprt=0.938272, kMn =0.939565;// kMprt to avoid replace confusion with kMpi
 TClonesArray *P4Arr;
 
+
 class Particle: public TLorentzVector
 {
 public:
-  Float_t vx,vy,vz,pid,time;
-  //TParticlePDG *info;
-  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0){}
-  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t){}
-  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(time){}
-  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time) {SetVect(p.Vect()); SetT(p.T());}
+  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,m2b;
   inline Double_t P2() const {return P()*P();}
+  //TParticlePDG *info;
+  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
+
   inline Particle operator + (const Particle & q) const //const: the object that owns the method will not be modified by this method
   {
     Particle p;
@@ -303,10 +320,10 @@ public:
   char name[50];
   char filename[50];
   Combo *kPrimary; //primary
+  detData_t detData;
 
   TParticlePDG *kPdgInfo;
   std::vector<Particle*> *kSecondary; //all secondary
-
 
   //std::vector<Particle*> *kCombo; //partial combinations.
   std::vector <Combo *> *kCombo;//partial combinations.
@@ -318,7 +335,7 @@ public:
   TFile *kOutFile;
   Float_t *kData;
   Float_t *keData;
-
+  
   TNtuple  *kElecData;
 
   TTree *kOutData, *kOutBkgnd;
@@ -388,6 +405,18 @@ public:
     kOutData->Branch("P4",&P4Arr,6);
     kOutData->Branch("primary",kData,varlist);
 
+    ////// DETECTOR DATA
+    kOutData->Branch("npart",&detData.npart,"npart/I");
+    kOutData->Branch("beta",detData.beta,"beta[npart]/F");
+    kOutData->Branch("m2b",detData.m2b,"m2b[npart]/F");
+    kOutData->Branch("vx",detData.vx,"vx[npart]/F");
+    kOutData->Branch("vy",detData.vy,"vy[npart]/F");
+    kOutData->Branch("vz",detData.vz,"vz[npart]/F");
+    kOutData->Branch("dcx",detData.dcx,"dcx[npart]/F");
+    kOutData->Branch("dcy",detData.dcy,"dcy[npart]/F");
+    kOutData->Branch("dcz",detData.dcz,"dcz[npart]/F");
+    ////////////
+    
     kOutBkgnd = kOutData->CloneTree(0);
     kOutBkgnd->SetName("outbkgnd");
     
@@ -824,6 +853,19 @@ public:
     kData[82] = P1_dicm.E();
     kData[83] = Nu_prev/kEbeam;
     kData[84] = acos(Pez_prev/sqrt(Pex_prev*Pex_prev + Pey_prev*Pey_prev + Pez_prev*Pez_prev))*TMath::RadToDeg();
+
+    detData.npart = comb->Npart;
+    for (int k =0 ;k<detData.npart;k++){
+      detData.beta[k] = (*comb)[k]->beta;
+      detData.m2b[k] =  (*comb)[k]->m2b;
+      detData.vx[k] = (*comb)[k]->vx;
+      detData.vy[k] = (*comb)[k]->vy;
+      detData.vz[k] = (*comb)[k]->vz;
+      detData.dcx[k] = (*comb)[k]->dcx;
+      detData.dcy[k] = (*comb)[k]->dcy;
+      detData.dcz[k] = (*comb)[k]->dcz;
+    }
+
     /*  
     Double_t *W = new Double_t[4];
     Double_t *Wa = new Double_t[4];
@@ -1168,7 +1210,8 @@ public:
       //if(pid == kSPid[k]&&checkDCFidPhi())
       if(pid == kSPid[k])
       {
-	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid));
+	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0));
+	//std::cout<<dcx_r0<<" / "<<dcy_r0<<" / "<<dcz_r0<<std::endl;
 	count++;
       }
     }
@@ -1244,8 +1287,10 @@ public:
 	//if (data_type<2&&FidCheck(pid))
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
+	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0);
+	 
 	  push_bkgnd(p);
+	  
 	  findSecondary();
 	}
       }
@@ -1290,7 +1335,7 @@ public:
 
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid);
+	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0);
 	  push_bkgnd(p);
 	  findSecondary();
 	}
@@ -1473,6 +1518,8 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("DCPz",1);
   t->SetBranchStatus("dcx_rot_0",1);
   t->SetBranchStatus("dcy_rot_0",1);
+  t->SetBranchStatus("trajdczr0",1);
+  t->SetBranchStatus("Beta",1);
   
 
   //  t->SetBranchStatus("TargTypeO",1);
@@ -1509,6 +1556,8 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("DCPz",&DCPz);
   t->SetBranchAddress("dcx_rot_0",&dcx_r0);
   t->SetBranchAddress("dcy_rot_0",&dcy_r0);
+  t->SetBranchAddress("trajdczr0",&dcz_r0);
+  t->SetBranchAddress("Beta",&Beta);
 
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 
