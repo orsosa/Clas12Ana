@@ -53,7 +53,7 @@ long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
 
-Float_t kMprt=0.938272, kMntr =0.939565;
+Float_t kMprt=0.938272, kMn =0.939565;// kMprt to avoid replace confusion with kMpi
 TClonesArray *P4Arr;
 
 class Particle: public TLorentzVector
@@ -377,7 +377,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent:etaCM0:etaCM1:etaBF0p:etaBF1p:etaBF0m:etaBF1m:etaBF0:etaBF1:phiH0:phiH1:qx:qy:qz:phiR_ha:plcm0_r:plcm1_r:phiR_covH";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent:etaCM0:etaCM1:etaBF0p:etaBF1p:etaBF0m:etaBF1m:etaBF0:etaBF1:phiH0:phiH1:qx:qy:qz:phiR_ha:plcm0_r:plcm1_r:phiR_covH:E0_phcm:E1_phcm:y:th_e";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -476,7 +476,7 @@ public:
       TLorentzVector P0_BF(0.1939,0.0749,0.3729,0.8912),
       P1_BF(0.4010,0.1279,0.4797,0.6522),
       q_BF(0.6616,0.8348,2.5974,2.5268),
-      P_BF(0,0,0,0.93827),
+      P_BF(0,0,0,kMprt),
       qin_BF(0,0,q_BF.M(),0);
       TLorentzVector PX_BF = q_BF + P_BF - P0_BF - P1_BF;
 
@@ -486,106 +486,62 @@ public:
       q_BF.Print();
 
      */
-    
+
     //// pseudorapidity in Breit frame (light-front coor.)
-    Float_t fact1,fact2;
     TLorentzVector P0_BF = P0;
     TLorentzVector P1_BF = P1;
     TLorentzVector q_BF = q_lv;
     TLorentzVector P_BF = P_lv;
     TLorentzVector PX_BF = q_BF + P_BF - P0_BF - P1_BF;
     
-    //    TLorentzVector p_BF_boost(((P_BF + PX_BF).Vect()*q_BF.Vect().Unit())*q_BF.Vect().Unit(),(P_BF + PX_BF).E()-q_BF.E());
-    /*
-    TLorentzVector p_BF_boost(q_BF-qin_BF );
-    
-    P0_BF.Boost( -p_BF_boost.BoostVector() );
-    P1_BF.Boost( -p_BF_boost.BoostVector() );
-    q_BF.Boost ( -p_BF_boost.BoostVector() );
-    P_BF.Boost ( -p_BF_boost.BoostVector() );
-    PX_BF.Boost( -p_BF_boost.BoostVector() );
-    */
-    Float_t xbj = Q2_prev/2/Nu_prev/0.93827;
+    Float_t xbj = Q2_prev/2/Nu_prev/kMprt;
     //Nachtmann variable
-    Float_t xn = 2*xbj/(1 + sqrt(1 + 4*xbj*xbj*0.93827*0.93827/Q2_prev));
+    Float_t xn = 2*xbj/(1 + sqrt(1 + 4*xbj*xbj*kMprt*kMprt/Q2_prev));
     Float_t Q = sqrt(Q2_prev);
 
     Float_t z0 = (*comb)[0]->E()/Nu_prev;
     Float_t z1 = (*comb)[1]->E()/Nu_prev;
     Float_t ztot_inv = 1./(z0+z1);
     
+    TVector3 p0Lv_BF = (P0_BF.Vect()*q_BF.Vect().Unit())*q_BF.Vect().Unit();
+    TVector3 p1Lv_BF = (P1_BF.Vect()*q_BF.Vect().Unit())*q_BF.Vect().Unit();
+    TVector3 p0Tv_BF = P0_BF.Vect() - p0Lv_BF;
+    TVector3 p1Tv_BF = P1_BF.Vect() - p1Lv_BF;
+
     // pip /////    
+    Float_t MhT20 = p0Tv_BF.Mag2() + kMh*kMh;
+    Float_t etaBF_0plus = Q*z0*(Q2_prev - xn*xn*kMprt*kMprt)/
+      (2*xn*xn*kMprt*kMprt*sqrt(MhT20));
 
-    fact1 = 1./(P_BF*P0_BF);
-    fact1 *= q_BF*P0_BF;
+    Float_t etaBF_0minus = Q*z0*(Q2_prev - xn*xn*kMprt*kMprt)/
+      (2*xn*xn*kMprt*kMprt*sqrt(MhT20));
 
-    fact2 = 1./(P_BF*P0_BF);
-    fact2 *= q_BF*P_BF;
+    etaBF_0plus += Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1);
 
-    TLorentzVector qT0 = q_BF - fact1*P_BF -fact2*P0_BF;
-    Float_t qT20 =  -qT0.M2();
-    
-
-    P0_BF.SetXYZT(1+qT20/Q2_prev, 2*sqrt(qT20)/Q,0,qT20/Q2_prev -1);
-
-    Float_t P0T2 = 2*sqrt(qT20)/Q;
-    P0T2 *= P0T2;
-    
-    
-    Float_t MhT20 = P0T2 + kMh*kMh;
-    Float_t etaBF_0plus = Q*z0*(Q2_prev - xn*xn*0.93827*0.93827)/
-      (2*xn*xn*0.93827*0.93827*sqrt(MhT20));
-
-    Float_t etaBF_0minus = Q*z0*(Q2_prev - xn*xn*0.93827*0.93827)/
-      (2*xn*xn*0.93827*0.93827*sqrt(MhT20));
-
-    etaBF_0plus += Q/(0.93827*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT20) -1);
-    
-
-    etaBF_0minus -= Q/(0.93827*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT20) -1); 
+    etaBF_0minus -= Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Q2_prev - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1); 
 
     etaBF_0plus = TMath::Log(etaBF_0plus);
     etaBF_0minus = TMath::Log(etaBF_0minus);
 
-    Float_t etaBF0 = TMath::Log(sqrt(qT20)/Q);
-    
     //////// end pip ////////
 
     // pim /////    
 
-    fact1 = 1/(P_BF*P1_BF);
-    fact1 *= q_BF*P1_BF;
+    Float_t MhT21 = p1Tv_BF.Mag2() + kMh*kMh;
+    Float_t etaBF_1plus = Q*z1*(Q2_prev - xn*xn*kMprt*kMprt)/
+      (2*xn*xn*kMprt*kMprt*sqrt(MhT21));
 
-    fact2 = 1/(P_BF*P1_BF);
-    fact2 *= q_BF*P_BF;
+    Float_t etaBF_1minus = Q*z1*(Q2_prev - xn*xn*kMprt*kMprt)/
+      (2*xn*xn*kMprt*kMprt*sqrt(MhT21));
 
-    TLorentzVector qT1 = q_BF - fact1*P_BF -fact2*P1_BF;
-    Float_t qT21 =  -qT1.M2();
-    
+    etaBF_1plus += Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1);
 
-    P1_BF.SetXYZT(1+qT21/Q2_prev, 2*sqrt(qT21)/Q,0,qT21/Q2_prev -1);
-
-    Float_t P1T2 = 2*sqrt(qT21)/Q;
-    P1T2 *= P1T2;
-    
-    
-    Float_t MhT21 = P1T2 + kMh*kMh;
-    Float_t etaBF_1plus = Q*z1*(Q2_prev - xn*xn*0.93827*0.93827)/
-      (2*xn*xn*0.93827*0.93827*sqrt(MhT21));
-
-    Float_t etaBF_1minus = Q*z1*(Q2_prev - xn*xn*0.93827*0.93827)/
-      (2*xn*xn*0.93827*0.93827*sqrt(MhT21));
-
-    etaBF_1plus += Q/(xn*0.93827)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT21) -1);
-
-    etaBF_1minus -= Q/(xn*0.93827)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*0.93827*0.93827),2)/(4*xn*xn*0.93827*0.93827*MhT21) -1); 
+    etaBF_1minus -= Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Q2_prev - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1); 
 
     etaBF_1plus = log(etaBF_1plus);
     etaBF_1minus = log(etaBF_1minus);
 
-    Float_t etaBF1 = TMath::Log(sqrt(qT21)/Q);
     //////// end pim ////////
-
     
     
     
@@ -609,8 +565,15 @@ public:
     //// rapidity in CM
     Float_t etaCM_0 = 0.5*TMath::Log( (P0.E() + Pl0m) / (P0.E() - Pl0m) );
     Float_t etaCM_1 = 0.5*TMath::Log( (P1.E() + Pl1m) / (P1.E() - Pl1m) );
-    
 
+    //// rapidity BF harut
+    Float_t g2    = 4*xbj*xbj*kMprt*kMprt/Q2_prev;
+    Float_t g24   = xn*xn*kMprt*kMprt/Q2_prev;
+    Float_t yhc1  = xn*xn*kMprt*kMprt+xn*Q2_prev;
+    Float_t yhc2  = (1.0-xn)*Q2_prev;
+    Float_t yhc   = TMath::Log(sqrt(yhc1/yhc2));
+    Float_t etaBF0 = -etaCM_0 - yhc;
+    Float_t etaBF1 = -etaCM_1 - yhc;
     
     //// phiR //////////////////
     TVector3 Ph_u = Ph.Vect().Unit();
@@ -855,7 +818,12 @@ public:
     kData[78] = Pl0m;
     kData[79] = Pl1m;
     kData[80] = phiR_covH;
-    
+
+
+    kData[81] = P0_dicm.E();
+    kData[82] = P1_dicm.E();
+    kData[83] = Nu_prev/kEbeam;
+    kData[84] = acos(Pez_prev/sqrt(Pex_prev*Pex_prev + Pey_prev*Pey_prev + Pez_prev*Pez_prev))*TMath::RadToDeg();
     /*  
     Double_t *W = new Double_t[4];
     Double_t *Wa = new Double_t[4];
@@ -1622,22 +1590,22 @@ int main(int argc, char *argv[])
   r.addSecondary("pi-");
   */
 
-  /*        
+  /*
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-
-*/  
+  */
   
   
+    
   // K0 -> pi+ pi-
   Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
   r.addPrimary("K0");
   r.addSecondary("pi+");
   r.addSecondary("pi-");
-
+  
   
 
   /*

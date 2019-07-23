@@ -38,10 +38,12 @@ int main(int argc, char** argv) {
    reader.open(inputFile);
    hipo::dictionary  factory;
    reader.readDictionary(factory);
-   getchar();
+   // getchar();
    hipo::bank  honline(factory.getSchema("HEL::online"));
    hipo::bank  hflip(factory.getSchema("HEL::flip"));
    hipo::bank  rconfig(factory.getSchema("RUN::config"));
+   hipo::bank  mc(factory.getSchema("MC::Lund"));
+
 
    hipo::event event;
 
@@ -62,14 +64,20 @@ int main(int argc, char** argv) {
      event.getStructure(honline);
      event.getStructure(hflip);
      event.getStructure(rconfig);
+     event.getStructure(mc     );
      
      int en = rconfig.getInt("event",0);
      int rn = rconfig.getInt("run",0);
      long ts = rconfig.getLong("timestamp",0);
 
-    
+         
      int nrows =0;
+     if (en==16544){
+       rconfig.show();
+       mc.show();
+     }
      
+     /*
      nrows = honline.getRows();
      for(int row = 0; row < nrows; row++){	
        int   hel = honline.getByte("helicity",row);
@@ -101,9 +109,12 @@ int main(int argc, char** argv) {
        hfstat->Fill(hstat);
        //    printf("%d,%d: hel %d, helRaw %d, patt %d, pair %d, hrun %d, hev %d, hstat %d, hts %ld, ts %ld",rn,en,hel,helRaw,patt,pair,hrun,hev,hstat,hts,ts);
      }
+     */
      counter++;
+     
      //     if (nrows>0) printf("\n");
    }
+   /*
    TFile fout("hist.root","recreate");
    hhon->Write();
    hhonRaw->Write();
@@ -113,5 +124,6 @@ int main(int argc, char** argv) {
    hfpair->Write();
    hfstat->Write();
    hDt->Write();
+     */
    printf("processed events = %d\n",counter);
 }
