@@ -30,6 +30,7 @@ public:
     Double_t Y(Int_t k, Bool_t kind = 0);         // inline
     Double_t Z(Int_t k, Bool_t kind = 0);         // inline
     Int_t Helic();                       // inline
+    Int_t HelicRaw();                       // inline
     Int_t HelicOnline();                       // inline
     Int_t HelicOnlineRaw();                       // inline
     Int_t HelicFlip();                       // inline

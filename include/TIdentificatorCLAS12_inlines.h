@@ -119,6 +119,12 @@ inline Int_t TIdentificatorCLAS12::Helic() /// from event
   return (Int_t)REC__Event_helicity;
 }
 
+inline Int_t TIdentificatorCLAS12::HelicRaw() /// from event
+{
+  get_REC__Event(0);
+  return (Int_t)REC__Event_helicityRaw;
+}
+
 inline Int_t TIdentificatorCLAS12::HelicOnline() /// from event
 {
   get_HEL__online(0);
