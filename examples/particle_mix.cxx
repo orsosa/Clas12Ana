@@ -24,11 +24,12 @@
 #include <map>
 #include <string.h>
 #include "particle_mix.h"
+#include "TRegexp.h"
 #define MAXPART 10
 
 bool DEBUG=false;
 Float_t HELIC=-111;
-TString INFILE="data.root", INDIR="";
+TString INFILE="data.root", INDIR="",REACTION=":pi+_pi-",OFILE="outfiles/pippim_all.root";
 TH1F *hW;
 TH1F *hW2;
 TH1F *hWmb;
@@ -42,7 +43,7 @@ Float_t kSPi0=1.94034e-2;//Got from sim.
 Float_t kMh =  TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
 //Float_t kMPi0=5.39609e-01;
 //Float_t kSPi0=5.98542e-02;
-bool GSIM=false;
+bool GSIM=false,EFLAG=false;
 int data_type=0;
 Float_t kPt2,kEvent; 
 TNtuple *tuple;
@@ -1470,12 +1471,15 @@ int main(int argc, char *argv[])
 
   std::cout<<"processing: "<<PATH<<std::endl;
   std::cout<<"data_type: "<<data_type<<std::endl;
+  std::cout<<"output file name: "<<OFILE<<std::endl;
+  std::cout<<"Exact match: "<<EFLAG<<std::endl;
+  std::cout<<"Reaction: "<<REACTION<<std::endl;
   
   if (data_type==1) t->Add(PATH + "/ntuple_accept");
   else if (data_type==2) t->Add(PATH + "/ntuple_thrown");
   else 
     t->Add(PATH + "/ntuple_data");
-  
+    
   //  t->Add("/user/o/orsosa/osoto_ana/local/prune_simul.root/ntuple_accept"); //simrec test
   //t->Add("/data/atlas/users/orsosa/eg2_sim_pruned/C/pruned_simul_*.root/ntuple_accept"); //C  sim rec 
   //  t->Add("/data/atlas/users/orsosa/eg2_sim_pruned/C/pruned_simul_*.root/ntuple_thrown"); //C sim gsim 
@@ -1573,205 +1577,24 @@ int main(int argc, char *argv[])
   if (Ne==-1)  Ne = t->GetEntries();
   std::cout<<"Number of entries to be processed: "<<Ne<<std::endl;
 
-  /*
-  /// eta -> pi+ pi- a
-  Reaction r("eta -> pi+ pi- a","test_pipapimOnly.root",true); 
-  r.addPrimary("eta");
-  r.addSecondary("pi+");
-  r.addSecondary("gamma");
-  r.addSecondary("pi-");
-  */
 
-  /*    
-  // K+ -> pi+ pi+ pi-
-  Reaction r("K+ -> pi- pi+ pi+","test_pimpippipOnlyC_sim.root",true);
-  r.addPrimary("K+");
-  r.addSecondary("pi-");
-  r.addSecondary("pi+");
-  r.addSecondary("pi+");
-  */
-
-  /*
-  // K- -> pi- pi- pi+
-  Reaction r("K- -> pi- pi- pi+","test_pimpimpip.root");
-  r.addPrimary("K-");
-  r.addSecondary("pi-");
-  r.addSecondary("pi-");
-  r.addSecondary("pi+");
-  */ 
-
-  /*  
-  // eta -> pi0 pi0 pi0 -> 6a
-  Reaction r("eta -> 6a","etaout_6a_all.root",false); //
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  */
-
-  /*  
-  // pi0 -> e- e+ a
-  Reaction r("pi0 -> e- e+ a","pi0_CD_e-e+a.root",true);
-  r.addPrimary("pi0");
-  r.addSecondary("e-");
-  r.addSecondary("e+");  
-  r.addSecondary("gamma");
-  */
-  /*  
+  if (!check_reaction())
+    return 1;
   
-  //pi0 -> a a
-  Reaction r("pi0 -> a a","outfiles/aa_all.root",false);
-  r.addPrimary("pi0");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-*/
-  /*
-  // Sigma0 -> L(p pi-) a
-  Reaction r("Sigma0 -> p pi- a","outfiles/ppima_all.root",false);
-  r.addPrimary("Xi0");
-  r.addSecondary("proton");
-  r.addSecondary("pi-");
-  r.addSecondary("gamma");
-  */
-
+  TString rname = REACTION + (EFLAG?", exact-match":", all combinations");
+  Reaction r(rname,OFILE,EFLAG);
+  TString primary = get_primary(),secondary="";
+  Ssiz_t start= REACTION.Index(":")+1;
+  if (primary!="")
+    r.addPrimary(primary);
+  std::cout<<primary<<" -> ";
   
-  /*  
-  // Lambda0 -> p pi-
-  Reaction r("Lambda0 -> p pi-","outfiles/ppim_all.root",false);
-  r.addPrimary("Lambda0");
-  r.addSecondary("proton");
-  r.addSecondary("pi-");
-  */
-
-
-  // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","outfiles/pippim_all.root",false);
-  r.addPrimary("K0");
-  r.addSecondary("pi+");
-  r.addSecondary("pi-");
-
-  
-  /*
-  // K0 -> pi+ pi-
-  Reaction r("K0 -> pi+ pi-","outfiles/pippim_only.root",true);
-  r.addPrimary("K0");
-  r.addSecondary("pi+");
-  r.addSecondary("pi-");
-  */
-  
-
-  /*
-  // Xi0 -> L(p pi-) pi0(a a)
-  Reaction r("Xi0 -> p pi- a a","outfiles/ppimaa_all.root",false);
-  r.addPrimary("Xi0");
-  r.addSecondary("proton");
-  r.addSecondary("pi-");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  */
-
-  /*
-  // Xi- -> L(p pi-) pi-
-  Reaction r("Sigma0 -> p pi- pi-","outfiles/ppimpim_all.root",false);
-  r.addPrimary("Xi-");
-  r.addSecondary("proton");
-  r.addSecondary("pi-");
-  r.addSecondary("pi-");
-  */
-  
-  /*    
-  // Sigma0 -> L(p pi-) a
-  Reaction r("Sigma0 -> p pi- a","outfiles/ppima_all.root",false);
-  r.addPrimary("Xi0");
-  r.addSecondary("proton");
-  r.addSecondary("pi-");
-  r.addSecondary("gamma");
-  */
- 
-  
-  /*  
-  //eta -> a a
-  Reaction r("eta -> a a","etaout_aa_only.root",true);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");  
-  
-  */
-  
-
-
-  /*
-  // w -> pi+ pi- a a
-  Reaction r("w -> pi+ pi- a a","wout.root");
-  r.addPrimary("omega");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("pi+");
-  r.addSecondary("pi-");
-  */
-
-  /*        
-  //eta -> a a pi+ pi-
-  Reaction r("eta -> a a pi+ pi-","etaout_pippimaa_all_eta_exact.root",true);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("pi+");
-  r.addSecondary("pi-");
-  */
-  
-  /*
-  //eta -> a a
-  Reaction r("eta -> a a","etaout_aa_only.root",true);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");  
-  */
-
-  /*
-  //eta -> a a
-  Reaction r("eta -> a a","etaout_aa_all_bk.root",false);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");  
-  */
-
-  /*
- //eta -> 3pi0 -> 6a 
-  Reaction r("eta ->  3pi0 -> 6a","etaout6a.root",true);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  */
-
-  /*
-  //eta -> 2pi0 -> 4a 
-  Reaction r("eta ->  2pi0 -> 4a","etaout4a.root",true);
-  r.addPrimary("eta");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  r.addSecondary("gamma");
-  */
-
-
-  /*  
-  //corr -> pi+ pi+ pi-
-  Reaction r("K0 -> pi+ pi+ pi-","pip_corr.root",true);
-  r.addPrimary("K0");
-  r.addSecondary("pi+");
-  r.addSecondary("pi+"); 
-  r.addSecondary("pi-");
-  */
-
-
+  while ((secondary=pop_secondary(start)) != ""){
+    std::cout<<secondary<<" ";
+    r.addSecondary(secondary);
+  }
+  std::cout<<std::endl;
+      
   r.getCombinations(t);
   r.store();
   std::cout<<"\n";

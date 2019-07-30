@@ -1,9 +1,9 @@
 #include <getopt.h>
-extern bool GSIM;
+extern bool GSIM, EFLAG;
 extern int data_type;
 extern long Ne;
 extern Float_t HELIC;
-extern TString INDIR,INFILE;
+extern TString INDIR,INFILE,REACTION,OFILE;
 
 inline void printhelp()
 {
@@ -13,7 +13,11 @@ inline void printhelp()
     "\t[-l | --helicity] <l>            : Fix helicity value. Default: read from file\n"
     "\t[-d | --in-dir] <d>              : Path containing the root input files. All files will be read <d>/*.root\n"
     "\t                                   It has priority over -f option\n"
-    "\t[-f | --in-file] <f>             : Input file. Default value data.root\n" 
+    "\t[-f | --in-file] <f>             : Input file. Default value data.root\n"
+    "\t[-r | --reaction] <r>            : Select the mixing particle reaction.\n"
+    "\t                                   e.g.: rho:pi+_pi-, :pi+_pi-. Default :pi+_pi-\n"
+    "\t-e                               : exact match. Default false.\n"
+    "\t-o                               : output file name. Default outfiles/pippim_all.root.\n"
     "\t-h                               : Print help.\n"
     "#########################"	   <<std::endl;
   exit(0);
@@ -32,14 +36,26 @@ inline int parseopt(int argc, char* argv[])
     {"helicity", required_argument,0,'l'},
     {"in-dir", required_argument,0,'d'},
     {"in-file", required_argument,0,'f'},
+    {"reaction", required_argument,0,'r'},
+    {"output", required_argument,0,'o'},
+    {"exact-match", no_argument,0,'e'},
     {0, 0, 0, 0}
   };
 
   if(argc==1)
     printhelp();
-  while ( (c = getopt_long(argc, argv, "ht:n:l:d:f:", long_options, &option_index))  != -1)
+  while ( (c = getopt_long(argc, argv, "het:n:l:d:f:r:o:", long_options, &option_index))  != -1)
     switch (c)
       {
+      case 'e':
+        EFLAG = true;
+        break;
+      case 'o':
+        OFILE = optarg;
+        break;
+      case 'r':
+        REACTION = optarg;
+        break;
       case 'f':
         INFILE = optarg;
         break;
@@ -77,4 +93,49 @@ inline int parseopt(int argc, char* argv[])
       default:
         abort ();
       }
+}
+
+inline Bool_t check_reaction()
+{
+  TDatabasePDG db;
+  Ssiz_t i_c=0,i_p=0,sl=0;
+  i_c = REACTION.Index(":");
+  TString primary="", secondary="";
+  primary = REACTION(i_p,i_c);
+  if (primary != "" && !db.GetParticle(primary)){
+    std::cout<<primary<<" --- primary particle doesn't exist on TDatabasePDG"<<std::endl;
+    return false;
+  }
+  i_p=i_c+1;
+  while ((i_c=REACTION.Index("_",i_p)) != -1){
+    sl=i_c-i_p;
+    secondary=REACTION(i_p,sl);
+    if (secondary != "" && !db.GetParticle(secondary)){
+      std::cout<<secondary<<" --- secondary particle doesn't exist on TDatabasePDG"<<std::endl;
+      return false;
+    }
+    i_p=i_c+1;
+  }
+  secondary=REACTION(i_p,REACTION.Length());
+  if (secondary != "" && !db.GetParticle(secondary)){
+    std::cout<<secondary<<" --- secondary particle doesn't exist on TDatabasePDG"<<std::endl;
+    return false;
+  }
+
+  return true;
+    
+}
+
+inline TString get_primary(){
+  Ssiz_t i_c=0,i_p=0;
+  i_c = REACTION.Index(":");
+  TString primary="";
+  primary = REACTION(i_p,i_c);
+  return primary;
+}
+
+inline TString pop_secondary(Ssiz_t &start){
+  TString secondary = "";
+  REACTION.Tokenize(secondary,start,"_");
+  return secondary;
 }
