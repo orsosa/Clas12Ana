@@ -49,9 +49,11 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=10.6,E,Ee,Ee_prev,Beta,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0,dcz_r0;
-
-typedef struct {
+Float_t kEbeam=-1,E,Ee,Ee_prev,Beta,statPart,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0,dcz_r0;
+////////////// detector data sucture ///////////
+// I you add a variable here, add it also to the Particle Class.
+typedef struct
+{
   Int_t npart;
   Float_t beta[MAXPART];
   Float_t m2b[MAXPART];
@@ -61,8 +63,9 @@ typedef struct {
   Float_t dcx[MAXPART];
   Float_t dcy[MAXPART];
   Float_t dcz[MAXPART];
+  Float_t statPart[MAXPART];
 } detData_t;
-
+//////////////////////////////////////////
 
 long Ne = -1;
 char st[3]= "C"; // solid target: C Fe Pb
@@ -71,17 +74,16 @@ char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
 Float_t kMprt=0.938272, kMn =0.939565;// kMprt to avoid replace confusion with kMpi
 TClonesArray *P4Arr;
 
-
 class Particle: public TLorentzVector
 {
 public:
-  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,m2b;
+  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,statPart,m2b;
   inline Double_t P2() const {return P()*P();}
   //TParticlePDG *info;
-  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
+  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
 
   inline Particle operator + (const Particle & q) const //const: the object that owns the method will not be modified by this method
   {
@@ -394,7 +396,7 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent:etaCM0:etaCM1:etaBF0p:etaBF1p:etaBF0m:etaBF1m:etaBF0:etaBF1:phiH0:phiH1:qx:qy:qz:phiR_ha:plcm0_r:plcm1_r:phiR_covH:E0_phcm:E1_phcm:y:th_e";
+    TString varlist="M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:vzec:z1:z2:z3:W:vxec:vyec:qx1:qy1:qz1:qx2:qy2:qz2:E1:E2:E1c:E2c:x1:y1:x2:y2:TargType:TargTypeO:phiH:phiR:Mx2:xF:xF0:xF1:plcm:plcm0:plcm1:Eh:xFm:xFm0:xFm1:helic:theta0:theta1:cos_theta_P0cm:xFo:xF0o:xF1o:event:phiH_phiR:Ee:phiR_cov:p0T2:p1T2:phipq:phT2:revent:etaCM0:etaCM1:etaBF0p:etaBF1p:etaBF0m:etaBF1m:etaBF0:etaBF1:phiH0:phiH1:qx:qy:qz:phiR_ha:plcm0_r:plcm1_r:phiR_covH:E0_phcm:E1_phcm:y:th_e:Pe";
     kElecData = new TNtuple("ElecData",Form("%s",name),"Nu:Q2:Event:vze:Ee:Pex:Pey:Pez:W");
 
 
@@ -415,6 +417,7 @@ public:
     kOutData->Branch("dcx",detData.dcx,"dcx[npart]/F");
     kOutData->Branch("dcy",detData.dcy,"dcy[npart]/F");
     kOutData->Branch("dcz",detData.dcz,"dcz[npart]/F");
+    kOutData->Branch("statPart",detData.statPart,"statPart[npart]/F");
     ////////////
     
     kOutBkgnd = kOutData->CloneTree(0);
@@ -431,7 +434,6 @@ public:
 
   int fill_elec()
   {
-
     keData[0] = Nu_prev;
     keData[1] = Q2_prev;
     keData[2] = evnt_prev;
@@ -853,6 +855,7 @@ public:
     kData[82] = P1_dicm.E();
     kData[83] = Nu_prev/kEbeam;
     kData[84] = acos(Pez_prev/sqrt(Pex_prev*Pex_prev + Pey_prev*Pey_prev + Pez_prev*Pez_prev))*TMath::RadToDeg();
+    kData[85] = sqrt(Pex_prev*Pex_prev + Pey_prev*Pey_prev + Pez_prev*Pez_prev);
 
     detData.npart = comb->Npart;
     for (int k =0 ;k<detData.npart;k++){
@@ -864,6 +867,7 @@ public:
       detData.dcx[k] = (*comb)[k]->dcx;
       detData.dcy[k] = (*comb)[k]->dcy;
       detData.dcz[k] = (*comb)[k]->dcz;
+      detData.statPart[k] = (*comb)[k]->statPart;
     }
 
     /*  
@@ -1146,6 +1150,7 @@ public:
 
   void setElectVar()
   {
+    kEbeam = Nu + sqrt(Pex*Pex + Pey*Pey + Pez*Pez);
     Nu_prev = Nu;
     Q2_prev = Q2;
     Ze_prev = Ze;
@@ -1210,7 +1215,7 @@ public:
       //if(pid == kSPid[k]&&checkDCFidPhi())
       if(pid == kSPid[k])
       {
-	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0));
+	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart));
 	//std::cout<<dcx_r0<<" / "<<dcy_r0<<" / "<<dcz_r0<<std::endl;
 	count++;
       }
@@ -1287,7 +1292,7 @@ public:
 	//if (data_type<2&&FidCheck(pid))
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0);
+	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart);
 	 
 	  push_bkgnd(p);
 	  
@@ -1335,7 +1340,7 @@ public:
 
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0);
+	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart);
 	  push_bkgnd(p);
 	  findSecondary();
 	}
@@ -1520,6 +1525,7 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("dcy_rot_0",1);
   t->SetBranchStatus("trajdczr0",1);
   t->SetBranchStatus("Beta",1);
+  t->SetBranchStatus("statPart",1);
   
 
   //  t->SetBranchStatus("TargTypeO",1);
@@ -1558,6 +1564,7 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("dcy_rot_0",&dcy_r0);
   t->SetBranchAddress("trajdczr0",&dcz_r0);
   t->SetBranchAddress("Beta",&Beta);
+  t->SetBranchAddress("statPart",&statPart);
 
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 
@@ -1769,7 +1776,7 @@ int main(int argc, char *argv[])
   r.store();
   std::cout<<"\n";
   r.kOutData->Print();
-  r.kOutBkgnd->Print();
+  //  r.kOutBkgnd->Print();
   //  corrfile->Close();
   bm->Show("get_pi0");
   return 0;  
