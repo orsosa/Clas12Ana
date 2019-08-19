@@ -320,7 +320,10 @@ inline Int_t TIdentificatorCLAS12::GetNRows()
 
 inline Int_t TIdentificatorCLAS12::GetMCNRows()
 {
+  std::cout<<__LINE__<<std::endl;
   if (!MC__Lund) return -1;
+  std::cout<<__LINE__<<std::endl;
+    
   return  MC__Lund->getRows();
 }
 
