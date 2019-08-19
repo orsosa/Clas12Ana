@@ -166,7 +166,7 @@ int main(int argc, char **argv)
       DataElec[53] = t->RFTime();
      
       Float_t dcx,dcy,dcx_rot,dcy_rot;
-      std::cout<<__LINE__<<std::endl;
+
       dcx = t->TrajDetIdX(0,"DC","DCSL1");
       dcy = t->TrajDetIdY(0,"DC","DCSL1");
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
@@ -182,7 +182,7 @@ int main(int argc, char **argv)
       rotate_dcxy(dcx,dcy,dcx_rot,dcy_rot);
       DataElec[58] = dcx_rot;//region 2
       DataElec[59] = dcy_rot;//region 2
-      std::cout<<__LINE__<<std::endl;
+
       DataElec[60] = t->SectorLTCC(0);
       DataElec[61] = t->SectorHTCC(0);
       DataElec[62] = t->SectorECAL(0);
@@ -191,19 +191,19 @@ int main(int argc, char **argv)
       DataElec[65] = Npim_rec;
       DataElec[66] = Npip_mc;
       DataElec[67] = Npim_mc;
-            std::cout<<__LINE__<<std::endl;
+
       DataElec[68] = rec_elec;
       DataElec[69] = t->DCChi2(0);
-      std::cout<<__LINE__<<std::endl;
+
       DataElec[70] = t->HelicOnline();
       DataElec[71] = t->HelicOnlineRaw();
-            std::cout<<__LINE__<<std::endl;
+
       DataElec[72] = t->HelicFlip();
       DataElec[73] = t->HelicFlipRaw();
-            std::cout<<__LINE__<<std::endl;
+
       DataElec[74] = t->HelicFlipEvent();
       DataElec[74] = t->HelicRaw();
-           std::cout<<__LINE__<<std::endl;
+
 
       tElec->Fill(DataElec);
   
@@ -423,7 +423,7 @@ int main(int argc, char **argv)
 
 	  vars[163] = rec_elec;
 	  vars[164] = t->DCChi2(i);
-
+           std::cout<<__LINE__<<std::endl;
 	  vars[165] = t->TrajFTOF1AX(i);
 	  vars[166] = t->TrajFTOF1AY(i);
 	  vars[167] = t->TrajFTOF1AZ(i);
@@ -439,9 +439,9 @@ int main(int argc, char **argv)
 	  vars[177] = t->TrajHTCCX(i);
 	  vars[178] = t->TrajHTCCY(i);
 	  vars[179] = t->TrajHTCCZ(i);
-
+           std::cout<<__LINE__<<std::endl;
 	  vars[180] = t->DCChi2(0);
-
+           std::cout<<__LINE__<<std::endl;
 	  vars[181] = t->TrajFTOF1AX(0);
 	  vars[182] = t->TrajFTOF1AY(0);
 	  vars[183] = t->TrajFTOF1AZ(0);
@@ -469,17 +469,17 @@ int main(int argc, char **argv)
 	  vars[205] = t->TrajFTOF2X(0);
 	  vars[206] = t->TrajFTOF2Y(0);
 	  vars[207] = t->TrajFTOF2Z(0);
-
+           std::cout<<__LINE__<<std::endl;
 	  vars[208] = t->HelicOnline();
 	  vars[209] = t->HelicOnlineRaw();
 	  vars[210] = t->HelicFlip();
 	  vars[211] = t->HelicFlipRaw();
 	  vars[212] = t->HelicFlipEvent();
-
+           std::cout<<__LINE__<<std::endl;
 	  vars[213] = t->Nu()/EBEAM;
 	  vars[214] = TMath::ACos(t->Pz(0)/t->Momentum(0))*TMath::RadToDeg();
 	  vars[215] = t->HelicRaw();
-	  
+	             std::cout<<__LINE__<<std::endl;
 	  ntuple->Fill(vars);
 	}
       }
