@@ -75,21 +75,23 @@ int main(int argc, char **argv)
   if(simul_key == 1) {
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",VarList);
     e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:event");
-}
+  }
   cout.width(4);
   Int_t event=0;
   Int_t rec_elec;
-  Int_t Npip_mc;
-  Int_t Npim_mc;
-  Int_t Npip_rec;
-  Int_t Npim_rec;
+  Int_t Npip_mc = -1;
+  Int_t Npim_mc = -1;
+  Int_t Npip_rec = -1;
+  Int_t Npim_rec = -1;
 
   while (t->Next())
   {
     Int_t nRows = t->GetNRows();
 
-    Npip_mc = t->GetNPart(211,1);
-    Npim_mc = t->GetNPart(-211,1);
+    if(simul_key == 1) {
+      Npip_mc = t->GetNPart(211,1);
+      Npim_mc = t->GetNPart(-211,1);
+    }
     Npip_rec = t->GetNPart(211);
     Npim_rec = t->GetNPart(-211);
     rec_elec = 0;
