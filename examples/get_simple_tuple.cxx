@@ -758,7 +758,7 @@ int main(int argc, char **argv)
 	cout<<endl;
       }
     }
-    
+    getchar();
     cout<<std::right<<event++<<"\r";
     cout.flush();
   }
