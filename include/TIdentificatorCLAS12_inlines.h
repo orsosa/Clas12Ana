@@ -128,6 +128,7 @@ inline Int_t TIdentificatorCLAS12::HelicRaw() /// from event
 inline Int_t TIdentificatorCLAS12::HelicOnline() /// from event
 {
   if (!HEL__online)  return -111;
+  std::cout<<__LINE__<<std::endl;
   if ( HEL__online->getRows()>0 ){
     get_HEL__online(0);
     return HEL__online_helicity;
@@ -139,6 +140,7 @@ inline Int_t TIdentificatorCLAS12::HelicOnline() /// from event
 inline Int_t TIdentificatorCLAS12::HelicOnlineRaw() /// from event
 {
   if ( !HEL__online)  return -111;
+  std::cout<<__LINE__<<std::endl;
   if ( HEL__online->getRows()>0 ){
     get_HEL__online(0);
     return HEL__online_helicityRaw;
