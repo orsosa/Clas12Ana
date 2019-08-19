@@ -481,10 +481,8 @@ int main(int argc, char **argv)
 	}
       }
     }
-    std::cout<<__LINE__<<std::endl;
     nRows = t->GetMCNRows();
     Int_t ind_first = 3;
-    std::cout<<__LINE__<<std::endl;
     if(nRows>3 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
     {
 
