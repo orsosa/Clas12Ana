@@ -423,7 +423,6 @@ int main(int argc, char **argv)
 
 	  vars[163] = rec_elec;
 	  vars[164] = t->DCChi2(i);
-           std::cout<<__LINE__<<std::endl;
 	  vars[165] = t->TrajFTOF1AX(i);
 	  vars[166] = t->TrajFTOF1AY(i);
 	  vars[167] = t->TrajFTOF1AZ(i);
@@ -439,9 +438,7 @@ int main(int argc, char **argv)
 	  vars[177] = t->TrajHTCCX(i);
 	  vars[178] = t->TrajHTCCY(i);
 	  vars[179] = t->TrajHTCCZ(i);
-           std::cout<<__LINE__<<std::endl;
 	  vars[180] = t->DCChi2(0);
-           std::cout<<__LINE__<<std::endl;
 	  vars[181] = t->TrajFTOF1AX(0);
 	  vars[182] = t->TrajFTOF1AY(0);
 	  vars[183] = t->TrajFTOF1AZ(0);
