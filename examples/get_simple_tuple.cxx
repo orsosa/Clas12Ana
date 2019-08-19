@@ -469,17 +469,17 @@ int main(int argc, char **argv)
 	  vars[205] = t->TrajFTOF2X(0);
 	  vars[206] = t->TrajFTOF2Y(0);
 	  vars[207] = t->TrajFTOF2Z(0);
-           std::cout<<__LINE__<<std::endl;
+
 	  vars[208] = t->HelicOnline();
 	  vars[209] = t->HelicOnlineRaw();
 	  vars[210] = t->HelicFlip();
 	  vars[211] = t->HelicFlipRaw();
 	  vars[212] = t->HelicFlipEvent();
-           std::cout<<__LINE__<<std::endl;
+
 	  vars[213] = t->Nu()/EBEAM;
 	  vars[214] = TMath::ACos(t->Pz(0)/t->Momentum(0))*TMath::RadToDeg();
 	  vars[215] = t->HelicRaw();
-	             std::cout<<__LINE__<<std::endl;
+
 	  ntuple->Fill(vars);
 	}
       }
