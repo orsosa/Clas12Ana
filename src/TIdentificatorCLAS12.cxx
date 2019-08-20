@@ -220,10 +220,8 @@ Bool_t TIdentificatorCLAS12::Next()
     {
       delete fReader;
       fReader = new hipo::reader();
-      std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
-      std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       if (ret)  {
 	fReader->read(*fEvent);
 	FillBanks();
