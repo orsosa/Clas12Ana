@@ -132,6 +132,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   kCurrentFileIndex=0;
   fEvent = new hipo::event();
   fFactory = new hipo::dictionary();
+  setNevents();
   this->fReader = reader;
   fReader->readDictionary(*fFactory);
   InitBanks();
@@ -167,6 +168,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   fEvent = new hipo::event();
   fFactory = new hipo::dictionary();
   this->fReader = new hipo::reader();
+  setNevents();
   fReader->open(flist[kCurrentFileIndex]);
   fReader->readDictionary(*fFactory);
   InitBanks();
@@ -181,6 +183,27 @@ TIdentificatorCLAS12::~TIdentificatorCLAS12()
   // Default destructor for TIdentificator.
   fReader = 0;
 }
+
+Int_t TIdentificatorCLAS12::setNevents()
+{
+  char buff[BSIZE];
+  FILE *fp;
+  for (unsigned int k=0;k<flist.size();k++){
+    Long_t nevents = 0;
+    fp= popen(Form("hipo-utils -stats -n 1 %s | awk '$5==\"events\"{print $7}'",flist[k].Data()),"r");
+    while ( fgets( buff,BSIZE, fp ) != NULL ) {
+      nevents = atol(buff);
+    }
+    kNEVENTS += nevents;
+  }
+  return 0;
+}
+Long_t TIdentificatorCLAS12::getNevents()
+{
+  return kNEVENTS;
+}
+
+
 
 Bool_t TIdentificatorCLAS12::Next()
 {

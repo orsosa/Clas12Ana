@@ -83,7 +83,7 @@ int main(int argc, char **argv)
   Int_t Npim_mc = -1;
   Int_t Npip_rec = -1;
   Int_t Npim_rec = -1;
-
+  std::cout<<t->getNevents()<<std::endl;
   while (t->Next())
   {
     Int_t nRows = t->GetNRows();
@@ -212,7 +212,8 @@ int main(int argc, char **argv)
       {
 	
       	TString category = t->GetCategorization(i);
-      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
+	//      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
+	if (category == "pi-" || category == "pi+" || category == "gamma")
 	{
 
 	  vars[0] = 0;//t -> ElecVertTarg();
@@ -758,10 +759,11 @@ int main(int argc, char **argv)
 	cout<<endl;
       }
     }
-    cout<<std::right<<event++<<"\r";
+    
+    cout<<std::right<<(float)event++ / t->getNevents()*100 <<"\% \r";
     cout.flush();
   }
-  cout<<std::right<<event++<<"\n";
+  cout<<std::right<<(float)event++ / t->getNevents()*100<<"\% \n";
     
   output->Write();
   output->Close();

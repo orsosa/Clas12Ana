@@ -7,14 +7,17 @@
 #include "TVector3.h"
 
 #define  MAXNFILES 2000
+#define  BSIZE 20
+
 
 class TIdentificatorCLAS12 {
 public:
   TIdentificatorCLAS12();
   explicit TIdentificatorCLAS12(hipo::reader *reader = 0,Double_t beamE=10.6);
-  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6, Bool_t mcf=false);
+  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6, Bool_t mcf=false);  
   ~TIdentificatorCLAS12();
-    
+  Long_t getNevents();
+  Int_t setNevents();
   Bool_t Next(); // explore the hipo file opened
 
     // HEADER bank
@@ -419,6 +422,7 @@ private:
     hipo::event *fEvent;
     hipo::dictionary *fFactory;
 
+    Long_t kNEVENTS = 0;
     /*
     TClasTool *fCT;           // Pointer to the main ClasTool object
     TEVNTClass *fEVNT;        // Pointer to the EVNT object
