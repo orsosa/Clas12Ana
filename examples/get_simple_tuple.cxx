@@ -212,8 +212,8 @@ int main(int argc, char **argv)
       {
 	
       	TString category = t->GetCategorization(i);
-	//      	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
-	if (category == "pi-" || category == "pi+" || category == "gamma")
+	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
+	//	if (category == "pi-" || category == "pi+" || category == "gamma")
 	{
 
 	  vars[0] = 0;//t -> ElecVertTarg();

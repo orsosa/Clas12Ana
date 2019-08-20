@@ -219,12 +219,15 @@ Bool_t TIdentificatorCLAS12::Next()
     if (++kCurrentFileIndex<Nfiles)
     {
       delete fReader;
+      std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
+      std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       if (ret)  {
 	fReader->read(*fEvent);
 	FillBanks();
 	FillResponseMaps();
+	std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       }
     }
   }
