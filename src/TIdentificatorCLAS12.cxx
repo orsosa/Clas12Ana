@@ -219,6 +219,7 @@ Bool_t TIdentificatorCLAS12::Next()
     if (++kCurrentFileIndex<Nfiles)
     {
       delete fReader;
+      fReader = new hipo::reader();
       std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       fReader->open(flist[kCurrentFileIndex]);
       ret = fReader->next();
