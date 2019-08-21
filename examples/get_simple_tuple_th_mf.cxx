@@ -311,9 +311,7 @@ void *filter(void *arg)
       DataElec[74] = t->HelicFlipEvent();
       DataElec[74] = t->HelicRaw();
 
-      TThread::Lock();
       tElec->Fill(DataElec);
-      TThread::UnLock();
       
       for (Int_t i = 1; i < nRows; i++) 
       {
