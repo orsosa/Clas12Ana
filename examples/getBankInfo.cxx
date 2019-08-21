@@ -95,16 +95,23 @@ int main(int argc, char** argv) {
        hhon->Fill(hel);
      }
      */
+     std::cout<<"hf/l3 ::: ";
+
      nrows = hflip.getRows();
      for(int row = 0; row < nrows; row++){	
        int   hel = hflip.getByte("helicity",row);
+       std::cout<<hel;
+
        hf->Fill(hel);
      }
+     std::cout<<"/";
      nrows = recevent.getRows();
      for(int row = 0; row < nrows; row++){	
        int   hel = recevent.getByte("helicity",row);
+       std::cout<<hel<<std::endl;
        hreh->Fill(hel);
      }
+     recevent.show();
 
 
      /*
@@ -168,12 +175,10 @@ int main(int argc, char** argv) {
      
      //     if (nrows>0) printf("\n");
    }
-   std::cout<<__FILE__<<"::::"<<__LINE__<<std::endl;
    TFile fout("hist.root","recreate");
    //   hhon->Write();
    hf->Write();
    hreh->Write();
-   std::cout<<__FILE__<<"::::"<<__LINE__<<std::endl;
    /*
    TFile fout("hist.root","recreate");
    hhon->Write();
