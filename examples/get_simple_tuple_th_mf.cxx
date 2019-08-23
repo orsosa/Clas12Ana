@@ -138,7 +138,7 @@ void create_threads(void *arg){
     th = new TThread(thn_ind[k],filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
     th->Run();
     start_ind[0] += TH_MAX;
-    sleep(1);
+    //    sleep(1);
     sem.Wait();
     //slotCond.Wait();
   }
