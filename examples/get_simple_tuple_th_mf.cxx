@@ -26,7 +26,9 @@ Bool_t *slotAvailable;
 Int_t NthActive = 0;
 TCondition cond(NULL);
 TCondition slotCond(NULL);
+TSemaphore sem(0);
 std::map <Int_t,TString> thn_ind;
+
 
 bool simul_key = 0;
 TVector3 *vert;
@@ -116,11 +118,12 @@ void create_threads(void *arg){
   int k = 0;
   while (start_ind[0]<Ntotal){
     while (NthActive == Nth){
+      //      sleep(1);
     }
     for (k=0;k<Nth;k++){
       if (slotAvailable[k]) break;
     }
-    TThread::Ps();
+    //TThread::Ps();
     
     //    th = TThread::GetThread(thn_ind[k]);
     //TThread::Delete(th);
@@ -128,16 +131,19 @@ void create_threads(void *arg){
     start_ind[1] = k;
     TThread::Lock();
     NthActive++;
-    if (NthActive==1) cond.Signal();
     Nt++;
     TThread::UnLock();
+    if (NthActive==1) cond.Signal();
     thn_ind[k]=Form("th_%d",Nt);  
     th = new TThread(thn_ind[k],filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
     th->Run();
     start_ind[0] += TH_MAX;
-    slotCond.Wait();
+    sleep(1);
+    sem.Wait();
+    //slotCond.Wait();
   }
-  cond.Signal();
+  //  TThread::Printf("############################################ k:%d",k);
+  //  cond.Signal();
   th =   TThread::Self();
   th->Delete();
 }
@@ -163,9 +169,10 @@ void filter(void *arg)
   Int_t ind = atoi(ss.Data());
   TThread::Lock();
   slotAvailable[ind]=kFALSE;
-  slotCond.Signal();
   TThread::UnLock();
-
+  //  sleep (2);
+  //  slotCond.Signal();
+  sem.Post();
   TThread::SetCancelOn(); // enable thread canceling
 
   TString NtupleName;
