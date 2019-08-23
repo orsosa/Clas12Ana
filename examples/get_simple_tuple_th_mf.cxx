@@ -26,6 +26,7 @@ Bool_t *slotAvailable;
 Int_t NthActive = 0;
 TCondition cond(NULL);
 TCondition slotCond(NULL);
+std::map <Int_t,TString> thn_ind;
 
 bool simul_key = 0;
 TVector3 *vert;
@@ -39,8 +40,9 @@ TDatabasePDG pdg;
 
 
 int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot);
-void *filter(void *arg);
-void *create_threads(void *arg);
+void cleanUp(void *arg);
+void filter(void *arg);
+void create_threads(void *arg);
 
 int main(int argc, char **argv)
 {
@@ -80,6 +82,7 @@ int main(int argc, char **argv)
   std::cout<<Ntotal<<std::endl;
 
   progress_th = new Float_t[Nth];
+  memset(progress_th,0,Nth*sizeof(float));
   slotAvailable = new Bool_t[Nth];
   for (int k = 0; k<Nth;k++) slotAvailable[k]=kTRUE;
     
@@ -89,7 +92,8 @@ int main(int argc, char **argv)
   cond.Wait();
   while (NthActive){
     //Bool_t exitFlag = kTRUE;
-    cout<<"Nth "<<NthActive<<" --- ";
+    //    cout<<"Nth "<<NthActive<<" --- ";
+    cout<<"Nth "<<TThread::Exists()<<" --- ";
     for (int k = 0; k<Nth;k++){
       cout<<progress_th[k]/TH_MAX*100<<"\% // ";
       //      exitFlag &= progress_th[k] == TH_MAX;
@@ -104,7 +108,7 @@ int main(int argc, char **argv)
   return 0;
 }
 ////////// Threads Creator ///////////
-void *create_threads(void *arg){
+void create_threads(void *arg){
   TThread *th;
   Long_t start_ind[2];
   
@@ -112,11 +116,14 @@ void *create_threads(void *arg){
   int k = 0;
   while (start_ind[0]<Ntotal){
     while (NthActive == Nth){
-      sleep(1);
     }
     for (k=0;k<Nth;k++){
       if (slotAvailable[k]) break;
     }
+    TThread::Ps();
+    
+    //    th = TThread::GetThread(thn_ind[k]);
+    //TThread::Delete(th);
     progress_th[k] = 0;
     start_ind[1] = k;
     TThread::Lock();
@@ -124,19 +131,27 @@ void *create_threads(void *arg){
     if (NthActive==1) cond.Signal();
     Nt++;
     TThread::UnLock();
-    
-    th = new TThread(Form("th_%d",Nt),filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
+    thn_ind[k]=Form("th_%d",Nt);  
+    th = new TThread(thn_ind[k],filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
     th->Run();
     start_ind[0] += TH_MAX;
     slotCond.Wait();
   }
   cond.Signal();
-  return 0;
+  th =   TThread::Self();
+  th->Delete();
 }
 ////////////
+/// cleanup
+void cleanUp(void *arg) {
+      // here the user cleanup is done
+  TThread::Printf("Cleaned Up");
+
+}
 ///////// Filter thread ///////////
-void *filter(void *arg)
+void filter(void *arg)
 {
+  TThread::CleanUpPush((void*)&cleanUp, (void*) NULL);
   TFile *output;
 
   TString args = ((char*)arg);
@@ -150,6 +165,9 @@ void *filter(void *arg)
   slotAvailable[ind]=kFALSE;
   slotCond.Signal();
   TThread::UnLock();
+
+  TThread::SetCancelOn(); // enable thread canceling
+
   TString NtupleName;
   
   if(simul_key == 0) {
@@ -166,7 +184,7 @@ void *filter(void *arg)
   Int_t NvarElec = tElec->GetNvar();
   Int_t NvarElecTh = 0;
 
-  Float_t *DataElecTh;
+  Float_t *DataElecTh = 0;
   
   TNtuple *ntuple = new TNtuple(NtupleName,"stable particles",varList);
   TNtuple *ntuple_thrown = 0;
@@ -875,13 +893,21 @@ void *filter(void *arg)
   output->Write();
   output->Close();
 
+  TThread::Printf("%d",__LINE__);
+
+  delete t;
+  delete output;
+  if(DataElecTh) delete[] DataElecTh;
+  delete[] DataElec;
+  delete[] vars;
+  
   TThread::Lock();
   NthActive--;
   slotAvailable[ind]=kTRUE;
-  TThread::UnLock();  
-
-  //TThread::Exit();
-  return 0;
+  TThread::UnLock();
+  TThread *th =   TThread::Self();
+  th->Delete();
+  //  TThread::Exit();
 }
 
 
