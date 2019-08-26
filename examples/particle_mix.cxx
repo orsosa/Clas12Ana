@@ -376,7 +376,7 @@ public:
     delete P4Arr;
     kOutFile->Close();
     delete kOutFile;
-    delete kPdgInfo;
+    //    delete kPdgInfo;
     hSPid.clear();
   }
   void clear()
