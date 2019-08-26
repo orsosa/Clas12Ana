@@ -1456,7 +1456,7 @@ void check_dir(const char *outdir)
 int main(int argc, char *argv[])
 {
   TBenchmark *bm = new TBenchmark();
-  bm->Start("get_eta");
+  bm->Start("main_program");
   parseopt(argc,argv);
   //TFile * corrfile = new TFile("gammECorr.root","read");
   //hcfm = (TH1F*)corrfile->Get("hcfm");
@@ -1601,7 +1601,7 @@ int main(int argc, char *argv[])
   r.kOutData->Print();
   //  r.kOutBkgnd->Print();
   //  corrfile->Close();
-  bm->Show("get_pi0");
+  bm->Show("main_program");
   return 0;  
 
 }
