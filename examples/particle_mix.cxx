@@ -1255,7 +1255,8 @@ public:
     Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
     Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057};
 
-    Float_t energy ;
+    Float_t energy =-1;
+
     if (pid == 45)
       energy == sqrt(p*p + TMath::Power(1.8756,2) );
     else

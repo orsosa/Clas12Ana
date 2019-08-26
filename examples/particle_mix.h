@@ -93,7 +93,8 @@ inline int parseopt(int argc, char* argv[])
       default:
         abort ();
       }
-}
+  return 0;
+} 
 
 inline Bool_t check_reaction()
 {
