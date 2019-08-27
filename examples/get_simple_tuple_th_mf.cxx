@@ -138,7 +138,7 @@ void create_threads(void *arg){
     th = new TThread(thn_ind[k],filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
     th->Run();
     start_ind[0] += TH_MAX;
-    //    sleep(1);
+    usleep(1e6*0.3);
     sem.Wait();
     //slotCond.Wait();
   }
@@ -170,9 +170,8 @@ void filter(void *arg)
   TThread::Lock();
   slotAvailable[ind]=kFALSE;
   TThread::UnLock();
-  //  sleep (2);
-  //  slotCond.Signal();
   sem.Post();
+
   TThread::SetCancelOn(); // enable thread canceling
 
   TString NtupleName;
