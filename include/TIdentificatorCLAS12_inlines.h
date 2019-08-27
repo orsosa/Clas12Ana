@@ -406,6 +406,52 @@ inline Double_t TIdentificatorCLAS12::DCChi2(Int_t k)
 }
 
 
+inline Double_t TIdentificatorCLAS12::DCNDF(Int_t k)
+{
+
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_NDF;
+  }
+  else 
+    return -1111;
+
+}
+
+inline Double_t TIdentificatorCLAS12::DCStatus(Int_t k)
+{
+
+  Int_t N = trackMap[k].size();
+  Int_t index=-1;
+  for (int i=0;i<N;i++)
+  {
+    get_REC__Track(trackMap[k][i]);
+    if (REC__Track_detector==detectorType["DC"])
+    {
+      index = trackMap[k][i];
+      break;
+    }
+  }
+  if (index>=0){
+    get_REC__Track(index);
+    return REC__Track_status;
+  }
+  else 
+    return -1111;
+
+}
+
 inline Double_t TIdentificatorCLAS12::Etot(Int_t k,Bool_t kind)
 {
     // Return total energy deposited in the calorimeter for the particle in

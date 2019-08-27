@@ -69,6 +69,8 @@ public:
 
     // DCPB
     Double_t DCChi2(Int_t k=0);                     // inline
+    Double_t DCNDF(Int_t k=0);                     // inline
+    Double_t DCStatus(Int_t k=0);                     // inline
 
     // ECPB
     Double_t Etot(Int_t k,Bool_t kind=0);         // inline

@@ -37,7 +37,6 @@ TString TIdentificatorCLAS12::GetCategorization(Int_t k)
       )// fiducial and status cuts to be added
     partId="neutron";
 
-
   if (Pid(k) == 45
       )// fiducial and status cuts to be added
     partId="deuteron";
