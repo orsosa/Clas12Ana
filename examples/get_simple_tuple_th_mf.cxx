@@ -147,7 +147,7 @@ void create_threads(void *arg){
   int k = 0;
   while (start_ind[0]<Ntotal){
     while (NthActive == Nth){
-      //      sleep(1);
+      sleep(1);
     }
     for (k=0;k<Nth;k++){
       if (slotAvailable[k]) break;
