@@ -2107,266 +2107,527 @@ int TIdentificatorCLAS12::get_CND__hits(int row){
 } 
 
 int TIdentificatorCLAS12::InitBanks(){
-	if (fFactory->hasSchema("BMTRec::Hits"))
-		BMTRec__Hits = new hipo::bank(fFactory->getSchema("BMTRec::Hits"));
-	if (fFactory->hasSchema("RAW::adc"))
-		RAW__adc = new hipo::bank(fFactory->getSchema("RAW::adc"));
-	if (fFactory->hasSchema("BAND::adc"))
-		BAND__adc = new hipo::bank(fFactory->getSchema("BAND::adc"));
-	if (fFactory->hasSchema("RUN::config"))
-		RUN__config = new hipo::bank(fFactory->getSchema("RUN::config"));
-	if (fFactory->hasSchema("RICH::clusters"))
-		RICH__clusters = new hipo::bank(fFactory->getSchema("RICH::clusters"));
-	if (fFactory->hasSchema("RECHB::Scintillator"))
-		RECHB__Scintillator = new hipo::bank(fFactory->getSchema("RECHB::Scintillator"));
-	if (fFactory->hasSchema("REC::RingCher"))
-		REC__RingCher = new hipo::bank(fFactory->getSchema("REC::RingCher"));
-	if (fFactory->hasSchema("BSTRec::LayerEffs"))
-		BSTRec__LayerEffs = new hipo::bank(fFactory->getSchema("BSTRec::LayerEffs"));
-	if (fFactory->hasSchema("RTPC::pos"))
-		RTPC__pos = new hipo::bank(fFactory->getSchema("RTPC::pos"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBCrosses"))
-		TimeBasedTrkg__TBCrosses = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBCrosses"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBTracks"))
-		HitBasedTrkg__HBTracks = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBTracks"));
-	if (fFactory->hasSchema("CVTRec::Cosmics"))
-		CVTRec__Cosmics = new hipo::bank(fFactory->getSchema("CVTRec::Cosmics"));
-	if (fFactory->hasSchema("RECHB::Cherenkov"))
-		RECHB__Cherenkov = new hipo::bank(fFactory->getSchema("RECHB::Cherenkov"));
-	if (fFactory->hasSchema("BSTRec::Clusters"))
-		BSTRec__Clusters = new hipo::bank(fFactory->getSchema("BSTRec::Clusters"));
-	if (fFactory->hasSchema("CVTRec::Trajectory"))
-		CVTRec__Trajectory = new hipo::bank(fFactory->getSchema("CVTRec::Trajectory"));
-	if (fFactory->hasSchema("RECHB::Calorimeter"))
-		RECHB__Calorimeter = new hipo::bank(fFactory->getSchema("RECHB::Calorimeter"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBSegmentTrajectory"))
-		TimeBasedTrkg__TBSegmentTrajectory = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBSegmentTrajectory"));
-	if (fFactory->hasSchema("CTOF::tdc"))
-		CTOF__tdc = new hipo::bank(fFactory->getSchema("CTOF::tdc"));
-	if (fFactory->hasSchema("REC::Cherenkov"))
-		REC__Cherenkov = new hipo::bank(fFactory->getSchema("REC::Cherenkov"));
-	if (fFactory->hasSchema("BMTRec::LayerEffs"))
-		BMTRec__LayerEffs = new hipo::bank(fFactory->getSchema("BMTRec::LayerEffs"));
-	if (fFactory->hasSchema("FTOF::adc"))
-		FTOF__adc = new hipo::bank(fFactory->getSchema("FTOF::adc"));
-	if (fFactory->hasSchema("MC::Lund"))
-		MC__Lund = new hipo::bank(fFactory->getSchema("MC::Lund"));
-	if (fFactory->hasSchema("DETECTOR::lcpb"))
-		DETECTOR__lcpb = new hipo::bank(fFactory->getSchema("DETECTOR::lcpb"));
-	if (fFactory->hasSchema("MC::Header"))
-		MC__Header = new hipo::bank(fFactory->getSchema("MC::Header"));
-	if (fFactory->hasSchema("CND::clusters"))
-		CND__clusters = new hipo::bank(fFactory->getSchema("CND::clusters"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBCovMat"))
-		TimeBasedTrkg__TBCovMat = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBCovMat"));
-	if (fFactory->hasSchema("RICH::hits"))
-		RICH__hits = new hipo::bank(fFactory->getSchema("RICH::hits"));
-	if (fFactory->hasSchema("RECHB::Track"))
-		RECHB__Track = new hipo::bank(fFactory->getSchema("RECHB::Track"));
-	if (fFactory->hasSchema("MC::True"))
-		MC__True = new hipo::bank(fFactory->getSchema("MC::True"));
-	if (fFactory->hasSchema("BST::adc"))
-		BST__adc = new hipo::bank(fFactory->getSchema("BST::adc"));
-	if (fFactory->hasSchema("MC::Event"))
-		MC__Event = new hipo::bank(fFactory->getSchema("MC::Event"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBCrosses"))
-		HitBasedTrkg__HBCrosses = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBCrosses"));
-	if (fFactory->hasSchema("FTOF::clusters"))
-		FTOF__clusters = new hipo::bank(fFactory->getSchema("FTOF::clusters"));
-	if (fFactory->hasSchema("REC::TrackCross"))
-		REC__TrackCross = new hipo::bank(fFactory->getSchema("REC::TrackCross"));
-	if (fFactory->hasSchema("REC::Scintillator"))
-		REC__Scintillator = new hipo::bank(fFactory->getSchema("REC::Scintillator"));
-	if (fFactory->hasSchema("ECAL::peaks"))
-		ECAL__peaks = new hipo::bank(fFactory->getSchema("ECAL::peaks"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBClusters"))
-		TimeBasedTrkg__TBClusters = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBClusters"));
-	if (fFactory->hasSchema("TAGGER::tgpb"))
-		TAGGER__tgpb = new hipo::bank(fFactory->getSchema("TAGGER::tgpb"));
-	if (fFactory->hasSchema("LTCC::clusters"))
-		LTCC__clusters = new hipo::bank(fFactory->getSchema("LTCC::clusters"));
-	if (fFactory->hasSchema("RICH::hadrons"))
-		RICH__hadrons = new hipo::bank(fFactory->getSchema("RICH::hadrons"));
-	if (fFactory->hasSchema("DC::tdc"))
-		DC__tdc = new hipo::bank(fFactory->getSchema("DC::tdc"));
-	if (fFactory->hasSchema("BSTRec::Crosses"))
-		BSTRec__Crosses = new hipo::bank(fFactory->getSchema("BSTRec::Crosses"));
-	if (fFactory->hasSchema("HTCC::rec"))
-		HTCC__rec = new hipo::bank(fFactory->getSchema("HTCC::rec"));
-	if (fFactory->hasSchema("FTHODO::adc"))
-		FTHODO__adc = new hipo::bank(fFactory->getSchema("FTHODO::adc"));
-	if (fFactory->hasSchema("FTOF::matchedclusters"))
-		FTOF__matchedclusters = new hipo::bank(fFactory->getSchema("FTOF::matchedclusters"));
-	if (fFactory->hasSchema("ECAL::adc"))
-		ECAL__adc = new hipo::bank(fFactory->getSchema("ECAL::adc"));
-	if (fFactory->hasSchema("FMT::adc"))
-		FMT__adc = new hipo::bank(fFactory->getSchema("FMT::adc"));
-	if (fFactory->hasSchema("BMT::adc"))
-		BMT__adc = new hipo::bank(fFactory->getSchema("BMT::adc"));
-	if (fFactory->hasSchema("ECAL::calib"))
-		ECAL__calib = new hipo::bank(fFactory->getSchema("ECAL::calib"));
-	if (fFactory->hasSchema("BMTRec::Crosses"))
-		BMTRec__Crosses = new hipo::bank(fFactory->getSchema("BMTRec::Crosses"));
-	if (fFactory->hasSchema("RUN::rf"))
-		RUN__rf = new hipo::bank(fFactory->getSchema("RUN::rf"));
-	if (fFactory->hasSchema("BSTRec::Hits"))
-		BSTRec__Hits = new hipo::bank(fFactory->getSchema("BSTRec::Hits"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBSegmentTrajectory"))
-		HitBasedTrkg__HBSegmentTrajectory = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBSegmentTrajectory"));
-	if (fFactory->hasSchema("LTCC::adc"))
-		LTCC__adc = new hipo::bank(fFactory->getSchema("LTCC::adc"));
-	if (fFactory->hasSchema("CND::tdc"))
-		CND__tdc = new hipo::bank(fFactory->getSchema("CND::tdc"));
-	if (fFactory->hasSchema("HTCC::adc"))
-		HTCC__adc = new hipo::bank(fFactory->getSchema("HTCC::adc"));
-	if (fFactory->hasSchema("RAW::vtp"))
-		RAW__vtp = new hipo::bank(fFactory->getSchema("RAW::vtp"));
-	if (fFactory->hasSchema("CVTRec::Tracks"))
-		CVTRec__Tracks = new hipo::bank(fFactory->getSchema("CVTRec::Tracks"));
-	if (fFactory->hasSchema("RECFT::Particle"))
-		RECFT__Particle = new hipo::bank(fFactory->getSchema("RECFT::Particle"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBTracks"))
-		TimeBasedTrkg__TBTracks = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBTracks"));
-	if (fFactory->hasSchema("DETECTOR::icpb"))
-		DETECTOR__icpb = new hipo::bank(fFactory->getSchema("DETECTOR::icpb"));
-	if (fFactory->hasSchema("RF::tdc"))
-		RF__tdc = new hipo::bank(fFactory->getSchema("RF::tdc"));
-	if (fFactory->hasSchema("HEADER::info"))
-		HEADER__info = new hipo::bank(fFactory->getSchema("HEADER::info"));
-	if (fFactory->hasSchema("FTCAL::clusters"))
-		FTCAL__clusters = new hipo::bank(fFactory->getSchema("FTCAL::clusters"));
-	if (fFactory->hasSchema("RAW::scaler"))
-		RAW__scaler = new hipo::bank(fFactory->getSchema("RAW::scaler"));
-	if (fFactory->hasSchema("BMTRec::Clusters"))
-		BMTRec__Clusters = new hipo::bank(fFactory->getSchema("BMTRec::Clusters"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBSegments"))
-		TimeBasedTrkg__TBSegments = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBSegments"));
-	if (fFactory->hasSchema("RECHB::ForwardTagger"))
-		RECHB__ForwardTagger = new hipo::bank(fFactory->getSchema("RECHB::ForwardTagger"));
-	if (fFactory->hasSchema("REC::Calorimeter"))
-		REC__Calorimeter = new hipo::bank(fFactory->getSchema("REC::Calorimeter"));
-	if (fFactory->hasSchema("REC::CovMat"))
-		REC__CovMat = new hipo::bank(fFactory->getSchema("REC::CovMat"));
-	if (fFactory->hasSchema("RAW::epics"))
-		RAW__epics = new hipo::bank(fFactory->getSchema("RAW::epics"));
-	if (fFactory->hasSchema("REC::VertDoca"))
-		REC__VertDoca = new hipo::bank(fFactory->getSchema("REC::VertDoca"));
-	if (fFactory->hasSchema("FTHODO::clusters"))
-		FTHODO__clusters = new hipo::bank(fFactory->getSchema("FTHODO::clusters"));
-	if (fFactory->hasSchema("RUN::scaler"))
-		RUN__scaler = new hipo::bank(fFactory->getSchema("RUN::scaler"));
-	if (fFactory->hasSchema("BAND::hits"))
-		BAND__hits = new hipo::bank(fFactory->getSchema("BAND::hits"));
-	if (fFactory->hasSchema("ECAL::hits"))
-		ECAL__hits = new hipo::bank(fFactory->getSchema("ECAL::hits"));
-	if (fFactory->hasSchema("ECAL::clusters"))
-		ECAL__clusters = new hipo::bank(fFactory->getSchema("ECAL::clusters"));
-	if (fFactory->hasSchema("FT::particles"))
-		FT__particles = new hipo::bank(fFactory->getSchema("FT::particles"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBClusters"))
-		HitBasedTrkg__HBClusters = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBClusters"));
-	if (fFactory->hasSchema("REC::RICH"))
-		REC__RICH = new hipo::bank(fFactory->getSchema("REC::RICH"));
-	if (fFactory->hasSchema("REC::Track"))
-		REC__Track = new hipo::bank(fFactory->getSchema("REC::Track"));
-	if (fFactory->hasSchema("RECHB::Event"))
-		RECHB__Event = new hipo::bank(fFactory->getSchema("RECHB::Event"));
-	if (fFactory->hasSchema("FTOF::hbhits"))
-		FTOF__hbhits = new hipo::bank(fFactory->getSchema("FTOF::hbhits"));
-	if (fFactory->hasSchema("RTPC::adc"))
-		RTPC__adc = new hipo::bank(fFactory->getSchema("RTPC::adc"));
-	if (fFactory->hasSchema("FTCAL::adc"))
-		FTCAL__adc = new hipo::bank(fFactory->getSchema("FTCAL::adc"));
-	if (fFactory->hasSchema("CTOF::rawhits"))
-		CTOF__rawhits = new hipo::bank(fFactory->getSchema("CTOF::rawhits"));
-	if (fFactory->hasSchema("CND::adc"))
-		CND__adc = new hipo::bank(fFactory->getSchema("CND::adc"));
-	if (fFactory->hasSchema("FTOF::hits"))
-		FTOF__hits = new hipo::bank(fFactory->getSchema("FTOF::hits"));
-	if (fFactory->hasSchema("FMTRec::Clusters"))
-		FMTRec__Clusters = new hipo::bank(fFactory->getSchema("FMTRec::Clusters"));
-	if (fFactory->hasSchema("HEL::adc"))
-		HEL__adc = new hipo::bank(fFactory->getSchema("HEL::adc"));
-	if (fFactory->hasSchema("DETECTOR::ccpb"))
-		DETECTOR__ccpb = new hipo::bank(fFactory->getSchema("DETECTOR::ccpb"));
-	if (fFactory->hasSchema("REC::ForwardTagger"))
-		REC__ForwardTagger = new hipo::bank(fFactory->getSchema("REC::ForwardTagger"));
-	if (fFactory->hasSchema("FTTRK::adc"))
-		FTTRK__adc = new hipo::bank(fFactory->getSchema("FTTRK::adc"));
-	if (fFactory->hasSchema("FTOF::rawhits"))
-		FTOF__rawhits = new hipo::bank(fFactory->getSchema("FTOF::rawhits"));
-	if (fFactory->hasSchema("RECHB::TrackCross"))
-		RECHB__TrackCross = new hipo::bank(fFactory->getSchema("RECHB::TrackCross"));
-	if (fFactory->hasSchema("DETECTOR::scpb"))
-		DETECTOR__scpb = new hipo::bank(fFactory->getSchema("DETECTOR::scpb"));
-	if (fFactory->hasSchema("FTHODO::hits"))
-		FTHODO__hits = new hipo::bank(fFactory->getSchema("FTHODO::hits"));
-	if (fFactory->hasSchema("RECFT::Event"))
-		RECFT__Event = new hipo::bank(fFactory->getSchema("RECFT::Event"));
-	if (fFactory->hasSchema("CTOF::adc"))
-		CTOF__adc = new hipo::bank(fFactory->getSchema("CTOF::adc"));
-	if (fFactory->hasSchema("EVENT::detector"))
-		EVENT__detector = new hipo::bank(fFactory->getSchema("EVENT::detector"));
-	if (fFactory->hasSchema("DC::doca"))
-		DC__doca = new hipo::bank(fFactory->getSchema("DC::doca"));
-	if (fFactory->hasSchema("HTCC::tdc"))
-		HTCC__tdc = new hipo::bank(fFactory->getSchema("HTCC::tdc"));
-	if (fFactory->hasSchema("HEL::online"))
-		HEL__online = new hipo::bank(fFactory->getSchema("HEL::online"));
-	if (fFactory->hasSchema("REC::Event"))
-		REC__Event = new hipo::bank(fFactory->getSchema("REC::Event"));
-	if (fFactory->hasSchema("REC::Particle"))
-		REC__Particle = new hipo::bank(fFactory->getSchema("REC::Particle"));
-	if (fFactory->hasSchema("REC::Traj"))
-		REC__Traj = new hipo::bank(fFactory->getSchema("REC::Traj"));
-	if (fFactory->hasSchema("FTOF::tdc"))
-		FTOF__tdc = new hipo::bank(fFactory->getSchema("FTOF::tdc"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBSegments"))
-		HitBasedTrkg__HBSegments = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBSegments"));
-	if (fFactory->hasSchema("FTCAL::hits"))
-		FTCAL__hits = new hipo::bank(fFactory->getSchema("FTCAL::hits"));
-	if (fFactory->hasSchema("FMTRec::Hits"))
-		FMTRec__Hits = new hipo::bank(fFactory->getSchema("FMTRec::Hits"));
-	if (fFactory->hasSchema("BAND::tdc"))
-		BAND__tdc = new hipo::bank(fFactory->getSchema("BAND::tdc"));
-	if (fFactory->hasSchema("RF::adc"))
-		RF__adc = new hipo::bank(fFactory->getSchema("RF::adc"));
-	if (fFactory->hasSchema("FMTRec::Crosses"))
-		FMTRec__Crosses = new hipo::bank(fFactory->getSchema("FMTRec::Crosses"));
-	if (fFactory->hasSchema("MC::Particle"))
-		MC__Particle = new hipo::bank(fFactory->getSchema("MC::Particle"));
-	if (fFactory->hasSchema("ECAL::tdc"))
-		ECAL__tdc = new hipo::bank(fFactory->getSchema("ECAL::tdc"));
-	if (fFactory->hasSchema("RICH::tdc"))
-		RICH__tdc = new hipo::bank(fFactory->getSchema("RICH::tdc"));
-	if (fFactory->hasSchema("LTCC::tdc"))
-		LTCC__tdc = new hipo::bank(fFactory->getSchema("LTCC::tdc"));
-	if (fFactory->hasSchema("ECAL::moments"))
-		ECAL__moments = new hipo::bank(fFactory->getSchema("ECAL::moments"));
-	if (fFactory->hasSchema("EVENT::particle"))
-		EVENT__particle = new hipo::bank(fFactory->getSchema("EVENT::particle"));
-	if (fFactory->hasSchema("RUN::trigger"))
-		RUN__trigger = new hipo::bank(fFactory->getSchema("RUN::trigger"));
-	if (fFactory->hasSchema("HitBasedTrkg::HBHits"))
-		HitBasedTrkg__HBHits = new hipo::bank(fFactory->getSchema("HitBasedTrkg::HBHits"));
-	if (fFactory->hasSchema("TimeBasedTrkg::TBHits"))
-		TimeBasedTrkg__TBHits = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::TBHits"));
-	if (fFactory->hasSchema("CTOF::hits"))
-		CTOF__hits = new hipo::bank(fFactory->getSchema("CTOF::hits"));
-	if (fFactory->hasSchema("RECHB::Particle"))
-		RECHB__Particle = new hipo::bank(fFactory->getSchema("RECHB::Particle"));
-	if (fFactory->hasSchema("RAW::tdc"))
-		RAW__tdc = new hipo::bank(fFactory->getSchema("RAW::tdc"));
-	if (fFactory->hasSchema("RICH::photons"))
-		RICH__photons = new hipo::bank(fFactory->getSchema("RICH::photons"));
-	if (fFactory->hasSchema("HEL::flip"))
-		HEL__flip = new hipo::bank(fFactory->getSchema("HEL::flip"));
-	if (fFactory->hasSchema("TimeBasedTrkg::Trajectory"))
-		TimeBasedTrkg__Trajectory = new hipo::bank(fFactory->getSchema("TimeBasedTrkg::Trajectory"));
-	if (fFactory->hasSchema("DETECTOR::ecpb"))
-		DETECTOR__ecpb = new hipo::bank(fFactory->getSchema("DETECTOR::ecpb"));
-	if (fFactory->hasSchema("CND::hits"))
-		CND__hits = new hipo::bank(fFactory->getSchema("CND::hits"));
+	hipo::schema sch;
+	if (fFactory->hasSchema("BMTRec::Hits")){
+		sch = fFactory->getSchema("BMTRec::Hits");
+		BMTRec__Hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RAW::adc")){
+		sch = fFactory->getSchema("RAW::adc");
+		RAW__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BAND::adc")){
+		sch = fFactory->getSchema("BAND::adc");
+		BAND__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RUN::config")){
+		sch = fFactory->getSchema("RUN::config");
+		RUN__config = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RICH::clusters")){
+		sch = fFactory->getSchema("RICH::clusters");
+		RICH__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Scintillator")){
+		sch = fFactory->getSchema("RECHB::Scintillator");
+		RECHB__Scintillator = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::RingCher")){
+		sch = fFactory->getSchema("REC::RingCher");
+		REC__RingCher = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BSTRec::LayerEffs")){
+		sch = fFactory->getSchema("BSTRec::LayerEffs");
+		BSTRec__LayerEffs = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RTPC::pos")){
+		sch = fFactory->getSchema("RTPC::pos");
+		RTPC__pos = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBCrosses")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBCrosses");
+		TimeBasedTrkg__TBCrosses = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBTracks")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBTracks");
+		HitBasedTrkg__HBTracks = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CVTRec::Cosmics")){
+		sch = fFactory->getSchema("CVTRec::Cosmics");
+		CVTRec__Cosmics = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Cherenkov")){
+		sch = fFactory->getSchema("RECHB::Cherenkov");
+		RECHB__Cherenkov = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BSTRec::Clusters")){
+		sch = fFactory->getSchema("BSTRec::Clusters");
+		BSTRec__Clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CVTRec::Trajectory")){
+		sch = fFactory->getSchema("CVTRec::Trajectory");
+		CVTRec__Trajectory = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Calorimeter")){
+		sch = fFactory->getSchema("RECHB::Calorimeter");
+		RECHB__Calorimeter = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBSegmentTrajectory")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBSegmentTrajectory");
+		TimeBasedTrkg__TBSegmentTrajectory = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CTOF::tdc")){
+		sch = fFactory->getSchema("CTOF::tdc");
+		CTOF__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Cherenkov")){
+		sch = fFactory->getSchema("REC::Cherenkov");
+		REC__Cherenkov = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BMTRec::LayerEffs")){
+		sch = fFactory->getSchema("BMTRec::LayerEffs");
+		BMTRec__LayerEffs = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::adc")){
+		sch = fFactory->getSchema("FTOF::adc");
+		FTOF__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("MC::Lund")){
+		sch = fFactory->getSchema("MC::Lund");
+		MC__Lund = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DETECTOR::lcpb")){
+		sch = fFactory->getSchema("DETECTOR::lcpb");
+		DETECTOR__lcpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("MC::Header")){
+		sch = fFactory->getSchema("MC::Header");
+		MC__Header = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CND::clusters")){
+		sch = fFactory->getSchema("CND::clusters");
+		CND__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBCovMat")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBCovMat");
+		TimeBasedTrkg__TBCovMat = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RICH::hits")){
+		sch = fFactory->getSchema("RICH::hits");
+		RICH__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Track")){
+		sch = fFactory->getSchema("RECHB::Track");
+		RECHB__Track = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("MC::True")){
+		sch = fFactory->getSchema("MC::True");
+		MC__True = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BST::adc")){
+		sch = fFactory->getSchema("BST::adc");
+		BST__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("MC::Event")){
+		sch = fFactory->getSchema("MC::Event");
+		MC__Event = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBCrosses")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBCrosses");
+		HitBasedTrkg__HBCrosses = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::clusters")){
+		sch = fFactory->getSchema("FTOF::clusters");
+		FTOF__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::TrackCross")){
+		sch = fFactory->getSchema("REC::TrackCross");
+		REC__TrackCross = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Scintillator")){
+		sch = fFactory->getSchema("REC::Scintillator");
+		REC__Scintillator = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::peaks")){
+		sch = fFactory->getSchema("ECAL::peaks");
+		ECAL__peaks = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBClusters")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBClusters");
+		TimeBasedTrkg__TBClusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TAGGER::tgpb")){
+		sch = fFactory->getSchema("TAGGER::tgpb");
+		TAGGER__tgpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("LTCC::clusters")){
+		sch = fFactory->getSchema("LTCC::clusters");
+		LTCC__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RICH::hadrons")){
+		sch = fFactory->getSchema("RICH::hadrons");
+		RICH__hadrons = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DC::tdc")){
+		sch = fFactory->getSchema("DC::tdc");
+		DC__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BSTRec::Crosses")){
+		sch = fFactory->getSchema("BSTRec::Crosses");
+		BSTRec__Crosses = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HTCC::rec")){
+		sch = fFactory->getSchema("HTCC::rec");
+		HTCC__rec = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTHODO::adc")){
+		sch = fFactory->getSchema("FTHODO::adc");
+		FTHODO__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::matchedclusters")){
+		sch = fFactory->getSchema("FTOF::matchedclusters");
+		FTOF__matchedclusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::adc")){
+		sch = fFactory->getSchema("ECAL::adc");
+		ECAL__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FMT::adc")){
+		sch = fFactory->getSchema("FMT::adc");
+		FMT__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BMT::adc")){
+		sch = fFactory->getSchema("BMT::adc");
+		BMT__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::calib")){
+		sch = fFactory->getSchema("ECAL::calib");
+		ECAL__calib = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BMTRec::Crosses")){
+		sch = fFactory->getSchema("BMTRec::Crosses");
+		BMTRec__Crosses = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RUN::rf")){
+		sch = fFactory->getSchema("RUN::rf");
+		RUN__rf = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BSTRec::Hits")){
+		sch = fFactory->getSchema("BSTRec::Hits");
+		BSTRec__Hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBSegmentTrajectory")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBSegmentTrajectory");
+		HitBasedTrkg__HBSegmentTrajectory = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("LTCC::adc")){
+		sch = fFactory->getSchema("LTCC::adc");
+		LTCC__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CND::tdc")){
+		sch = fFactory->getSchema("CND::tdc");
+		CND__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HTCC::adc")){
+		sch = fFactory->getSchema("HTCC::adc");
+		HTCC__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RAW::vtp")){
+		sch = fFactory->getSchema("RAW::vtp");
+		RAW__vtp = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CVTRec::Tracks")){
+		sch = fFactory->getSchema("CVTRec::Tracks");
+		CVTRec__Tracks = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECFT::Particle")){
+		sch = fFactory->getSchema("RECFT::Particle");
+		RECFT__Particle = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBTracks")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBTracks");
+		TimeBasedTrkg__TBTracks = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DETECTOR::icpb")){
+		sch = fFactory->getSchema("DETECTOR::icpb");
+		DETECTOR__icpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RF::tdc")){
+		sch = fFactory->getSchema("RF::tdc");
+		RF__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HEADER::info")){
+		sch = fFactory->getSchema("HEADER::info");
+		HEADER__info = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTCAL::clusters")){
+		sch = fFactory->getSchema("FTCAL::clusters");
+		FTCAL__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RAW::scaler")){
+		sch = fFactory->getSchema("RAW::scaler");
+		RAW__scaler = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BMTRec::Clusters")){
+		sch = fFactory->getSchema("BMTRec::Clusters");
+		BMTRec__Clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBSegments")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBSegments");
+		TimeBasedTrkg__TBSegments = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::ForwardTagger")){
+		sch = fFactory->getSchema("RECHB::ForwardTagger");
+		RECHB__ForwardTagger = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Calorimeter")){
+		sch = fFactory->getSchema("REC::Calorimeter");
+		REC__Calorimeter = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::CovMat")){
+		sch = fFactory->getSchema("REC::CovMat");
+		REC__CovMat = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RAW::epics")){
+		sch = fFactory->getSchema("RAW::epics");
+		RAW__epics = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::VertDoca")){
+		sch = fFactory->getSchema("REC::VertDoca");
+		REC__VertDoca = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTHODO::clusters")){
+		sch = fFactory->getSchema("FTHODO::clusters");
+		FTHODO__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RUN::scaler")){
+		sch = fFactory->getSchema("RUN::scaler");
+		RUN__scaler = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BAND::hits")){
+		sch = fFactory->getSchema("BAND::hits");
+		BAND__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::hits")){
+		sch = fFactory->getSchema("ECAL::hits");
+		ECAL__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::clusters")){
+		sch = fFactory->getSchema("ECAL::clusters");
+		ECAL__clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FT::particles")){
+		sch = fFactory->getSchema("FT::particles");
+		FT__particles = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBClusters")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBClusters");
+		HitBasedTrkg__HBClusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::RICH")){
+		sch = fFactory->getSchema("REC::RICH");
+		REC__RICH = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Track")){
+		sch = fFactory->getSchema("REC::Track");
+		REC__Track = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Event")){
+		sch = fFactory->getSchema("RECHB::Event");
+		RECHB__Event = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::hbhits")){
+		sch = fFactory->getSchema("FTOF::hbhits");
+		FTOF__hbhits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RTPC::adc")){
+		sch = fFactory->getSchema("RTPC::adc");
+		RTPC__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTCAL::adc")){
+		sch = fFactory->getSchema("FTCAL::adc");
+		FTCAL__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CTOF::rawhits")){
+		sch = fFactory->getSchema("CTOF::rawhits");
+		CTOF__rawhits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CND::adc")){
+		sch = fFactory->getSchema("CND::adc");
+		CND__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::hits")){
+		sch = fFactory->getSchema("FTOF::hits");
+		FTOF__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FMTRec::Clusters")){
+		sch = fFactory->getSchema("FMTRec::Clusters");
+		FMTRec__Clusters = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HEL::adc")){
+		sch = fFactory->getSchema("HEL::adc");
+		HEL__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DETECTOR::ccpb")){
+		sch = fFactory->getSchema("DETECTOR::ccpb");
+		DETECTOR__ccpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::ForwardTagger")){
+		sch = fFactory->getSchema("REC::ForwardTagger");
+		REC__ForwardTagger = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTTRK::adc")){
+		sch = fFactory->getSchema("FTTRK::adc");
+		FTTRK__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::rawhits")){
+		sch = fFactory->getSchema("FTOF::rawhits");
+		FTOF__rawhits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::TrackCross")){
+		sch = fFactory->getSchema("RECHB::TrackCross");
+		RECHB__TrackCross = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DETECTOR::scpb")){
+		sch = fFactory->getSchema("DETECTOR::scpb");
+		DETECTOR__scpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTHODO::hits")){
+		sch = fFactory->getSchema("FTHODO::hits");
+		FTHODO__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECFT::Event")){
+		sch = fFactory->getSchema("RECFT::Event");
+		RECFT__Event = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CTOF::adc")){
+		sch = fFactory->getSchema("CTOF::adc");
+		CTOF__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("EVENT::detector")){
+		sch = fFactory->getSchema("EVENT::detector");
+		EVENT__detector = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DC::doca")){
+		sch = fFactory->getSchema("DC::doca");
+		DC__doca = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HTCC::tdc")){
+		sch = fFactory->getSchema("HTCC::tdc");
+		HTCC__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HEL::online")){
+		sch = fFactory->getSchema("HEL::online");
+		HEL__online = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Event")){
+		sch = fFactory->getSchema("REC::Event");
+		REC__Event = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Particle")){
+		sch = fFactory->getSchema("REC::Particle");
+		REC__Particle = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("REC::Traj")){
+		sch = fFactory->getSchema("REC::Traj");
+		REC__Traj = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTOF::tdc")){
+		sch = fFactory->getSchema("FTOF::tdc");
+		FTOF__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBSegments")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBSegments");
+		HitBasedTrkg__HBSegments = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FTCAL::hits")){
+		sch = fFactory->getSchema("FTCAL::hits");
+		FTCAL__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FMTRec::Hits")){
+		sch = fFactory->getSchema("FMTRec::Hits");
+		FMTRec__Hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("BAND::tdc")){
+		sch = fFactory->getSchema("BAND::tdc");
+		BAND__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RF::adc")){
+		sch = fFactory->getSchema("RF::adc");
+		RF__adc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("FMTRec::Crosses")){
+		sch = fFactory->getSchema("FMTRec::Crosses");
+		FMTRec__Crosses = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("MC::Particle")){
+		sch = fFactory->getSchema("MC::Particle");
+		MC__Particle = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::tdc")){
+		sch = fFactory->getSchema("ECAL::tdc");
+		ECAL__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RICH::tdc")){
+		sch = fFactory->getSchema("RICH::tdc");
+		RICH__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("LTCC::tdc")){
+		sch = fFactory->getSchema("LTCC::tdc");
+		LTCC__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("ECAL::moments")){
+		sch = fFactory->getSchema("ECAL::moments");
+		ECAL__moments = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("EVENT::particle")){
+		sch = fFactory->getSchema("EVENT::particle");
+		EVENT__particle = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RUN::trigger")){
+		sch = fFactory->getSchema("RUN::trigger");
+		RUN__trigger = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HitBasedTrkg::HBHits")){
+		sch = fFactory->getSchema("HitBasedTrkg::HBHits");
+		HitBasedTrkg__HBHits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::TBHits")){
+		sch = fFactory->getSchema("TimeBasedTrkg::TBHits");
+		TimeBasedTrkg__TBHits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CTOF::hits")){
+		sch = fFactory->getSchema("CTOF::hits");
+		CTOF__hits = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RECHB::Particle")){
+		sch = fFactory->getSchema("RECHB::Particle");
+		RECHB__Particle = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RAW::tdc")){
+		sch = fFactory->getSchema("RAW::tdc");
+		RAW__tdc = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("RICH::photons")){
+		sch = fFactory->getSchema("RICH::photons");
+		RICH__photons = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("HEL::flip")){
+		sch = fFactory->getSchema("HEL::flip");
+		HEL__flip = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("TimeBasedTrkg::Trajectory")){
+		sch = fFactory->getSchema("TimeBasedTrkg::Trajectory");
+		TimeBasedTrkg__Trajectory = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("DETECTOR::ecpb")){
+		sch = fFactory->getSchema("DETECTOR::ecpb");
+		DETECTOR__ecpb = new hipo::bank(sch);
+	}
+	if (fFactory->hasSchema("CND::hits")){
+		sch = fFactory->getSchema("CND::hits");
+		CND__hits = new hipo::bank(sch);
+	}
 return 0;
 }
 
@@ -2631,6 +2892,270 @@ int TIdentificatorCLAS12::FillBanks(){
 		 fEvent->getStructure(*DETECTOR__ecpb);
 	if (fFactory->hasSchema("CND::hits"))
 		 fEvent->getStructure(*CND__hits);
+return 0;
+}
+
+int TIdentificatorCLAS12::DeleteBanks(){
+	if (!BMTRec__Hits)
+		delete BMTRec__Hits;
+	if (!RAW__adc)
+		delete RAW__adc;
+	if (!BAND__adc)
+		delete BAND__adc;
+	if (!RUN__config)
+		delete RUN__config;
+	if (!RICH__clusters)
+		delete RICH__clusters;
+	if (!RECHB__Scintillator)
+		delete RECHB__Scintillator;
+	if (!REC__RingCher)
+		delete REC__RingCher;
+	if (!BSTRec__LayerEffs)
+		delete BSTRec__LayerEffs;
+	if (!RTPC__pos)
+		delete RTPC__pos;
+	if (!TimeBasedTrkg__TBCrosses)
+		delete TimeBasedTrkg__TBCrosses;
+	if (!HitBasedTrkg__HBTracks)
+		delete HitBasedTrkg__HBTracks;
+	if (!CVTRec__Cosmics)
+		delete CVTRec__Cosmics;
+	if (!RECHB__Cherenkov)
+		delete RECHB__Cherenkov;
+	if (!BSTRec__Clusters)
+		delete BSTRec__Clusters;
+	if (!CVTRec__Trajectory)
+		delete CVTRec__Trajectory;
+	if (!RECHB__Calorimeter)
+		delete RECHB__Calorimeter;
+	if (!TimeBasedTrkg__TBSegmentTrajectory)
+		delete TimeBasedTrkg__TBSegmentTrajectory;
+	if (!CTOF__tdc)
+		delete CTOF__tdc;
+	if (!REC__Cherenkov)
+		delete REC__Cherenkov;
+	if (!BMTRec__LayerEffs)
+		delete BMTRec__LayerEffs;
+	if (!FTOF__adc)
+		delete FTOF__adc;
+	if (!MC__Lund)
+		delete MC__Lund;
+	if (!DETECTOR__lcpb)
+		delete DETECTOR__lcpb;
+	if (!MC__Header)
+		delete MC__Header;
+	if (!CND__clusters)
+		delete CND__clusters;
+	if (!TimeBasedTrkg__TBCovMat)
+		delete TimeBasedTrkg__TBCovMat;
+	if (!RICH__hits)
+		delete RICH__hits;
+	if (!RECHB__Track)
+		delete RECHB__Track;
+	if (!MC__True)
+		delete MC__True;
+	if (!BST__adc)
+		delete BST__adc;
+	if (!MC__Event)
+		delete MC__Event;
+	if (!HitBasedTrkg__HBCrosses)
+		delete HitBasedTrkg__HBCrosses;
+	if (!FTOF__clusters)
+		delete FTOF__clusters;
+	if (!REC__TrackCross)
+		delete REC__TrackCross;
+	if (!REC__Scintillator)
+		delete REC__Scintillator;
+	if (!ECAL__peaks)
+		delete ECAL__peaks;
+	if (!TimeBasedTrkg__TBClusters)
+		delete TimeBasedTrkg__TBClusters;
+	if (!TAGGER__tgpb)
+		delete TAGGER__tgpb;
+	if (!LTCC__clusters)
+		delete LTCC__clusters;
+	if (!RICH__hadrons)
+		delete RICH__hadrons;
+	if (!DC__tdc)
+		delete DC__tdc;
+	if (!BSTRec__Crosses)
+		delete BSTRec__Crosses;
+	if (!HTCC__rec)
+		delete HTCC__rec;
+	if (!FTHODO__adc)
+		delete FTHODO__adc;
+	if (!FTOF__matchedclusters)
+		delete FTOF__matchedclusters;
+	if (!ECAL__adc)
+		delete ECAL__adc;
+	if (!FMT__adc)
+		delete FMT__adc;
+	if (!BMT__adc)
+		delete BMT__adc;
+	if (!ECAL__calib)
+		delete ECAL__calib;
+	if (!BMTRec__Crosses)
+		delete BMTRec__Crosses;
+	if (!RUN__rf)
+		delete RUN__rf;
+	if (!BSTRec__Hits)
+		delete BSTRec__Hits;
+	if (!HitBasedTrkg__HBSegmentTrajectory)
+		delete HitBasedTrkg__HBSegmentTrajectory;
+	if (!LTCC__adc)
+		delete LTCC__adc;
+	if (!CND__tdc)
+		delete CND__tdc;
+	if (!HTCC__adc)
+		delete HTCC__adc;
+	if (!RAW__vtp)
+		delete RAW__vtp;
+	if (!CVTRec__Tracks)
+		delete CVTRec__Tracks;
+	if (!RECFT__Particle)
+		delete RECFT__Particle;
+	if (!TimeBasedTrkg__TBTracks)
+		delete TimeBasedTrkg__TBTracks;
+	if (!DETECTOR__icpb)
+		delete DETECTOR__icpb;
+	if (!RF__tdc)
+		delete RF__tdc;
+	if (!HEADER__info)
+		delete HEADER__info;
+	if (!FTCAL__clusters)
+		delete FTCAL__clusters;
+	if (!RAW__scaler)
+		delete RAW__scaler;
+	if (!BMTRec__Clusters)
+		delete BMTRec__Clusters;
+	if (!TimeBasedTrkg__TBSegments)
+		delete TimeBasedTrkg__TBSegments;
+	if (!RECHB__ForwardTagger)
+		delete RECHB__ForwardTagger;
+	if (!REC__Calorimeter)
+		delete REC__Calorimeter;
+	if (!REC__CovMat)
+		delete REC__CovMat;
+	if (!RAW__epics)
+		delete RAW__epics;
+	if (!REC__VertDoca)
+		delete REC__VertDoca;
+	if (!FTHODO__clusters)
+		delete FTHODO__clusters;
+	if (!RUN__scaler)
+		delete RUN__scaler;
+	if (!BAND__hits)
+		delete BAND__hits;
+	if (!ECAL__hits)
+		delete ECAL__hits;
+	if (!ECAL__clusters)
+		delete ECAL__clusters;
+	if (!FT__particles)
+		delete FT__particles;
+	if (!HitBasedTrkg__HBClusters)
+		delete HitBasedTrkg__HBClusters;
+	if (!REC__RICH)
+		delete REC__RICH;
+	if (!REC__Track)
+		delete REC__Track;
+	if (!RECHB__Event)
+		delete RECHB__Event;
+	if (!FTOF__hbhits)
+		delete FTOF__hbhits;
+	if (!RTPC__adc)
+		delete RTPC__adc;
+	if (!FTCAL__adc)
+		delete FTCAL__adc;
+	if (!CTOF__rawhits)
+		delete CTOF__rawhits;
+	if (!CND__adc)
+		delete CND__adc;
+	if (!FTOF__hits)
+		delete FTOF__hits;
+	if (!FMTRec__Clusters)
+		delete FMTRec__Clusters;
+	if (!HEL__adc)
+		delete HEL__adc;
+	if (!DETECTOR__ccpb)
+		delete DETECTOR__ccpb;
+	if (!REC__ForwardTagger)
+		delete REC__ForwardTagger;
+	if (!FTTRK__adc)
+		delete FTTRK__adc;
+	if (!FTOF__rawhits)
+		delete FTOF__rawhits;
+	if (!RECHB__TrackCross)
+		delete RECHB__TrackCross;
+	if (!DETECTOR__scpb)
+		delete DETECTOR__scpb;
+	if (!FTHODO__hits)
+		delete FTHODO__hits;
+	if (!RECFT__Event)
+		delete RECFT__Event;
+	if (!CTOF__adc)
+		delete CTOF__adc;
+	if (!EVENT__detector)
+		delete EVENT__detector;
+	if (!DC__doca)
+		delete DC__doca;
+	if (!HTCC__tdc)
+		delete HTCC__tdc;
+	if (!HEL__online)
+		delete HEL__online;
+	if (!REC__Event)
+		delete REC__Event;
+	if (!REC__Particle)
+		delete REC__Particle;
+	if (!REC__Traj)
+		delete REC__Traj;
+	if (!FTOF__tdc)
+		delete FTOF__tdc;
+	if (!HitBasedTrkg__HBSegments)
+		delete HitBasedTrkg__HBSegments;
+	if (!FTCAL__hits)
+		delete FTCAL__hits;
+	if (!FMTRec__Hits)
+		delete FMTRec__Hits;
+	if (!BAND__tdc)
+		delete BAND__tdc;
+	if (!RF__adc)
+		delete RF__adc;
+	if (!FMTRec__Crosses)
+		delete FMTRec__Crosses;
+	if (!MC__Particle)
+		delete MC__Particle;
+	if (!ECAL__tdc)
+		delete ECAL__tdc;
+	if (!RICH__tdc)
+		delete RICH__tdc;
+	if (!LTCC__tdc)
+		delete LTCC__tdc;
+	if (!ECAL__moments)
+		delete ECAL__moments;
+	if (!EVENT__particle)
+		delete EVENT__particle;
+	if (!RUN__trigger)
+		delete RUN__trigger;
+	if (!HitBasedTrkg__HBHits)
+		delete HitBasedTrkg__HBHits;
+	if (!TimeBasedTrkg__TBHits)
+		delete TimeBasedTrkg__TBHits;
+	if (!CTOF__hits)
+		delete CTOF__hits;
+	if (!RECHB__Particle)
+		delete RECHB__Particle;
+	if (!RAW__tdc)
+		delete RAW__tdc;
+	if (!RICH__photons)
+		delete RICH__photons;
+	if (!HEL__flip)
+		delete HEL__flip;
+	if (!TimeBasedTrkg__Trajectory)
+		delete TimeBasedTrkg__Trajectory;
+	if (!DETECTOR__ecpb)
+		delete DETECTOR__ecpb;
+	if (!CND__hits)
+		delete CND__hits;
 return 0;
 }
 

@@ -24,7 +24,7 @@ CLAS12ANALIB  := -L$(CLAS12ANAHIPO4)/shlib -lTIdentificatorCLAS12
 INC_DIR   := -I$(CLAS12ANAHIPO4)/include
 
 CXX       := g++
-CXXFLAGS  += -Wall -fPIC $(ROOTCFLAGS) -std=c++11
+CXXFLAGS  += -Wall -fPIC $(ROOTCFLAGS) -std=c++11 #-g -O0
 LD        := g++
 LDFLAGS   := $(ROOTLDFLAGS)
 

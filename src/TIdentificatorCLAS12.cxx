@@ -126,7 +126,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12() :kEbeam(10.6), kMpi(0.139570), kMpr
 TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(false)
 {
-    // Create a TIdentificator object, related to hipo reader.
+  // Create a TIdentificator object, related to hipo reader.
   kIndLundFirst=3;
   Nfiles=1;
   kCurrentFileIndex=0;
@@ -181,7 +181,15 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
 TIdentificatorCLAS12::~TIdentificatorCLAS12()
 {
   // Default destructor for TIdentificator.
-  fReader = 0;
+  delete fEvent;
+  delete fFactory;
+  delete fReader;
+  DCSuperLayer.clear();
+  detectorType.clear();
+  layerType.clear();
+  trajDetId.clear();
+  ClearMaps();
+  DeleteBanks();
 }
 
 Int_t TIdentificatorCLAS12::setNevents()
@@ -1268,6 +1276,10 @@ TVector3 *TIdentificatorCLAS12::GetCorrectedVert()
       V_corr->SetX((RotatedVertPos-TargetPos).X());
       V_corr->SetY((RotatedVertPos-TargetPos).Y());
       V_corr->SetZ(RotatedVertPos.Z());
+
+      RotatedVertPos.Clear();
+      RotatedVertDir.Clear();
+      TargetPos.Clear();
       return V_corr;
 }
 

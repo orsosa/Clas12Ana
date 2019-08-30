@@ -17,7 +17,7 @@ LZ4LIBS     := -L$(LZ4DIR)/lib -llz4
 LZ4INCLUDES := -I$(LZ4DIR)/lib
 
 CXX       := g++
-CXXFLAGS  += -Wall -fPIC $(ROOTCFLAGS) -std=c++11
+CXXFLAGS  += -Wall -fPIC $(ROOTCFLAGS) -std=c++11 #-g -O0
 LD        := g++
 LDFLAGS   := $(ROOTLDFLAGS)
 SOFLAGS   = -Wl,-soname,$(notdir $@) -shared

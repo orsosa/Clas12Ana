@@ -441,6 +441,7 @@ private:
     std::map<TString,int> trajDetId;
 
     int InitBanks();
+    int DeleteBanks();
     int FillBanks();
     int InitDetectorMap();
     int InitLayerMap();

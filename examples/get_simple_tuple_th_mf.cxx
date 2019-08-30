@@ -10,6 +10,7 @@
 #include "TParticlePDG.h"
 #include "TThread.h"
 #include "TSemaphore.h"
+#include "TMutex.h"
 #include "TList.h"
 
 using namespace std;
@@ -27,18 +28,25 @@ Int_t NthActive = 0;
 TCondition cond(NULL);
 TCondition slotCond(NULL);
 TSemaphore sem(0);
+TSemaphore initsem(0);
+TSemaphore endsem(1);
+
+TMutex *fileMutex;
+TMutex *pdgMutex;
+TMutex *coutMutex;
+
+
 std::map <Int_t,TString> thn_ind;
 
-
 bool simul_key = 0;
-TVector3 *vert;
+
 Int_t Nt = 0;
 TString  varList = "TargType:Q2:Nu:Xb:W:SectorEl:ThetaPQ:PhiPQ:Zh:Pt2:Mx2:Xf:T:P:T4:deltaZ:E:Ee:Pe:Ect:Sct:Ecr:Scr:evnt:Px:Py:Pz:Xe:Ye:Ze:Xec:Yec:Zec:TEc:DCX:DCY:DCZ:Pex:Pey:Pez:Ein:Eout:Eine:Eoute:pid:Beta:vxh:vyh:vzh:npheltcc:nphehtcc:e_npheltcc:e_nphehtcc:e_chi2pid:chi2pid:e_Epcal:Epcal:e_sector_ltcc:e_sector_htcc:e_sector_ecal:sector_ltcc:sector_htcc:sector_ecal:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:pcal_lu:pcal_lv:pcal_lw:ecin_lu:ecin_lv:ecin_lw:ecout_lu:ecout_lv:ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:sector_dc:statPart:e_statPart:e_DCPx:e_DCPy:e_DCPz:DCPx:DCPy:DCPz:trajx_sl0:trajx_sl1:trajx_sl2:trajx_sl3:trajx_sl4:trajx_sl5:trajy_sl0:trajy_sl1:trajy_sl2:trajy_sl3:trajy_sl4:trajy_sl5:trajz_sl0:trajz_sl1:trajz_sl2:trajz_sl3:trajz_sl4:trajz_sl5:trajdcxr0:trajdcxr1:trajdcxr2:trajdcyr0:trajdcyr1:trajdcyr2:trajdczr0:trajdczr1:trajdczr2:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:pathtof:timetof:e_sector_tof:sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:dcx_rot_0:dcy_rot_0:dcx_rot_1:dcy_rot_1:dcx_rot_2:dcy_rot_2:mcmass:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:ftof1ax:ftof1ay:ftof1az:pcalx:pcaly:pcalz:ecalx:ecaly:ecalz:ltccx:ltccy:ltccz:htccx:htccy:htccz:e_dc_chi2:e_ftof1ax:e_ftof1ay:e_ftof1az:e_pcalx:e_pcaly:e_pcalz:e_ecalx:e_ecaly:e_ecalz:e_ltccx:e_ltccy:e_ltccz:e_htccx:e_htccy:e_htccz:ftof1bx:ftof1by:ftof1bz:ftof2x:ftof2y:ftof2z:e_ftof1bx:e_ftof1by:e_ftof1bz:e_ftof2x:e_ftof2y:e_ftof2z:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event:y:th_e:helicRaw:dc_status:dc_ndf:e_dc_status:e_dc_ndf";
 
 TString varListElec = "Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:e_dc_chi2:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event:helicRaw:e_dc_status:e_dc_ndf";
 
 
-TDatabasePDG pdg;
+TDatabasePDG *pdg;
 
 
 int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot);
@@ -52,9 +60,11 @@ int main(int argc, char **argv)
   TBenchmark bm;
   bm.Start(argv[0]);
 
+  
   if (argc<2)
   {
     std::cout<<"you must supply at least one hipo file.\n";
+    
     exit(1);
   }
 
@@ -65,46 +75,65 @@ int main(int argc, char **argv)
     else if (strcmp(argv[k],"-e")==0){ //energy set
       EBEAM = atof(argv[++k]);
     }
-    else if (strcmp(argv[k],"-nth")==0){ //energy set
+    else if (strcmp(argv[k],"-nth")==0){ //n threads
       Nth = atof(argv[++k]);
+    }
+    else if (strcmp(argv[k],"-nmax")==0){ //max entries read
+      Ntotal = atol(argv[++k]);
     }
     else
       fname = fname + " " + argv[k];
-
   }
   std::cout<<"File list: "<<fname<<std::endl;
   std::cout<<"Processing "<<((simul_key==1)?"simulations":"data")<<std::endl;
   std::cout<<"Beam energy: "<< EBEAM<<" GeV"<<std::endl;
+  pdg = new TDatabasePDG();
   
+  fileMutex = new TMutex();
+  pdgMutex = new TMutex();
+  coutMutex = new TMutex();
+
   Nvar = varList.CountChar(':')+1;
  
   //  cout.width(100);
+  coutMutex->Lock();
   TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true); // March - 19 cooking
-  Ntotal = t->getNevents();
+  coutMutex->UnLock();
+  if (!Ntotal)  Ntotal = t->getNevents();
   std::cout<<Ntotal<<std::endl;
 
   progress_th = new Float_t[Nth];
   memset(progress_th,0,Nth*sizeof(float));
   slotAvailable = new Bool_t[Nth];
   for (int k = 0; k<Nth;k++) slotAvailable[k]=kTRUE;
-    
+
   Nsum=0;
   TThread *th = new TThread("threads_creator",create_threads,(void *)0);
   th->Run();
-  cond.Wait();
+  initsem.Wait();
+  
   while (NthActive){
     //Bool_t exitFlag = kTRUE;
     //    cout<<"Nth "<<NthActive<<" --- ";
+    coutMutex->Lock();
     cout<<"Nth "<<TThread::Exists()<<" --- ";
+    coutMutex->UnLock();
     for (int k = 0; k<Nth;k++){
+      coutMutex->Lock();
       cout<<progress_th[k]/TH_MAX*100<<"\% // ";
+      coutMutex->UnLock();
       //      exitFlag &= progress_th[k] == TH_MAX;
     }
-    cout<<" --> "<<(float)Nsum/Ntotal*100<<"\% \r";
+    coutMutex->Lock();
+    cout<<"  --> "<<(float)Nsum/Ntotal*100<<"\% \r";
     cout.flush();
+    coutMutex->UnLock();
     //if (exitFlag) break;
   }
-  
+  endsem.Wait();
+  th->Delete();
+  delete t;
+  delete pdg;
   cout << "\nDone." << endl;
   bm.Show(argv[0]);
   return 0;
@@ -123,29 +152,31 @@ void create_threads(void *arg){
     for (k=0;k<Nth;k++){
       if (slotAvailable[k]) break;
     }
+    if (k==Nth) continue; 
     //TThread::Ps();
     
     //    th = TThread::GetThread(thn_ind[k]);
     //TThread::Delete(th);
-    progress_th[k] = 0;
+
     start_ind[1] = k;
     TThread::Lock();
+    progress_th[k] = 0;
     NthActive++;
     Nt++;
     TThread::UnLock();
-    if (NthActive==1) cond.Signal();
-    thn_ind[k]=Form("th_%d",Nt);  
+    if (NthActive==1) initsem.Post();
+    thn_ind[k]=Form("th_%d",Nt);
     th = new TThread(thn_ind[k],filter,(void *)Form("%ld %ld",start_ind[0], start_ind[1]) );
+    endsem.TryWait();
     th->Run();
     start_ind[0] += TH_MAX;
 
     sem.Wait();
-    //slotCond.Wait();
   }
   //  TThread::Printf("############################################ k:%d",k);
-  //  cond.Signal();
-  th =   TThread::Self();
-  th->Delete();
+  //  th = TThread::Self();
+  //  th->Delete();
+  //TThread::Exit();
 }
 ////////////
 /// cleanup
@@ -159,8 +190,9 @@ void filter(void *arg)
 {
   //sleep(1);
   TThread::CleanUpPush((void*)&cleanUp, (void*) NULL);
+  TVector3 *vert;
   TFile *output;
-
+  Int_t Nt_local=0;
   TString args = ((char*)arg);
   Ssiz_t stt=0;
   TString ss;
@@ -171,44 +203,50 @@ void filter(void *arg)
   TThread::Lock();
   slotAvailable[ind]=kFALSE;
   TThread::UnLock();
-
+  Nt_local=Nt;
   sem.Post();
 
   TThread::SetCancelOn(); // enable thread canceling
 
   TString NtupleName;
-  
+
+  fileMutex->Lock();
   if(simul_key == 0) {
     NtupleName = "ntuple_data";
-    output = new TFile(Form("outfiles/pruned_dataH4_%d.root",Nt), "RECREATE", "Data of particles");
+    output = new TFile(Form("outfiles/pruned_dataH4_%d.root",Nt_local), "RECREATE", "Data of particles");
   } else { 
     NtupleName = "ntuple_accept";
-    output = new TFile(Form("outfiles/pruned_simulH4_%d.root",Nt), "RECREATE", "Data of particles");
+    output = new TFile(Form("outfiles/pruned_simulH4_%d.root",Nt_local), "RECREATE", "Data of particles");
   }
-
-
+  fileMutex->UnLock();
+  //  TObjArray *objArr = new TObjArray(5);
+  
   TNtuple *tElec = new TNtuple("e_rec","All Electrons",varListElec);
-
+  //objArr->Add(tElec);
+  
   Int_t NvarElec = tElec->GetNvar();
   Int_t NvarElecTh = 0;
 
   Float_t *DataElecTh = 0;
   
   TNtuple *ntuple = new TNtuple(NtupleName,"stable particles",varList);
+  //objArr->Add(ntuple);
   TNtuple *ntuple_thrown = 0;
   TNtuple *e_thrown = 0;
   if(simul_key == 1) {
     ntuple_thrown = new TNtuple("ntuple_thrown","particles pluses",varList);
+    //objArr->Add(ntuple_thrown);
     e_thrown = new TNtuple("e_thrown","All Electrons","Q2:W:Nu:Pex:Pey:Pez:vxe:vye:vze:mcmass:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:event");
+    //objArr->Add(e_thrown);
     NvarElecTh = e_thrown->GetNvar();
     DataElecTh = new Float_t[NvarElecTh];
   }
 
   Float_t *vars = new Float_t[Nvar];
   Float_t *DataElec = new Float_t[NvarElec];
-  
+  coutMutex->Lock();
   TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true); // March - 19 cooking
-  
+  coutMutex->UnLock();
   TThread::Printf("###################################### on thread %s, startcnt: %ld, progress_ind: %d",TThread::Self()->GetName(),startcnt,ind);
   Int_t event=0;
   Int_t rec_elec;
@@ -240,7 +278,8 @@ void filter(void *arg)
       vert = t->GetCorrectedVert();
       Float_t vxec=vert->X(); 
       Float_t vyec=vert->Y(); 
-      Float_t vzec=vert->Z(); 
+      Float_t vzec=vert->Z();
+      delete vert;
       DataElec[3] = vxec; 
       DataElec[4] = vyec; 
       DataElec[5] = vzec;
@@ -359,7 +398,9 @@ void filter(void *arg)
 	  vars[6] = t -> ThetaPQ(i);
 	  vars[7] = t -> PhiPQ(i);
 	  Float_t pid = t->Pid(i);
-	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+	  pdgMutex->Lock();
+	  Float_t mass = ( pid == 45 )?1.85756:pdg->GetParticle(pid)->Mass();
+	  pdgMutex->UnLock();
 	  
 	  vars[8] = t -> Zh(i,mass);
 	  
@@ -387,7 +428,8 @@ void filter(void *arg)
           vert = t->GetCorrectedVert();
           vars[30] = vert->X(); 
           vars[31] = vert->Y(); 
-          vars[32] = vert->Z(); 
+          vars[32] = vert->Z();
+	  delete vert;
           vars[33] = 0;//t->TimeEC(i);
           vars[34] = 0;//t->VX_DC(i);//t->XEC(i);
           vars[35] = 0;//t->VY_DC(i);//t->YEC(i);
@@ -663,7 +705,9 @@ void filter(void *arg)
 	  vars[6] = t -> ThetaPQ(i,1);
 	  vars[7] = t -> PhiPQ(i,1);
 	  Float_t pid = t->Pid(i,1);
-	  Float_t mass = ( pid == 45 )?1.85756:TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+	  pdgMutex->Lock();
+	  Float_t mass = ( pid == 45 )?1.85756:pdg->GetParticle(pid)->Mass();
+	  pdgMutex->UnLock();
 	  vars[8] = t -> Zh(i,mass,1);
 	  vars[9] = t -> Pt2(i,1);
 	  vars[10] = t -> Mx2(i,mass,1);
@@ -909,27 +953,34 @@ void filter(void *arg)
     progress_th[ind] = ++event;
     Nsum++;
     TThread::UnLock();
-    if (event==TH_MAX) break;
+    if ((event==TH_MAX) || (Nsum==Ntotal)) break;
   }
 
+  fileMutex->Lock();
   output->Write();
+  //  objArr->Write("",TObject::kOverwrite);
   output->Close();
-
+  fileMutex->UnLock();
+  
   TThread::Printf("%d",__LINE__);
 
-  delete t;
-  delete output;
   if(DataElecTh) delete[] DataElecTh;
   delete[] DataElec;
   delete[] vars;
+  delete t;
+  fileMutex->Lock();
+  delete output;
+  fileMutex->UnLock();
   
   TThread::Lock();
   NthActive--;
   slotAvailable[ind]=kTRUE;
   TThread::UnLock();
+  endsem.Post();
+      
   TThread *th =   TThread::Self();
   th->Delete();
-  //  TThread::Exit();
+  //TThread::Exit();
 }
 
 
