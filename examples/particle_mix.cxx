@@ -369,8 +369,6 @@ public:
     clear();
     delete[] kSecondary;
     delete[] kCombo;
-    delete kOutData;
-    delete kOutBkgnd;
     delete[] kData;
     delete[] keData;
     delete P4Arr;
