@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     output = new TFile("outfiles/pruned_simulH4.root", "RECREATE", "Data of particles");
   }
 
-  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event:helicRaw");
+  TNtuple *tElec = new TNtuple("e_rec","All Electrons","Q2:W:Nu:vxec:vyec:vzec:vxe:vye:vze:Pex:Pey:Pez:event:P:E:Ein:Eout:Epcal:npheltcc:nphehtcc:helic:e_pcal_lu:e_pcal_lv:e_pcal_lw:e_ecin_lu:e_ecin_lv:e_ecin_lw:e_ecout_lu:e_ecout_lv:e_ecout_lw:e_pcal_hx:e_pcal_hy:e_pcal_hz:e_ecin_hx:e_ecin_hy:e_ecin_hz:e_ecout_hx:e_ecout_hy:e_ecout_hz:e_trajdcxr0:e_trajdcxr1:e_trajdcxr2:e_trajdcyr0:e_trajdcyr1:e_trajdcyr2:e_trajdczr0:e_trajdczr1:e_trajdczr2:e_pathtof:e_timetof:e_sector_tof:e_Beta:STTime:RFTime:e_dcx_rot_0:e_dcy_rot_0:e_dcx_rot_1:e_dcy_rot_1:e_dcx_rot_2:e_dcy_rot_2:e_sector_ltcc:e_sector_htcc:e_sector_ecal:revent:Npip_rec:Npim_rec:Npip_mc:Npim_mc:rec_elec:dc_chi2:helonline_hel:helonline_helRaw:helflip_hel:helflip_helRaw:helflip_event:helicRaw:e_sector_dc");
 
   Float_t DataElec[tElec->GetNvar()];
 
@@ -202,7 +202,8 @@ int main(int argc, char **argv)
       DataElec[73] = t->HelicFlipRaw();
 
       DataElec[74] = t->HelicFlipEvent();
-      DataElec[74] = t->HelicRaw();
+      DataElec[75] = t->HelicRaw();
+      DataElec[76] = t->SectorDC();
 
 
       tElec->Fill(DataElec);

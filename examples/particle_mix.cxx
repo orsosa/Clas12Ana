@@ -50,7 +50,7 @@ TNtuple *tuple;
 //TNtuple *tuple_sim;
 TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
-Float_t kEbeam=-1,E,Ee,Ee_prev,Beta,statPart,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0,dcz_r0;
+Float_t kEbeam=-1,E,Ee,Ee_prev,Beta,statPart,dc_chi2,dc_ndf,Ep,P,Px,Py,Pz,evnt,evnt_prev,revent,revent_prev,Ze,Ze_prev,Ye,Ye_prev,Xe,Xe_prev,TEc,Q2,Q2_prev,W,W_prev,Nu,Nu_prev,helic,helic_prev,Pex,Pex_prev,Pey,Pey_prev,Pez,Pez_prev,TargType,TargType_prev,TargTypeO=0,TargTypeO_prev=0,pid,vx,vy,vz,DCX,DCY,DCZ,ECX,ECY,ECZ,DCPx,DCPy,DCPz,dcx_r0,dcy_r0,dcz_r0;
 ////////////// detector data sucture ///////////
 // I you add a variable here, add it also to the Particle Class.
 typedef struct
@@ -65,6 +65,8 @@ typedef struct
   Float_t dcy[MAXPART];
   Float_t dcz[MAXPART];
   Float_t statPart[MAXPART];
+  Float_t dc_chi2[MAXPART];
+  Float_t dc_ndf[MAXPART];
 } detData_t;
 //////////////////////////////////////////
 
@@ -78,13 +80,13 @@ TClonesArray *P4Arr;
 class Particle: public TLorentzVector
 {
 public:
-  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,statPart,m2b;
+  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,statPart,dc_chi2,dc_ndf,m2b;
   inline Double_t P2() const {return P()*P();}
   //TParticlePDG *info;
-  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
+  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1),dc_chi2(-111),dc_ndf(-111){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),dc_chi2(p.dc_chi2),dc_ndf(p.dc_ndf),m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
 
   inline Particle operator + (const Particle & q) const //const: the object that owns the method will not be modified by this method
   {
@@ -355,7 +357,7 @@ public:
   Reaction(const char *n,const char *fn,bool fEMatch=false): fEMatch(fEMatch) {strcpy(name,n); strcpy(filename,fn); init();}
   int store()
   {
-    for (int k=0;k<kSPid.size();k++)
+    for (int k=0;k<(int)kSPid.size();k++)
     {
       hSPid[k]->Write("",TObject::kOverwrite);
     }
@@ -379,7 +381,7 @@ public:
   }
   void clear()
   {
-    for (int k=0;k<kSPid.size();k++)
+    for (int k=0;k<(int)kSPid.size();k++)
     {
       kSecondary[k].clear();
       kCombo[k].clear();
@@ -417,6 +419,8 @@ public:
     kOutData->Branch("dcy",detData.dcy,"dcy[npart]/F");
     kOutData->Branch("dcz",detData.dcz,"dcz[npart]/F");
     kOutData->Branch("statPart",detData.statPart,"statPart[npart]/F");
+    kOutData->Branch("dc_chi2",detData.dc_chi2,"dc_chi2[npart]/F");
+    kOutData->Branch("dc_ndf",detData.dc_ndf,"dc_ndf[npart]/F");
     ////////////
     
     kOutBkgnd = kOutData->CloneTree(0);
@@ -429,6 +433,7 @@ public:
   int fill()
   {
     fill(kPrimary,kOutData);
+    return 0;
   }
 
   int fill_elec()
@@ -443,6 +448,7 @@ public:
     keData[7] = Pez_prev;
     keData[8] = W_prev;
     kElecData->Fill(keData);
+    return 0;
   }
 
 
@@ -457,7 +463,7 @@ public:
     Double_t P2 = comb->P2();
     Double_t M2 = comb->M2();
     Double_t M =  (M2>=0)?TMath::Sqrt(M2):-1.0;
-    Float_t theta=Pz/sqrt(P2);
+    //Float_t theta=Pz/sqrt(P2);
     Float_t theta_0 = (*comb)[0]->Theta();
     Float_t theta_1 = (*comb)[1]->Theta();
 
@@ -597,8 +603,8 @@ public:
     Float_t etaCM_1 = 0.5*TMath::Log( (P1.E() + Pl1m) / (P1.E() - Pl1m) );
 
     //// rapidity BF harut
-    Float_t g2    = 4*xbj*xbj*kMprt*kMprt/Q2_prev;
-    Float_t g24   = xn*xn*kMprt*kMprt/Q2_prev;
+    //    Float_t g2    = 4*xbj*xbj*kMprt*kMprt/Q2_prev;
+    //Float_t g24   = xn*xn*kMprt*kMprt/Q2_prev;
     Float_t yhc1  = xn*xn*kMprt*kMprt+xn*Q2_prev;
     Float_t yhc2  = (1.0-xn)*Q2_prev;
     Float_t yhc   = TMath::Log(sqrt(yhc1/yhc2));
@@ -867,6 +873,8 @@ public:
       detData.dcy[k] = (*comb)[k]->dcy;
       detData.dcz[k] = (*comb)[k]->dcz;
       detData.statPart[k] = (*comb)[k]->statPart;
+      detData.dc_chi2[k] = (*comb)[k]->dc_chi2;
+      detData.dc_ndf[k] = (*comb)[k]->dc_ndf;
     }
 
     /*  
@@ -980,7 +988,7 @@ public:
   Bool_t FidCheck(int pid)
   {
     Bool_t ret = false;
-    Float_t pip_dcymin_r0 = 25,pip_dcymax_r0 = 135, pim_dcymin_r0 = 32,pim_dcymax_r0 = 145;
+    //Float_t pip_dcymin_r0 = 25,pip_dcymax_r0 = 135, pim_dcymin_r0 = 32,pim_dcymax_r0 = 145;
     Float_t dcy0,dcy_min,dcy_max,dcth_min,dcth_max;
     if (pid == 211)
     {
@@ -1123,12 +1131,12 @@ public:
   bool checkMinPart()
   {
     bool minPart=true;
-    for (int k=0;k<kSPid.size();k++)
+    for (int k=0;k<(int)kSPid.size();k++)
     {
       if (fEMatch)
-	minPart=minPart && (kSecondary[k].size() == kNSPid[kSPid[k]]);
+	minPart=minPart && ((int)kSecondary[k].size() == kNSPid[kSPid[k]]);
       else
-	minPart=minPart && (kSecondary[k].size() >= kNSPid[kSPid[k]]);
+	minPart=minPart && ((int)kSecondary[k].size() >= kNSPid[kSPid[k]]);
 
       //      std::cout<<__LINE__<<": minPart "<<minPart<<" : "<<kSecondary[k].size()<<std::endl;
       hSPid[k]->Fill(kSecondary[k].size());
@@ -1139,7 +1147,7 @@ public:
   bool checkMinPart(Combo *c)
   {
     bool minPart=true;
-    for (int k=0;k<kSPid.size();k++)
+    for (int k=0;k<(int)kSPid.size();k++)
     {
 	minPart=minPart && (c->findPid(kSPid[k]) == kNSPid[kSPid[k]]);
     }
@@ -1175,7 +1183,7 @@ public:
     if (N<1) return -1;
     if (N!=1)
     {
-      for (int k =pos;k<kSecondary[kspid].size()-N+1;k++)
+      for (int k =pos;k<(int)kSecondary[kspid].size()-N+1;k++)
       {
 	if (c==0) c_new = new Combo();
 	else c_new = new Combo(*c);
@@ -1188,7 +1196,7 @@ public:
     else
    {
      
-      for (int k=pos;k<kSecondary[kspid].size();k++)
+      for (int k=pos;k<(int)kSecondary[kspid].size();k++)
       {
 	if (c==0) c_new = new Combo();
 	else c_new = new Combo(*c);
@@ -1209,12 +1217,12 @@ public:
   int findSecondary()
   { 
     int count=0;
-    for (int k =0;k<kSPid.size();k++)
+    for (int k =0;k<(int)kSPid.size();k++)
     {
       //if(pid == kSPid[k]&&checkDCFidPhi())
       if(pid == kSPid[k])
       {
-	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart));
+	kSecondary[k].push_back(new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart,dc_chi2,dc_ndf));
 	//std::cout<<dcx_r0<<" / "<<dcy_r0<<" / "<<dcz_r0<<std::endl;
 	count++;
       }
@@ -1250,13 +1258,13 @@ public:
 
   Float_t getE(Float_t Es=0, Float_t p=0, Float_t pid=211)
   {
-    Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
-    Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057};
+    //Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
+    //Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057};
 
     Float_t energy =-1;
 
     if (pid == 45)
-      energy == sqrt(p*p + TMath::Power(1.8756,2) );
+      energy = sqrt(p*p + TMath::Power(1.8756,2) );
     else
       energy = sqrt(p*p + TMath::Power(TDatabasePDG::Instance()->GetParticle(pid)->Mass(),2) );
     //    Float_t sf = ((pid==211)?pip[0] + pip[1]/x + pip[2]*x + pip[3]/x/x:((pid==-211)?pim[0] + pim[1]/x + pim[2]*x + pim[3]/x/x:0)) ;
@@ -1292,7 +1300,7 @@ public:
 	//if (data_type<2&&FidCheck(pid))
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart);
+	  Particle *p = new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart,dc_chi2,dc_ndf);
 	 
 	  push_bkgnd(p);
 	  
@@ -1306,7 +1314,7 @@ public:
 	{
 	  int Npart = 1;
 
-	  for (int k =0;k<kSPid.size();k++)
+	  for (int k =0;k<(int)kSPid.size();k++)
 	  {
 	    if (DEBUG) std::cout<<"############ Nsecondary of pid: "<<kSPid[k]<<" ::: "<<kSecondary[k].size()<<"###########"<<std::endl; 
 	    takeN(kNSPid[kSPid[k]] ,k);
@@ -1318,7 +1326,7 @@ public:
 	  {
 	    kPrimary = new Combo();
 	    int div=1;
-	    for (int l =0;l<kSPid.size();l++)
+	    for (int l =0;l<(int)kSPid.size();l++)
 	    {
 	      int size = kCombo[l].size();
 	      //std::cout<<__LINE__<<": \n";
@@ -1340,7 +1348,7 @@ public:
 
 	if ((data_type==2)||FidCheck(11))// no fid
 	{
-	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart);
+	  Particle *p =new Particle(Px,Py,Pz,Ep,vx,vy,vz,pid,0,Beta,dcx_r0,dcy_r0,dcz_r0,statPart,dc_chi2,dc_ndf);
 	  push_bkgnd(p);
 	  findSecondary();
 	}
@@ -1358,7 +1366,7 @@ public:
       if (!kBkgnd.empty())
       {
 	int i;
-	for (i =0;i<kBkgnd.size();i++)
+	for (i =0;i<(int)kBkgnd.size();i++)
 	{
 	  if ( (kBkgnd[i]->findPid(p->pid)<kNSPid[p->pid] ) && (kBkgnd[i]->lastEvent!=evnt) && (kBkgnd[i]->isCompatible()) )
 	  {
@@ -1367,7 +1375,7 @@ public:
 	  }
 	  
 	}
-	if (i==kBkgnd.size())
+	if (i==(int)kBkgnd.size())
 	{
 	  Combo *c = new Combo();
 	  c->addParticle(p,evnt);
@@ -1389,7 +1397,7 @@ public:
     bool ret = false;
     if (!kBkgnd.empty())
     {
-     for (int i =0;i<kBkgnd.size();i++)
+     for (int i =0;i<(int)kBkgnd.size();i++)
       {
 	if (checkMinPart(kBkgnd[i]))
 	{
@@ -1529,6 +1537,8 @@ int main(int argc, char *argv[])
   t->SetBranchStatus("trajdczr0",1);
   t->SetBranchStatus("Beta",1);
   t->SetBranchStatus("statPart",1);
+  t->SetBranchStatus("dc_chi2",1);
+  t->SetBranchStatus("dc_ndf",1);
   
 
   //  t->SetBranchStatus("TargTypeO",1);
@@ -1568,6 +1578,8 @@ int main(int argc, char *argv[])
   t->SetBranchAddress("trajdczr0",&dcz_r0);
   t->SetBranchAddress("Beta",&Beta);
   t->SetBranchAddress("statPart",&statPart);
+  t->SetBranchAddress("dc_chi2",&dc_chi2);
+  t->SetBranchAddress("dc_ndf",&dc_ndf);
 
   //t->SetBranchAddress("TargTypeO",&TargTypeO);
 
