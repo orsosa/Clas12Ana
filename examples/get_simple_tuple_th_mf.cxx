@@ -23,7 +23,7 @@ Long_t Ntotal=0;
 Long_t TH_MAX = 10000;
 Long_t Nsum=0;
 Float_t *progress_th;
-Bool_t *slotAvailable;
+Bool_t *slotAvailable, QUIET = false;
 Int_t NthActive = 0;
 TCondition cond(NULL);
 TCondition slotCond(NULL);
@@ -81,12 +81,16 @@ int main(int argc, char **argv)
     else if (strcmp(argv[k],"-nmax")==0){ //max entries read
       Ntotal = atol(argv[++k]);
     }
+    else if (strcmp(argv[k],"-q")==0){ //quiet mode
+      QUIET = true;
+    }
+
     else
       fname = fname + " " + argv[k];
   }
-  std::cout<<"File list: "<<fname<<std::endl;
-  std::cout<<"Processing "<<((simul_key==1)?"simulations":"data")<<std::endl;
-  std::cout<<"Beam energy: "<< EBEAM<<" GeV"<<std::endl;
+  if (!QUIET) std::cout<<"File list: "<<fname<<std::endl;
+  if (!QUIET) std::cout<<"Processing "<<((simul_key==1)?"simulations":"data")<<std::endl;
+  if (!QUIET) std::cout<<"Beam energy: "<< EBEAM<<" GeV"<<std::endl;
   pdg = new TDatabasePDG();
   
   fileMutex = new TMutex();
@@ -100,7 +104,7 @@ int main(int argc, char **argv)
   TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true); // March - 19 cooking
   coutMutex->UnLock();
   if (!Ntotal)  Ntotal = t->getNevents();
-  std::cout<<Ntotal<<std::endl;
+  if (!QUIET) std::cout<<Ntotal<<std::endl;
 
   progress_th = new Float_t[Nth];
   memset(progress_th,0,Nth*sizeof(float));
@@ -116,16 +120,16 @@ int main(int argc, char **argv)
     //Bool_t exitFlag = kTRUE;
     //    cout<<"Nth "<<NthActive<<" --- ";
     coutMutex->Lock();
-    cout<<"Nth "<<TThread::Exists()<<" --- ";
+    if (!QUIET) std::cout<<"Nth "<<TThread::Exists()<<" --- ";
     coutMutex->UnLock();
     for (int k = 0; k<Nth;k++){
       coutMutex->Lock();
-      cout<<progress_th[k]/TH_MAX*100<<"\% // ";
+      if (!QUIET) std::cout<<progress_th[k]/TH_MAX*100<<"\% // ";
       coutMutex->UnLock();
       //      exitFlag &= progress_th[k] == TH_MAX;
     }
     coutMutex->Lock();
-    cout<<"  --> "<<(float)Nsum/Ntotal*100<<"\% \r";
+    if (!QUIET) std::cout<<"  --> "<<(float)Nsum/Ntotal*100<<"\% \r";
     cout.flush();
     coutMutex->UnLock();
     //if (exitFlag) break;
