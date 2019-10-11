@@ -35,7 +35,6 @@ TMutex *fileMutex;
 TMutex *pdgMutex;
 TMutex *coutMutex;
 
-
 std::map <Int_t,TString> thn_ind;
 
 bool simul_key = 0;
@@ -59,7 +58,6 @@ int main(int argc, char **argv)
   //gROOT->Reset();
   TBenchmark bm;
   bm.Start(argv[0]);
-
   
   if (argc<2)
   {

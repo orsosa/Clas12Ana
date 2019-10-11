@@ -150,6 +150,7 @@ inline Int_t TIdentificatorCLAS12::HelicOnlineRaw() /// from event
 
 inline Int_t TIdentificatorCLAS12::HelicFlip() /// from event
 {
+  if ( !HEL__flip)  return -111;
   if (HEL__flip->getRows()>0){
     get_HEL__flip(0);
     return HEL__flip_helicity;
@@ -160,6 +161,7 @@ inline Int_t TIdentificatorCLAS12::HelicFlip() /// from event
 
 inline Int_t TIdentificatorCLAS12::HelicFlipRaw() /// from event
 {
+  if ( !HEL__flip)  return -111;
   if (HEL__flip->getRows()>0){
     get_HEL__flip(0);
     return HEL__flip_helicityRaw;
@@ -171,6 +173,7 @@ inline Int_t TIdentificatorCLAS12::HelicFlipRaw() /// from event
 
 inline Int_t TIdentificatorCLAS12::HelicFlipEvent() /// from event
 {
+  if ( !HEL__flip)  return -111;
   if (HEL__flip->getRows()>0){
     get_HEL__flip(0);
     return HEL__flip_event;

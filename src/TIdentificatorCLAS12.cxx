@@ -234,7 +234,6 @@ Bool_t TIdentificatorCLAS12::Next()
 	fReader->read(*fEvent);
 	FillBanks();
 	FillResponseMaps();
-	std::cout<<__FILE__<<"::"<<__LINE__<<std::endl;
       }
     }
   }
@@ -332,7 +331,6 @@ int TIdentificatorCLAS12::InitTrajDetId()
     
   trajDetId["101"] = 101;
   trajDetId["102"] = 102;
-
   
   return 0;
 }
