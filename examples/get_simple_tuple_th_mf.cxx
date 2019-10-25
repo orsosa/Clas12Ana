@@ -86,6 +86,8 @@ int main(int argc, char **argv)
     else
       fname = fname + " " + argv[k];
   }
+
+  
   if (!QUIET) std::cout<<"File list: "<<fname<<std::endl;
   if (!QUIET) std::cout<<"Processing "<<((simul_key==1)?"simulations":"data")<<std::endl;
   if (!QUIET) std::cout<<"Beam energy: "<< EBEAM<<" GeV"<<std::endl;
@@ -104,6 +106,8 @@ int main(int argc, char **argv)
   if (!Ntotal)  Ntotal = t->getNevents();
   if (!QUIET) std::cout<<Ntotal<<std::endl;
 
+  TH_MAX = Ntotal/Nth+1;// max, Nth entries more in last thread, will end reaching Ntotal.
+  
   progress_th = new Float_t[Nth];
   memset(progress_th,0,Nth*sizeof(float));
   slotAvailable = new Bool_t[Nth];
@@ -157,7 +161,7 @@ void create_threads(void *arg){
     if (k==Nth) continue; 
     //TThread::Ps();
     
-    //    th = TThread::GetThread(thn_ind[k]);
+    //th = TThread::GetThread(thn_ind[k]);
     //TThread::Delete(th);
 
     start_ind[1] = k;
