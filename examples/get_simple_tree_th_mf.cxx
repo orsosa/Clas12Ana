@@ -45,7 +45,6 @@ Int_t Nt = 0;
 
 TDatabasePDG *pdg;
 
-
 int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot);
 void cleanUp(void *arg);
 void filter(void *arg);
@@ -227,7 +226,7 @@ void filter(void *arg)
   
   DATA Evnt;
 
-  InitTree(evTree,&Evnt);
+  initTree(evTree,&Evnt);
 
   resetDATA(&Evnt);
   
