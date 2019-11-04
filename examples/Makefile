@@ -31,7 +31,8 @@ LDFLAGS   := $(ROOTLDFLAGS)
 AR	  = ar
 ARFLAGS	  = -cvr #create,verbose,quick (don't check for replacement, otherwise use r instead)
 
-all:  getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf 
+all:  getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf test_tree
+
 %: %.o
 	$(CXX) -o $@ $< $(ROOTCFLAGS) $(ROOTLDFLAGS) $(HIPOLIBS) $(LZ4LIBS)  $(ROOTLIBS) $(CLAS12ANALIB) 
 

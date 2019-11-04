@@ -346,7 +346,8 @@ public:
       hSPid[k]->Write("",TObject::kOverwrite);
     }
     if (kOutBkgnd) kOutBkgnd->Write("",TObject::kOverwrite);
-  
+
+    std::cout<<"Writing root file: "<<filename<<std::endl;
     return kOutData->Write("",TObject::kOverwrite);
   }
   ~Reaction()
@@ -412,133 +413,178 @@ public:
     return 0;
   }
   
-  int setVars(int k)
+  int setVars(int k,bool isMC = false)
   {
-    setVars(kPrimary,&mixEvent,k);
+    setVars(kPrimary, &mixEvent, k, isMC);
     return 0;
   }
 
-  int setElecVars(){
-    mixEvent.Q2 = Event.Q2;
-    mixEvent.W = Event.W;
-    mixEvent.Nu = Event.Nu;
-    mixEvent.Xb = Event.Xb;
-    mixEvent.vxec = Event.vxec;
-    mixEvent.vyec = Event.vyec;
-    mixEvent.vzec = Event.vzec;
-    mixEvent.vxe = Event.vxe;
-    mixEvent.vye = Event.vye;
-    mixEvent.vze = Event.vze;
-    mixEvent.Pex = Event.Pex;
-    mixEvent.Pey = Event.Pey;
-    mixEvent.Pez = Event.Pez;
-    mixEvent.event = Event.event;
-    mixEvent.Pe = Event.Pe;
-    mixEvent.Ee = Event.Ee;
-    mixEvent.e_Ein = Event.e_Ein;
-    mixEvent.e_Eout = Event.e_Eout;
-    mixEvent.e_Epcal = Event.e_Epcal;
-    mixEvent.e_npheltcc = Event.e_npheltcc;
-    mixEvent.e_nphehtcc = Event.e_nphehtcc;
-    mixEvent.helic = Event.helic;
-    mixEvent.e_chi2pid = Event.e_chi2pid;
-    mixEvent.e_pcal_lu = Event.e_pcal_lu;
-    mixEvent.e_pcal_lv = Event.e_pcal_lv;
-    mixEvent.e_pcal_lw = Event.e_pcal_lw;
-    mixEvent.e_ecin_lu = Event.e_ecin_lu;
-    mixEvent.e_ecin_lv = Event.e_ecin_lv;
-    mixEvent.e_ecin_lw = Event.e_ecin_lw;
-    mixEvent.e_ecout_lu = Event.e_ecout_lu;
-    mixEvent.e_ecout_lv = Event.e_ecout_lv;
-    mixEvent.e_ecout_lw = Event.e_ecout_lw;
-    mixEvent.e_pcal_hx = Event.e_pcal_hx;
-    mixEvent.e_pcal_hy = Event.e_pcal_hy;
-    mixEvent.e_pcal_hz = Event.e_pcal_hz;
-    mixEvent.e_ecin_hx = Event.e_ecin_hx;
-    mixEvent.e_ecin_hy = Event.e_ecin_hy;
-    mixEvent.e_ecin_hz = Event.e_ecin_hz;
-    mixEvent.e_ecout_hx = Event.e_ecout_hx;
-    mixEvent.e_ecout_hy = Event.e_ecout_hy;
-    mixEvent.e_ecout_hz = Event.e_ecout_hz;
-    mixEvent.e_trajx_sl0 = Event.e_trajx_sl0;
-    mixEvent.e_trajx_sl1 = Event.e_trajx_sl1;
-    mixEvent.e_trajx_sl2 = Event.e_trajx_sl2;
-    mixEvent.e_trajx_sl3 = Event.e_trajx_sl3;
-    mixEvent.e_trajx_sl4 = Event.e_trajx_sl4;
-    mixEvent.e_trajx_sl5 = Event.e_trajx_sl5;
-    mixEvent.e_trajy_sl0 = Event.e_trajy_sl0;
-    mixEvent.e_trajy_sl1 = Event.e_trajy_sl1;
-    mixEvent.e_trajy_sl2 = Event.e_trajy_sl2;
-    mixEvent.e_trajy_sl3 = Event.e_trajy_sl3;
-    mixEvent.e_trajy_sl4 = Event.e_trajy_sl4;
-    mixEvent.e_trajy_sl5 = Event.e_trajy_sl5;
-    mixEvent.e_trajz_sl0 = Event.e_trajz_sl0;
-    mixEvent.e_trajz_sl1 = Event.e_trajz_sl1;
-    mixEvent.e_trajz_sl2 = Event.e_trajz_sl2;
-    mixEvent.e_trajz_sl3 = Event.e_trajz_sl3;
-    mixEvent.e_trajz_sl4 = Event.e_trajz_sl4;
-    mixEvent.e_trajz_sl5 = Event.e_trajz_sl5;
-    mixEvent.e_pathtof = Event.e_pathtof;
-    mixEvent.e_timetof = Event.e_timetof;
-    mixEvent.e_sector_tof = Event.e_sector_tof;
-    mixEvent.e_Beta = Event.e_Beta;
-    mixEvent.STTime = Event.STTime;
-    mixEvent.RFTime = Event.RFTime;
-    mixEvent.e_dcx_rot_0 = Event.e_dcx_rot_0;
-    mixEvent.e_dcy_rot_0 = Event.e_dcy_rot_0;
-    mixEvent.e_dcx_rot_1 = Event.e_dcx_rot_1;
-    mixEvent.e_dcy_rot_1 = Event.e_dcy_rot_1;
-    mixEvent.e_dcx_rot_2 = Event.e_dcx_rot_2;
-    mixEvent.e_dcy_rot_2 = Event.e_dcy_rot_2;
-    mixEvent.e_sector_ltcc = Event.e_sector_ltcc;
-    mixEvent.e_sector_htcc = Event.e_sector_htcc;
-    mixEvent.e_sector_ecal = Event.e_sector_ecal;
-    mixEvent.e_dc_chi2 = Event.e_dc_chi2;
-    mixEvent.e_ftof1ax = Event.e_ftof1ax;
-    mixEvent.e_ftof1ay = Event.e_ftof1ay;
-    mixEvent.e_ftof1az = Event.e_ftof1az;
-    mixEvent.e_pcalx = Event.e_pcalx;
-    mixEvent.e_pcaly = Event.e_pcaly;
-    mixEvent.e_pcalz = Event.e_pcalz;
-    mixEvent.e_ecalx = Event.e_ecalx;
-    mixEvent.e_ecaly = Event.e_ecaly;
-    mixEvent.e_ecalz = Event.e_ecalz;
-    mixEvent.e_ltccx = Event.e_ltccx;
-    mixEvent.e_ltccy = Event.e_ltccy;
-    mixEvent.e_ltccz = Event.e_ltccz;
-    mixEvent.e_htccx = Event.e_htccx;
-    mixEvent.e_htccy = Event.e_htccy;
-    mixEvent.e_htccz = Event.e_htccz;
-    mixEvent.e_ftof1bx = Event.e_ftof1bx;
-    mixEvent.e_ftof1by = Event.e_ftof1by;
-    mixEvent.e_ftof1bz = Event.e_ftof1bz;
-    mixEvent.e_ftof2x = Event.e_ftof2x;
-    mixEvent.e_ftof2y = Event.e_ftof2y;
-    mixEvent.e_ftof2z = Event.e_ftof2z;
-    mixEvent.helonline_hel = Event.helonline_hel;
-    mixEvent.helonline_helRaw = Event.helonline_helRaw;
-    mixEvent.helflip_hel = Event.helflip_hel;
-    mixEvent.helflip_helRaw = Event.helflip_helRaw;
-    mixEvent.helflip_event = Event.helflip_event;
-    mixEvent.e_dc_status = Event.e_dc_status;
-    mixEvent.e_dc_ndf = Event.e_dc_ndf;
-    mixEvent.e_sector_dc = Event.e_sector_dc;
-    mixEvent.e_statPart = Event.e_statPart;
-    mixEvent.e_DCPx = Event.e_DCPx;
-    mixEvent.e_DCPy = Event.e_DCPy;
-    mixEvent.e_DCPz = Event.e_DCPz;
-    mixEvent.revent = Event.revent;
-    mixEvent.y = Event.y;
-    mixEvent.th_e = Event.th_e;
-    mixEvent.helicRaw = Event.helicRaw;
+  int setElecVars(bool isMC = false){
 
+    if (isMC){
+      mixEvent.mc_Q2 = Event.mc_Q2;
+      mixEvent.mc_W = Event.mc_W;
+      mixEvent.mc_Nu = Event.mc_Nu;
+      mixEvent.mc_Xb = Event.mc_Xb;
+      mixEvent.mc_vxe = Event.mc_vxe;
+      mixEvent.mc_vye = Event.mc_vye;
+      mixEvent.mc_vze = Event.mc_vze;
+      mixEvent.mc_Pex = Event.mc_Pex;
+      mixEvent.mc_Pey = Event.mc_Pey;
+      mixEvent.mc_Pez = Event.mc_Pez;
+      mixEvent.mc_event = Event.mc_event;
+      mixEvent.e_mcmass = Event.e_mcmass;
+      mixEvent.mc_Pe = Event.mc_Pe;
+      mixEvent.mc_Ee = Event.mc_Ee;
+      mixEvent.mc_revent = Event.mc_revent;
+      mixEvent.mc_y = Event.mc_y;
+      mixEvent.mc_th_e = Event.mc_th_e;
+      mixEvent.mc_phi_e = Event.mc_phi_e;
+      mixEvent.mc_e_Beta = Event.mc_e_Beta;
+      mixEvent.mc_helic = 0;
+    }
+    else {
+      mixEvent.Q2 = Event.Q2;
+      mixEvent.W = Event.W;
+      mixEvent.Nu = Event.Nu;
+      mixEvent.Xb = Event.Xb;
+      mixEvent.vxec = Event.vxec;
+      mixEvent.vyec = Event.vyec;
+      mixEvent.vzec = Event.vzec;
+      mixEvent.vxe = Event.vxe;
+      mixEvent.vye = Event.vye;
+      mixEvent.vze = Event.vze;
+      mixEvent.Pex = Event.Pex;
+      mixEvent.Pey = Event.Pey;
+      mixEvent.Pez = Event.Pez;
+      mixEvent.event = Event.event;
+      mixEvent.Pe = Event.Pe;
+      mixEvent.Ee = Event.Ee;
+      mixEvent.e_Ein = Event.e_Ein;
+      mixEvent.e_Eout = Event.e_Eout;
+      mixEvent.e_Epcal = Event.e_Epcal;
+      mixEvent.e_npheltcc = Event.e_npheltcc;
+      mixEvent.e_nphehtcc = Event.e_nphehtcc;
+      mixEvent.helic = Event.helic;
+      mixEvent.e_chi2pid = Event.e_chi2pid;
+      mixEvent.e_pcal_lu = Event.e_pcal_lu;
+      mixEvent.e_pcal_lv = Event.e_pcal_lv;
+      mixEvent.e_pcal_lw = Event.e_pcal_lw;
+      mixEvent.e_ecin_lu = Event.e_ecin_lu;
+      mixEvent.e_ecin_lv = Event.e_ecin_lv;
+      mixEvent.e_ecin_lw = Event.e_ecin_lw;
+      mixEvent.e_ecout_lu = Event.e_ecout_lu;
+      mixEvent.e_ecout_lv = Event.e_ecout_lv;
+      mixEvent.e_ecout_lw = Event.e_ecout_lw;
+      mixEvent.e_pcal_hx = Event.e_pcal_hx;
+      mixEvent.e_pcal_hy = Event.e_pcal_hy;
+      mixEvent.e_pcal_hz = Event.e_pcal_hz;
+      mixEvent.e_ecin_hx = Event.e_ecin_hx;
+      mixEvent.e_ecin_hy = Event.e_ecin_hy;
+      mixEvent.e_ecin_hz = Event.e_ecin_hz;
+      mixEvent.e_ecout_hx = Event.e_ecout_hx;
+      mixEvent.e_ecout_hy = Event.e_ecout_hy;
+      mixEvent.e_ecout_hz = Event.e_ecout_hz;
+      mixEvent.e_trajx_sl0 = Event.e_trajx_sl0;
+      mixEvent.e_trajx_sl1 = Event.e_trajx_sl1;
+      mixEvent.e_trajx_sl2 = Event.e_trajx_sl2;
+      mixEvent.e_trajx_sl3 = Event.e_trajx_sl3;
+      mixEvent.e_trajx_sl4 = Event.e_trajx_sl4;
+      mixEvent.e_trajx_sl5 = Event.e_trajx_sl5;
+      mixEvent.e_trajy_sl0 = Event.e_trajy_sl0;
+      mixEvent.e_trajy_sl1 = Event.e_trajy_sl1;
+      mixEvent.e_trajy_sl2 = Event.e_trajy_sl2;
+      mixEvent.e_trajy_sl3 = Event.e_trajy_sl3;
+      mixEvent.e_trajy_sl4 = Event.e_trajy_sl4;
+      mixEvent.e_trajy_sl5 = Event.e_trajy_sl5;
+      mixEvent.e_trajz_sl0 = Event.e_trajz_sl0;
+      mixEvent.e_trajz_sl1 = Event.e_trajz_sl1;
+      mixEvent.e_trajz_sl2 = Event.e_trajz_sl2;
+      mixEvent.e_trajz_sl3 = Event.e_trajz_sl3;
+      mixEvent.e_trajz_sl4 = Event.e_trajz_sl4;
+      mixEvent.e_trajz_sl5 = Event.e_trajz_sl5;
+      mixEvent.e_pathtof = Event.e_pathtof;
+      mixEvent.e_timetof = Event.e_timetof;
+      mixEvent.e_sector_tof = Event.e_sector_tof;
+      mixEvent.e_Beta = Event.e_Beta;
+      mixEvent.STTime = Event.STTime;
+      mixEvent.RFTime = Event.RFTime;
+      mixEvent.e_dcx_rot_0 = Event.e_dcx_rot_0;
+      mixEvent.e_dcy_rot_0 = Event.e_dcy_rot_0;
+      mixEvent.e_dcx_rot_1 = Event.e_dcx_rot_1;
+      mixEvent.e_dcy_rot_1 = Event.e_dcy_rot_1;
+      mixEvent.e_dcx_rot_2 = Event.e_dcx_rot_2;
+      mixEvent.e_dcy_rot_2 = Event.e_dcy_rot_2;
+      mixEvent.e_sector_ltcc = Event.e_sector_ltcc;
+      mixEvent.e_sector_htcc = Event.e_sector_htcc;
+      mixEvent.e_sector_ecal = Event.e_sector_ecal;
+      mixEvent.e_dc_chi2 = Event.e_dc_chi2;
+      mixEvent.e_ftof1ax = Event.e_ftof1ax;
+      mixEvent.e_ftof1ay = Event.e_ftof1ay;
+      mixEvent.e_ftof1az = Event.e_ftof1az;
+      mixEvent.e_pcalx = Event.e_pcalx;
+      mixEvent.e_pcaly = Event.e_pcaly;
+      mixEvent.e_pcalz = Event.e_pcalz;
+      mixEvent.e_ecalx = Event.e_ecalx;
+      mixEvent.e_ecaly = Event.e_ecaly;
+      mixEvent.e_ecalz = Event.e_ecalz;
+      mixEvent.e_ltccx = Event.e_ltccx;
+      mixEvent.e_ltccy = Event.e_ltccy;
+      mixEvent.e_ltccz = Event.e_ltccz;
+      mixEvent.e_htccx = Event.e_htccx;
+      mixEvent.e_htccy = Event.e_htccy;
+      mixEvent.e_htccz = Event.e_htccz;
+      mixEvent.e_ftof1bx = Event.e_ftof1bx;
+      mixEvent.e_ftof1by = Event.e_ftof1by;
+      mixEvent.e_ftof1bz = Event.e_ftof1bz;
+      mixEvent.e_ftof2x = Event.e_ftof2x;
+      mixEvent.e_ftof2y = Event.e_ftof2y;
+      mixEvent.e_ftof2z = Event.e_ftof2z;
+      mixEvent.helonline_hel = Event.helonline_hel;
+      mixEvent.helonline_helRaw = Event.helonline_helRaw;
+      mixEvent.helflip_hel = Event.helflip_hel;
+      mixEvent.helflip_helRaw = Event.helflip_helRaw;
+      mixEvent.helflip_event = Event.helflip_event;
+      mixEvent.e_dc_status = Event.e_dc_status;
+      mixEvent.e_dc_ndf = Event.e_dc_ndf;
+      mixEvent.e_sector_dc = Event.e_sector_dc;
+      mixEvent.e_statPart = Event.e_statPart;
+      mixEvent.e_DCPx = Event.e_DCPx;
+      mixEvent.e_DCPy = Event.e_DCPy;
+      mixEvent.e_DCPz = Event.e_DCPz;
+      mixEvent.revent = Event.revent;
+      mixEvent.y = Event.y;
+      mixEvent.th_e = Event.th_e;
+      mixEvent.phi_e = Event.phi_e;
+      mixEvent.helicRaw = Event.helicRaw;
+    }
     return 0;
   }
 
 
-  int setVars(Combo *comb,DATAMIX *evnt,int k){
+  int setVars(Combo *comb,DATAMIX *evnt,int k,bool isMC = false){
     if (DEBUG ) std::cout<<"##### combo size: "<<comb->size()<<" #######"<<std::endl;
-    
+    Float_t Pex,Pez,Pey,Q2,Nu,W,event;
+    if (!isMC){
+      
+      Pex = Event.Pex;
+      Pey = Event.Pey;
+      Pez = Event.Pez;
+      Nu  = Event.Nu;
+      Q2  = Event.Q2;
+      W   = Event.W;
+      event = Event.event;
+    }
+    else{
+      Pex = Event.mc_Pex;
+      Pey = Event.mc_Pey;
+      Pez = Event.mc_Pez;
+      Nu  = Event.mc_Nu;
+      Q2  = Event.mc_Q2;
+      W   = Event.mc_W;
+      event = Event.mc_event;
+    }
+
     Double_t Px = comb->Px();
     Double_t Py = comb->Py();
     Double_t Pz = comb->Pz();
@@ -550,11 +596,11 @@ public:
     Float_t theta_0 = (*comb)[0]->Theta();
     Float_t theta_1 = (*comb)[1]->Theta();
 
-    Float_t cospq = ((kEbeam-Event.Pez)*Pz - Event.Pex*Px - Event.Pey*Py)/( sqrt((Event.Q2 + Event.Nu*Event.Nu)*P2) );
+    Float_t cospq = ((kEbeam-Pez)*Pz - Pex*Px - Pey*Py)/( sqrt((Q2 + Nu*Nu)*P2) );
 
-    Float_t cospq0 = ((kEbeam-Event.Pez)*(*comb)[0]->Pz() - Event.Pex*(*comb)[0]->Px() - Event.Pey*(*comb)[0]->Py() )/( sqrt((Event.Q2 + Event.Nu*Event.Nu))*(*comb)[0]->P());
+    Float_t cospq0 = ((kEbeam-Pez)*(*comb)[0]->Pz() - Pex*(*comb)[0]->Px() - Pey*(*comb)[0]->Py() )/( sqrt((Q2 + Nu*Nu))*(*comb)[0]->P());
 
-    Float_t cospq1 = ((kEbeam-Event.Pez)*(*comb)[1]->Pz() - Event.Pex*(*comb)[1]->Px() - Event.Pey*(*comb)[1]->Py())/( sqrt((Event.Q2 + Event.Nu*Event.Nu))*(*comb)[1]->P());
+    Float_t cospq1 = ((kEbeam-Pez)*(*comb)[1]->Pz() - Pex*(*comb)[1]->Px() - Pey*(*comb)[1]->Py())/( sqrt((Q2 + Nu*Nu))*(*comb)[1]->P());
  
     Float_t Pt2 = P2*(1-cospq*cospq);
     Float_t Pl2 = P2*cospq*cospq;
@@ -565,7 +611,7 @@ public:
 
     Double_t phi_pq;
     TVector3 Vhad(Px,Py,Pz);
-    TVector3 Vvirt(-Event.Pex,-Event.Pey,kEbeam-Event.Pez);
+    TVector3 Vvirt(-Pex,-Pey,kEbeam-Pez);
     Double_t phi_z = TMath::Pi()-Vvirt.Phi();
     Vvirt.RotateZ(phi_z);
     Vhad.RotateZ(phi_z);
@@ -575,7 +621,7 @@ public:
     Vhad.RotateY(phi_y);
     phi_pq=Vhad.Phi() * 180./(TMath::Pi());
 
-    TLorentzVector q_lv(-Event.Pex,-Event.Pey,kEbeam-Event.Pez,Event.Nu); // virtual photon 4vec
+    TLorentzVector q_lv(-Pex,-Pey,kEbeam-Pez,Nu); // virtual photon 4vec
     TLorentzVector P_lv(0,0,0,kMprt); // Nucleon 4vec
     TLorentzVector Ptot_lv = q_lv+P_lv; // total 4vec
 
@@ -614,13 +660,13 @@ public:
     TLorentzVector P_BF = P_lv;
     TLorentzVector PX_BF = q_BF + P_BF - P0_BF - P1_BF;
     
-    Float_t xbj = Event.Q2/2/Event.Nu/kMprt;
+    Float_t xbj = Q2/2/Nu/kMprt;
     //Nachtmann variable
-    Float_t xn = 2*xbj/(1 + sqrt(1 + 4*xbj*xbj*kMprt*kMprt/Event.Q2));
-    Float_t Q = sqrt(Event.Q2);
+    Float_t xn = 2*xbj/(1 + sqrt(1 + 4*xbj*xbj*kMprt*kMprt/Q2));
+    Float_t Q = sqrt(Q2);
 
-    Float_t z0 = (*comb)[0]->E()/Event.Nu;
-    Float_t z1 = (*comb)[1]->E()/Event.Nu;
+    Float_t z0 = (*comb)[0]->E()/Nu;
+    Float_t z1 = (*comb)[1]->E()/Nu;
     Float_t ztot_inv = 1./(z0+z1);
     
     TVector3 p0Lv_BF = (P0_BF.Vect()*q_BF.Vect().Unit())*q_BF.Vect().Unit();
@@ -630,15 +676,15 @@ public:
 
     // pip /////    
     Float_t MhT20 = p0Tv_BF.Mag2() + kMh*kMh;
-    Float_t etaBF_0plus = Q*z0*(Event.Q2 - xn*xn*kMprt*kMprt)/
+    Float_t etaBF_0plus = Q*z0*(Q2 - xn*xn*kMprt*kMprt)/
       (2*xn*xn*kMprt*kMprt*sqrt(MhT20));
 
-    Float_t etaBF_0minus = Q*z0*(Event.Q2 - xn*xn*kMprt*kMprt)/
+    Float_t etaBF_0minus = Q*z0*(Q2 - xn*xn*kMprt*kMprt)/
       (2*xn*xn*kMprt*kMprt*sqrt(MhT20));
 
-    etaBF_0plus += Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Event.Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1);
+    etaBF_0plus += Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1);
 
-    etaBF_0minus -= Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Event.Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1); 
+    etaBF_0minus -= Q/(kMprt*xn)*sqrt( z0*z0*TMath::Power((Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT20) -1); 
 
     etaBF_0plus = TMath::Log(etaBF_0plus);
     etaBF_0minus = TMath::Log(etaBF_0minus);
@@ -648,15 +694,15 @@ public:
     // pim /////    
 
     Float_t MhT21 = p1Tv_BF.Mag2() + kMh*kMh;
-    Float_t etaBF_1plus = Q*z1*(Event.Q2 - xn*xn*kMprt*kMprt)/
+    Float_t etaBF_1plus = Q*z1*(Q2 - xn*xn*kMprt*kMprt)/
       (2*xn*xn*kMprt*kMprt*sqrt(MhT21));
 
-    Float_t etaBF_1minus = Q*z1*(Event.Q2 - xn*xn*kMprt*kMprt)/
+    Float_t etaBF_1minus = Q*z1*(Q2 - xn*xn*kMprt*kMprt)/
       (2*xn*xn*kMprt*kMprt*sqrt(MhT21));
 
-    etaBF_1plus += Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Event.Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1);
+    etaBF_1plus += Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1);
 
-    etaBF_1minus -= Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Event.Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1); 
+    etaBF_1minus -= Q/(xn*kMprt)*sqrt( z1*z1*TMath::Power((Q2 - xn*xn*kMprt*kMprt),2)/(4*xn*xn*kMprt*kMprt*MhT21) -1); 
 
     etaBF_1plus = log(etaBF_1plus);
     etaBF_1minus = log(etaBF_1minus);
@@ -687,10 +733,10 @@ public:
     Float_t etaCM_1 = 0.5*TMath::Log( (P1.E() + Pl1m) / (P1.E() - Pl1m) );
 
     //// rapidity BF harut
-    //    Float_t g2    = 4*xbj*xbj*kMprt*kMprt/Event.Q2;
-    //Float_t g24   = xn*xn*kMprt*kMprt/Event.Q2;
-    Float_t yhc1  = xn*xn*kMprt*kMprt+xn*Event.Q2;
-    Float_t yhc2  = (1.0-xn)*Event.Q2;
+    //    Float_t g2    = 4*xbj*xbj*kMprt*kMprt/Q2;
+    //Float_t g24   = xn*xn*kMprt*kMprt/Q2;
+    Float_t yhc1  = xn*xn*kMprt*kMprt+xn*Q2;
+    Float_t yhc2  = (1.0-xn)*Q2;
     Float_t yhc   = TMath::Log(sqrt(yhc1/yhc2));
     Float_t etaBF0 = -etaCM_0 - yhc;
     Float_t etaBF1 = -etaCM_1 - yhc;
@@ -803,16 +849,16 @@ public:
     phiH1=phiH1<0?phiH1+360:phiH1;
     //////////////////
   
-    Float_t Mx2 = Event.W*Event.W + M*M - 2*( (Event.Nu+kMprt)*E - sqrt((Event.Q2 + Event.Nu*Event.Nu)*Pl2));
+    Float_t Mx2 = W*W + M*M - 2*( (Nu+kMprt)*E - sqrt((Q2 + Nu*Nu)*Pl2));
 
-    Float_t Phmax = TMath::Sqrt( TMath::Power( Event.W*Event.W + M*M - kMprt*kMprt, 2 ) - 4*Event.W*Event.W*M*M )/(2* Event.W);
+    Float_t Phmax = TMath::Sqrt( TMath::Power( W*W + M*M - kMprt*kMprt, 2 ) - 4*W*W*M*M )/(2* W);
 
-    Float_t Ph0max = TMath::Sqrt( TMath::Power( Event.W*Event.W + kMpi*kMpi - kMprt*kMprt - 2*Event.W*(*comb)[1]->E(), 2 ) - 4*Event.W*Event.W*kMpi*kMpi )/(2* Event.W);
-    Float_t Ph1max = TMath::Sqrt( TMath::Power( Event.W*Event.W + kMpi*kMpi - kMprt*kMprt - 2*Event.W*(*comb)[0]->E(), 2 ) - 4*Event.W*Event.W*kMpi*kMpi )/(2* Event.W);
+    Float_t Ph0max = TMath::Sqrt( TMath::Power( W*W + kMpi*kMpi - kMprt*kMprt - 2*W*(*comb)[1]->E(), 2 ) - 4*W*W*kMpi*kMpi )/(2* W);
+    Float_t Ph1max = TMath::Sqrt( TMath::Power( W*W + kMpi*kMpi - kMprt*kMprt - 2*W*(*comb)[0]->E(), 2 ) - 4*W*W*kMpi*kMpi )/(2* W);
 
     ////// LORENTZ BOOST //////////
-    Float_t b=TMath::Sqrt(Event.Q2 + Event.Nu*Event.Nu)/(Event.Nu+kMprt);
-    Float_t g=(Event.Nu+kMprt)/Event.W;
+    Float_t b=TMath::Sqrt(Q2 + Nu*Nu)/(Nu+kMprt);
+    Float_t g=(Nu+kMprt)/W;
 
     Float_t PlCM = g*(Pl - b*E);
     Float_t Pl0CM = g*( Pl0 - b*(*comb)[0]->E() );
@@ -822,13 +868,13 @@ public:
     Float_t xF0 = Pl0CM/Ph0max;
     Float_t xF1 = Pl1CM/Ph1max;
 
-    Float_t xFm = 2*PlCM/Event.W;
-    Float_t xFm0 = 2*Pl0CM/Event.W;
-    Float_t xFm1 = 2*Pl1CM/Event.W;
+    Float_t xFm = 2*PlCM/W;
+    Float_t xFm0 = 2*Pl0CM/W;
+    Float_t xFm1 = 2*Pl1CM/W;
 
-    Float_t xFo = 2*Plt/Event.W;
-    Float_t xF0o = 2*Pl0m/Event.W;
-    Float_t xF1o = 2*Pl1m/Event.W;
+    Float_t xFo = 2*Plt/W;
+    Float_t xF0o = 2*Pl0m/W;
+    Float_t xF1o = 2*Pl1m/W;
 
     /*** set MC data ***/
     if (isMC){
@@ -836,10 +882,10 @@ public:
       evnt->mc_Phx[k] = Px;
       evnt->mc_Phy[k] = Py;
       evnt->mc_Phz[k] = Pz;
-      evnt->mc_Z[k] = (Float_t)E/Event.Nu;
+      evnt->mc_Z[k] = (Float_t)E/Nu;
       evnt->mc_Cospq[k] = cospq;
       evnt->mc_Pt2[k] = Pt2;
-      evnt->mc_Event[k] = Event.event;
+      evnt->mc_Event[k] = event;
 
       evnt->mc_M2_01[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[1]).M2() : 0);
       evnt->mc_M2_02[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[2]).M2() : 0);
@@ -898,23 +944,9 @@ public:
 
       evnt->mc_E0_phcm[k]  = P0_dicm.E();
       evnt->mc_E1_phcm[k] = P1_dicm.E();
-
       evnt->mc_mix_npart = comb->Npart;
+
       for (int i =0; i<evnt->mc_mix_npart; i++){
-	evnt->mc_beta[k][i] = (*comb)[i]->beta;
-	evnt->mc_m2b[k][i] =  (*comb)[i]->m2b;
-	evnt->mc_vx[k][i] = (*comb)[i]->vx;
-	evnt->mc_vy[k][i] = (*comb)[i]->vy;
-	evnt->mc_vz[k][i] = (*comb)[i]->vz;
-	evnt->mc_dcx[k][i] = (*comb)[i]->dcx;
-	evnt->mc_dcy[k][i] = (*comb)[i]->dcy;
-	evnt->mc_dcz[k][i] = (*comb)[i]->dcz;
-	evnt->mc_statPart[k][i] = (*comb)[i]->statPart;
-	evnt->mc_dc_chi2[k][i] = (*comb)[i]->dc_chi2;
-	evnt->mc_dc_ndf[k][i] = (*comb)[i]->dc_ndf;
-	evnt->mc_pcal_lu[k][i] = (*comb)[i]->pcal_lu;
-	evnt->mc_pcal_lv[k][i] = (*comb)[i]->pcal_lv;
-	evnt->mc_pcal_lw[k][i] = (*comb)[i]->pcal_lw;
 	Double_t px = (*comb)[i]->Px();
 	Double_t py = (*comb)[i]->Py();
 	Double_t pz = (*comb)[i]->Pz();
@@ -932,10 +964,10 @@ public:
       evnt->Phx[k] = Px;
       evnt->Phy[k] = Py;
       evnt->Phz[k] = Pz;
-      evnt->Z[k] = (Float_t)E/Event.Nu;
+      evnt->Z[k] = (Float_t)E/Nu;
       evnt->Cospq[k] = cospq;
       evnt->Pt2[k] = Pt2;
-      evnt->Event[k] = Event.event;
+      evnt->Event[k] = event;
 
       evnt->M2_01[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[1]).M2() : 0);
       evnt->M2_02[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[2]).M2() : 0);
@@ -1258,61 +1290,138 @@ public:
     return energy;
   }
   
+  int setOutVars(bool isMC = false){
+    Float_t pid,E,P,Px,Py,Pz,vxh,vyh,vzh,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw;
+    Int_t npart = 0;
+    Float_t Ep = 0;
+
+    if (!isMC)
+      npart = Event.npart;
+    else
+      npart = Event.mc_npart;
+    /*** rec particles ***/
+    for ( int k = 0; k < npart; k++){
+      if (!isMC){
+	pid = Event.pid[k];
+	E = Event.E[k];
+	P = Event.P[k];
+	Px = Event.Px[k];
+	Py = Event.Py[k];
+	Pz = Event.Pz[k];
+	vxh = Event.vxh[k];
+	vyh = Event.vyh[k];
+	vzh = Event.vzh[k];
+	beta = Event.Beta[k];
+	dcx_rot_0 = Event.dcx_rot_0[k];
+	dcy_rot_0 = Event.dcy_rot_0[k];
+	trajz_sl0 = Event.trajz_sl0[k];
+	statPart = Event.statPart[k];
+	dc_chi2 = Event.dc_chi2[k];
+	dc_ndf = Event.dc_ndf[k];
+	pcal_lu = Event.pcal_lu[k];
+	pcal_lv = Event.pcal_lv[k];
+	pcal_lw = Event.pcal_lw[k];
+      }
+      else{
+	pid = Event.mc_pid[k];
+	E = Event.mc_E[k];
+	P = Event.mc_P[k];
+	Px = Event.mc_Px[k];
+	Py = Event.mc_Py[k];
+	Pz = Event.mc_Pz[k];
+	vxh = Event.mc_vxh[k];
+	vyh = Event.mc_vyh[k];
+	vzh = Event.mc_vzh[k];
+	beta = Event.mc_Beta[k];
+	dcx_rot_0 = 0;
+	dcy_rot_0 = 0;
+	trajz_sl0 = 0;
+	statPart = 0;
+	dc_chi2 = 0;
+	dc_ndf = 0;
+	pcal_lu = 0;
+	pcal_lv = 0;
+	pcal_lw = 0;
+      }
+
+      if (isMC)
+	Ep = E; //gsim
+      else
+	Ep = (pid==22)? (E/0.23):getE(E,P,pid);
+      
+      if (FidCheck(11)){// no fid
+	Particle *p = new Particle(Px,Py,Pz,Ep,vxh,vyh,vzh,pid,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw);
+	//if (!isMC)push_bkgnd(p);
+	findSecondary(new Particle(*p));
+      }
+    }
+
+    /*** end adding particles to the set***/
+    
+    /*** get comb ***/
+    //    if (!isMC) pop_bkgnd();
+    if (isMC) mixEvent.mc_npart = 0;
+    else mixEvent.npart = 0;
+      
+    if (checkMinPart()){
+      int Npart = 1;
+	
+      for (int k =0; k<(int)kSPid.size(); k++){
+	if (DEBUG) std::cout<<"############ Nsecondary of pid: "<<kSPid[k]<<" ::: "<<kSecondary[k].size()<<"###########"<<std::endl; 
+	takeN(kNSPid[kSPid[k]] ,k);
+	  
+	Npart *= kCombo[k].size();
+      }
+      if (DEBUG) std::cout<<"############ N candidates for primary: "<<Npart<<"####################\n##########################"<<std::endl;
+      if (isMC) mixEvent.mc_npart = Npart;
+      else mixEvent.npart = Npart;
+      
+      for(int k=0; k<Npart; k++){
+	kPrimary = new Combo();
+	int div=1;
+	for (int l=0; l<(int)kSPid.size(); l++){
+	  int size = kCombo[l].size();
+	  //std::cout<<__LINE__<<": \n";
+	  *kPrimary+=*kCombo[l][ (k/div)%size ];
+	  //std::cout<<__LINE__<<": \n";
+	    
+	  div*=size;
+	}
+	//  if (DEBUG) std::cout<<"############ Npart from primary: "<<kPrimary->Npart<<"####################"<<std::endl;
+	setVars(k,isMC);
+	delete kPrimary;
+      }
+      setElecVars(isMC); 
+      //if (mixEvent.npart>0) std::cout<<"#### "<<mixEvent.beta[0][0]<<" ####"<<std::endl<<std::endl;
+    }
+    
+    clear();
+    
+    return 0;
+  }
+
+  
   int getCombinations(TChain *t){
     kSecondary = new std::vector<Particle*> [kSPid.size()];
     kCombo = new std::vector<Combo*> [kSPid.size()];
 
     std::cout<<"processing...\n";
     std::cout.fill('.');
-    Float_t Ep = 0;
+    
     for ( Long64_t i = 0; i < Ne; i++){
       t->GetEntry(i);
-      kEbeam = Event.Nu + Event.Pe;
-      for ( int k = 0; k < Event.npart; k++){
-	//   	Ep=Event.E[k]; //gsim
-	Ep = (Event.pid[k]==22)? (Event.E[k]/0.23):getE(Event.E[k],Event.P[k],Event.pid[k]);
-	if (FidCheck(11)){// no fid
-	  Particle *p = new Particle(Event.Px[k],Event.Py[k],Event.Pz[k],Ep,Event.vxh[k],Event.vyh[k],Event.vzh[k],Event.pid[k],0,Event.Beta[k],Event.dcx_rot_0[k],Event.dcy_rot_0[k],Event.trajz_sl0[k],Event.statPart[k],Event.dc_chi2[k],Event.dc_ndf[k],Event.pcal_lu[k],Event.pcal_lv[k],Event.pcal_lw[k]);
-	  
-	  push_bkgnd(p);
-	  
-	  findSecondary(new Particle(*p));
-	}
+      if (Event.mc_npart>0) {
+	kEbeam = Event.mc_Nu + Event.mc_Pe;
       }
-      /*** get comb ***/
-      pop_bkgnd();
-      if (checkMinPart()){
-	int Npart = 1;
-	
-	for (int k =0; k<(int)kSPid.size(); k++){
-	  if (DEBUG) std::cout<<"############ Nsecondary of pid: "<<kSPid[k]<<" ::: "<<kSecondary[k].size()<<"###########"<<std::endl; 
-	  takeN(kNSPid[kSPid[k]] ,k);
-	  
-	  Npart *= kCombo[k].size();
-	}
-	if (DEBUG) std::cout<<"############ N candidates for primary: "<<Npart<<"####################\n##########################"<<std::endl;
-	mixEvent.npart = Npart;
-	for(int k=0; k<Npart; k++){
-	  kPrimary = new Combo();
-	  int div=1;
-	  for (int l=0; l<(int)kSPid.size(); l++){
-	    int size = kCombo[l].size();
-	    //std::cout<<__LINE__<<": \n";
-	    *kPrimary+=*kCombo[l][ (k/div)%size ];
-	    //std::cout<<__LINE__<<": \n";
-	    
-	    div*=size;
-	  }
-	  //  if (DEBUG) std::cout<<"############ Npart from primary: "<<kPrimary->Npart<<"####################"<<std::endl;
-	  setElecVars();
-	  setVars(k);
-  
-	  delete kPrimary;
-	}
-	if (mixEvent.npart>0) std::cout<<"#### "<<mixEvent.beta[0][0]<<" ####"<<std::endl<<std::endl;
+      else  {
+	kEbeam = Event.Nu + Event.Pe;
+      }
+      resetDATAMIX(&mixEvent);
+      setOutVars(true); // MC
+      setOutVars();
+      /*** end rec particles ***/
+      if (mixEvent.npart>0 || mixEvent.mc_npart>0)
 	fillTree();
-      }
-      clear();
 
       //	if (data_type<2&&FidCheck(pid))
       std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";

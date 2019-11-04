@@ -390,6 +390,7 @@ void filter(void *arg)
       Evnt.revent = revent;
       Evnt.y = t->Nu()/EBEAM;
       Evnt.th_e = TMath::ACos(t->Pz(0)/t->Momentum(0))*TMath::RadToDeg();
+      Evnt.phi_e = TMath::ATan2(t->Py(0),t->Px(0))*TMath::RadToDeg();
       Evnt.helicRaw = t->HelicRaw();
           
       //      tElec->Fill(DataElec);
@@ -537,8 +538,9 @@ void filter(void *arg)
       Evnt.mc_Pe = t->Momentum(ind_first,1);
       Evnt.mc_Ee =  sqrt(t -> Momentum(ind_first,1)*t -> Momentum(ind_first,1) + t->MCMass(ind_first)*t->MCMass(ind_first));
       Evnt.mc_revent = revent;
-      Evnt.mc_y = t->Nu()/EBEAM;
+      Evnt.mc_y = t->Nu(1)/EBEAM;
       Evnt.mc_th_e =TMath::ACos(t->Pz(ind_first,1)/t->Momentum(ind_first,1))*TMath::RadToDeg();
+      Evnt.mc_phi_e =TMath::ATan2(t->Py(ind_first,1),t->Px(ind_first,1))*TMath::RadToDeg();
       Evnt.mc_e_Beta =  t->Momentum(ind_first,1)/t->Etot(ind_first,1);
 
       for(int i=ind_first + 1; i<nRows; i++) 
@@ -562,7 +564,7 @@ void filter(void *arg)
 	  Evnt.mc_E[npart] =  sqrt(t -> Momentum(i,1)*t -> Momentum(i,1) + t->MCMass(i)*t->MCMass(i));
 	  Evnt.mc_Px[npart] = t->Px(i,1);
 	  Evnt.mc_Py[npart] = t->Py(i,1);
-	  Evnt.mc_Pz[npart] = t->Py(i,1);
+	  Evnt.mc_Pz[npart] = t->Pz(i,1);
 	  Evnt.mc_pid[npart] = pid;
 	  Evnt.mc_Beta[npart] =  t->Momentum(i,1)/t->Etot(i,1);
 	  Evnt.mc_vxh[npart] = t->X(i,1);
