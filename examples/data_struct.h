@@ -136,8 +136,8 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("phiR_covH",evnt->phiR_covH,"phiR_covH[npart]/F");
   t->Branch("E0_phcm",evnt->E0_phcm,"E0_phcm[npart]/F");
   t->Branch("E1_phcm",evnt->E1_phcm,"E1_phcm[npart]/F");
-
   /*** end FS rec***/
+
   /*** det data ***/
   t->Branch("mix_npart",&evnt->mix_npart,"mix_npart/I");
   t->Branch("beta",evnt->beta,"beta[npart][5]/F");
@@ -170,62 +170,62 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   /*** end particle ***/
   
   /*** FS MC ***/
-  t->Branch("mc_M",evnt->mc_M,"mc_M[npart]/F");
-  t->Branch("mc_Phx",evnt->mc_Phx,"mc_Phx[npart]/F");
-  t->Branch("mc_Phy",evnt->mc_Phy,"mc_Phy[npart]/F");
-  t->Branch("mc_Phz",evnt->mc_Phz,"mc_Phz[npart]/F");
-  t->Branch("mc_Z",evnt->mc_Z,"mc_Z[npart]/F");
-  t->Branch("mc_Cospq",evnt->mc_Cospq,"mc_Cospq[npart]/F");
-  t->Branch("mc_Pt2",evnt->mc_Pt2,"mc_Pt2[npart]/F");
-  t->Branch("mc_Event",evnt->mc_Event,"mc_Event[npart]/F");
-  t->Branch("mc_M2_01",evnt->mc_M2_01,"mc_M2_01[npart]/F");
-  t->Branch("mc_M2_02",evnt->mc_M2_02,"mc_M2_02[npart]/F");
-  t->Branch("mc_phiH",evnt->mc_phiH,"mc_phiH[npart]/F");
-  t->Branch("mc_phiR",evnt->mc_phiR,"mc_phiR[npart]/F");
-  t->Branch("mc_Mx2",evnt->mc_Mx2,"mc_Mx2[npart]/F");
-  t->Branch("mc_xF",evnt->mc_xF,"mc_xF[npart]/F");
-  t->Branch("mc_xF0",evnt->mc_xF0,"mc_xF0[npart]/F");
-  t->Branch("mc_xF1",evnt->mc_xF1,"mc_xF1[npart]/F");
-  t->Branch("mc_plcm",evnt->mc_plcm,"mc_plcm[npart]/F");
-  t->Branch("mc_plcm0",evnt->mc_plcm0,"mc_plcm0[npart]/F");
-  t->Branch("mc_plcm1",evnt->mc_plcm1,"mc_plcm1[npart]/F");
-  t->Branch("mc_Eh",evnt->mc_Eh,"mc_Eh[npart]/F");
-  t->Branch("mc_xFm",evnt->mc_xFm,"mc_xFm[npart]/F");
-  t->Branch("mc_xFm0",evnt->mc_xFm0,"mc_xFm0[npart]/F");
-  t->Branch("mc_xFm1",evnt->mc_xFm1,"mc_xFm1[npart]/F");
-  t->Branch("mc_theta0",evnt->mc_theta0,"mc_theta0[npart]/F");
-  t->Branch("mc_theta1",evnt->mc_theta1,"mc_theta1[npart]/F");
-  t->Branch("mc_cos_theta_P0cm",evnt->mc_cos_theta_P0cm,"mc_cos_theta_P0cm[npart]/F");
-  t->Branch("mc_sin_theta_P0cm",evnt->mc_sin_theta_P0cm,"mc_sin_theta_P0cm[npart]/F");
-  t->Branch("mc_xFo",evnt->mc_xFo,"mc_xFo[npart]/F");
-  t->Branch("mc_xFo0",evnt->mc_xFo0,"mc_xFo0[npart]/F");
-  t->Branch("mc_xFo1",evnt->mc_xFo1,"mc_xFo1[npart]/F");
-  t->Branch("mc_phiH_phiR",evnt->mc_phiH_phiR,"mc_phiH_phiR[npart]/F");
-  t->Branch("mc_phiR_cov",evnt->mc_phiR_cov,"mc_phiR_cov[npart]/F");
-  t->Branch("mc_p0T2",evnt->mc_p0T2,"mc_p0T2[npart]/F");
-  t->Branch("mc_p1T2",evnt->mc_p1T2,"mc_p1T2[npart]/F");
-  t->Branch("mc_phipq",evnt->mc_phipq,"mc_phipq[npart]/F");
-  t->Branch("mc_phT2",evnt->mc_phT2,"mc_phT2[npart]/F");
-  t->Branch("mc_etaCM0",evnt->mc_etaCM0,"mc_etaCM0[npart]/F");
-  t->Branch("mc_etaCM1",evnt->mc_etaCM1,"mc_etaCM1[npart]/F");
-  t->Branch("mc_etaBF0p",evnt->mc_etaBF0p,"mc_etaBF0p[npart]/F");
-  t->Branch("mc_etaBF1p",evnt->mc_etaBF1p,"mc_etaBF1p[npart]/F");
-  t->Branch("mc_etaBF0m",evnt->mc_etaBF0m,"mc_etaBF0m[npart]/F");
-  t->Branch("mc_etaBF1m",evnt->mc_etaBF1m,"mc_etaBF1m[npart]/F");
-  t->Branch("mc_etaBF0",evnt->mc_etaBF0,"mc_etaBF0[npart]/F");
-  t->Branch("mc_etaBF1",evnt->mc_etaBF1,"mc_etaBF1[npart]/F");
-  t->Branch("mc_phiH0",evnt->mc_phiH0,"mc_phiH0[npart]/F");
-  t->Branch("mc_phiH1",evnt->mc_phiH1,"mc_phiH1[npart]/F");
-  t->Branch("mc_phiR_ha",evnt->mc_phiR_ha,"mc_phiR_ha[npart]/F");
-  t->Branch("mc_plcm0_r",evnt->mc_plcm0_r,"mc_plcm0_r[npart]/F");
-  t->Branch("mc_plcm1_r",evnt->mc_plcm1_r,"mc_plcm1_r[npart]/F");
-  t->Branch("mc_phiR_covH",evnt->mc_phiR_covH,"mc_phiR_covH[npart]/F");
-  t->Branch("mc_E0_phcm",evnt->mc_E0_phcm,"mc_E0_phcm[npart]/F");
-  t->Branch("mc_E1_phcm",evnt->mc_E1_phcm,"mc_E1_phcm[npart]/F");
+  t->Branch("mc_npart",&evnt->mc_npart,"mc_npart/I");
+  t->Branch("mc_M",evnt->mc_M,"mc_M[mc_npart]/F");
+  t->Branch("mc_Phx",evnt->mc_Phx,"mc_Phx[mc_npart]/F");
+  t->Branch("mc_Phy",evnt->mc_Phy,"mc_Phy[mc_npart]/F");
+  t->Branch("mc_Phz",evnt->mc_Phz,"mc_Phz[mc_npart]/F");
+  t->Branch("mc_Z",evnt->mc_Z,"mc_Z[mc_npart]/F");
+  t->Branch("mc_Cospq",evnt->mc_Cospq,"mc_Cospq[mc_npart]/F");
+  t->Branch("mc_Pt2",evnt->mc_Pt2,"mc_Pt2[mc_npart]/F");
+  t->Branch("mc_Event",evnt->mc_Event,"mc_Event[mc_npart]/F");
+  t->Branch("mc_M2_01",evnt->mc_M2_01,"mc_M2_01[mc_npart]/F");
+  t->Branch("mc_M2_02",evnt->mc_M2_02,"mc_M2_02[mc_npart]/F");
+  t->Branch("mc_phiH",evnt->mc_phiH,"mc_phiH[mc_npart]/F");
+  t->Branch("mc_phiR",evnt->mc_phiR,"mc_phiR[mc_npart]/F");
+  t->Branch("mc_Mx2",evnt->mc_Mx2,"mc_Mx2[mc_npart]/F");
+  t->Branch("mc_xF",evnt->mc_xF,"mc_xF[mc_npart]/F");
+  t->Branch("mc_xF0",evnt->mc_xF0,"mc_xF0[mc_npart]/F");
+  t->Branch("mc_xF1",evnt->mc_xF1,"mc_xF1[mc_npart]/F");
+  t->Branch("mc_plcm",evnt->mc_plcm,"mc_plcm[mc_npart]/F");
+  t->Branch("mc_plcm0",evnt->mc_plcm0,"mc_plcm0[mc_npart]/F");
+  t->Branch("mc_plcm1",evnt->mc_plcm1,"mc_plcm1[mc_npart]/F");
+  t->Branch("mc_Eh",evnt->mc_Eh,"mc_Eh[mc_npart]/F");
+  t->Branch("mc_xFm",evnt->mc_xFm,"mc_xFm[mc_npart]/F");
+  t->Branch("mc_xFm0",evnt->mc_xFm0,"mc_xFm0[mc_npart]/F");
+  t->Branch("mc_xFm1",evnt->mc_xFm1,"mc_xFm1[mc_npart]/F");
+  t->Branch("mc_theta0",evnt->mc_theta0,"mc_theta0[mc_npart]/F");
+  t->Branch("mc_theta1",evnt->mc_theta1,"mc_theta1[mc_npart]/F");
+  t->Branch("mc_cos_theta_P0cm",evnt->mc_cos_theta_P0cm,"mc_cos_theta_P0cm[mc_npart]/F");
+  t->Branch("mc_sin_theta_P0cm",evnt->mc_sin_theta_P0cm,"mc_sin_theta_P0cm[mc_npart]/F");
+  t->Branch("mc_xFo",evnt->mc_xFo,"mc_xFo[mc_npart]/F");
+  t->Branch("mc_xFo0",evnt->mc_xFo0,"mc_xFo0[mc_npart]/F");
+  t->Branch("mc_xFo1",evnt->mc_xFo1,"mc_xFo1[mc_npart]/F");
+  t->Branch("mc_phiH_phiR",evnt->mc_phiH_phiR,"mc_phiH_phiR[mc_npart]/F");
+  t->Branch("mc_phiR_cov",evnt->mc_phiR_cov,"mc_phiR_cov[mc_npart]/F");
+  t->Branch("mc_p0T2",evnt->mc_p0T2,"mc_p0T2[mc_npart]/F");
+  t->Branch("mc_p1T2",evnt->mc_p1T2,"mc_p1T2[mc_npart]/F");
+  t->Branch("mc_phipq",evnt->mc_phipq,"mc_phipq[mc_npart]/F");
+  t->Branch("mc_phT2",evnt->mc_phT2,"mc_phT2[mc_npart]/F");
+  t->Branch("mc_etaCM0",evnt->mc_etaCM0,"mc_etaCM0[mc_npart]/F");
+  t->Branch("mc_etaCM1",evnt->mc_etaCM1,"mc_etaCM1[mc_npart]/F");
+  t->Branch("mc_etaBF0p",evnt->mc_etaBF0p,"mc_etaBF0p[mc_npart]/F");
+  t->Branch("mc_etaBF1p",evnt->mc_etaBF1p,"mc_etaBF1p[mc_npart]/F");
+  t->Branch("mc_etaBF0m",evnt->mc_etaBF0m,"mc_etaBF0m[mc_npart]/F");
+  t->Branch("mc_etaBF1m",evnt->mc_etaBF1m,"mc_etaBF1m[mc_npart]/F");
+  t->Branch("mc_etaBF0",evnt->mc_etaBF0,"mc_etaBF0[mc_npart]/F");
+  t->Branch("mc_etaBF1",evnt->mc_etaBF1,"mc_etaBF1[mc_npart]/F");
+  t->Branch("mc_phiH0",evnt->mc_phiH0,"mc_phiH0[mc_npart]/F");
+  t->Branch("mc_phiH1",evnt->mc_phiH1,"mc_phiH1[mc_npart]/F");
+  t->Branch("mc_phiR_ha",evnt->mc_phiR_ha,"mc_phiR_ha[mc_npart]/F");
+  t->Branch("mc_plcm0_r",evnt->mc_plcm0_r,"mc_plcm0_r[mc_npart]/F");
+  t->Branch("mc_plcm1_r",evnt->mc_plcm1_r,"mc_plcm1_r[mc_npart]/F");
+  t->Branch("mc_phiR_covH",evnt->mc_phiR_covH,"mc_phiR_covH[mc_npart]/F");
+  t->Branch("mc_E0_phcm",evnt->mc_E0_phcm,"mc_E0_phcm[mc_npart]/F");
+  t->Branch("mc_E1_phcm",evnt->mc_E1_phcm,"mc_E1_phcm[mc_npart]/F");
   /*** end FS MC ***/
   
   /*** Electron variables ***/
-  t->Branch("npart",&evnt->npart,"npart/I");
   t->Branch("Q2",&evnt->Q2,"Q2/F");
   t->Branch("W",&evnt->W,"W/F");
   t->Branch("Nu",&evnt->Nu,"Nu/F");
@@ -344,7 +344,6 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
 
   
   /*** Electrons MC***/
-  t->Branch("mc_npart",&evnt->mc_npart,"mc_npart/I");
   t->Branch("mc_Q2",&evnt->mc_Q2,"mc_Q2/F");
   t->Branch("mc_W",&evnt->mc_W,"mc_W/F");
   t->Branch("mc_Nu",&evnt->mc_Nu,"mc_Nu/F");

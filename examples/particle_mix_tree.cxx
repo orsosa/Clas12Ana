@@ -890,6 +890,7 @@ public:
       evnt->mc_M2_01[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[1]).M2() : 0);
       evnt->mc_M2_02[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[2]).M2() : 0);
 
+      
       evnt->mc_phiH[k] = phiH;
       evnt->mc_phiR[k] = phiR;
       evnt->mc_Mx2[k] = Mx2;
@@ -1396,7 +1397,6 @@ public:
     }
     
     clear();
-    
     return 0;
   }
 
