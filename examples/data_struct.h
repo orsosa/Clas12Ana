@@ -55,7 +55,7 @@ typedef struct PARTDATA{
 
 typedef struct DATAMIXstr{
   Int_t npart;
-  Float_t Q2, W, Nu, Xb, vxec, vyec, vzec, vxe, vye, vze, Pex, Pey, Pez, event, Pe, Ee, e_Ein, e_Eout, e_Epcal, e_npheltcc, e_nphehtcc, helic, e_chi2pid, e_pcal_lu, e_pcal_lv, e_pcal_lw, e_ecin_lu, e_ecin_lv, e_ecin_lw, e_ecout_lu, e_ecout_lv, e_ecout_lw, e_pcal_hx, e_pcal_hy, e_pcal_hz, e_ecin_hx, e_ecin_hy, e_ecin_hz, e_ecout_hx, e_ecout_hy, e_ecout_hz, e_trajx_sl0, e_trajx_sl1, e_trajx_sl2, e_trajx_sl3, e_trajx_sl4, e_trajx_sl5, e_trajy_sl0, e_trajy_sl1, e_trajy_sl2, e_trajy_sl3, e_trajy_sl4, e_trajy_sl5, e_trajz_sl0, e_trajz_sl1, e_trajz_sl2, e_trajz_sl3, e_trajz_sl4, e_trajz_sl5, e_pathtof, e_timetof, e_sector_tof, e_Beta, STTime, RFTime, e_dcx_rot_0, e_dcy_rot_0, e_dcx_rot_1, e_dcy_rot_1, e_dcx_rot_2, e_dcy_rot_2, e_sector_ltcc, e_sector_htcc, e_sector_ecal, e_dc_chi2, e_ftof1ax, e_ftof1ay, e_ftof1az, e_pcalx, e_pcaly, e_pcalz, e_ecalx, e_ecaly, e_ecalz, e_ltccx, e_ltccy, e_ltccz, e_htccx, e_htccy, e_htccz, e_ftof1bx, e_ftof1by, e_ftof1bz, e_ftof2x, e_ftof2y, e_ftof2z, helonline_hel, helonline_helRaw, helflip_hel, helflip_helRaw, helflip_event, e_dc_status, e_dc_ndf, e_sector_dc, e_statPart, e_DCPx, e_DCPy, e_DCPz, revent, y, th_e, phi_e, helicRaw;
+  Float_t Q2, W, Nu, Xb, vxec, vyec, vzec, vxe, vye, vze, Pex, Pey, Pez, event, Pe, Ee, e_Ein, e_Eout, e_Epcal, e_npheltcc, e_nphehtcc, helic, e_chi2pid, e_pcal_lu, e_pcal_lv, e_pcal_lw, e_ecin_lu, e_ecin_lv, e_ecin_lw, e_ecout_lu, e_ecout_lv, e_ecout_lw, e_pcal_hx, e_pcal_hy, e_pcal_hz, e_ecin_hx, e_ecin_hy, e_ecin_hz, e_ecout_hx, e_ecout_hy, e_ecout_hz, e_trajx_sl0, e_trajx_sl1, e_trajx_sl2, e_trajx_sl3, e_trajx_sl4, e_trajx_sl5, e_trajy_sl0, e_trajy_sl1, e_trajy_sl2, e_trajy_sl3, e_trajy_sl4, e_trajy_sl5, e_trajz_sl0, e_trajz_sl1, e_trajz_sl2, e_trajz_sl3, e_trajz_sl4, e_trajz_sl5, e_pathtof, e_timetof, e_sector_tof, e_Beta, STTime, RFTime, e_dcx_rot_0, e_dcy_rot_0, e_dcx_rot_1, e_dcy_rot_1, e_dcx_rot_2, e_dcy_rot_2, e_sector_ltcc, e_sector_htcc, e_sector_ecal, e_dc_chi2, e_ftof1ax, e_ftof1ay, e_ftof1az, e_pcalx, e_pcaly, e_pcalz, e_ecalx, e_ecaly, e_ecalz, e_ltccx, e_ltccy, e_ltccz, e_htccx, e_htccy, e_htccz, e_ftof1bx, e_ftof1by, e_ftof1bz, e_ftof2x, e_ftof2y, e_ftof2z, helonline_hel, helonline_helRaw, helflip_hel, helflip_helRaw, helflip_event, e_dc_status, e_dc_ndf, e_sector_dc, e_statPart, e_DCPx, e_DCPy, e_DCPz, revent, y, th_e, phi_e, helicRaw, epsilon, gamm, fA, fB, fC, fV, fW;
 
   Int_t mix_npart;
   ////////////// detector data sucture ///////////
@@ -64,20 +64,19 @@ typedef struct DATAMIXstr{
   /*** end detData ***/
 
   /*** mix particles data***/
-  Float_t e[MAXPART][MAXPART_MIX], px[MAXPART][MAXPART_MIX], py[MAXPART][MAXPART_MIX], pz[MAXPART][MAXPART_MIX];
+  Float_t e[MAXPART][MAXPART_MIX], px[MAXPART][MAXPART_MIX], py[MAXPART][MAXPART_MIX], pz[MAXPART][MAXPART_MIX], helic002_phiH[MAXPART][MAXPART_MIX], helic005_phiH[MAXPART][MAXPART_MIX], helic010_phiH[MAXPART][MAXPART_MIX], helic020_phiH[MAXPART][MAXPART_MIX],phiHs[MAXPART][MAXPART_MIX];
   /*** mc ***/
-  Float_t mc_e[MAXPART][MAXPART_MIX], mc_px[MAXPART][MAXPART_MIX], mc_py[MAXPART][MAXPART_MIX], mc_pz[MAXPART][MAXPART_MIX];
+  Float_t mc_e[MAXPART][MAXPART_MIX], mc_px[MAXPART][MAXPART_MIX], mc_py[MAXPART][MAXPART_MIX], mc_pz[MAXPART][MAXPART_MIX], mc_helic002_phiH[MAXPART][MAXPART_MIX], mc_helic005_phiH[MAXPART][MAXPART_MIX], mc_helic010_phiH[MAXPART][MAXPART_MIX], mc_helic020_phiH[MAXPART][MAXPART_MIX], mc_phiHs[MAXPART][MAXPART_MIX];
   /*** end mix particles data  ***/
 
-  Float_t M[MAXPART], Phx[MAXPART], Phy[MAXPART], Phz[MAXPART], Z[MAXPART], Cospq[MAXPART], Pt2[MAXPART], Event[MAXPART], M2_01[MAXPART], M2_02[MAXPART], phiH[MAXPART], phiR[MAXPART], Mx2[MAXPART], xF[MAXPART], xF0[MAXPART], xF1[MAXPART], plcm[MAXPART], plcm0[MAXPART], plcm1[MAXPART], Eh[MAXPART], xFm[MAXPART], xFm0[MAXPART], xFm1[MAXPART], theta0[MAXPART], theta1[MAXPART], cos_theta_P0cm[MAXPART], sin_theta_P0cm[MAXPART], xFo[MAXPART], xFo0[MAXPART], xFo1[MAXPART], phiH_phiR[MAXPART], phiR_cov[MAXPART], p0T2[MAXPART], p1T2[MAXPART], phipq[MAXPART], phT2[MAXPART], etaCM0[MAXPART], etaCM1[MAXPART], etaBF0p[MAXPART], etaBF1p[MAXPART], etaBF0m[MAXPART], etaBF1m[MAXPART], etaBF0[MAXPART], etaBF1[MAXPART], phiH0[MAXPART], phiH1[MAXPART], phiR_ha[MAXPART], plcm0_r[MAXPART], plcm1_r[MAXPART], phiR_covH[MAXPART], E0_phcm[MAXPART], E1_phcm[MAXPART];
-  
+  Float_t M[MAXPART], Phx[MAXPART], Phy[MAXPART], Phz[MAXPART], Z[MAXPART], Cospq[MAXPART], Pt2[MAXPART], Event[MAXPART], M2_01[MAXPART], M2_02[MAXPART], phiH[MAXPART], phiR[MAXPART], Mx2[MAXPART], xF[MAXPART], xF0[MAXPART], xF1[MAXPART], plcm[MAXPART], plcm0[MAXPART], plcm1[MAXPART], Eh[MAXPART], xFm[MAXPART], xFm0[MAXPART], xFm1[MAXPART], theta0[MAXPART], theta1[MAXPART], cos_theta_P0cm[MAXPART], sin_theta_P0cm[MAXPART], xFo[MAXPART], xFo0[MAXPART], xFo1[MAXPART], phiH_phiR[MAXPART], phiR_cov[MAXPART], p0T2[MAXPART], p1T2[MAXPART], phipq[MAXPART], phT2[MAXPART], etaCM0[MAXPART], etaCM1[MAXPART], etaBF0p[MAXPART], etaBF1p[MAXPART], etaBF0m[MAXPART], etaBF1m[MAXPART], etaBF0[MAXPART], etaBF1[MAXPART], phiR_ha[MAXPART], plcm0_r[MAXPART], plcm1_r[MAXPART], phiR_covH[MAXPART], E0_phcm[MAXPART], E1_phcm[MAXPART], helic002_phiR[MAXPART], helic005_phiR[MAXPART], helic010_phiR[MAXPART], helic020_phiR[MAXPART], KF[MAXPART], R[MAXPART], helic002_phiRst[MAXPART], helic005_phiRst[MAXPART], helic010_phiRst[MAXPART], helic020_phiRst[MAXPART], wUxS_phiR[MAXPART];
   
   /*** MC data ***/
   Int_t mc_npart;
-  Float_t mc_Q2, mc_W, mc_Nu, mc_Xb, mc_vxe, mc_vye, mc_vze, mc_Pex, mc_Pey, mc_Pez, mc_event, e_mcmass, mc_Pe, mc_Ee, mc_revent, mc_y, mc_th_e, mc_phi_e, mc_e_Beta, mc_helic;
+  Float_t mc_Q2, mc_W, mc_Nu, mc_Xb, mc_vxe, mc_vye, mc_vze, mc_Pex, mc_Pey, mc_Pez, mc_event, e_mcmass, mc_Pe, mc_Ee, mc_revent, mc_y, mc_th_e, mc_phi_e, mc_e_Beta, mc_helic, mc_epsilon, mc_gamm, mc_fA, mc_fB, mc_fC, mc_fV, mc_fW;
 
   Int_t mc_mix_npart;
-  Float_t mc_M[MAXPART], mc_Phx[MAXPART], mc_Phy[MAXPART], mc_Phz[MAXPART], mc_Z[MAXPART], mc_Cospq[MAXPART], mc_Pt2[MAXPART], mc_Event[MAXPART], mc_M2_01[MAXPART], mc_M2_02[MAXPART], mc_phiH[MAXPART], mc_phiR[MAXPART], mc_Mx2[MAXPART], mc_xF[MAXPART], mc_xF0[MAXPART], mc_xF1[MAXPART], mc_plcm[MAXPART], mc_plcm0[MAXPART], mc_plcm1[MAXPART], mc_Eh[MAXPART], mc_xFm[MAXPART], mc_xFm0[MAXPART], mc_xFm1[MAXPART], mc_theta0[MAXPART], mc_theta1[MAXPART], mc_cos_theta_P0cm[MAXPART], mc_sin_theta_P0cm[MAXPART], mc_xFo[MAXPART], mc_xFo0[MAXPART], mc_xFo1[MAXPART], mc_phiH_phiR[MAXPART], mc_phiR_cov[MAXPART], mc_p0T2[MAXPART], mc_p1T2[MAXPART], mc_phipq[MAXPART], mc_phT2[MAXPART], mc_etaCM0[MAXPART], mc_etaCM1[MAXPART], mc_etaBF0p[MAXPART], mc_etaBF1p[MAXPART], mc_etaBF0m[MAXPART], mc_etaBF1m[MAXPART], mc_etaBF0[MAXPART], mc_etaBF1[MAXPART], mc_phiH0[MAXPART], mc_phiH1[MAXPART], mc_phiR_ha[MAXPART], mc_plcm0_r[MAXPART], mc_plcm1_r[MAXPART], mc_phiR_covH[MAXPART], mc_E0_phcm[MAXPART], mc_E1_phcm[MAXPART];
+  Float_t mc_M[MAXPART], mc_Phx[MAXPART], mc_Phy[MAXPART], mc_Phz[MAXPART], mc_Z[MAXPART], mc_Cospq[MAXPART], mc_Pt2[MAXPART], mc_Event[MAXPART], mc_M2_01[MAXPART], mc_M2_02[MAXPART], mc_phiH[MAXPART], mc_phiR[MAXPART], mc_Mx2[MAXPART], mc_xF[MAXPART], mc_xF0[MAXPART], mc_xF1[MAXPART], mc_plcm[MAXPART], mc_plcm0[MAXPART], mc_plcm1[MAXPART], mc_Eh[MAXPART], mc_xFm[MAXPART], mc_xFm0[MAXPART], mc_xFm1[MAXPART], mc_theta0[MAXPART], mc_theta1[MAXPART], mc_cos_theta_P0cm[MAXPART], mc_sin_theta_P0cm[MAXPART], mc_xFo[MAXPART], mc_xFo0[MAXPART], mc_xFo1[MAXPART], mc_phiH_phiR[MAXPART], mc_phiR_cov[MAXPART], mc_p0T2[MAXPART], mc_p1T2[MAXPART], mc_phipq[MAXPART], mc_phT2[MAXPART], mc_etaCM0[MAXPART], mc_etaCM1[MAXPART], mc_etaBF0p[MAXPART], mc_etaBF1p[MAXPART], mc_etaBF0m[MAXPART], mc_etaBF1m[MAXPART], mc_etaBF0[MAXPART], mc_etaBF1[MAXPART], mc_phiR_ha[MAXPART], mc_plcm0_r[MAXPART], mc_plcm1_r[MAXPART], mc_phiR_covH[MAXPART], mc_E0_phcm[MAXPART], mc_E1_phcm[MAXPART], mc_helic002_phiR[MAXPART], mc_helic005_phiR[MAXPART], mc_helic010_phiR[MAXPART], mc_helic020_phiR[MAXPART], mc_helic002_phiRst[MAXPART], mc_helic005_phiRst[MAXPART], mc_helic010_phiRst[MAXPART], mc_helic020_phiRst[MAXPART], mc_wUxS_phiR[MAXPART], mc_KF[MAXPART], mc_R[MAXPART];
 
 } DATAMIX;
 
@@ -96,6 +95,18 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("M2_02",evnt->M2_02,"M2_02[npart]/F");
   t->Branch("phiH",evnt->phiH,"phiH[npart]/F");
   t->Branch("phiR",evnt->phiR,"phiR[npart]/F");
+  t->Branch("helic002_phiR",evnt->helic002_phiR,"helic002_phiR[npart]/F");
+  t->Branch("helic005_phiR",evnt->helic005_phiR,"helic005_phiR[npart]/F");
+  t->Branch("helic010_phiR",evnt->helic010_phiR,"helic010_phiR[npart]/F");
+  t->Branch("helic020_phiR",evnt->helic020_phiR,"helic020_phiR[npart]/F");
+  t->Branch("helic002_phiRst",evnt->helic002_phiRst,"helic002_phiRst[npart]/F");
+  t->Branch("helic005_phiRst",evnt->helic005_phiRst,"helic005_phiRst[npart]/F");
+  t->Branch("helic010_phiRst",evnt->helic010_phiRst,"helic010_phiRst[npart]/F");
+  t->Branch("helic020_phiRst",evnt->helic020_phiRst,"helic020_phiRst[npart]/F");
+
+  t->Branch("wUxS_phiR",evnt->wUxS_phiR,"wUxS_phiR[npart]/F");
+  t->Branch("R",evnt->R,"R[npart]/F");
+  t->Branch("KF",evnt->KF,"KF[npart]/F");
   t->Branch("Mx2",evnt->Mx2,"Mx2[npart]/F");
   t->Branch("xF",evnt->xF,"xF[npart]/F");
   t->Branch("xF0",evnt->xF0,"xF0[npart]/F");
@@ -128,8 +139,6 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("etaBF1m",evnt->etaBF1m,"etaBF1m[npart]/F");
   t->Branch("etaBF0",evnt->etaBF0,"etaBF0[npart]/F");
   t->Branch("etaBF1",evnt->etaBF1,"etaBF1[npart]/F");
-  t->Branch("phiH0",evnt->phiH0,"phiH0[npart]/F");
-  t->Branch("phiH1",evnt->phiH1,"phiH1[npart]/F");
   t->Branch("phiR_ha",evnt->phiR_ha,"phiR_ha[npart]/F");
   t->Branch("plcm0_r",evnt->plcm0_r,"plcm0_r[npart]/F");
   t->Branch("plcm1_r",evnt->plcm1_r,"plcm1_r[npart]/F");
@@ -154,7 +163,12 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("pcal_lu",evnt->pcal_lu,"pcal_lu[npart][5]/F");
   t->Branch("pcal_lv",evnt->pcal_lv,"pcal_lv[npart][5]/F");
   t->Branch("pcal_lw",evnt->pcal_lw,"pcal_lw[npart][5]/F");
-  
+  t->Branch("helic002_phiH",evnt->helic002_phiH,"helic002_phiH[npart][5]/F");
+  t->Branch("helic005_phiH",evnt->helic005_phiH,"helic005_phiH[npart][5]/F");
+  t->Branch("helic010_phiH",evnt->helic010_phiH,"helic010_phiH[npart][5]/F");
+  t->Branch("helic020_phiH",evnt->helic020_phiH,"helic020_phiH[npart][5]/F");
+  t->Branch("phiHs",evnt->phiHs,"phiHs[npart][5]/F");
+
   /*** end det data***/
   /*** set particles ***/
   t->Branch("e",evnt->e,"e[npart][5]/F");
@@ -162,15 +176,21 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("py",evnt->py,"py[npart][5]/F");
   t->Branch("pz",evnt->pz,"pz[npart][5]/F");
   /*** mc ***/
-  t->Branch("mc_mix_npart",&evnt->mc_mix_npart,"mix_npart/I");
-  t->Branch("mc_e",evnt->mc_e,"mc_e[npart][5]/F");
-  t->Branch("mc_px",evnt->mc_px,"mc_px[npart][5]/F");
-  t->Branch("mc_py",evnt->mc_py,"mc_py[npart][5]/F");
-  t->Branch("mc_pz",evnt->mc_pz,"mc_pz[npart][5]/F");
+  t->Branch("mc_npart",&evnt->mc_npart,"mc_npart/I");
+  t->Branch("mc_mix_npart",&evnt->mc_mix_npart,"mc_mix_npart/I");
+  t->Branch("mc_e",evnt->mc_e,"mc_e[mc_npart][5]/F");
+  t->Branch("mc_px",evnt->mc_px,"mc_px[mc_npart][5]/F");
+  t->Branch("mc_py",evnt->mc_py,"mc_py[mc_npart][5]/F");
+  t->Branch("mc_pz",evnt->mc_pz,"mc_pz[mc_npart][5]/F");
+  t->Branch("mc_helic002_phiH",evnt->mc_helic002_phiH,"mc_helic002_phiH[mc_npart][5]/F");
+  t->Branch("mc_helic005_phiH",evnt->mc_helic005_phiH,"mc_helic005_phiH[mc_npart][5]/F");
+  t->Branch("mc_helic010_phiH",evnt->mc_helic010_phiH,"mc_helic010_phiH[mc_npart][5]/F");
+  t->Branch("mc_helic020_phiH",evnt->mc_helic020_phiH,"mc_helic020_phiH[mc_npart][5]/F");
+  t->Branch("mc_phiHs",evnt->mc_phiHs,"mc_phiHs[mc_npart][5]/F");
+
   /*** end particle ***/
   
   /*** FS MC ***/
-  t->Branch("mc_npart",&evnt->mc_npart,"mc_npart/I");
   t->Branch("mc_M",evnt->mc_M,"mc_M[mc_npart]/F");
   t->Branch("mc_Phx",evnt->mc_Phx,"mc_Phx[mc_npart]/F");
   t->Branch("mc_Phy",evnt->mc_Phy,"mc_Phy[mc_npart]/F");
@@ -183,6 +203,15 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("mc_M2_02",evnt->mc_M2_02,"mc_M2_02[mc_npart]/F");
   t->Branch("mc_phiH",evnt->mc_phiH,"mc_phiH[mc_npart]/F");
   t->Branch("mc_phiR",evnt->mc_phiR,"mc_phiR[mc_npart]/F");
+  t->Branch("mc_helic002_phiR",evnt->mc_helic002_phiR,"mc_helic002_phiR[mc_npart]/F");
+  t->Branch("mc_helic005_phiR",evnt->mc_helic005_phiR,"mc_helic005_phiR[mc_npart]/F");
+  t->Branch("mc_helic010_phiR",evnt->mc_helic010_phiR,"mc_helic010_phiR[mc_npart]/F");
+  t->Branch("mc_helic020_phiR",evnt->mc_helic020_phiR,"mc_helic020_phiR[mc_npart]/F");
+  t->Branch("mc_helic002_phiRst",evnt->mc_helic002_phiRst,"mc_helic002_phiRst[mc_npart]/F");
+  t->Branch("mc_helic005_phiRst",evnt->mc_helic005_phiRst,"mc_helic005_phiRst[mc_npart]/F");
+  t->Branch("mc_helic010_phiRst",evnt->mc_helic010_phiRst,"mc_helic010_phiRst[mc_npart]/F");
+  t->Branch("mc_helic020_phiRst",evnt->mc_helic020_phiRst,"mc_helic020_phiRst[mc_npart]/F");
+  t->Branch("mc_wUxS_phiR",evnt->mc_wUxS_phiR,"mc_wUxS_phiR[mc_npart]/F");
   t->Branch("mc_Mx2",evnt->mc_Mx2,"mc_Mx2[mc_npart]/F");
   t->Branch("mc_xF",evnt->mc_xF,"mc_xF[mc_npart]/F");
   t->Branch("mc_xF0",evnt->mc_xF0,"mc_xF0[mc_npart]/F");
@@ -215,14 +244,15 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("mc_etaBF1m",evnt->mc_etaBF1m,"mc_etaBF1m[mc_npart]/F");
   t->Branch("mc_etaBF0",evnt->mc_etaBF0,"mc_etaBF0[mc_npart]/F");
   t->Branch("mc_etaBF1",evnt->mc_etaBF1,"mc_etaBF1[mc_npart]/F");
-  t->Branch("mc_phiH0",evnt->mc_phiH0,"mc_phiH0[mc_npart]/F");
-  t->Branch("mc_phiH1",evnt->mc_phiH1,"mc_phiH1[mc_npart]/F");
   t->Branch("mc_phiR_ha",evnt->mc_phiR_ha,"mc_phiR_ha[mc_npart]/F");
   t->Branch("mc_plcm0_r",evnt->mc_plcm0_r,"mc_plcm0_r[mc_npart]/F");
   t->Branch("mc_plcm1_r",evnt->mc_plcm1_r,"mc_plcm1_r[mc_npart]/F");
   t->Branch("mc_phiR_covH",evnt->mc_phiR_covH,"mc_phiR_covH[mc_npart]/F");
   t->Branch("mc_E0_phcm",evnt->mc_E0_phcm,"mc_E0_phcm[mc_npart]/F");
   t->Branch("mc_E1_phcm",evnt->mc_E1_phcm,"mc_E1_phcm[mc_npart]/F");
+  t->Branch("mc_R",evnt->mc_R,"mc_R[mc_npart]/F");
+  t->Branch("mc_KF",evnt->mc_KF,"mc_KF[mc_npart]/F");
+
   /*** end FS MC ***/
   
   /*** Electron variables ***/
@@ -340,9 +370,13 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("th_e",&evnt->th_e,"th_e/F");
   t->Branch("phi_e",&evnt->phi_e,"phi_e/F");
   t->Branch("helicRaw",&evnt->helicRaw,"helicRaw/F");
-  /***  End electron variables ***/
+  t->Branch("fA",&evnt->fA,"fA/F");
+  t->Branch("fB",&evnt->fB,"fB/F");
+  t->Branch("fC",&evnt->fC,"fC/F");
+  t->Branch("fV",&evnt->fV,"fV/F");
+  t->Branch("fW",&evnt->fW,"fW/F");
 
-  
+  /***  End electron variables ***/
   /*** Electrons MC***/
   t->Branch("mc_Q2",&evnt->mc_Q2,"mc_Q2/F");
   t->Branch("mc_W",&evnt->mc_W,"mc_W/F");
@@ -364,6 +398,11 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("mc_phi_e",&evnt->mc_phi_e,"mc_phi_e/F");
   t->Branch("mc_e_Beta",&evnt->mc_e_Beta,"mc_e_Beta/F");
   t->Branch("mc_helic",&evnt->mc_helic,"mc_helic/F");
+  t->Branch("mc_fA",&evnt->mc_fA,"mc_fA/F");
+  t->Branch("mc_fB",&evnt->mc_fB,"mc_fB/F");
+  t->Branch("mc_fC",&evnt->mc_fC,"mc_fC/F");
+  t->Branch("mc_fV",&evnt->mc_fV,"mc_fV/F");
+  t->Branch("mc_fW",&evnt->mc_fW,"mc_fW/F");
 
   /***  END electron variables MC ***/
 
@@ -488,9 +527,9 @@ int initTree(TTree *t, DATA* evnt = 0){
   t->Branch("th_e",&evnt->th_e,"th_e/F");
   t->Branch("phi_e",&evnt->phi_e,"phi_e/F");
   t->Branch("helicRaw",&evnt->helicRaw,"helicRaw/F");
-  /***  End electron variables ***/
+  /*** End electron variables ***/
 
-  /** FS particles ***/
+  /*** FS particles ***/
   t->Branch("ThetaPQ",evnt->ThetaPQ,"ThetaPQ[npart]/F");
   t->Branch("PhiPQ",evnt->PhiPQ,"PhiPQ[npart]/F");
   t->Branch("Zh",evnt->Zh,"Zh[npart]/F");
@@ -750,6 +789,12 @@ int resetDATAMIX(DATAMIX *evnt = 0){
   evnt->phi_e = DEFAULT_VALUE;
   evnt->helicRaw = DEFAULT_VALUE;
 
+  evnt->fA = DEFAULT_VALUE;
+  evnt->fB = DEFAULT_VALUE;
+  evnt->fC = DEFAULT_VALUE;
+  evnt->fV = DEFAULT_VALUE;
+  evnt->fW = DEFAULT_VALUE;
+
   evnt->mix_npart = DEFAULT_VALUE;
   
   /*** MC data ***/
@@ -774,7 +819,13 @@ int resetDATAMIX(DATAMIX *evnt = 0){
   evnt->mc_phi_e = DEFAULT_VALUE;
   evnt->mc_e_Beta = DEFAULT_VALUE;
   evnt->mc_helic = DEFAULT_VALUE;
- 
+  evnt->mc_fA = DEFAULT_VALUE;
+  evnt->mc_fB = DEFAULT_VALUE;
+  evnt->mc_fC = DEFAULT_VALUE;
+  evnt->mc_fV = DEFAULT_VALUE;
+  evnt->mc_fW = DEFAULT_VALUE;
+
+  
   evnt->mc_mix_npart = DEFAULT_VALUE;
   return 0;
 }

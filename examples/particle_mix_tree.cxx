@@ -23,12 +23,14 @@
 #include <algorithm>
 #include <map>
 #include <string.h>
+#include "TRandom3.h"
 #include "particle_mix_tree.h"
 #include "data_struct.h"
 #include "TRegexp.h"
 
 bool DEBUG=false;
 Float_t HELIC=-111;
+TRandom3 *rndm;
 TString INFILE="data.root", INDIR="",REACTION=":pi+_pi-",OFILE="outfiles/pippim_all.root";
 TH1F *hW;
 TH1F *hW2;
@@ -38,13 +40,13 @@ TH1F *hT;
 //TH1F *hcfm;
 TH2F *hEpi0_th;
 Float_t kMpi = TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
-Float_t kMPi0=1.33196e-1;//Got from sim.
-Float_t kSPi0=1.94034e-2;//Got from sim.
+Float_t kMpi0 = TDatabasePDG::Instance()->GetParticle("pi0")->Mass();
+
+//Float_t kSpi0=1.94034e-2;//Got from sim.
 Float_t kMh =  TDatabasePDG::Instance()->GetParticle("pi-")->Mass();
 //Float_t kMPi0=5.39609e-01;
 //Float_t kSPi0=5.98542e-02;
 bool GSIM=false,EFLAG=false;
-int data_type=0;
 Float_t kPt2,kEvent; 
 TNtuple *tuple;
 //TNtuple *tuple_sim;
@@ -52,7 +54,6 @@ TNtuple *tuplemb;
 TNtuple *tuplePi0_gamma, *tupleGamma;
 
 DATA Event;
-
 Float_t kEbeam=-1;
 
 long Ne = -1;
@@ -65,13 +66,13 @@ TClonesArray *P4Arr;
 class Particle: public TLorentzVector
 {
 public:
-  Float_t vx,vy,vz,pid,time,beta,dcx,dcy,dcz,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,m2b;
+  Float_t vx, vy, vz, pid, time, beta, dcx, dcy, dcz, statPart, dc_chi2, dc_ndf, pcal_lu, pcal_lv, pcal_lw, phiHs, helic002_phiH, helic005_phiH, helic010_phiH, helic020_phiH, m2b;
   inline Double_t P2() const {return P()*P();}
   //TParticlePDG *info;
-  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1),dc_chi2(-111),dc_ndf(-111),pcal_lu(-111),pcal_lv(-111),pcal_lw(-111){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),dc_chi2(p.dc_chi2),dc_ndf(p.dc_ndf),pcal_lu(p.pcal_lu),pcal_lv(p.pcal_lv),pcal_lw(p.pcal_lw), m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
+  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1),dc_chi2(-111),dc_ndf(-111),pcal_lu(-111),pcal_lv(-111),pcal_lw(-111), phiHs(-1111), helic002_phiH(-111), helic005_phiH(-111), helic010_phiH(-111), helic020_phiH(-111) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),dc_chi2(p.dc_chi2),dc_ndf(p.dc_ndf),pcal_lu(p.pcal_lu),pcal_lv(p.pcal_lv),pcal_lw(p.pcal_lw),phiHs(p.phiHs),helic002_phiH(p.helic002_phiH), helic005_phiH(p.helic005_phiH), helic010_phiH(p.helic010_phiH), helic020_phiH(p.helic020_phiH), m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
 
   inline Particle operator + (const Particle & q) const //const: the object that owns the method will not be modified by this method
   {
@@ -420,7 +421,7 @@ public:
   }
 
   int setElecVars(bool isMC = false){
-
+    
     if (isMC){
       mixEvent.mc_Q2 = Event.mc_Q2;
       mixEvent.mc_W = Event.mc_W;
@@ -442,6 +443,17 @@ public:
       mixEvent.mc_phi_e = Event.mc_phi_e;
       mixEvent.mc_e_Beta = Event.mc_e_Beta;
       mixEvent.mc_helic = 0;
+      Float_t y = Event.mc_y;
+      Float_t g =  2*kMprt*Event.mc_Xb/sqrt(Event.mc_Q2);
+      Float_t epsilon =  (1 - y - 1/4.*g*g*y*y )/ (1 - y + 1./2*y*y + 1./4*g*g*y*y);
+      mixEvent.mc_gamm = g;
+      mixEvent.mc_epsilon = epsilon;
+      Float_t A = y*y/(2*(1-epsilon));
+      mixEvent.mc_fA = A;
+      mixEvent.mc_fB = A*epsilon;
+      mixEvent.mc_fC = A*sqrt(1-epsilon*epsilon) ;
+      mixEvent.mc_fV = A*sqrt(2*epsilon*(1+epsilon)); 
+      mixEvent.mc_fW = A*sqrt(2*epsilon*(1-epsilon));
     }
     else {
       mixEvent.Q2 = Event.Q2;
@@ -557,6 +569,17 @@ public:
       mixEvent.th_e = Event.th_e;
       mixEvent.phi_e = Event.phi_e;
       mixEvent.helicRaw = Event.helicRaw;
+      Float_t y = Event.y;
+      Float_t g =  2*kMprt*Event.Xb/sqrt(Event.Q2);
+      Float_t epsilon =  (1 - y - 1/4.*g*g*y*y )/ (1 - y + 1./2*y*y + 1./4*g*g*y*y);
+      mixEvent.gamm = g;
+      mixEvent.epsilon = epsilon;
+      Float_t A = y*y/(2*(1-epsilon));
+      mixEvent.fA = A;
+      mixEvent.fB = A*epsilon;
+      mixEvent.fC = A*sqrt(1-epsilon*epsilon) ;
+      mixEvent.fV = A*sqrt(2*epsilon*(1+epsilon)); 
+      mixEvent.fW = A*sqrt(2*epsilon*(1-epsilon));
     }
     return 0;
   }
@@ -826,7 +849,6 @@ public:
     Float_t phiH =  qxkPhv_sign*TMath::ACos(qxkqxPhv/qxkqxPhv_max)*TMath::RadToDeg();
     phiH=phiH<0?phiH+360:phiH;
     ////////////////
-
     //// phiH0 /// TRENTO ////
     TVector3 P0v = P0.Vect();
     Float_t qxkP0v_sign = q_lv.Vect().Cross(k_in.Vect())*P0v;
@@ -882,17 +904,25 @@ public:
       evnt->mc_Phx[k] = Px;
       evnt->mc_Phy[k] = Py;
       evnt->mc_Phz[k] = Pz;
-      evnt->mc_Z[k] = (Float_t)E/Nu;
+      evnt->mc_Z[k] = E/Nu;
       evnt->mc_Cospq[k] = cospq;
       evnt->mc_Pt2[k] = Pt2;
       evnt->mc_Event[k] = event;
-
       evnt->mc_M2_01[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[1]).M2() : 0);
       evnt->mc_M2_02[k] = ((comb->Npart==3)? ( *(*comb)[0] + *(*comb)[2]).M2() : 0);
-
-      
       evnt->mc_phiH[k] = phiH;
       evnt->mc_phiR[k] = phiR;
+
+      evnt->mc_helic002_phiR[k] = get_helicity(phiR,0.02);
+      evnt->mc_helic005_phiR[k] = get_helicity(phiR,0.05);
+      evnt->mc_helic010_phiR[k] = get_helicity(phiR,0.1);
+      evnt->mc_helic020_phiR[k] = get_helicity(phiR,0.2);
+      evnt->mc_helic002_phiRst[k] = get_helicity(phiR,0.02,sin_theta_P0cm);
+      evnt->mc_helic005_phiRst[k] = get_helicity(phiR,0.05,sin_theta_P0cm);
+      evnt->mc_helic010_phiRst[k] = get_helicity(phiR,0.1,sin_theta_P0cm);
+      evnt->mc_helic020_phiRst[k] = get_helicity(phiR,0.2,sin_theta_P0cm);
+      
+      evnt->mc_wUxS_phiR[k] = get_UxS(phiR,0.2,0.15);
       evnt->mc_Mx2[k] = Mx2;
       evnt->mc_xF[k] = xF;
       evnt->mc_xF0[k] = xF0;
@@ -911,6 +941,7 @@ public:
       evnt->mc_xFo[k]  = xFo;
       evnt->mc_xFo0[k] = xF0o;
       evnt->mc_xFo1[k] = xF1o;
+
 
       Float_t dphi = (phiH-phiR);
       while (dphi<0)
@@ -935,9 +966,6 @@ public:
       evnt->mc_etaBF0[k] = etaBF0;
       evnt->mc_etaBF1[k] = etaBF1;
     
-      evnt->mc_phiH0[k] = phiH0;
-      evnt->mc_phiH1[k] = phiH1;
-
       evnt->mc_phiR_ha[k] = phiR_ha;
       evnt->mc_plcm0_r[k] = Pl0m;
       evnt->mc_plcm1_r[k] = Pl1m;
@@ -945,6 +973,11 @@ public:
 
       evnt->mc_E0_phcm[k]  = P0_dicm.E();
       evnt->mc_E1_phcm[k] = P1_dicm.E();
+
+      evnt->mc_R[k] = 0.5*sqrt(M*M - 4*kMpi*kMpi);
+      evnt->mc_KF[k] =  mixEvent.mc_fW/mixEvent.mc_fA*kMprt/sqrt(Event.mc_Q2)*mixEvent.mc_R[k]/M;
+
+      
       evnt->mc_mix_npart = comb->Npart;
 
       for (int i =0; i<evnt->mc_mix_npart; i++){
@@ -956,6 +989,13 @@ public:
 	evnt->mc_px[k][i] = px;
 	evnt->mc_py[k][i] = py;
 	evnt->mc_pz[k][i] = pz;
+	evnt->mc_helic002_phiH[k][i] = (*comb)[i]->helic002_phiH;
+	evnt->mc_helic005_phiH[k][i] = (*comb)[i]->helic005_phiH;
+	evnt->mc_helic010_phiH[k][i] = (*comb)[i]->helic010_phiH;
+	evnt->mc_helic020_phiH[k][i] = (*comb)[i]->helic020_phiH;
+	Float_t phiHp = (*comb)[i]->phiHs;
+	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
+	evnt->mc_phiHs[k][i] = phiHp;
       }
     }
     /*** end set MC data ***/
@@ -975,6 +1015,16 @@ public:
 
       evnt->phiH[k] = phiH;
       evnt->phiR[k] = phiR;
+      evnt->helic002_phiR[k] = evnt->mc_helic002_phiR[k]; 
+      evnt->helic005_phiR[k] = evnt->mc_helic005_phiR[k];
+      evnt->helic010_phiR[k] = evnt->mc_helic010_phiR[k];
+      evnt->helic020_phiR[k] = evnt->mc_helic020_phiR[k];
+      evnt->helic002_phiRst[k] = evnt->mc_helic002_phiRst[k]; 
+      evnt->helic005_phiRst[k] = evnt->mc_helic005_phiRst[k];
+      evnt->helic010_phiRst[k] = evnt->mc_helic010_phiRst[k];
+      evnt->helic020_phiRst[k] = evnt->mc_helic020_phiRst[k];
+
+      evnt->wUxS_phiR[k] = evnt->mc_wUxS_phiR[k];
       evnt->Mx2[k] = Mx2;
       evnt->xF[k] = xF;
       evnt->xF0[k] = xF0;
@@ -1017,9 +1067,6 @@ public:
       evnt->etaBF0[k] = etaBF0;
       evnt->etaBF1[k] = etaBF1;
     
-      evnt->phiH0[k] = phiH0;
-      evnt->phiH1[k] = phiH1;
-
       evnt->phiR_ha[k] = phiR_ha;
       evnt->plcm0_r[k] = Pl0m;
       evnt->plcm1_r[k] = Pl1m;
@@ -1027,7 +1074,10 @@ public:
 
       evnt->E0_phcm[k]  = P0_dicm.E();
       evnt->E1_phcm[k] = P1_dicm.E();
-
+      
+      evnt->R[k] = 0.5*sqrt(M*M - 4*kMpi*kMpi);
+      evnt->KF[k] =  mixEvent.fW/mixEvent.fA*kMprt/sqrt(Event.Q2)*mixEvent.R[k]/M;
+      
       evnt->mix_npart = comb->Npart;
       for (int i =0; i<evnt->mix_npart; i++){
 	evnt->beta[k][i] = (*comb)[i]->beta;
@@ -1052,6 +1102,13 @@ public:
 	evnt->px[k][i] = px;
 	evnt->py[k][i] = py;
 	evnt->pz[k][i] = pz;
+	evnt->helic002_phiH[k][i] = evnt->mc_helic002_phiH[k][i];
+	evnt->helic005_phiH[k][i] = evnt->mc_helic005_phiH[k][i];
+	evnt->helic010_phiH[k][i] = evnt->mc_helic010_phiH[k][i];
+	evnt->helic020_phiH[k][i] = evnt->mc_helic020_phiH[k][i];
+	Float_t phiHp = (*comb)[i]->phiHs;
+	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
+	evnt->phiHs[k][i] = phiHp;
       }
     }
     /*** end set rec data ***/
@@ -1292,10 +1349,10 @@ public:
   }
   
   int setOutVars(bool isMC = false){
-    Float_t pid,E,P,Px,Py,Pz,vxh,vyh,vzh,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw;
+    Float_t pid,E,P,Px,Py,Pz,vxh,vyh,vzh,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs;
     Int_t npart = 0;
     Float_t Ep = 0;
-
+    
     if (!isMC)
       npart = Event.npart;
     else
@@ -1322,6 +1379,7 @@ public:
 	pcal_lu = Event.pcal_lu[k];
 	pcal_lv = Event.pcal_lv[k];
 	pcal_lw = Event.pcal_lw[k];
+	phiHs = Event.PhiPQ[k];
       }
       else{
 	pid = Event.mc_pid[k];
@@ -1343,6 +1401,7 @@ public:
 	pcal_lu = 0;
 	pcal_lv = 0;
 	pcal_lw = 0;
+	phiHs = Event.mc_PhiPQ[k];
       }
 
       if (isMC)
@@ -1351,12 +1410,13 @@ public:
 	Ep = (pid==22)? (E/0.23):getE(E,P,pid);
       
       if (FidCheck(11)){// no fid
-	Particle *p = new Particle(Px,Py,Pz,Ep,vxh,vyh,vzh,pid,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw);
+	Particle *p = new Particle (Px,Py,Pz,Ep,vxh,vyh,vzh,pid,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs,get_helicity(phiHs,0.02),get_helicity(phiHs,0.05),get_helicity(phiHs,0.1),get_helicity(phiHs,0.2));
 	//if (!isMC)push_bkgnd(p);
 	findSecondary(new Particle(*p));
       }
     }
 
+    
     /*** end adding particles to the set***/
     
     /*** get comb ***/
@@ -1519,6 +1579,8 @@ public:
   }*/
 };
 
+
+
 void check_dir(const char *outdir)
 {
   struct stat sb;
@@ -1534,10 +1596,11 @@ int main(int argc, char *argv[])
   TBenchmark *bm = new TBenchmark();
   bm->Start("main_program");
   parseopt(argc,argv);
-  //TFile * corrfile = new TFile("gammECorr.root","read");
-  //hcfm = (TH1F*)corrfile->Get("hcfm");
-  //char outdir[50];
-  //strcpy(outdir,Form("test_eta_%sD_%s",st,tt));
+
+
+  time_t seconds;
+  seconds = time(NULL);
+  rndm = new TRandom3(seconds);
 
   TChain *t = new TChain();
 
@@ -1546,7 +1609,6 @@ int main(int argc, char *argv[])
   else PATH = INFILE;
 
   std::cout<<"processing: "<<PATH<<std::endl;
-  std::cout<<"data_type: "<<data_type<<std::endl;
   std::cout<<"output file name: "<<OFILE<<std::endl;
   std::cout<<"Exact match: "<<EFLAG<<std::endl;
   std::cout<<"Reaction: "<<REACTION<<std::endl;
@@ -1558,6 +1620,7 @@ int main(int argc, char *argv[])
 
   std::cout<<"Number of entries to be processed: "<<Ne<<std::endl;
 
+ 
   if (!check_reaction())
     return 1;
   

@@ -1,28 +1,26 @@
 #include <getopt.h>
 extern bool GSIM, EFLAG;
-extern int data_type;
 extern long Ne;
 extern Float_t HELIC;
 extern TString INDIR,INFILE,REACTION,OFILE;
+extern TRandom3 *rndm;
 
 inline void printhelp()
 {
   std::cout<<"####### Help #########\n"
-    "\t[-t | --data-type] <target_type> : Data type [data | simrec | mc ]. Default: data\n"
     "\t[-n | --max-events] <N>          : Max number of events to be considered. Default: all\n"
-    "\t[-l | --helicity] <l>            : Fix helicity value. Default: read from file\n"
     "\t[-d | --in-dir] <d>              : Path containing the root input files. All files will be read <d>/*.root\n"
     "\t                                   It has priority over -f option\n"
     "\t[-f | --in-file] <f>             : Input file. Default value data.root\n"
     "\t[-r | --reaction] <r>            : Select the mixing particle reaction.\n"
     "\t                                   e.g.: rho:pi+_pi-, :pi+_pi-. Default :pi+_pi-\n"
     "\t-e                               : exact match. Default false.\n"
+    "\t-l                               : set helicity internally. Default read from data.\n"
     "\t-o                               : output file name. Default outfiles/pippim_all.root.\n"
     "\t-h                               : Print help.\n"
     "#########################"	   <<std::endl;
   exit(0);
 }
-
 
 inline int parseopt(int argc, char* argv[])
 {
@@ -32,23 +30,25 @@ inline int parseopt(int argc, char* argv[])
   {
     {"max-events",     required_argument,       0, 'n'},
     {"help",     no_argument,       0, 'h'},
-    {"data-type",  required_argument, 0, 't'},
-    {"helicity", required_argument,0,'l'},
     {"in-dir", required_argument,0,'d'},
     {"in-file", required_argument,0,'f'},
     {"reaction", required_argument,0,'r'},
     {"output", required_argument,0,'o'},
     {"exact-match", no_argument,0,'e'},
+    {"manual-helicity", no_argument,0,'l'},
     {0, 0, 0, 0}
   };
 
   if(argc==1)
     printhelp();
-  while ( (c = getopt_long(argc, argv, "het:n:l:d:f:r:o:", long_options, &option_index))  != -1)
+  while ( (c = getopt_long(argc, argv, "hlen:d:f:r:o:", long_options, &option_index))  != -1)
     switch (c)
       {
       case 'e':
         EFLAG = true;
+        break;
+      case 'l':
+        HELIC = 111;
         break;
       case 'o':
         OFILE = optarg;
@@ -65,25 +65,11 @@ inline int parseopt(int argc, char* argv[])
       case 'n':
         Ne = atol(optarg);
         break;
-      case 't':
-	if(!strcmp(optarg,"data"))
-	  data_type = 0;
-	else if (!strcmp(optarg,"simrec")) 
-	  data_type = 1;
-	else if (!strcmp(optarg,"mc"))
-	  data_type = 2; 
-	break;
-      case 'l':
-	HELIC=atof(optarg);
-	std::cout<<"Setting helicity to: " <<HELIC<<std::endl;
-	break;
       case 'h':
 	printhelp();
 	break;
       case '?':
-        if (optopt == 't')
-          fprintf (stderr, "Option -%c data type [data | simrec | mc ]. Default data.\n", optopt);
-        else if (isprint (optopt))
+        if (isprint (optopt))
           fprintf (stderr, "Unknown option `-%c'.\n", optopt);
         else
           fprintf (stderr,
@@ -140,3 +126,96 @@ inline TString pop_secondary(Ssiz_t &start){
   REACTION.Tokenize(secondary,start,"_");
   return secondary;
 }
+
+
+//############### Asymmetry estimation ###########
+Float_t Ax0 = 0.0606961;
+Float_t mx = 0.139071;
+
+//Float_t Az0 = 0.0128893;
+//Float_t z0 = 0.63336;
+//Float_t cz = 1.47663;
+Float_t Az0 = 0.0128893;
+Float_t z0 = 0.63336;
+Float_t cz = 0.2;
+
+Float_t Am0 = 0.0420307;
+Float_t m0 = 0.811456;
+Float_t cm = 0.300714;
+
+Float_t m_Az = 0.0264659;
+Float_t m_Am = 0.0271934;
+Float_t m_Ax = 0.0251313;
+//Float_t max_Az = 0.3;
+Float_t max_Az = 0.051;
+Float_t pi = TMath::Pi();
+
+Float_t ALU(Float_t x,Float_t z,Float_t m)
+{
+  Float_t Ax = Ax0 - mx*x;
+  Float_t Az = cz*(z-z0)*(z-z0) + Az0;
+  Float_t Am = -cm*(m-m0)*(m-m0) + Am0;
+  return Ax*Az*Am/(m_Az*m_Am);
+}
+
+Float_t Ax(Float_t x)
+{
+  return Ax0 - mx*x;
+}
+
+Float_t  Az(Float_t z)
+{
+  return cz*(z-z0)*(z-z0) + Az0;
+}
+
+Float_t Am(Float_t m)
+{
+  return -cm*(m-m0)*(m-m0) + Am0;
+}
+///////// asymetry function /////////
+Float_t asym_n(Float_t z,Float_t phiR,Float_t h)
+{
+  h = h==0?-1:h;
+  return (1. + h*Az(z)*sin(phiR*pi/180.) )/(1+max_Az);
+}
+
+/*
+Float_t get_helicity(Float_t phi,Float_t A = 0.1)
+{
+  Float_t w = rndm->Uniform()>=0.5?1:-1; 
+  Float_t uval = rndm->Uniform(); 
+
+  Float_t aval =  (1 + w*A*sin(phi*TMath::DegToRad()))/2.; // max efficiency.
+  
+  if (w>0)
+    return (uval<=aval?1:-1);
+  else 
+    return (uval<=aval?-1:1);
+}
+*/
+Float_t get_helicity(Float_t phi, Float_t A = 0.1, Float_t sinth = 1.0)
+{
+  Float_t w = rndm->Uniform()>=0.5?1:-1; 
+  Float_t uval = rndm->Uniform(); 
+
+  Float_t aval =  ( 1 + w*A*sin(phi*TMath::DegToRad())*sinth ) / 2.; // max efficiency.
+  if (w>0)
+    return (uval<=aval?1:-1);
+  else 
+    return (uval<=aval?-1:1);
+}
+
+
+Float_t get_UxS(Float_t phi, Float_t B = 0.2, Float_t C = 0.15){
+
+  Float_t w = rndm->Uniform()>=0.5?1:-1; 
+  Float_t uval = rndm->Uniform(); 
+
+  Float_t aval =  ( 1 + w*(B*cos(phi*TMath::DegToRad()) + C*cos(2*phi*TMath::DegToRad())) ) / 2.; // max efficiency.
+  if (w>0)
+    return (uval<=aval?1:-1);
+  else 
+    return (uval<=aval?-1:1);
+}
+
+/// #########################
