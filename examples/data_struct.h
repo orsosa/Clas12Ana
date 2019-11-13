@@ -358,7 +358,6 @@ int initMixTree(TTree *t, DATAMIX* evnt = 0){
   t->Branch("helflip_hel",&evnt->helflip_hel,"helflip_hel/F");
   t->Branch("helflip_helRaw",&evnt->helflip_helRaw,"helflip_helRaw/F");
   t->Branch("helflip_event",&evnt->helflip_event,"helflip_event/F");
-  t->Branch("helicRaw",&evnt->helicRaw,"helicRaw/F");
   t->Branch("e_dc_status",&evnt->e_dc_status,"e_dc_status/F");
   t->Branch("e_dc_ndf",&evnt->e_dc_ndf,"e_dc_ndf/F");
   t->Branch("e_sector_dc",&evnt->e_sector_dc,"e_sector_dc/F");
@@ -515,7 +514,6 @@ int initTree(TTree *t, DATA* evnt = 0){
   t->Branch("helflip_hel",&evnt->helflip_hel,"helflip_hel/F");
   t->Branch("helflip_helRaw",&evnt->helflip_helRaw,"helflip_helRaw/F");
   t->Branch("helflip_event",&evnt->helflip_event,"helflip_event/F");
-  t->Branch("helicRaw",&evnt->helicRaw,"helicRaw/F");
   t->Branch("e_dc_status",&evnt->e_dc_status,"e_dc_status/F");
   t->Branch("e_dc_ndf",&evnt->e_dc_ndf,"e_dc_ndf/F");
   t->Branch("e_sector_dc",&evnt->e_sector_dc,"e_sector_dc/F");
@@ -1074,7 +1072,6 @@ int setTreeAddress(TTree *t, DATA* evnt = 0){
   t->SetBranchAddress("helflip_hel",&evnt->helflip_hel);
   t->SetBranchAddress("helflip_helRaw",&evnt->helflip_helRaw);
   t->SetBranchAddress("helflip_event",&evnt->helflip_event);
-  t->SetBranchAddress("helicRaw",&evnt->helicRaw);
   t->SetBranchAddress("e_dc_status",&evnt->e_dc_status);
   t->SetBranchAddress("e_dc_ndf",&evnt->e_dc_ndf);
   t->SetBranchAddress("e_sector_dc",&evnt->e_sector_dc);

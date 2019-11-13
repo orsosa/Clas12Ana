@@ -584,7 +584,6 @@ public:
     return 0;
   }
 
-
   int setVars(Combo *comb,DATAMIX *evnt,int k,bool isMC = false){
     if (DEBUG ) std::cout<<"##### combo size: "<<comb->size()<<" #######"<<std::endl;
     Float_t Pex,Pez,Pey,Q2,Nu,W,event;
@@ -917,6 +916,7 @@ public:
       evnt->mc_helic005_phiR[k] = get_helicity(phiR,0.05);
       evnt->mc_helic010_phiR[k] = get_helicity(phiR,0.1);
       evnt->mc_helic020_phiR[k] = get_helicity(phiR,0.2);
+
       evnt->mc_helic002_phiRst[k] = get_helicity(phiR,0.02,sin_theta_P0cm);
       evnt->mc_helic005_phiRst[k] = get_helicity(phiR,0.05,sin_theta_P0cm);
       evnt->mc_helic010_phiRst[k] = get_helicity(phiR,0.1,sin_theta_P0cm);
@@ -976,7 +976,6 @@ public:
 
       evnt->mc_R[k] = 0.5*sqrt(M*M - 4*kMpi*kMpi);
       evnt->mc_KF[k] =  mixEvent.mc_fW/mixEvent.mc_fA*kMprt/sqrt(Event.mc_Q2)*mixEvent.mc_R[k]/M;
-
       
       evnt->mc_mix_npart = comb->Npart;
 
