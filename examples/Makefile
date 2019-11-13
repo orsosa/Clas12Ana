@@ -12,7 +12,6 @@ endif
 HIPO4INC := $(if $(HIPO4INC),$(HIPO4INC),$(CLAS12TOOL)/Hipo4 )
 HIPO4LIB := $(if $(HIPO4LIB),$(HIPO4LIB),$(CLAS12TOOL)/lib )
 
-
 HIPOCFLAGS  := -I$(HIPO4INC)
 HIPOLIBS    := -L$(HIPO4LIB) -lhipo4
 
@@ -31,11 +30,23 @@ LDFLAGS   := $(ROOTLDFLAGS)
 AR	  = ar
 ARFLAGS	  = -cvr #create,verbose,quick (don't check for replacement, otherwise use r instead)
 
-all:  getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf
+all: checkdirs getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf slib/libData.so
+
+checkdirs: dict slib
+
+dict slib:
+	@mkdir -p $@
 
 %: %.o
-	$(CXX) -o $@ $< $(ROOTCFLAGS) $(ROOTLDFLAGS) $(HIPOLIBS) $(LZ4LIBS)  $(ROOTLIBS) $(CLAS12ANALIB) 
+	$(CXX) -o $@ $< $(ROOTCFLAGS) $(ROOTLDFLAGS) $(HIPOLIBS) $(LZ4LIBS)  $(ROOTLIBS) $(CLAS12ANALIB) -Lslib -lData
 
-%.o: %.cxx
+%.o: %.cxx 
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(ROOTCFLAGS) $(HIPOCFLAGS) $(LZ4INCLUDES) $(INC_DIR)
+
+dict/datadict.cxx: PARTDATA.h DETDATA.h LinkDef.h 
+	rootcling -f $@ -c $(ROOTCFLAGS) $(HIPOCFLAGS) -p $^
+
+slib/libData.so: dict/datadict.cxx PARTDATA.cxx DETDATA.cxx
+	g++ -shared -fPIC -o $@ $(ROOTLDFLAGS) $(ROOTCFLAGS) $(HIPOCFLAGS) $(INC_DIR) $(ROOTCFLAGS) $^
+	cp dict/datadict_rdict.pcm slib/.
 

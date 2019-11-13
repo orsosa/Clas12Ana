@@ -27,6 +27,9 @@
 #include "particle_mix_tree.h"
 #include "data_struct.h"
 #include "TRegexp.h"
+#include "PARTDATA.h"
+#include "DETDATA.h"
+
 
 bool DEBUG=false;
 Float_t HELIC=-111;
@@ -327,6 +330,11 @@ public:
 
   DATAMIX mixEvent;
   DATAMIX mixEvent_bkg;
+
+  TClonesArray *DET_CA;
+  TClonesArray *PDATA_CA;
+  TClonesArray *MC_PDATA_CA;
+
   
   TTree *kOutData, *kOutBkgnd;
 
@@ -340,6 +348,7 @@ public:
   std::map<int,int> kNSPid;//Amount of secondary pid particles required.
   Reaction(){strcpy(name,"eta -> pi+ pi- a"),strcpy(filename,"test_eta_pippima.root");init();}
   Reaction(const char *n,const char *fn,bool fEMatch=false): fEMatch(fEMatch) {strcpy(name,n); strcpy(filename,fn); init();}
+
   int store()
   {
     for (int k=0;k<(int)kSPid.size();k++)
@@ -351,6 +360,7 @@ public:
     std::cout<<"Writing root file: "<<filename<<std::endl;
     return kOutData->Write("",TObject::kOverwrite);
   }
+  
   ~Reaction()
   {
     clear();
@@ -361,6 +371,7 @@ public:
     //    delete kPdgInfo;
     hSPid.clear();
   }
+  
   void clear()
   {
     for (int k=0;k<(int)kSPid.size();k++)
@@ -378,10 +389,14 @@ public:
     kOutFile = new TFile(filename,"recreate");
     //kOutData=new TNtuple("outdata",Form("%s",name),"M:Phx:Phy:Phz:Nu:Q2:Z:Cospq:Pt2:Event:M2_01:M2_02:M_c:Phx_c:Phy_c:Phz_c:Z_c:Cospq_c:Pt2_c:Chi2:qx1:qy1:qz1:qx2:qy2:qz2");
     //kOutData = new TNtuple("outdata",Form("%s",name),
-        
+
+    DET_CA = new TClonesArray("DETDATA");
+    PDATA_CA = new TClonesArray("PARTDATA");
+    MC_PDATA_CA = new TClonesArray("PARTDATA");
+  
     kOutData = new TTree("outdata",Form("%s",name));
     kOutBkgnd = 0;//new TTree("outbkgnd",Form("%s",name));
-    initMixTree(kOutData,&mixEvent);
+    initMixTree(kOutData,&mixEvent,DET_CA,PDATA_CA,MC_PDATA_CA);
 
     /*
     ////// DETECTOR DATA
@@ -411,6 +426,8 @@ public:
   int fillTree()
   {
     kOutData->Fill();
+    PDATA_CA->Clear();
+    DET_CA->Clear();
     return 0;
   }
   
@@ -673,7 +690,7 @@ public:
       q_BF.Boost ( -p_BF_boost.BoostVector() );
       q_BF.Print();
 
-     */
+    */
 
     //// pseudorapidity in Breit frame (light-front coor.)
     TLorentzVector P0_BF = P0;
@@ -942,7 +959,6 @@ public:
       evnt->mc_xFo0[k] = xF0o;
       evnt->mc_xFo1[k] = xF1o;
 
-
       Float_t dphi = (phiH-phiR);
       while (dphi<0)
 	dphi+=360.;
@@ -978,7 +994,22 @@ public:
       evnt->mc_KF[k] =  mixEvent.mc_fW/mixEvent.mc_fA*kMprt/sqrt(Event.mc_Q2)*mixEvent.mc_R[k]/M;
       
       evnt->mc_mix_npart = comb->Npart;
-
+      PARTDATA 	*pdata = (PARTDATA *)MC_PDATA_CA->ConstructedAt(k);  
+      for (int i =0; i<evnt->mc_mix_npart; i++){
+	pdata->e[i] = (*comb)[i]->E();
+	pdata->px[i] = (*comb)[i]->Px();
+	pdata->py[i] = (*comb)[i]->Py();
+	pdata->pz[i] = (*comb)[i]->Pz();
+	pdata->helic002_phiH[i] = (*comb)[i]->helic002_phiH;
+	pdata->helic005_phiH[i] = (*comb)[i]->helic005_phiH;
+	pdata->helic010_phiH[i] = (*comb)[i]->helic010_phiH;
+	pdata->helic020_phiH[i] = (*comb)[i]->helic020_phiH;
+	Float_t phiHp = (*comb)[i]->phiHs;
+	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
+	pdata->phiHs[i] = phiHp;
+	
+      }
+      /*
       for (int i =0; i<evnt->mc_mix_npart; i++){
 	Double_t px = (*comb)[i]->Px();
 	Double_t py = (*comb)[i]->Py();
@@ -996,6 +1027,7 @@ public:
 	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
 	evnt->mc_phiHs[k][i] = phiHp;
       }
+      */
     }
     /*** end set MC data ***/
     /*** set rec data ***/
@@ -1078,6 +1110,37 @@ public:
       evnt->KF[k] =  mixEvent.fW/mixEvent.fA*kMprt/sqrt(Event.Q2)*mixEvent.R[k]/M;
       
       evnt->mix_npart = comb->Npart;
+      PARTDATA *pdata = (PARTDATA *)PDATA_CA->ConstructedAt(k);
+      DETDATA *det = (DETDATA *)DET_CA->ConstructedAt(k);
+      for (int i = 0; i < evnt->mix_npart; i++){
+	pdata->e[i] = (*comb)[i]->E();
+	pdata->px[i] = (*comb)[i]->Px();
+	pdata->py[i] = (*comb)[i]->Py();
+	pdata->pz[i] = (*comb)[i]->Pz();
+	pdata->helic002_phiH[i] = (*comb)[i]->helic002_phiH;
+	pdata->helic005_phiH[i] = (*comb)[i]->helic005_phiH;
+	pdata->helic010_phiH[i] = (*comb)[i]->helic010_phiH;
+	pdata->helic020_phiH[i] = (*comb)[i]->helic020_phiH;
+	Float_t phiHp = (*comb)[i]->phiHs;
+	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
+	pdata->phiHs[i] = phiHp;
+	/////// 
+	det->beta[i] = (*comb)[i]->beta;
+	det->m2b[i] =  (*comb)[i]->m2b;
+	det->vx[i] = (*comb)[i]->vx;
+	det->vy[i] = (*comb)[i]->vy;
+	det->vz[i] = (*comb)[i]->vz;
+	det->dcx[i] = (*comb)[i]->dcx;
+	det->dcy[i] = (*comb)[i]->dcy;
+	det->dcz[i] = (*comb)[i]->dcz;
+	det->statPart[i] = (*comb)[i]->statPart;
+	det->dc_chi2[i] = (*comb)[i]->dc_chi2;
+	det->dc_ndf[i] = (*comb)[i]->dc_ndf;
+	det->pcal_lu[i] = (*comb)[i]->pcal_lu;
+	det->pcal_lv[i] = (*comb)[i]->pcal_lv;
+	det->pcal_lw[i] = (*comb)[i]->pcal_lw;
+      }
+      /*
       for (int i =0; i<evnt->mix_npart; i++){
 	evnt->beta[k][i] = (*comb)[i]->beta;
 	evnt->m2b[k][i] =  (*comb)[i]->m2b;
@@ -1109,6 +1172,7 @@ public:
 	phiHp = (phiHp<0?phiHp+360:(phiHp>360?phiHp-360:phiHp));
 	evnt->phiHs[k][i] = phiHp;
       }
+      */
     }
     /*** end set rec data ***/
     //    std::cout<<"### "<<evnt->beta[k][0]<<std::endl<<std::endl;
