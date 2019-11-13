@@ -395,6 +395,8 @@ public:
     MC_PDATA_CA = new TClonesArray("PARTDATA");
   
     kOutData = new TTree("outdata",Form("%s",name));
+    kOutData->SetMaxVirtualSize(100e6); // 100MB max
+
     kOutBkgnd = 0;//new TTree("outbkgnd",Form("%s",name));
     initMixTree(kOutData,&mixEvent,DET_CA,PDATA_CA,MC_PDATA_CA);
 
@@ -994,7 +996,7 @@ public:
       evnt->mc_KF[k] =  mixEvent.mc_fW/mixEvent.mc_fA*kMprt/sqrt(Event.mc_Q2)*mixEvent.mc_R[k]/M;
       
       evnt->mc_mix_npart = comb->Npart;
-      PARTDATA 	*pdata = (PARTDATA *)MC_PDATA_CA->ConstructedAt(k);  
+      PARTDATA 	*pdata = (PARTDATA *)MC_PDATA_CA->ConstructedAt(k);
       for (int i =0; i<evnt->mc_mix_npart; i++){
 	pdata->e[i] = (*comb)[i]->E();
 	pdata->px[i] = (*comb)[i]->Px();
