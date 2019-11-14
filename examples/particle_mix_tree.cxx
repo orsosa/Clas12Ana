@@ -59,7 +59,7 @@ TNtuple *tuplePi0_gamma, *tupleGamma;
 DATA Event;
 Float_t kEbeam=-1;
 
-long Ne = -1;
+long Ne = -1,START = 0;
 char st[3]= "C"; // solid target: C Fe Pb
 char tt[3] = "C"; // cut on solid target or Deuterium : (st) or D.
 
@@ -320,8 +320,8 @@ public:
   std::vector<Particle*> *kSecondary; //all secondary
 
   //std::vector<Particle*> *kCombo; //partial combinations.
-  std::vector <Combo *> *kCombo;//partial combinations.
-  std::vector <Combo *> kBkgnd;//background combinations.
+  std::vector <Combo *> *kCombo; //partial combinations.
+  std::vector <Combo *> kBkgnd; //background combinations.
 
   static const Int_t kBUFFLIMIT=100;
 
@@ -366,14 +366,18 @@ public:
     clear();
     delete[] kSecondary;
     delete[] kCombo;
+    delete PDATA_CA;
+    delete DET_CA;
     kOutFile->Close();
     delete kOutFile;
     //    delete kPdgInfo;
     hSPid.clear();
+    std::cout<<"All deleted"<<std::endl;
   }
   
   void clear()
   {
+    
     for (int k=0;k<(int)kSPid.size();k++)
     {
       kSecondary[k].clear();
@@ -432,7 +436,7 @@ public:
     DET_CA->Clear();
     return 0;
   }
-  
+ 
   int setVars(int k,bool isMC = false)
   {
     setVars(kPrimary, &mixEvent, k, isMC);
@@ -1316,7 +1320,7 @@ public:
 
   //int takeN(int N,int kspid, int pos=0,Particle p=Particle(),int count=0)
   //  int takeN(int N,int kspid, int pos=0,Combo *c= new Combo() ,int count=0)
-  int takeN(int N,int kspid, int pos=0,Combo *c= 0 ,int count=0)
+  int takeN(int N, int kspid, int pos = 0, Combo *c = 0, int count = 0)
   {
     Combo *c_new;
     if (DEBUG) std::cout<<"### take N:  "<<N<<"##############"<<std::endl; 
@@ -1331,11 +1335,11 @@ public:
 	c_new->addParticle(kSecondary[kspid][pos]);
 	count=takeN(N-1,kspid,k+1,c_new,count);
       }
+      //if (c!=0) delete c;
     }
-
+    
     else
-   {
-     
+    {
       for (int k=pos;k<(int)kSecondary[kspid].size();k++)
       {
 	if (c==0) c_new = new Combo();
@@ -1352,11 +1356,13 @@ public:
 
       }
     }
+    if (c!=0) delete c;
     return count;
   }
   int findSecondary(Particle *p)
-  { 
-    int count=0;
+  {
+    Bool_t notused = kTRUE;
+    int count = 0;
     for (int k =0;k<(int)kSPid.size();k++)
     {
       //if(pid == kSPid[k]&&checkDCFidPhi())
@@ -1365,8 +1371,11 @@ public:
 	kSecondary[k].push_back(p);
 	//std::cout<<dcx_rot_0<<" / "<<dcy_rot_0<<" / "<<dcz_r0<<std::endl;
 	count++;
+	notused = kFALSE;
+	break;
       }
     }
+    if (notused) delete p;
     return count;
   }
   /*
@@ -1478,10 +1487,10 @@ public:
 	Particle *p = new Particle (Px,Py,Pz,Ep,vxh,vyh,vzh,pid,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs,get_helicity(phiHs,0.02),get_helicity(phiHs,0.05),get_helicity(phiHs,0.1),get_helicity(phiHs,0.2));
 	//if (!isMC)push_bkgnd(p);
 	findSecondary(new Particle(*p));
+	delete p;
       }
     }
 
-    
     /*** end adding particles to the set***/
     
     /*** get comb ***/
@@ -1524,16 +1533,17 @@ public:
     clear();
     return 0;
   }
-
   
-  int getCombinations(TChain *t){
+  int getCombinations(TChain *t, long st = 0){
     kSecondary = new std::vector<Particle*> [kSPid.size()];
     kCombo = new std::vector<Combo*> [kSPid.size()];
 
     std::cout<<"processing...\n";
     std::cout.fill('.');
     
-    for ( Long64_t i = 0; i < Ne; i++){
+    std::cout<<"start / Ne: "<<st<<" / "<<Ne;
+    
+    for ( Long64_t i = st; i < Ne; i++){
       t->GetEntry(i);
       if (Event.mc_npart>0) {
 	kEbeam = Event.mc_Nu + Event.mc_Pe;
@@ -1662,7 +1672,6 @@ int main(int argc, char *argv[])
   bm->Start("main_program");
   parseopt(argc,argv);
 
-
   time_t seconds;
   seconds = time(NULL);
   rndm = new TRandom3(seconds);
@@ -1681,9 +1690,12 @@ int main(int argc, char *argv[])
   t->Add(PATH + "/evData");
 
   setTreeAddress(t,&Event);
-  if (Ne==-1) Ne = t->GetEntries();    
+  if (Ne==-1) Ne = t->GetEntries();
+  else if ( t->GetEntries() < (START+Ne) ) Ne = t->GetEntries();
+  else Ne += START;
 
   std::cout<<"Number of entries to be processed: "<<Ne<<std::endl;
+  std::cout<<"Starting event number: "<<START<<std::endl;
 
  
   if (!check_reaction())
@@ -1703,13 +1715,14 @@ int main(int argc, char *argv[])
   }
   std::cout<<std::endl;
 
-  r.getCombinations(t);
+  r.getCombinations(t,START);
   r.store();
   std::cout<<"\n";
   r.kOutData->Print();
   //  r.kOutBkgnd->Print();
   //  corrfile->Close();
   bm->Show("main_program");
+  delete bm;
   return 0;  
 
 }

@@ -1,14 +1,15 @@
 #include <getopt.h>
 extern bool GSIM, EFLAG;
-extern long Ne;
+extern long Ne, START;
 extern Float_t HELIC;
-extern TString INDIR,INFILE,REACTION,OFILE;
+extern TString INDIR, INFILE, REACTION, OFILE;
 extern TRandom3 *rndm;
 
 inline void printhelp()
 {
   std::cout<<"####### Help #########\n"
     "\t[-n | --max-events] <N>          : Max number of events to be considered. Default: all\n"
+    "\t[-s | --start-event] <N>         : Start event number. Default: 0\n"
     "\t[-d | --in-dir] <d>              : Path containing the root input files. All files will be read <d>/*.root\n"
     "\t                                   It has priority over -f option\n"
     "\t[-f | --in-file] <f>             : Input file. Default value data.root\n"
@@ -29,6 +30,7 @@ inline int parseopt(int argc, char* argv[])
   static struct option long_options[] =
   {
     {"max-events",     required_argument,       0, 'n'},
+    {"start-event",     required_argument,       0, 's'},
     {"help",     no_argument,       0, 'h'},
     {"in-dir", required_argument,0,'d'},
     {"in-file", required_argument,0,'f'},
@@ -41,7 +43,7 @@ inline int parseopt(int argc, char* argv[])
 
   if(argc==1)
     printhelp();
-  while ( (c = getopt_long(argc, argv, "hlen:d:f:r:o:", long_options, &option_index))  != -1)
+  while ( (c = getopt_long(argc, argv, "hlen:d:f:r:o:s:", long_options, &option_index))  != -1)
     switch (c)
       {
       case 'e':
@@ -61,6 +63,9 @@ inline int parseopt(int argc, char* argv[])
         break;
       case 'd':
         INDIR = optarg;
+        break;
+      case 's':
+        START = atol(optarg);
         break;
       case 'n':
         Ne = atol(optarg);
