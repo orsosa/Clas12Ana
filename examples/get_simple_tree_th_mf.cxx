@@ -14,7 +14,6 @@
 #include "TList.h"
 #include "data_struct.h"
 
-
 using namespace std;
 
 float EBEAM=10.6;
@@ -49,7 +48,7 @@ int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot);
 void cleanUp(void *arg);
 void filter(void *arg);
 void create_threads(void *arg);
-
+void print_help();
 int main(int argc, char **argv)
 {
   //gROOT->Reset();
@@ -58,14 +57,17 @@ int main(int argc, char **argv)
   
   if (argc<2)
   {
-    std::cout<<"you must supply at least one hipo file.\n";
-    
+    print_help();
     exit(1);
   }
 
   for (int k=1;k<argc;k++)
   {
-    if (strcmp(argv[k],"-s")==0) // simulation analysis
+    if (strcmp(argv[k],"-h")==0){ // simulation analysis
+      print_help();
+      exit(1);
+    }
+    else if (strcmp(argv[k],"-s")==0) // simulation analysis
       simul_key = 1;
     else if (strcmp(argv[k],"-e")==0){ //energy set
       EBEAM = atof(argv[++k]);
@@ -83,7 +85,6 @@ int main(int argc, char **argv)
     else
       fname = fname + " " + argv[k];
   }
-
   
   if (!QUIET) std::cout<<"File list: "<<fname<<std::endl;
   if (!QUIET) std::cout<<"Processing "<<((simul_key==1)?"simulations":"data")<<std::endl;
@@ -100,8 +101,8 @@ int main(int argc, char **argv)
   coutMutex->UnLock();
   if (!Ntotal)  Ntotal = t->getNevents();
   if (!QUIET) std::cout<<Ntotal<<std::endl;
-
-  TH_MAX = Ntotal/Nth+1;// max, Nth entries more in last thread, will end reaching Ntotal.
+  delete t;
+  TH_MAX = Ntotal/Nth+1;// max, last thread will end reaching Ntotal.
   
   progress_th = new Float_t[Nth];
   memset(progress_th,0,Nth*sizeof(float));
@@ -237,7 +238,7 @@ void filter(void *arg)
   Int_t event = 0;
   Int_t npart = 0;
   Float_t revent = 0;
-  for (int k=0;k<startcnt;k++) t->Next();
+  t->GotoEvent(startcnt -1);
   while (t->Next())
   {
     Int_t nRows = t->GetNRows();
@@ -578,7 +579,9 @@ void filter(void *arg)
      
     }
     Evnt.mc_npart = npart;
-    evTree->Fill();
+
+    if (Evnt.mc_npart>0 || Evnt.npart>0)
+      evTree->Fill();
 
     
     TThread::Lock();
@@ -612,6 +615,15 @@ void filter(void *arg)
   //TThread::Exit();
 }
 
+void print_help(){
+    std::cout<<"you must supply at least one hipo file.\n"
+      "./get_simple_tree_th_mf [options] file1.hipo file2.hipo ...\n"
+      "options:\n"
+      "-e         : energy set\n"
+      "-nth       : number of threads\n"
+      "-nmax      : max number of events to be processed\n"
+      "-q         : quiet mode\n\n";
+}
 
 int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot)
 {

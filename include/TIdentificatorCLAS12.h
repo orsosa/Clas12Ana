@@ -19,6 +19,7 @@ public:
   Long_t getNevents();
   Int_t setNevents();
   Bool_t Next(); // explore the hipo file opened
+  Bool_t GotoEvent(int evn = 0); // explore the hipo file opened
 
     // HEADER bank
   Float_t NEvent();                             // inline

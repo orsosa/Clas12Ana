@@ -211,8 +211,6 @@ Long_t TIdentificatorCLAS12::getNevents()
   return kNEVENTS;
 }
 
-
-
 Bool_t TIdentificatorCLAS12::Next()
 {
 
@@ -240,6 +238,15 @@ Bool_t TIdentificatorCLAS12::Next()
   return ret;
   
 }
+
+Bool_t TIdentificatorCLAS12::GotoEvent(int evn)
+{
+
+  bool ret = fReader->gotoEvent(evn);
+  return ret;
+  
+}
+
 
 int TIdentificatorCLAS12::InitDetectorMap()
 {
