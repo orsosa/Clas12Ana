@@ -365,7 +365,6 @@ int TIdentificatorCLAS12::InitDCSuperLayerMap()
   return 0;
 }
 
-
 int TIdentificatorCLAS12::FillResponseMaps()
 {
   ClearMaps();
@@ -409,7 +408,6 @@ int TIdentificatorCLAS12::FillMapRev(hipo::bank *bank,  std::map <int,std::vecto
   
   return 0;
 }
-
 
 int TIdentificatorCLAS12::ClearMaps()
 {

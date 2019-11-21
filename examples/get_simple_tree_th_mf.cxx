@@ -101,7 +101,7 @@ int main(int argc, char **argv)
   coutMutex->UnLock();
   if (!Ntotal)  Ntotal = t->getNevents();
   if (!QUIET) std::cout<<Ntotal<<std::endl;
-  delete t;
+
   TH_MAX = Ntotal/Nth+1;// max, last thread will end reaching Ntotal.
   
   progress_th = new Float_t[Nth];
