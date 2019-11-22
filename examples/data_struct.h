@@ -688,7 +688,7 @@ int initTree(TTree *t, DATA* evnt = 0){
 
 int resetDATAMIX(DATAMIX *evnt = 0){
 
-  evnt->npart = DEFAULT_VALUE;
+  evnt->npart = 0;
   evnt->Q2 = DEFAULT_VALUE;
   evnt->W = DEFAULT_VALUE;
   evnt->Nu = DEFAULT_VALUE;
@@ -809,10 +809,10 @@ int resetDATAMIX(DATAMIX *evnt = 0){
   evnt->fV = DEFAULT_VALUE;
   evnt->fW = DEFAULT_VALUE;
 
-  evnt->mix_npart = DEFAULT_VALUE;
+  evnt->mix_npart = 0;
   
   //// MC data ///
-  evnt->mc_npart = DEFAULT_VALUE;
+  evnt->mc_npart = 0;
   evnt->mc_Q2 = DEFAULT_VALUE;
   evnt->mc_W = DEFAULT_VALUE;
   evnt->mc_Nu = DEFAULT_VALUE;
@@ -840,7 +840,7 @@ int resetDATAMIX(DATAMIX *evnt = 0){
   evnt->mc_fW = DEFAULT_VALUE;
 
   
-  evnt->mc_mix_npart = DEFAULT_VALUE;
+  evnt->mc_mix_npart = 0;
   return 0;
 }
 

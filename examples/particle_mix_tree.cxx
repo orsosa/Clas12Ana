@@ -30,7 +30,6 @@
 #include "PARTDATA.h"
 #include "DETDATA.h"
 
-
 bool DEBUG=false;
 Float_t HELIC=-111;
 TRandom3 *rndm;
@@ -1555,9 +1554,9 @@ public:
       setOutVars(true); // MC
       setOutVars();
       /*** end rec particles ***/
-      if (mixEvent.npart>0 || mixEvent.mc_npart>0)
+      if ( (0<mixEvent.npart&&mixEvent.npart<=MAXPART) || (0<mixEvent.mc_npart&&mixEvent.mc_npart<=MAXPART)){
 	fillTree();
-
+      }
       //	if (data_type<2&&FidCheck(pid))
       std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
       std::cout.flush();
