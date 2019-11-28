@@ -971,6 +971,11 @@ public:
 	dphi-=360.;
       evnt->mc_phiH_phiR[k] = dphi;
 
+      evnt->mc_helic002_dphi[k] = get_helicity(dphi,0.02);
+      evnt->mc_helic005_dphi[k] = get_helicity(dphi,0.05);
+      evnt->mc_helic010_dphi[k] = get_helicity(dphi,0.1);
+      evnt->mc_helic020_dphi[k] = get_helicity(dphi,0.2);
+      
       evnt->mc_phiR_cov[k] = phiR_cov;
       evnt->mc_p0T2[k] = p0Tv.Mag2();
       evnt->mc_p1T2[k] = p1Tv.Mag2();
@@ -1055,10 +1060,16 @@ public:
       evnt->helic005_phiR[k] = evnt->mc_helic005_phiR[k];
       evnt->helic010_phiR[k] = evnt->mc_helic010_phiR[k];
       evnt->helic020_phiR[k] = evnt->mc_helic020_phiR[k];
+      
       evnt->helic002_phiRst[k] = evnt->mc_helic002_phiRst[k]; 
       evnt->helic005_phiRst[k] = evnt->mc_helic005_phiRst[k];
       evnt->helic010_phiRst[k] = evnt->mc_helic010_phiRst[k];
       evnt->helic020_phiRst[k] = evnt->mc_helic020_phiRst[k];
+
+      evnt->helic002_dphi[k] = evnt->mc_helic002_dphi[k]; 
+      evnt->helic005_dphi[k] = evnt->mc_helic005_dphi[k]; 
+      evnt->helic010_dphi[k] = evnt->mc_helic010_dphi[k]; 
+      evnt->helic020_dphi[k] = evnt->mc_helic020_dphi[k]; 
 
       evnt->wUxS_phiR[k] = evnt->mc_wUxS_phiR[k];
       evnt->Mx2[k] = Mx2;
