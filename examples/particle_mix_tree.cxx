@@ -1420,12 +1420,24 @@ public:
     //Float_t pip[4] = {-0.001114,0.1146,1.103e-5,-0.01259};
     //Float_t pim[4] = {0.007386,0.09922,-0.001244,-0.01057};
 
+    float sf1 = 0.25;
+    float sf2 = 1.029;
+    float sf3 = -0.015;
+    float sf4 = 0.00012;
+
     Float_t energy =-1;
 
-    if (pid == 45)
+    switch (int(pid)){
+    case (45):
       energy = sqrt(p*p + TMath::Power(1.8756,2) );
-    else
+      break;
+    case (22):
+      energy = Es/(sf1*(sf2 + sf3/Es + sf4/Es/Es) );
+      break;
+    default:
       energy = sqrt(p*p + TMath::Power(TDatabasePDG::Instance()->GetParticle(pid)->Mass(),2) );
+      break;
+    }      
     //    Float_t sf = ((pid==211)?pip[0] + pip[1]/x + pip[2]*x + pip[3]/x/x:((pid==-211)?pim[0] + pim[1]/x + pim[2]*x + pim[3]/x/x:0)) ;
     // Float_t energy = Es/sf;
 
@@ -1491,7 +1503,7 @@ public:
       if (isMC)
 	Ep = E; //gsim
       else
-	Ep = (pid==22)? (E/0.23):getE(E,P,pid);
+	Ep = getE(E,P,pid);
       
       if (FidCheck(11)){// no fid
 	Particle *p = new Particle (Px,Py,Pz,Ep,vxh,vyh,vzh,pid,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs,get_helicity(phiHs,0.02),get_helicity(phiHs,0.05),get_helicity(phiHs,0.1),get_helicity(phiHs,0.2));
