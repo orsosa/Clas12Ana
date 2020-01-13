@@ -103,7 +103,7 @@ int main(int argc, char **argv)
   if (!QUIET) std::cout<<Ntotal<<std::endl;
 
   TH_MAX = Ntotal/Nth+1;// max, last thread will end reaching Ntotal.
-  
+
   progress_th = new Float_t[Nth];
   memset(progress_th,0,Nth*sizeof(float));
   slotAvailable = new Bool_t[Nth];
@@ -567,6 +567,8 @@ void filter(void *arg)
 	  Evnt.mc_Py[npart] = t->Py(i,1);
 	  Evnt.mc_Pz[npart] = t->Pz(i,1);
 	  Evnt.mc_pid[npart] = pid;
+	  Evnt.mc_mpid[npart] = t->MPid(i);
+	  Evnt.mc_mind[npart] = t->Parent(i);
 	  Evnt.mc_Beta[npart] =  t->Momentum(i,1)/t->Etot(i,1);
 	  Evnt.mc_vxh[npart] = t->X(i,1);
 	  Evnt.mc_vyh[npart] = t->Y(i,1);
@@ -620,6 +622,7 @@ void print_help(){
       "./get_simple_tree_th_mf [options] file1.hipo file2.hipo ...\n"
       "options:\n"
       "-e         : energy set\n"
+      "-s         : simulation filtering\n"
       "-nth       : number of threads\n"
       "-nmax      : max number of events to be processed\n"
       "-q         : quiet mode\n\n";

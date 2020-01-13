@@ -48,14 +48,13 @@ typedef struct DATAstr{
   Int_t mc_npart;
   Float_t mc_Q2, mc_W, mc_Nu, mc_Xb, mc_vxe, mc_vye, mc_vze, mc_Pex, mc_Pey, mc_Pez, mc_event, e_mcmass, mc_Pe, mc_Ee, mc_revent, mc_y, mc_th_e, mc_phi_e, mc_e_Beta;
  
-  Float_t  mc_ThetaPQ[MAXPART], mc_PhiPQ[MAXPART], mc_Zh[MAXPART], mc_Pt2[MAXPART], mc_Mx2[MAXPART], mc_Xf[MAXPART], mc_T[MAXPART], mc_P[MAXPART], mc_deltaZ[MAXPART], mc_E[MAXPART], mc_Px[MAXPART], mc_Py[MAXPART], mc_Pz[MAXPART], mc_pid[MAXPART], mc_Beta[MAXPART], mc_vxh[MAXPART], mc_vyh[MAXPART], mc_vzh[MAXPART], mcmass[MAXPART];
+  Float_t  mc_ThetaPQ[MAXPART], mc_PhiPQ[MAXPART], mc_Zh[MAXPART], mc_Pt2[MAXPART], mc_Mx2[MAXPART], mc_Xf[MAXPART], mc_T[MAXPART], mc_P[MAXPART], mc_deltaZ[MAXPART], mc_E[MAXPART], mc_Px[MAXPART], mc_Py[MAXPART], mc_Pz[MAXPART], mc_pid[MAXPART], mc_mpid[MAXPART], mc_mind[MAXPART], mc_Beta[MAXPART], mc_vxh[MAXPART], mc_vyh[MAXPART], mc_vzh[MAXPART], mcmass[MAXPART];
 
 } DATA;
 
 typedef struct DATAMIXstr{
   Int_t npart;
   Float_t Q2, W, Nu, Xb, vxec, vyec, vzec, vxe, vye, vze, Pex, Pey, Pez, event, Pe, Ee, e_Ein, e_Eout, e_Epcal, e_npheltcc, e_nphehtcc, helic, e_chi2pid, e_pcal_lu, e_pcal_lv, e_pcal_lw, e_ecin_lu, e_ecin_lv, e_ecin_lw, e_ecout_lu, e_ecout_lv, e_ecout_lw, e_pcal_hx, e_pcal_hy, e_pcal_hz, e_ecin_hx, e_ecin_hy, e_ecin_hz, e_ecout_hx, e_ecout_hy, e_ecout_hz, e_trajx_sl0, e_trajx_sl1, e_trajx_sl2, e_trajx_sl3, e_trajx_sl4, e_trajx_sl5, e_trajy_sl0, e_trajy_sl1, e_trajy_sl2, e_trajy_sl3, e_trajy_sl4, e_trajy_sl5, e_trajz_sl0, e_trajz_sl1, e_trajz_sl2, e_trajz_sl3, e_trajz_sl4, e_trajz_sl5, e_pathtof, e_timetof, e_sector_tof, e_Beta, STTime, RFTime, e_dcx_rot_0, e_dcy_rot_0, e_dcx_rot_1, e_dcy_rot_1, e_dcx_rot_2, e_dcy_rot_2, e_sector_ltcc, e_sector_htcc, e_sector_ecal, e_dc_chi2, e_ftof1ax, e_ftof1ay, e_ftof1az, e_pcalx, e_pcaly, e_pcalz, e_ecalx, e_ecaly, e_ecalz, e_ltccx, e_ltccy, e_ltccz, e_htccx, e_htccy, e_htccz, e_ftof1bx, e_ftof1by, e_ftof1bz, e_ftof2x, e_ftof2y, e_ftof2z, helonline_hel, helonline_helRaw, helflip_hel, helflip_helRaw, helflip_event, e_dc_status, e_dc_ndf, e_sector_dc, e_statPart, e_DCPx, e_DCPy, e_DCPz, revent, y, th_e, phi_e, helicRaw, epsilon, gamm, fA, fB, fC, fV, fW;
-
 
   Int_t mix_npart;
   Int_t mc_mix_npart;
@@ -687,6 +686,8 @@ int initTree(TTree *t, DATA* evnt = 0){
   t->Branch("mc_Py",evnt->mc_Py,"mc_Py[mc_npart]/F");
   t->Branch("mc_Pz",evnt->mc_Pz,"mc_Pz[mc_npart]/F");
   t->Branch("mc_pid",evnt->mc_pid,"mc_pid[mc_npart]/F");
+  t->Branch("mc_mpid",evnt->mc_mpid,"mc_mpid[mc_npart]/F");
+  t->Branch("mc_mind",evnt->mc_mind,"mc_mind[mc_npart]/F");
   t->Branch("mc_Beta",evnt->mc_Beta,"mc_Beta[mc_npart]/F");
   t->Branch("mc_vxh",evnt->mc_vxh,"mc_vxh[mc_npart]/F");
   t->Branch("mc_vyh",evnt->mc_vyh,"mc_vyh[mc_npart]/F");
@@ -1245,6 +1246,8 @@ int setTreeAddress(TTree *t, DATA* evnt = 0){
   t->SetBranchAddress("mc_Py",evnt->mc_Py);
   t->SetBranchAddress("mc_Pz",evnt->mc_Pz);
   t->SetBranchAddress("mc_pid",evnt->mc_pid);
+  t->SetBranchAddress("mc_mpid",evnt->mc_mpid);
+  t->SetBranchAddress("mc_mind",evnt->mc_mind);
   t->SetBranchAddress("mc_Beta",evnt->mc_Beta);
   t->SetBranchAddress("mc_vxh",evnt->mc_vxh);
   t->SetBranchAddress("mc_vyh",evnt->mc_vyh);

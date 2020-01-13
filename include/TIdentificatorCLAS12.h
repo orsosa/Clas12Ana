@@ -371,6 +371,8 @@ public:
     TString GetCategorizationMin(Int_t k); 
     TString* GetCategorization();
     int Pid(int k=0,Bool_t kind=0);
+    int MPid(int k=0);
+    int Parent(int k=0);
     void PrintCategorization();
     void PrintCategorization(TString* partIds);
 

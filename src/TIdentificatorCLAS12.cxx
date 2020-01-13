@@ -493,6 +493,23 @@ int TIdentificatorCLAS12::Pid(int k,Bool_t kind)
   }
 }
 
+int TIdentificatorCLAS12::MPid(int k)
+{
+  get_MC__Lund(k);
+  int ind = (int)MC__Lund_parent;
+  if (ind>0){ 
+    get_MC__Lund(ind-1);
+    return (int)MC__Lund_pid;
+  }
+  else
+    return -1;
+}
+
+int TIdentificatorCLAS12::Parent(int k)
+{
+  get_MC__Lund(k);
+  return (int)MC__Lund_parent;
+}
 
 
 Double_t TIdentificatorCLAS12::Momentum(Int_t k, Bool_t kind)
@@ -504,7 +521,6 @@ Double_t TIdentificatorCLAS12::Momentum(Int_t k, Bool_t kind)
         return sqrt(Px(k,1) * Px(k,1) + Py(k,1) * Py(k,1) + Pz(k,1) * Pz(k,1));
     }
 }
-
 
 
 Double_t TIdentificatorCLAS12::Mass2(Int_t k, Bool_t kind)

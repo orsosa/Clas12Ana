@@ -10,6 +10,8 @@ class PARTDATA : public TObject {
   Float_t px[MAXPART_MIX];
   Float_t py[MAXPART_MIX];
   Float_t pz[MAXPART_MIX];
+  Float_t mpid[MAXPART_MIX];
+  Float_t mind[MAXPART_MIX];
   Float_t helic002_phiH[MAXPART_MIX];
   Float_t helic005_phiH[MAXPART_MIX];
   Float_t helic010_phiH[MAXPART_MIX];
@@ -21,6 +23,8 @@ class PARTDATA : public TObject {
       px[k] = DEFAULTVALUE;
       py[k] = DEFAULTVALUE;
       pz[k] = DEFAULTVALUE;
+      mpid[k] = DEFAULTVALUE;
+      mind[k] = DEFAULTVALUE;      
       helic002_phiH[k] = DEFAULTVALUE;
       helic005_phiH[k] = DEFAULTVALUE;
       helic010_phiH[k] = DEFAULTVALUE;
