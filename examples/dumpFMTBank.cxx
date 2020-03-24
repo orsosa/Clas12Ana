@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
      nrows = fmt_ht.getRows();
      std::cout<<"FMTRec::Hits: (ID,fitResidual)\n";
      for(int row = 0; row < nrows; row++){	
-       int   id = fmt_ht.getByte("ID",row);
+       int   id = fmt_ht.getShort("ID",row);
        float fRes = fmt_ht.getFloat("fitResidual",row);
        std::cout<<"("<<id<<", "<<fRes<<") ";
      }
@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
      nrows = fmt_cl.getRows();
      std::cout<<"FMTRec::Clusters: (ID,ETot)\n";
      for(int row = 0; row < nrows; row++){	
-       int   id = fmt_cl.getByte("ID",row);
+       int   id = fmt_cl.getShort("ID",row);
        float Etot = fmt_cl.getFloat("ETot",row);
        std::cout<<"("<<id<<", "<<Etot<<") ";
      }
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
      nrows = fmt_cr.getRows();
      std::cout<<"FMTRec::Crosses: (ID,x,y,z)\n";
      for(int row = 0; row < nrows; row++){	
-       int   id = fmt_cr.getByte("ID",row);
+       int   id = fmt_cr.getShort("ID",row);
        float x = fmt_cr.getFloat("x",row);
        float y = fmt_cr.getFloat("y",row);
        float z = fmt_cr.getFloat("z",row);
