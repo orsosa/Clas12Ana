@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
      std::cout<<"FMTRec::Hits: (ID,clusterID)\n";
      for(int row = 0; row < nrows; row++){	
        int   id = fmt_ht.getShort("ID",row);
-       float clid = fmt_ht.getShort("clusterID",row);
+       int clid = fmt_ht.getShort("clusterID",row);
        std::cout<<"("<<id<<", "<<clid<<") ";
      }
      std::cout<<std::endl;
