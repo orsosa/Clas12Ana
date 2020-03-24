@@ -69,11 +69,11 @@ int main(int argc, char** argv) {
      std::cout<<"run: "<<rn<<" -- event: "<<en<<std::endl;
      // FMTRec::Hits, some of the variables
      nrows = fmt_ht.getRows();
-     std::cout<<"FMTRec::Hits: (ID,fitResidual)\n";
+     std::cout<<"FMTRec::Hits: (ID,clusterID)\n";
      for(int row = 0; row < nrows; row++){	
        int   id = fmt_ht.getShort("ID",row);
-       float fRes = fmt_ht.getFloat("fitResidual",row);
-       std::cout<<"("<<id<<", "<<fRes<<") ";
+       float clid = fmt_ht.getShort("clusterID",row);
+       std::cout<<"("<<id<<", "<<clid<<") ";
      }
      std::cout<<std::endl;
      // FMTRec::Clusters, some of the variables
