@@ -298,9 +298,10 @@ public:
   
   void print()
   {
-    
-    for (int k=0;k<Npart;k++)
-      std::cout<<kParticles[k]->getName()<<" ";
+    std::cout<<"pname:(E,px,py,pz)\n";
+    for (int k=0;k<Npart;k++){
+      std::cout<<kParticles[k]->getName()<<":"<<"("<<kParticles[k]->E()<<","<<kParticles[k]->Px()<<","<<kParticles[k]->Py()<<","<<kParticles[k]->Pz()<<")"<<std::endl;
+    }
     std::cout << std::endl;
   }
 
@@ -1339,12 +1340,17 @@ public:
     if (N<1) return -1;
     if (N!=1)
     {
+      if (kSecondary[kspid].size()==3){
+	if (DEBUG) for (int kk=0;kk<(int)kSecondary[kspid].size();kk++){
+	    std::cout<<kSecondary[kspid][kk]->getName()<<":"<<"("<<kSecondary[kspid][kk]->E()<<","<<kSecondary[kspid][kk]->Px()<<","<<kSecondary[kspid][kk]->Py()<<","<<kSecondary[kspid][kk]->Pz()<<")"<<std::endl;
+	}
+      }
       for (int k =pos;k<(int)kSecondary[kspid].size()-N+1;k++)
       {
 	if (c==0) c_new = new Combo();
 	else c_new = new Combo(*c);
 
-	c_new->addParticle(kSecondary[kspid][pos]);
+	c_new->addParticle(kSecondary[kspid][k]);
 	count=takeN(N-1,kspid,k+1,c_new,count);
       }
       //if (c!=0) delete c;
@@ -1361,11 +1367,10 @@ public:
 	
 	if (DEBUG) std::cout<<"############ Npart from takeN: "<<c_new->Npart<<"#### pid: "<<kSPid[kspid]<<"#############"<<std::endl;
 	//	kCombo[kspid].push_back(new Combo(*c) );
-	kCombo[kspid].push_back(c_new);
+       	kCombo[kspid].push_back(c_new);
 	//kParticles.push_back(new Particle(*kSecondary[kspid][k]));
 	//std::cout<<__LINE__<<" "<< kCombo[kspid].back()->M()<<std::endl;
 	count++;
-
       }
     }
     if (c!=0) delete c;
@@ -1525,12 +1530,12 @@ public:
     else mixEvent.npart = 0;
       
     if (checkMinPart()){
+      
       int Npart = 1;
 	
       for (int k =0; k<(int)kSPid.size(); k++){
 	if (DEBUG) std::cout<<"############ Nsecondary of pid: "<<kSPid[k]<<" ::: "<<kSecondary[k].size()<<"###########"<<std::endl; 
 	takeN(kNSPid[kSPid[k]] ,k);
-	  
 	Npart *= kCombo[k].size();
       }
       if (DEBUG) std::cout<<"############ N candidates for primary: "<<Npart<<"####################\n##########################"<<std::endl;
