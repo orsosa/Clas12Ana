@@ -249,7 +249,8 @@ void filter(void *arg)
   TThread::Printf("###################################### on thread %s, startcnt: %ld, progress_ind: %d",TThread::Self()->GetName(),startcnt,ind);
   Int_t event = 0;
   Int_t npart = 0;
-  Bool_t eFound = kFALSE;
+  Bool_t eRecFound = kFALSE;
+  Bool_t eMCFound = kFALSE;
   Float_t revent = 0;
   t->GotoEvent(startcnt -1);
   while (t->Next())
@@ -268,10 +269,10 @@ void filter(void *arg)
     npart = 0;
     resetDATA(&Evnt);
     revent = t->Event();
-    eFound = kFALSE;
+    eRecFound = kFALSE;
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-      eFound = kTRUE;
+      eRecFound = kTRUE;
       Evnt.Q2 = t->Q2();
       Evnt.W = t->W();
       Evnt.Nu = t->Nu();
@@ -535,10 +536,10 @@ void filter(void *arg)
     npart = 0;
     nRows = t->GetMCNRows();
     Int_t ind_first = LUND_INIT;
-    eFound=kFALSE;
+    eMCFound=kFALSE;
     if(nRows>3 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
     {
-      eFound = kTRUE;
+      eMCFound = kTRUE;
       Evnt.mc_Q2 =  t -> Q2(1);
       Evnt.mc_W = t -> W(1);
       Evnt.mc_Nu = t -> Nu(1);
@@ -597,7 +598,7 @@ void filter(void *arg)
     }
     Evnt.mc_npart = npart;
 
-    if (Evnt.mc_npart>0 || Evnt.npart>0 || eFound)
+    if (Evnt.mc_npart>0 || Evnt.npart>0 || eRecFound || eMCFound)
       evTree->Fill();
     TThread::Lock();
     progress_th[ind] = ++event;
