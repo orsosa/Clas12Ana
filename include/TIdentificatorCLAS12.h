@@ -14,7 +14,7 @@ class TIdentificatorCLAS12 {
 public:
   TIdentificatorCLAS12();
   explicit TIdentificatorCLAS12(hipo::reader *reader = 0,Double_t beamE=10.6);
-  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6, Bool_t mcf=false);  
+  explicit TIdentificatorCLAS12(TString fname, Double_t beamE=10.6, Bool_t mcf=false, int lund_init = 3);  
   ~TIdentificatorCLAS12();
   Long_t getNevents();
   Int_t setNevents();

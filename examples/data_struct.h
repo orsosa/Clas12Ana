@@ -1,7 +1,7 @@
 #ifndef __DATA_STRUCT__
 #define __DATA_STRUCT__
-#define MAXPART 50
-#define MAXPART_MIX 6
+#define MAXPART 100 //carefull there are events with inusual amount of final candidates.
+#define MAXPART_MIX 8
 
 #define DEFAULT_VALUE -111111
 #include "TSpectrum.h"
@@ -698,7 +698,6 @@ int initTree(TTree *t, DATA* evnt = 0){
 }
 
 int resetDATAMIX(DATAMIX *evnt = 0){
-
   evnt->npart = 0;
   evnt->Q2 = DEFAULT_VALUE;
   evnt->W = DEFAULT_VALUE;
@@ -850,11 +849,9 @@ int resetDATAMIX(DATAMIX *evnt = 0){
   evnt->mc_fV = DEFAULT_VALUE;
   evnt->mc_fW = DEFAULT_VALUE;
 
-  
   evnt->mc_mix_npart = 0;
   return 0;
 }
-
 
 int resetDATA(DATA *evnt = 0){
   evnt->Q2 = DEFAULT_VALUE;
@@ -970,6 +967,7 @@ int resetDATA(DATA *evnt = 0){
   evnt->th_e = DEFAULT_VALUE;
   evnt->phi_e = DEFAULT_VALUE;
   evnt->helicRaw = DEFAULT_VALUE;
+
   //// MC variables ///
   evnt->mc_Q2 = DEFAULT_VALUE;
   evnt->mc_W = DEFAULT_VALUE;

@@ -142,11 +142,11 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(hipo::reader *reader, Double_t beamE)
   InitDCSuperLayerMap();
 }
 
-TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t mcf)
+TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t mcf, int lund_init)
   : kEbeam(beamE), kMpi(0.139570), kMprt(0.938272), kMntr(0.939565), kGOOD(-1000.), kMCFlag(mcf)
 {
   // Create a TIdentificator object, related to hipo reader.
-  kIndLundFirst=3;
+  kIndLundFirst=lund_init;
   TString fn;
   Ssiz_t start =0;
   while (fname.Tokenize(fn,start,"[ \n]"))
@@ -177,6 +177,7 @@ TIdentificatorCLAS12::TIdentificatorCLAS12(TString fname,Double_t beamE, Bool_t 
   InitTrajDetId();
   InitDCSuperLayerMap();
 }
+
 
 TIdentificatorCLAS12::~TIdentificatorCLAS12()
 {

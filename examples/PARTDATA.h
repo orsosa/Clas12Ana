@@ -1,6 +1,6 @@
 #ifndef __PARTDATA__
 #define __PARTDATA__
-#define MAXPART_MIX 6
+#define MAXPART_MIX 8
 #define DEFAULTVALUE -111111
 #include "TObject.h"
 /////////// particle data sucture ///////////

@@ -20,12 +20,14 @@ float EBEAM=10.6;
 TString fname="";
 Int_t Nvar, NvarElec;
 Int_t Nth = 1;
+Int_t LUND_INIT = 3;
 Long_t Ntotal=0;
 Long_t TH_MAX = 10000;
 Long_t Nsum=0;
 Float_t *progress_th;
 Bool_t *slotAvailable, QUIET = false;
 Int_t NthActive = 0;
+TString ONAME="";
 TCondition cond(NULL);
 TCondition slotCond(NULL);
 TSemaphore sem(0);
@@ -72,11 +74,17 @@ int main(int argc, char **argv)
     else if (strcmp(argv[k],"-e")==0){ //energy set
       EBEAM = atof(argv[++k]);
     }
+    else if (strcmp(argv[k],"-o")==0){ //output file name
+      ONAME= argv[++k];
+    }
     else if (strcmp(argv[k],"-nth")==0){ //n threads
       Nth = atof(argv[++k]);
     }
     else if (strcmp(argv[k],"-nmax")==0){ //max entries read
       Ntotal = atol(argv[++k]);
+    }
+    else if (strcmp(argv[k],"-l")==0){ //lund init index (e' index)
+      LUND_INIT = atoi(argv[++k]);
     }
     else if (strcmp(argv[k],"-q")==0){ //quiet mode
       QUIET = true;
@@ -97,7 +105,7 @@ int main(int argc, char **argv)
  
   //  cout.width(100);
   coutMutex->Lock();
-  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true); // March - 19 cooking
+  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true,LUND_INIT); // March - 19 cooking
   coutMutex->UnLock();
   if (!Ntotal)  Ntotal = t->getNevents();
   if (!QUIET) std::cout<<Ntotal<<std::endl;
@@ -212,10 +220,14 @@ void filter(void *arg)
 
   TString treeName = "evData";
   fileMutex->Lock();
-  if(simul_key == 0) {
-    output = new TFile(Form("outfiles/pruned_dataH4_%d.root",Nt_local), "RECREATE", "Data of particles");
-  } else { 
-    output = new TFile(Form("outfiles/pruned_simulH4_%d.root",Nt_local), "RECREATE", "Data of particles");
+  if (ONAME!="")
+    output = new TFile(Form("%s_%d.root",ONAME.Data(),Nt_local), "RECREATE", "Data of particles");
+  else {
+    if(simul_key == 0) {
+      output = new TFile(Form("outfiles/pruned_dataH4_%d.root",Nt_local), "RECREATE", "Data of particles");
+    } else { 
+      output = new TFile(Form("outfiles/pruned_simulH4_%d.root",Nt_local), "RECREATE", "Data of particles");
+    }
   }
   fileMutex->UnLock();
 
@@ -232,11 +244,12 @@ void filter(void *arg)
   resetDATA(&Evnt);
   
   coutMutex->Lock();
-  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true); // March - 19 cooking
+  TIdentificatorCLAS12 *t = new TIdentificatorCLAS12(fname,EBEAM,true, LUND_INIT); // March - 19 cooking
   coutMutex->UnLock();
   TThread::Printf("###################################### on thread %s, startcnt: %ld, progress_ind: %d",TThread::Self()->GetName(),startcnt,ind);
   Int_t event = 0;
   Int_t npart = 0;
+  Bool_t eFound = kFALSE;
   Float_t revent = 0;
   t->GotoEvent(startcnt -1);
   while (t->Next())
@@ -255,9 +268,10 @@ void filter(void *arg)
     npart = 0;
     resetDATA(&Evnt);
     revent = t->Event();
+    eFound = kFALSE;
     if(nRows>0 && (t->GetCategorization(0)) == "electron")  
     {
-
+      eFound = kTRUE;
       Evnt.Q2 = t->Q2();
       Evnt.W = t->W();
       Evnt.Nu = t->Nu();
@@ -393,7 +407,6 @@ void filter(void *arg)
       Evnt.th_e = TMath::ACos(t->Pz(0)/t->Momentum(0))*TMath::RadToDeg();
       Evnt.phi_e = TMath::ATan2(t->Py(0),t->Px(0))*TMath::RadToDeg();
       Evnt.helicRaw = t->HelicRaw();
-          
       //      tElec->Fill(DataElec);
       for (Int_t i = 1; i < nRows; i++) 
       {
@@ -402,7 +415,6 @@ void filter(void *arg)
 	if (category == "pi-" || category == "pi+" || category == "gamma" || category == "proton" || category == "deuteron" || category=="K+" || category=="K-" || category=="neutron")
 	//	if (category == "pi-" || category == "pi+" || category == "gamma")
 	{
-
 	  Evnt.ThetaPQ[npart] = t -> ThetaPQ(i);
 	  Evnt.PhiPQ[npart] = t -> PhiPQ(i);
 	  Float_t pid = t->Pid(i);
@@ -517,13 +529,16 @@ void filter(void *arg)
 	  npart++;
 	}
       }
+      //npart ++; //+ the trigger electron. in case there is only one electron.
     }
     Evnt.npart = npart;
     npart = 0;
     nRows = t->GetMCNRows();
-    Int_t ind_first = 3;
+    Int_t ind_first = LUND_INIT;
+    eFound=kFALSE;
     if(nRows>3 && (simul_key == 1 && t -> Pid(ind_first,1)==11 && t -> LundType(ind_first)==1) ) 
     {
+      eFound = kTRUE;
       Evnt.mc_Q2 =  t -> Q2(1);
       Evnt.mc_W = t -> W(1);
       Evnt.mc_Nu = t -> Nu(1);
@@ -578,14 +593,12 @@ void filter(void *arg)
 
 	}
       }
-     
+      //npart++; // the trigger electron.     
     }
     Evnt.mc_npart = npart;
 
-    if (Evnt.mc_npart>0 || Evnt.npart>0)
+    if (Evnt.mc_npart>0 || Evnt.npart>0 || eFound)
       evTree->Fill();
-
-    
     TThread::Lock();
     progress_th[ind] = ++event;
     Nsum++;
@@ -625,6 +638,8 @@ void print_help(){
       "-s         : simulation filtering\n"
       "-nth       : number of threads\n"
       "-nmax      : max number of events to be processed\n"
+      "-l         : lund init index (e' index, default 3)\n"
+      "-o         : output file name, without extension. default outfiles/pruned_[dataH4|simulH4]_<#th>.root\n"
       "-q         : quiet mode\n\n";
 }
 

@@ -5,18 +5,23 @@ ROOTLDFLAGS := $(shell root-config --ldflags)
 ROOTLIBS    := $(shell root-config --libs) -lEG
 ROOTGLIBS   := $(shell root-config --glibs)
 
-ifndef CLAS12TOOL
-$(error CLAS12TOOL is not set)
+ifndef HIPO4INC 
+$(error HIPO4INC is not set)
 endif
 
-HIPO4INC := $(if $(HIPO4INC),$(HIPO4INC),$(CLAS12TOOL)/Hipo4 )
-HIPO4LIB := $(if $(HIPO4LIB),$(HIPO4LIB),$(CLAS12TOOL)/lib )
+ifndef HIPO4LIB 
+$(error HIPO4LIB is not set)
+endif
+
+ifndef LZ4DIR 
+$(error LZ4DIR is not set)
+endif
 
 HIPOCFLAGS  := -I$(HIPO4INC)
 HIPOLIBS    := -L$(HIPO4LIB) -lhipo4
 
 LZ4LIBS     := -L$(LZ4DIR)/lib -llz4
-LZ4INCLUDES := -I$(LZ4DIR)/lib
+LZ4INCLUDES := -I$(LZ4DIR)/lz4
 
 CLAS12ANALIB  := -L$(CLAS12ANAHIPO4)/shlib -lTIdentificatorCLAS12
 #CLAS12ANASTLIB := -L$(CLAS12ANAHIPO4)/stlib -lTIdentificatorCLAS12
@@ -44,9 +49,11 @@ dict slib:
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(ROOTCFLAGS) $(HIPOCFLAGS) $(LZ4INCLUDES) $(INC_DIR)
 
 dict/datadict.cxx: PARTDATA.h DETDATA.h LinkDef.h 
-	rootcling -f $@ -c $(ROOTCFLAGS) $(HIPOCFLAGS) -p $^
+	rootcling -f $@ $^
 
 slib/libData.so: dict/datadict.cxx PARTDATA.cxx DETDATA.cxx
 	g++ -shared -fPIC -o $@ $(ROOTLDFLAGS) $(ROOTCFLAGS) $(HIPOCFLAGS) $(INC_DIR) $(ROOTCFLAGS) $^
 	cp dict/datadict_rdict.pcm slib/.
 
+clean:
+	rm -rf *.o slib/libData.so getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_t ree_th_mf dumpFMTBank dict/datadict.cxx dict/datadict_rdict.pcm

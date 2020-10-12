@@ -1,6 +1,7 @@
+
 #ifndef __DETDATA__
 #define __DETDATA__
-#define MAXPART_MIX 6
+#define MAXPART_MIX 8
 #define DEFAULTVALUE -111111
 #include "TObject.h"
 ////////////// detector data sucture ///////////
@@ -21,6 +22,7 @@ class DETDATA: public TObject {
   Float_t pcal_lu[MAXPART_MIX];
   Float_t pcal_lv[MAXPART_MIX];
   Float_t pcal_lw[MAXPART_MIX];
+  Float_t chi2pid[MAXPART_MIX];
 
   DETDATA(){
     for (int k = 0; k<MAXPART_MIX; k++){
@@ -38,6 +40,7 @@ class DETDATA: public TObject {
       pcal_lu[k] = DEFAULTVALUE;
       pcal_lv[k] = DEFAULTVALUE;
       pcal_lw[k] = DEFAULTVALUE;
+      dc_chi2[k] = DEFAULTVALUE;
     }
   };
   

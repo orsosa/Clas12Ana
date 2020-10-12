@@ -1,5 +1,5 @@
 #include <getopt.h>
-extern bool GSIM, EFLAG;
+extern bool GSIM, EFLAG, QUIET;
 extern long Ne, START;
 extern Float_t HELIC;
 extern TString INDIR, INFILE, REACTION, OFILE;
@@ -18,6 +18,7 @@ inline void printhelp()
     "\t-e                               : exact match. Default false.\n"
     "\t-l                               : set helicity internally. Default read from data.\n"
     "\t-o                               : output file name. Default outfiles/pippim_all.root.\n"
+    "\t-1                               : quiet mode, minimum printing for farm execution. default false.\n"
     "\t-h                               : Print help.\n"
     "#########################"	   <<std::endl;
   exit(0);
@@ -38,12 +39,13 @@ inline int parseopt(int argc, char* argv[])
     {"output", required_argument,0,'o'},
     {"exact-match", no_argument,0,'e'},
     {"manual-helicity", no_argument,0,'l'},
+    {"quiet", no_argument,0,'q'},
     {0, 0, 0, 0}
   };
 
   if(argc==1)
     printhelp();
-  while ( (c = getopt_long(argc, argv, "hlen:d:f:r:o:s:", long_options, &option_index))  != -1)
+  while ( (c = getopt_long(argc, argv, "hlen:d:f:r:o:s:q", long_options, &option_index))  != -1)
     switch (c)
       {
       case 'e':
@@ -69,6 +71,9 @@ inline int parseopt(int argc, char* argv[])
         break;
       case 'n':
         Ne = atol(optarg);
+        break;
+      case 'q':
+        QUIET = true;
         break;
       case 'h':
 	printhelp();

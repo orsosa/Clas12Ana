@@ -31,6 +31,7 @@
 #include "DETDATA.h"
 
 bool DEBUG=false;
+bool QUIET=false;
 Float_t HELIC=-111;
 TRandom3 *rndm;
 TString INFILE="data.root", INDIR="",REACTION=":pi+_pi-",OFILE="outfiles/pippim_all.root";
@@ -68,13 +69,13 @@ TClonesArray *P4Arr;
 class Particle: public TLorentzVector
 {
 public:
-  Float_t vx, vy, vz, pid, mpid, mind, time, beta, dcx, dcy, dcz, statPart, dc_chi2, dc_ndf, pcal_lu, pcal_lv, pcal_lw, phiHs, helic002_phiH, helic005_phiH, helic010_phiH, helic020_phiH, m2b;
+  Float_t vx, vy, vz, pid, mpid, mind, time, beta, dcx, dcy, dcz, statPart, dc_chi2, dc_ndf, chi2pid, pcal_lu, pcal_lv, pcal_lw, phiHs, helic002_phiH, helic005_phiH, helic010_phiH, helic020_phiH, m2b;
   inline Double_t P2() const {return P()*P();}
   //TParticlePDG *info;
-  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),mpid(0),mind(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1),dc_chi2(-111),dc_ndf(-111),pcal_lu(-111),pcal_lv(-111),pcal_lw(-111), phiHs(-1111), helic002_phiH(-111), helic005_phiH(-111), helic010_phiH(-111), helic020_phiH(-111) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t mpid=0, Float_t mind=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),mpid(mpid),mind(mind),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t mpid=0, Float_t mind=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),mpid(mpid),mind(mind),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH){m2b = (P2() - beta*beta*P2())/(beta*beta);}
-  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),mpid(p.mpid),mind(p.mind),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),dc_chi2(p.dc_chi2),dc_ndf(p.dc_ndf),pcal_lu(p.pcal_lu),pcal_lv(p.pcal_lv),pcal_lw(p.pcal_lw),phiHs(p.phiHs),helic002_phiH(p.helic002_phiH), helic005_phiH(p.helic005_phiH), helic010_phiH(p.helic010_phiH), helic020_phiH(p.helic020_phiH), m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
+  Particle() : TLorentzVector(), vx(0),vy(0),vz(0),pid(0),mpid(0),mind(0),time(0),beta(0),dcx(0),dcy(0),dcz(0),statPart(-1),dc_chi2(-111),dc_ndf(-111),chi2pid(-111),pcal_lu(-111),pcal_lv(-111),pcal_lw(-111), phiHs(-1111), helic002_phiH(-111), helic005_phiH(-111), helic010_phiH(-111), helic020_phiH(-111) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Float_t px,Float_t py, Float_t pz, Float_t e, Float_t x, Float_t y, Float_t z, Float_t pid=0, Float_t mpid=0, Float_t mind=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t c2p=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(px,py,pz,e),vx(x),vy(y),vz(z),pid(pid),mpid(mpid),mind(mind),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),chi2pid(c2p),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH) {m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(TLorentzVector lv, Float_t x=0, Float_t y=0, Float_t z=0, Float_t pid=0, Float_t mpid=0, Float_t mind=0, Float_t t=0, Float_t b =0, Float_t dx=0, Float_t dy=0, Float_t dz=0, Float_t sP=-1, Float_t chi2=-111, Float_t ndf=-111, Float_t c2p=-111, Float_t plu=-111, Float_t plv =-111, Float_t plw =-111, Float_t phihs = -1111, Float_t h002_phiH = -111, Float_t h005_phiH = -111, Float_t h010_phiH = -111, Float_t h020_phiH = -111): TLorentzVector(lv),vx(x),vy(y),vz(z),pid(pid),mpid(mpid),mind(mind),time(t),beta(b),dcx(dx),dcy(dy),dcz(dz),statPart(sP),dc_chi2(chi2),dc_ndf(ndf),chi2pid(c2p),pcal_lu(plu),pcal_lv(plv),pcal_lw(plw),phiHs(phihs),helic002_phiH(h002_phiH), helic005_phiH(h005_phiH), helic010_phiH(h010_phiH), helic020_phiH(h020_phiH){m2b = (P2() - beta*beta*P2())/(beta*beta);}
+  Particle(Particle &p):vx(p.vx),vy(p.vy),vz(p.vz),pid(p.pid),mpid(p.mpid),mind(p.mind),time(p.time),beta(p.beta),dcx(p.dcx),dcy(p.dcy),dcz(p.dcz),statPart(p.statPart),dc_chi2(p.dc_chi2),dc_ndf(p.dc_ndf),chi2pid(p.chi2pid),pcal_lu(p.pcal_lu),pcal_lv(p.pcal_lv),pcal_lw(p.pcal_lw),phiHs(p.phiHs),helic002_phiH(p.helic002_phiH), helic005_phiH(p.helic005_phiH), helic010_phiH(p.helic010_phiH), helic020_phiH(p.helic020_phiH), m2b(p.m2b) {SetVect(p.Vect()); SetT(p.T());}
 
   inline Particle operator + (const Particle & q) const //const: the object that owns the method will not be modified by this method
   {
@@ -1158,6 +1159,7 @@ public:
 	det->pcal_lu[i] = (*comb)[i]->pcal_lu;
 	det->pcal_lv[i] = (*comb)[i]->pcal_lv;
 	det->pcal_lw[i] = (*comb)[i]->pcal_lw;
+	det->chi2pid[i] = (*comb)[i]->chi2pid;
       }
       /*
       for (int i =0; i<evnt->mix_npart; i++){
@@ -1452,7 +1454,7 @@ public:
   }
   
   int setOutVars(bool isMC = false){
-    Float_t pid,mpid=0,mind=0,E,P,Px,Py,Pz,vxh,vyh,vzh,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs;
+    Float_t pid,mpid=0,mind=0,E,P,Px,Py,Pz,vxh,vyh,vzh,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,chi2pid,pcal_lu,pcal_lv,pcal_lw,phiHs;
     Int_t npart = 0;
     Float_t Ep = 0;
     
@@ -1483,6 +1485,7 @@ public:
 	pcal_lv = Event.pcal_lv[k];
 	pcal_lw = Event.pcal_lw[k];
 	phiHs = Event.PhiPQ[k];
+	chi2pid = Event.chi2pid[k];
       }
       else{
 	pid = Event.mc_pid[k];
@@ -1507,6 +1510,7 @@ public:
 	pcal_lv = 0;
 	pcal_lw = 0;
 	phiHs = Event.mc_PhiPQ[k];
+	chi2pid = 0;
       }
 
       if (isMC)
@@ -1515,7 +1519,7 @@ public:
 	Ep = getE(E,P,pid);
       
       if (FidCheck(11)){// no fid
-	Particle *p = new Particle (Px,Py,Pz,Ep,vxh,vyh,vzh,pid,mpid,mind,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,pcal_lu,pcal_lv,pcal_lw,phiHs,get_helicity(phiHs,0.02),get_helicity(phiHs,0.05),get_helicity(phiHs,0.1),get_helicity(phiHs,0.2));
+	Particle *p = new Particle (Px,Py,Pz,Ep,vxh,vyh,vzh,pid,mpid,mind,0,beta,dcx_rot_0,dcy_rot_0,trajz_sl0,statPart,dc_chi2,dc_ndf,chi2pid,pcal_lu,pcal_lv,pcal_lw,phiHs,get_helicity(phiHs,0.02),get_helicity(phiHs,0.05),get_helicity(phiHs,0.1),get_helicity(phiHs,0.2));
 	//if (!isMC)push_bkgnd(p);
 	findSecondary(new Particle(*p));
 	delete p;
@@ -1538,6 +1542,11 @@ public:
 	takeN(kNSPid[kSPid[k]] ,k);
 	Npart *= kCombo[k].size();
       }
+      if (Npart>MAXPART){
+	std::cout<<"WARNING: MAXPART REACHED!!. Npart: "<<Npart<<" in event:"<<(long)Event.revent <<" SETTING CANDIDATES TO:"<<MAXPART<<std::endl;
+	Npart = MAXPART;
+      }
+
       if (DEBUG) std::cout<<"############ N candidates for primary: "<<Npart<<"####################\n##########################"<<std::endl;
       if (isMC) mixEvent.mc_npart = Npart;
       else mixEvent.npart = Npart;
@@ -1590,8 +1599,8 @@ public:
 	fillTree();
       }
       //	if (data_type<2&&FidCheck(pid))
-      std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
-      std::cout.flush();
+      if (!QUIET)std::cout<<std::setw(15)<<float(i+1)/Ne*100<<" %"<<"\r";
+      if (!QUIET)std::cout.flush();
       
     }
     return 0;
