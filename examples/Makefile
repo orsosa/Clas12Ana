@@ -35,7 +35,7 @@ LDFLAGS   := $(ROOTLDFLAGS)
 AR	  = ar
 ARFLAGS	  = -cvr #create,verbose,quick (don't check for replacement, otherwise use r instead)
 
-all: checkdirs slib/libData.so getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf dumpFMTBank
+all: checkdirs slib/libData.so getSchema get_simple_tuple get_simple_tuple_rich get_simple_tuple_th get_simple_tuple_th_mf particle_mix particle_mix_tree getBankInfo dumpTrajBank dumpTrigger get_simple_tree_th_mf dumpFMTBank dumpRecElec getNRecElec
 
 checkdirs: dict slib
 

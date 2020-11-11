@@ -13,9 +13,19 @@ class DETDATA: public TObject {
   Float_t vx[MAXPART_MIX];
   Float_t vy[MAXPART_MIX];
   Float_t vz[MAXPART_MIX];
-  Float_t dcx[MAXPART_MIX];
-  Float_t dcy[MAXPART_MIX];
-  Float_t dcz[MAXPART_MIX];
+
+  Float_t dcx0[MAXPART_MIX];
+  Float_t dcy0[MAXPART_MIX];
+  Float_t dcz0[MAXPART_MIX];
+
+  Float_t dcx1[MAXPART_MIX];
+  Float_t dcy1[MAXPART_MIX];
+  Float_t dcz1[MAXPART_MIX];
+
+  Float_t dcx2[MAXPART_MIX];
+  Float_t dcy2[MAXPART_MIX];
+  Float_t dcz2[MAXPART_MIX];
+
   Float_t statPart[MAXPART_MIX];
   Float_t dc_chi2[MAXPART_MIX];
   Float_t dc_ndf[MAXPART_MIX];
@@ -31,9 +41,19 @@ class DETDATA: public TObject {
       vx[k] = DEFAULTVALUE;
       vy[k] = DEFAULTVALUE;
       vz[k] = DEFAULTVALUE;
-      dcx[k] = DEFAULTVALUE;
-      dcy[k] = DEFAULTVALUE;
-      dcz[k] = DEFAULTVALUE;
+
+      dcx0[k] = DEFAULTVALUE;// region 1, superlayer 1
+      dcy0[k] = DEFAULTVALUE;
+      dcz0[k] = DEFAULTVALUE;
+
+      dcx1[k] = DEFAULTVALUE;// region 2, superlayer 3
+      dcy1[k] = DEFAULTVALUE;
+      dcz1[k] = DEFAULTVALUE;
+
+      dcx2[k] = DEFAULTVALUE;// region 3, superlayer 6
+      dcy2[k] = DEFAULTVALUE;
+      dcz2[k] = DEFAULTVALUE;
+
       statPart[k] = DEFAULTVALUE;
       dc_chi2[k] = DEFAULTVALUE;
       dc_ndf[k] = DEFAULTVALUE;
