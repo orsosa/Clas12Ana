@@ -29,7 +29,7 @@ class PARTDATA : public TObject {
       helic005_phiH[k] = DEFAULTVALUE;
       helic010_phiH[k] = DEFAULTVALUE;
       helic020_phiH[k] = DEFAULTVALUE;
-      phiHs[k] = DEFAULTVALUE;    
+      phiHs[k] = DEFAULTVALUE;
     }
   };
   ~PARTDATA() {};

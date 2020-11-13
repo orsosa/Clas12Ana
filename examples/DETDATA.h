@@ -26,6 +26,9 @@ class DETDATA: public TObject {
   Float_t dcy2[MAXPART_MIX];
   Float_t dcz2[MAXPART_MIX];
 
+  UInt_t FID[MAXPART_MIX];
+  UInt_t NOTFID[MAXPART_MIX];
+
   Float_t statPart[MAXPART_MIX];
   Float_t dc_chi2[MAXPART_MIX];
   Float_t dc_ndf[MAXPART_MIX];
@@ -53,7 +56,9 @@ class DETDATA: public TObject {
       dcx2[k] = DEFAULTVALUE;// region 3, superlayer 6
       dcy2[k] = DEFAULTVALUE;
       dcz2[k] = DEFAULTVALUE;
-
+      FID[k] =  ~(UInt_t)0;
+      NOTFID[k] =  0;
+      
       statPart[k] = DEFAULTVALUE;
       dc_chi2[k] = DEFAULTVALUE;
       dc_ndf[k] = DEFAULTVALUE;

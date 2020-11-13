@@ -47,11 +47,13 @@ int main(int argc, char** argv) {
 
    int counter = 0;
    std::cout<<"detector:layer \n\n";
-   int Ne = 0;     
-   float th;
-   float Q2;
-   float W;
-   float p, px, py, pz;
+   int Ne = 0;
+   int Npip = 0;
+   int Npim = 0;     
+   float th, Q2, W, Nu;
+   
+   float pe, pex, pey, pez, q, qx, qy, qz, p, px, py, pz;;
+
    while(reader.next()==true){
      reader.read(event);
      event.getStructure(rconfig);
@@ -67,25 +69,53 @@ int main(int argc, char** argv) {
        continue;
      if (rec.getRows()>0){
        nrows = rec.getRows();
-       px =  rec.getFloat("px",0);
-       py =  rec.getFloat("py",0);
-       pz =  rec.getFloat("pz",0);
+       pex =  rec.getFloat("px",0);
+       pey =  rec.getFloat("py",0);
+       pez =  rec.getFloat("pz",0);
        pid = rec.getInt("pid",0);
-     }
-     else 
-       continue;
-     if (pid!=11) continue; 
-     
-     p = sqrt(px*px + py*py + pz*pz);
-     th = acos(pz/p);
-     Q2 = 4*10.6*p*(sin((th/2))*sin((th/2)));
-     W = -Q2 + 0.93827*0.93827 + 2*(10.6 - p)*0.93827;
+       if (pid!=11) continue;
+       pe = sqrt(pex*pex + pey*pey + pez*pez);
+       th = acos(pez/pe);
+       Q2 = 4*10.6*pe*(sin((th/2))*sin((th/2)));
+       W = sqrt(-Q2 + 0.93827*0.93827 + 2*(10.6 - pe)*0.93827);
+       Nu = 10.6 - pe;
+       th  = th*TMath::RadToDeg();
+       if (15<th&&th<25&&3<pe&&pe<6&&Q2>1&&W>2)
+	 Ne++;
+       else
+	 continue;
+       //       std::cout<<en<<" "<<Q2<<" "<<W<<" "<<pe<<" "<<th<<" "<<nrows<<std::endl;
+       qx = -pex;
+       qy = -pey;
+       qz = 10.6-pez;
+       for (int k=1;k<nrows; k++){
+	 px = rec.getFloat("px",k);
+	 py = rec.getFloat("py",k);
+	 pz = rec.getFloat("pz",k);
+	 p = sqrt(px*px + py*py + pz*pz);
+	 float mx2 = W*W + 0.13957*0.13957 - 2*((Nu+0.93827)*sqrt(p*p + 0.13957*0.13957) - (qx*px + qy*py + qz*pz));
+	 //          W*W + 0.13957*0.13957 - 2*((Nu+0.93827)*sqrt(P*P + 0.13957*0.13957) - (-Pex*Px -Pey*Py + (10.6-Pez)*Pz));
+	 pid = rec.getInt("pid",k);
+	 if (0<mx2&&mx2<10&&(pid==211 || pid==-211)){
+	   if (pid==211) {Npip++;
 
-     th  = th*TMath::RadToDeg();
-     if (15<th&&th<25&&3<p&&p<6&&Q2>1&&W>2)
-       std::cout<<en<<" "<<Q2<<" "<<W<<" "<<p<<" "<<th<<" "<<nrows<<std::endl;
+	   }
+	   else if (pid==-211){ Npim++;
+	     std::cout<<en<<" "<<Q2<<" "<<W<<" "<<pe<<" "<<th<<" "<<nrows<<" "<<mx2<<std::endl;
+	   }
+	 }
+	 
+       }
+       std::cout<<"\n";
+     }
+     else continue;
+
+
+
+
+     
    }
-   //std::cout<<"Ne: "<<Ne<<std::endl;
-   //revent         Q2          W         Pe       th_e 
+   std::cout<<"Ne/Npip/Npim: "<<Ne<<"/"<<Npip<<"/"<<Npim<<std::endl;
+   
 
 }

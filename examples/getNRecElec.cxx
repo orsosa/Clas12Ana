@@ -34,7 +34,6 @@ int main(int argc, char** argv) {
       std::cout << " *** please provide a file name..." << std::endl;
      exit(0);
    }
-
    hipo::reader  reader;
    reader.open(inputFile);
    hipo::dictionary  factory;
@@ -42,9 +41,7 @@ int main(int argc, char** argv) {
    // getchar();
    hipo::bank  rconfig(factory.getSchema("RUN::config"));
    hipo::bank  rec(factory.getSchema("REC::Particle"));
-
    hipo::event event;
-
    int counter = 0;
    std::cout<<"detector:layer \n\n";
    int Ne = 0;     
@@ -62,7 +59,7 @@ int main(int argc, char** argv) {
      if (rconfig.getRows()>0){
        en = rconfig.getInt("event",0);
        rn = rconfig.getInt("run",0);
-     }       
+     }
      else 
        continue;
      if (rec.getRows()>0){

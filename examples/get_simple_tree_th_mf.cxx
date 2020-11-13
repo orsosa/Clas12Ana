@@ -13,6 +13,7 @@
 #include "TMutex.h"
 #include "TList.h"
 #include "data_struct.h"
+#include "fiducial_cuts.h"
 
 using namespace std;
 
@@ -51,6 +52,7 @@ void cleanUp(void *arg);
 void filter(void *arg);
 void create_threads(void *arg);
 void print_help();
+
 int main(int argc, char **argv)
 {
   //gROOT->Reset();
@@ -304,6 +306,10 @@ void filter(void *arg)
       Evnt.e_pcal_lu =  t->LU_PCAL();
       Evnt.e_pcal_lv =  t->LV_PCAL();
       Evnt.e_pcal_lw =  t->LW_PCAL();
+
+      Evnt.e_FID =  getFiducial(t,0);
+      Evnt.e_NOTFID  =  getNOTFiducial(t,0);
+      
       Evnt.e_ecin_lu =  t->LU_ECIN();
       Evnt.e_ecin_lv =  t->LV_ECIN();
       Evnt.e_ecin_lw =  t->LW_ECIN();
@@ -450,6 +456,10 @@ void filter(void *arg)
 	  Evnt.pcal_lu[npart] =  t->LU_PCAL(i);
 	  Evnt.pcal_lv[npart] =  t->LV_PCAL(i);
 	  Evnt.pcal_lw[npart] =  t->LW_PCAL(i);
+
+	  Evnt.FID[npart]     =  getFiducial(t,i);
+	  Evnt.NOTFID[npart]  =  getNOTFiducial(t,i);
+
 	  Evnt.ecin_lu[npart] =  t->LU_ECIN(i);
 	  Evnt.ecin_lv[npart] =  t->LV_ECIN(i);
 	  Evnt.ecin_lw[npart] =  t->LW_ECIN(i);
@@ -532,6 +542,7 @@ void filter(void *arg)
       }
       //npart ++; //+ the trigger electron. in case there is only one electron.
     }
+    
     Evnt.npart = npart;
     npart = 0;
     nRows = t->GetMCNRows();
@@ -643,6 +654,8 @@ void print_help(){
       "-o         : output file name, without extension. default outfiles/pruned_[dataH4|simulH4]_<#th>.root\n"
       "-q         : quiet mode\n\n";
 }
+
+
 
 int rotate_dcxy(Float_t dcx,Float_t dcy,Float_t &dcx_rot,Float_t &dcy_rot)
 {
